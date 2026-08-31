@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<raids>
+	<!-- Interval in seconds, margin in seconds -->
+	<!-- Thais Orcs: average every 7 days (604800s) -->
+	<raid name="Orcs in Thais" file="thais_orcs.xml" interval="604800" chance="20" margin="86400" />
+	<!-- Thais Rats: average every 3 days (259200s) -->
+	<raid name="Rats in Thais" file="thais_rats.xml" interval="259200" chance="30" margin="86400" />
+	<!-- Darashia Undeads: average every 5 days (432000s) -->
+	<raid name="Undeads in Darashia" file="darashia_undeads.xml" interval="432000" chance="25" margin="86400" />
+</raids>

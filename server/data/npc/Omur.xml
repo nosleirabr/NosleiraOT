@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<npc name="Omur" script="omur.lua" walkinterval="0" floorchange="0">
+  <health now="100" max="100" />
+  <look type="128" head="95" body="0" legs="6" feet="116" />
+  <parameters></parameters>
+</npc>

@@ -1,0 +1,22 @@
+# Mission-style quest log entries for Tibia 7.4 / Miracle74 baseline.
+
+# Extracted from otserver800 RealMap Global 8.0 pack — names only; Lua NOT ported.
+
+# Excluded (NOT 7.4 / not on Miracle74): Barbarian Test, Ape City, Ultimate Challenges,
+
+# Sam's Old Backpack, Friends and Traders — see docs/QUESTS_AND_FEATURES.md
+
+The Ancient Tombs
+
+The Djinn War - Efreet Faction
+
+The Djinn War - Marid Faction
+
+The Queen of the Banshees
+
+The White Raven Monastery
+
+# Postman: TibiaWiki 7.5, but Miracle74 lists it — keep for realmap parity; comment out for strict 7.4 patch
+
+The Postman Missions
+

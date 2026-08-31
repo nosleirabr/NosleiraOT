@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<npc name="Maryza" script="maryza.lua" walkinterval="2000" floorchange="0">
+  <health now="100" max="100" />
+  <look type="160" head="41" body="51" legs="70" feet="95" />
+  <parameters></parameters>
+</npc>
