@@ -20,7 +20,7 @@ internal static class RepoPaths
 	/// </summary>
 	public static string RequireOtbm()
 	{
-		var path = Otbm;
+		var path = File.Exists(BakedOtbm) && new FileInfo(BakedOtbm).Length > 1024 ? BakedOtbm : Otbm;
 		if (!File.Exists(path))
 		{
 			throw new FileNotFoundException($"'{path}' is missing. Run: git lfs pull", path);
@@ -53,6 +53,16 @@ internal static class RepoPaths
 
 	static string FindRoot()
 	{
+		var envRoot = Environment.GetEnvironmentVariable("OT740_WORKSPACE_ROOT");
+		if (!string.IsNullOrWhiteSpace(envRoot))
+		{
+			var normalized = Path.GetFullPath(envRoot);
+			if (File.Exists(Path.Combine(normalized, "docker-compose.yml")))
+			{
+				return normalized;
+			}
+		}
+
 		var dir = new DirectoryInfo(AppContext.BaseDirectory);
 		while (dir is not null)
 		{

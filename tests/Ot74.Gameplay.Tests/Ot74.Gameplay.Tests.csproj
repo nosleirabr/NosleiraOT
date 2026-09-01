@@ -17,9 +17,9 @@
     <PackageReference Include="YamlDotNet" Version="16.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\tools\Ot74.Map\Ot74.Map.Core\Otbm\*.cs" Link="MapTool\Core\%(Filename)%(Extension)" />
-    <Compile Include="..\..\tools\Ot74.Map\Ot74.Map.Source\*.cs" Link="MapTool\Source\%(Filename)%(Extension)" />
-    <Compile Include="..\..\tools\Ot74.Map\Ot74.Map.Items\*.cs" Link="MapTool\Items\%(Filename)%(Extension)" />
-    <Compile Include="..\..\tools\Ot74.Map\Ot74.Map.Sprites\*.cs" Link="MapTool\Sprites\%(Filename)%(Extension)" />
+    <Compile Include="..\..\..\tools\map-editor\Ot74.Map.Core\Otbm\*.cs" Link="MapTool\Core\%(Filename)%(Extension)" />
+    <Compile Include="..\..\..\tools\map-editor\Ot74.Map.Source\*.cs" Link="MapTool\Source\%(Filename)%(Extension)" />
+    <Compile Include="..\..\..\tools\map-editor\Ot74.Map.Items\*.cs" Link="MapTool\Items\%(Filename)%(Extension)" />
+    <Compile Include="..\..\..\tools\map-editor\Ot74.Map.Sprites\*.cs" Link="MapTool\Sprites\%(Filename)%(Extension)" />
   </ItemGroup>
 </Project>
