@@ -20,3 +20,5 @@ dotnet-test-l1-l3:
   extends:
     - .ot740_workspace_before_script
     - .ot740_dotnet_test
+  needs:
+    - dotnet-build
