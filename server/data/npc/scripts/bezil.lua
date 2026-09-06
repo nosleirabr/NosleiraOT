@@ -1,28 +1,48 @@
-﻿local keywordHandler = KeywordHandler:new()
+local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)              npcHandler:onCreatureAppear(cid)            end
-function onCreatureDisappear(cid)           npcHandler:onCreatureDisappear(cid)         end
-function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, msg)    end
-function onThink()                          npcHandler:onThink()                        end
-
-npcHandler:setMessage(MESSAGE_GREET, "Hiho |PLAYERNAME|! Tools for dwarfs and humans.")
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Are you talking to me, |PLAYERNAME|?')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Good bye.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Good bye.')
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'We sell equipment of all kinds. Is there anything you need?'})
+keywordHandler:addKeyword({'equipment'}, StdModule.say, {npcHandler = npcHandler, text = 'We sell shovels, picks, scythes, bags, ropes, backpacks, cups, scrolls, documents, parchments, and watches. We also sell lightsources.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'I am Bezil Coinbiter, daughter of Earth, of the Molten Rocks. I and my bro\' Nezil are selling stuff, ye\' know?'})
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'I think it\'s about the current time. If you\'d bought a watch you\'d know for sure.'})
+keywordHandler:addKeyword({'food'}, StdModule.say, {npcHandler = npcHandler, text = 'Sorry, visit the Jolly Axeman Tavern for that.'})
+keywordHandler:addKeyword({'deposit'}, StdModule.say, {npcHandler = npcHandler, text = 'I will give you 5 gold for every empty vial. Ok?'})
+keywordHandler:addKeyword({'stuff'}, StdModule.say, {npcHandler = npcHandler, text = 'Oh, things like crowbars, water hoses, presents, buckets, bottles, and the like.'})
+keywordHandler:addKeyword({'nezil'}, StdModule.say, {npcHandler = npcHandler, text = 'He\'s my bro\'.'})
+keywordHandler:addKeyword({'goods'}, StdModule.say, {npcHandler = npcHandler, text = 'Let me see ... we have shovels, picks, scythes, bags, ropes, backpacks, scrolls, watches, some lightsources, fishing rods, sixpacks of worms and other stuff.'})
+keywordHandler:addKeyword({'worm'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell worms only in sixpacks for 5 gold each, how many sixpacks of worms do you want to buy?'})
+keywordHandler:addKeyword({'light'}, StdModule.say, {npcHandler = npcHandler, text = 'We sell torches, candlesticks, candelabra, and oil.'})
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-
-shopModule:addBuyableItem({'backpack'}, 1988, 20, 1, 'backpack')
-shopModule:addBuyableItem({'crowbar'}, 2416, 260, 1, 'crowbar')
-shopModule:addBuyableItem({'fishing rod'}, 2580, 150, 1, 'fishing rod')
-shopModule:addBuyableItem({'pick'}, 2553, 50, 1, 'pick')
-shopModule:addBuyableItem({'rope'}, 2120, 50, 1, 'rope')
-shopModule:addBuyableItem({'shovel'}, 2554, 50, 1, 'shovel')
-shopModule:addBuyableItem({'torch'}, 2050, 2, 1, 'torch')
-shopModule:addSellableItem({'crowbar'}, 2416, 50, 'crowbar')
-shopModule:addSellableItem({'fishing rod'}, 2580, 40, 'fishing rod')
-shopModule:addSellableItem({'pick'}, 2553, 15, 'pick')
-shopModule:addSellableItem({'rope'}, 2120, 15, 'rope')
-shopModule:addSellableItem({'shovel'}, 2554, 8, 'shovel')
+shopModule:addBuyableItem({'watch'}, 2906, 20, 'watch')
+shopModule:addBuyableItem({'crowbar'}, 3304, 260, 'crowbar')
+shopModule:addBuyableItem({'rod'}, 3483, 150, 'rod')
+shopModule:addBuyableItem({'shovel'}, 3457, 10, 'shovel')
+shopModule:addBuyableItem({'bottle'}, 2875, 3, 'bottle')
+shopModule:addBuyableItem({'bag'}, 2862, 4, 'bag')
+shopModule:addBuyableItem({'torch'}, 2920, 2, 'torch')
+shopModule:addBuyableItem({'oil'}, 2874, 20, 'oil')
+shopModule:addBuyableItem({'candlestick'}, 2917, 2, 'candlestick')
+shopModule:addBuyableItem({'scroll'}, 2815, 5, 'scroll')
+shopModule:addBuyableItem({'water'}, 2901, 10, 'water')
+shopModule:addBuyableItem({'scythe'}, 3453, 40, 'scythe')
+shopModule:addBuyableItem({'pick'}, 3456, 50, 'pick')
+shopModule:addBuyableItem({'document'}, 2834, 12, 'document')
+shopModule:addBuyableItem({'bucket'}, 2873, 4, 'bucket')
+shopModule:addBuyableItem({'present'}, 2856, 10, 'present')
+shopModule:addBuyableItem({'rope'}, 3003, 50, 'rope')
+shopModule:addBuyableItem({'parchment'}, 2835, 8, 'parchment')
+shopModule:addBuyableItem({'candelabr'}, 2911, 8, 'candelabr')
+shopModule:addBuyableItem({'backpack'}, 2870, 10, 'backpack')
 
 npcHandler:addModule(FocusModule:new())
+

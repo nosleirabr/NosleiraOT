@@ -1,20 +1,31 @@
-﻿local keywordHandler = KeywordHandler:new()
+local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)              npcHandler:onCreatureAppear(cid)            end
-function onCreatureDisappear(cid)           npcHandler:onCreatureDisappear(cid)         end
-function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, msg)    end
-function onThink()                          npcHandler:onThink()                        end
-
-npcHandler:setMessage(MESSAGE_GREET, "Hello |PLAYERNAME|. Magical supplies.")
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, '... Greeeeeetiiiingssss')
+npcHandler:setMessage(MESSAGE_FAREWELL, '... Good... Bye')
+npcHandler:setMessage(MESSAGE_WALKAWAY, '... Good... Bye')
+keywordHandler:addKeyword({'vladruc'}, StdModule.say, {npcHandler = npcHandler, text = '... Maaaaassssterrrrr'})
+keywordHandler:addKeyword({'news'}, StdModule.say, {npcHandler = npcHandler, text = '... they build a new city... Carlin shall be its name...'})
+keywordHandler:addKeyword({'market'}, StdModule.say, {npcHandler = npcHandler, text = '... You buy?'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = '... Chatterbone'})
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = '... Time?... Not important... anymore.'})
+keywordHandler:addKeyword({'ferumbras'}, StdModule.say, {npcHandler = npcHandler, text = '... un...important'})
+keywordHandler:addKeyword({'spellbook'}, StdModule.say, {npcHandler = npcHandler, text = '... You buy book... store spells... other counter...'})
+keywordHandler:addKeyword({'sorcerer'}, StdModule.say, {npcHandler = npcHandler, text = '... You... buy spells?'})
+keywordHandler:addKeyword({'king'}, StdModule.say, {npcHandler = npcHandler, text = '...'})
+keywordHandler:addKeyword({'spell'}, StdModule.say, {npcHandler = npcHandler, text = '... Only sorcerers...'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = '... Selling Spells'})
+keywordHandler:addKeyword({'druid'}, StdModule.say, {npcHandler = npcHandler, text = '... Ask Smiley...'})
+keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler, text = '... we hid it... so long ago... so long...'})
+keywordHandler:addKeyword({'rune'}, StdModule.say, {npcHandler = npcHandler, text = '... Runes... mighty stones... other counter...'})
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 
-shopModule:addBuyableItem({'blank rune'}, 2260, 10, 1, 'blank rune')
-shopModule:addBuyableItem({'life fluid'}, 2006, 60, 10, 'life fluid')
-shopModule:addBuyableItem({'mana fluid'}, 2006, 100, 7, 'mana fluid')
-shopModule:addBuyableItem({'spellbook'}, 2175, 150, 1, 'spellbook')
-
 npcHandler:addModule(FocusModule:new())
+

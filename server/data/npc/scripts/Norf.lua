@@ -2,57 +2,26 @@ local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)              npcHandler:onCreatureAppear(cid)            end
-function onCreatureDisappear(cid)           npcHandler:onCreatureDisappear(cid)         end
-function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, msg)    end
-function onThink()                          npcHandler:onThink()                        end
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Welcome, Pilgrim.')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Good bye, |PLAYERNAME|!')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Good bye, |PLAYERNAME|!')
+keywordHandler:addKeyword({'spark'}, StdModule.say, {npcHandler = npcHandler, text = 'The spark of the phoenix is given by the dwarven priests of earth and fire in Kazordoon.'})
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'Now, it is the current time. Ask Gorn for a watch, if you need one.'})
+keywordHandler:addKeyword({'fire'}, StdModule.say, {npcHandler = npcHandler, text = 'You can ask for the blessing of the two suns in the suntower near Ab\'Dendriel.'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am here to provide one of the five blessings.'})
+keywordHandler:addKeyword({'wisdom'}, StdModule.say, {npcHandler = npcHandler, text = 'Talk to the hermit Eremo on the isle of Cormaya about this blessing.'})
+keywordHandler:addKeyword({'embrace'}, StdModule.say, {npcHandler = npcHandler, text = 'The druids north of Carlin will provide you with the embrace of tibia.'})
+keywordHandler:addKeyword({'pilgrimage'}, StdModule.say, {npcHandler = npcHandler, text = 'Whenever you receive a lethal wound your lifeforce is damaged. With every single of the five blessings you have this damage will be reduced.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'My name is Norf.'})
+keywordHandler:addKeyword({'spiritual'}, StdModule.say, {npcHandler = npcHandler, text = 'Here in the whiteflower temple you may receive the blessing of spiritual shielding. But we must ask of you to sacrifice 10.000 gold. Are you still interested?'})
+keywordHandler:addKeyword({'blessing'}, StdModule.say, {npcHandler = npcHandler, text = 'There are five different blessings available in five sacred places. These blessings are: the spiritual shielding, the spark of the phoenix, the embrace of tibia, the fire of the suns and the wisdom of solitude.'})
 
-local function creatureSayCallback(cid, type, msg)
-	if not npcHandler:isFocused(cid) then
-		return false
-	end
+local shopModule = ShopModule:new()
+npcHandler:addModule(shopModule)
 
-	if not msgcontains(msg, 'heal') then
-		return true
-	end
-
-	local player = Player(cid)
-	if player:getCondition(CONDITION_FIRE) then
-		player:removeCondition(CONDITION_FIRE)
-		player:getPosition():sendMagicEffect(CONST_ME_MAGIC_GREEN)
-		npcHandler:say('You are burning. Let me quench those flames.', cid)
-	elseif player:getCondition(CONDITION_POISON) then
-		player:removeCondition(CONDITION_POISON)
-		player:getPosition():sendMagicEffect(CONST_ME_MAGIC_RED)
-		npcHandler:say('You are poisoned. Let me soothe your pain.', cid)
-	elseif player:getCondition(CONDITION_ENERGY) then
-		player:removeCondition(CONDITION_ENERGY)
-		player:getPosition():sendMagicEffect(CONST_ME_MAGIC_GREEN)
-		npcHandler:say('You are electrified, my child. Let me help you to stop trembling.', cid)
-	elseif player:getHealth() < 65 then
-		local health = player:getHealth()
-		player:addHealth(65 - health)
-		player:getPosition():sendMagicEffect(CONST_ME_MAGIC_BLUE)
-		npcHandler:say('You are hurt, my child. I will heal your wounds.', cid)
-	else
-		npcHandler:say('You aren\'t looking that bad. Sorry, I can\'t help you. Come back when you are badly wounded or poisoned.', cid)
-	end
-	return true
-end
-
-keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am a humble servant of the gods. I can {heal} you if you are wounded or poisoned, and bestow the Spark of the Phoenix.'})
-keywordHandler:addKeyword({'help'}, StdModule.say, {npcHandler = npcHandler, text = 'Ask me to {heal} you if you are hurt.'})
-
-local blessKeyword = keywordHandler:addKeyword({'spark'}, StdModule.say, {npcHandler = npcHandler, text = 'Would you like to receive the Spark of the Phoenix for 10000 gold?'})
-blessKeyword:addChildKeyword({'yes'}, StdModule.bless, {npcHandler = npcHandler, premium = true, cost = 10000, bless = 4})
-blessKeyword:addChildKeyword({'no'}, StdModule.say, {npcHandler = npcHandler, text = 'Maybe another time.', reset = true})
-
-local blessKeyword2 = keywordHandler:addKeyword({'bless'}, StdModule.say, {npcHandler = npcHandler, text = 'Would you like to receive the Spark of the Phoenix for 10000 gold?'})
-blessKeyword2:addChildKeyword({'yes'}, StdModule.bless, {npcHandler = npcHandler, premium = true, cost = 10000, bless = 4})
-blessKeyword2:addChildKeyword({'no'}, StdModule.say, {npcHandler = npcHandler, text = 'Maybe another time.', reset = true})
-
-npcHandler:setMessage(MESSAGE_GREET, 'Welcome, |PLAYERNAME|! If you are wounded or poisoned, I can {heal} you.')
-npcHandler:setMessage(MESSAGE_FAREWELL, 'May the gods bless you, |PLAYERNAME|.')
-npcHandler:setMessage(MESSAGE_WALKAWAY, 'May the gods watch over you.')
-npcHandler:setCallback(CALLBACK_MESSAGE_DEFAULT, creatureSayCallback)
 npcHandler:addModule(FocusModule:new())
+

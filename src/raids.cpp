@@ -84,9 +84,14 @@ bool Raids::loadFromXml()
 			std::cout << "[Warning - Raids::loadFromXml] File tag missing for raid " << name << ". Using default: " << file << std::endl;
 		}
 
-		interval = pugi::cast<uint32_t>(raidNode.attribute("interval2").value()) * 60;
+		if ((attr = raidNode.attribute("interval"))) {
+			interval = pugi::cast<uint32_t>(attr.value());
+		} else {
+			interval = 0;
+		}
+
 		if (interval == 0) {
-			std::cout << "[Error - Raids::loadFromXml] interval2 tag missing or zero (would divide by 0) for raid: " << name << std::endl;
+			std::cout << "[Error - Raids::loadFromXml] interval tag missing or zero (would divide by 0) for raid: " << name << std::endl;
 			continue;
 		}
 

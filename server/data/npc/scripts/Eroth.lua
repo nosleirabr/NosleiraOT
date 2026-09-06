@@ -1,0 +1,48 @@
+local keywordHandler = KeywordHandler:new()
+local npcHandler = NpcHandler:new(keywordHandler)
+NpcSystem.parseParameters(npcHandler)
+
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'I greet thee, outsider.')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Asha Thrazi. Go, where you have to go.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Asha Thrazi. Go, where you have to go.')
+keywordHandler:addKeyword({'humans'}, StdModule.say, {npcHandler = npcHandler, text = 'We tolerate them and allow them to be used by us.'})
+keywordHandler:addKeyword({'carlin'}, StdModule.say, {npcHandler = npcHandler, text = 'Their druids seek my counsel quite often. I provide them with as many insights their little minds can keep up with and I feel appropriate.'})
+keywordHandler:addKeyword({'ferumbras'}, StdModule.say, {npcHandler = npcHandler, text = 'A human born evil. Another evidence of the destructive potential of that race.'})
+keywordHandler:addKeyword({'news'}, StdModule.say, {npcHandler = npcHandler, text = 'I heared the new human settlement in the west became independent from the human empire.'})
+keywordHandler:addKeyword({'troll'}, StdModule.say, {npcHandler = npcHandler, text = 'The Kuridai have the distasteful habit to keep some trolls for inferior work.'})
+keywordHandler:addKeyword({'olrik'}, StdModule.say, {npcHandler = npcHandler, text = 'A human who dreams to become an elf. It would be funny if it were not that pathetic.'})
+keywordHandler:addKeyword({'sorcerer'}, StdModule.say, {npcHandler = npcHandler, text = 'Sorcerers are not attuned to nature and therefore can\'t master it.'})
+keywordHandler:addKeyword({'dwarfs'}, StdModule.say, {npcHandler = npcHandler, text = 'The diggers are not welcome in our realm.'})
+keywordHandler:addKeyword({'king'}, StdModule.say, {npcHandler = npcHandler, text = 'Our people have no use for kings or queens.'})
+keywordHandler:addKeyword({'cenath'}, StdModule.say, {npcHandler = npcHandler, text = 'We are the shepherds of our people. The other castes need our guidance.'})
+keywordHandler:addKeyword({'venore'}, StdModule.say, {npcHandler = npcHandler, text = 'The merchants of venore have prooven usefull and are therefore tolerated.'})
+keywordHandler:addKeyword({'thais'}, StdModule.say, {npcHandler = npcHandler, text = 'A city of filth and dirt. Any elf should visit this city at least once to see what a society without good guidance can become.'})
+keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler, text = 'Just another human myth.'})
+keywordHandler:addKeyword({'elves'}, StdModule.say, {npcHandler = npcHandler, text = 'Our people are the children of light and darkness, the heirs of dusk and dawn.'})
+keywordHandler:addKeyword({'spell'}, StdModule.say, {npcHandler = npcHandler, text = 'I can teach the spells \'Magic Shield\', \'Invisible\', \'Destroy Field\', \'Creature Illusion\', \'Chameleon\', \'Convince Creature\', and \'Summon Creature\'.'})
+keywordHandler:addKeyword({'roderick'}, StdModule.say, {npcHandler = npcHandler, text = 'A stupid human who won\'t comprehend our complex society.'})
+keywordHandler:addKeyword({'army'}, StdModule.say, {npcHandler = npcHandler, text = 'Stop this Kuridai nonsense.'})
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'That is a inferior concept invented by the minor races.'})
+keywordHandler:addKeyword({'chameleon'}, StdModule.say, {npcHandler = npcHandler, text = 'I\'m sorry, but this spell is only for druids.'})
+keywordHandler:addKeyword({'dreamer'}, StdModule.say, {npcHandler = npcHandler, text = 'The Teshial were masters of the so called dream magic.'})
+keywordHandler:addKeyword({'magic'}, StdModule.say, {npcHandler = npcHandler, text = 'Magic comes almost naturally to the Cenath. We keep the secrets of ages.'})
+keywordHandler:addKeyword({'abdaisim'}, StdModule.say, {npcHandler = npcHandler, text = 'They are fools and almost deserve the extinction that awaits them. Though we will take it upon us to rescue even them by leading them home.'})
+keywordHandler:addKeyword({'teshial'}, StdModule.say, {npcHandler = npcHandler, text = 'They are gone. They alone were almost equal to us Cenath among elvenkind.'})
+keywordHandler:addKeyword({'druid'}, StdModule.say, {npcHandler = npcHandler, text = 'Druids master spells of defence, healing, and nature.'})
+keywordHandler:addKeyword({'kuridai'}, StdModule.say, {npcHandler = npcHandler, text = 'The Kuridai are aggressive and victims of their instincts. Without our help they would surely die in a foolish war.'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am the leader of the Cenath caste.'})
+keywordHandler:addKeyword({'crunor'}, StdModule.say, {npcHandler = npcHandler, text = 'Gods are for the weak. We will master the world on our own. We need no gods.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'My name is Eroth Ramathi.'})
+keywordHandler:addKeyword({'deraisim'}, StdModule.say, {npcHandler = npcHandler, text = 'They lack the understanding of unity. We are keeping them together and prevent them from being slaughtered one by one.'})
+keywordHandler:addKeyword({'spellbook'}, StdModule.say, {npcHandler = npcHandler, text = 'Cenath rarely use spellbooks. The minor castes rely on them though.'})
+keywordHandler:addKeyword({'vocation'}, StdModule.say, {npcHandler = npcHandler, text = 'You are narrow minded to think in such boundaries.'})
+
+local shopModule = ShopModule:new()
+npcHandler:addModule(shopModule)
+
+npcHandler:addModule(FocusModule:new())
+

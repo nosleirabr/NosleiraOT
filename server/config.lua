@@ -60,9 +60,9 @@ mapAuthor = "ond"
 
 -- MySQL
 mysqlHost = "mysql"
-mysqlUser = "ot74"
-mysqlPass = "ot74"
-mysqlDatabase = "ot74"
+mysqlUser = "#Aezakmix1995"
+mysqlPass = "#Aezakmix1995"
+mysqlDatabase = "#Aezakmix1995"
 mysqlPort = 3306
 mysqlSock = ""
 passwordType = "sha1"
@@ -106,5 +106,6 @@ ownerName = ""
 ownerEmail = ""
 url = "https://otland.net/"
 location = "Sweden"
+
 
 

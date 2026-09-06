@@ -2,29 +2,56 @@ local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)              npcHandler:onCreatureAppear(cid)            end
-function onCreatureDisappear(cid)           npcHandler:onCreatureDisappear(cid)         end
-function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, msg)    end
-function onThink()                          npcHandler:onThink()                        end
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Beeee Greeeeted |PLAYERNAME|. What is your neeeed?')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Bye.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Bye.')
+keywordHandler:addKeyword({'vladruc'}, StdModule.say, {npcHandler = npcHandler, text = 'Heeee is the bossss. Better don\'t messss with him!'})
+keywordHandler:addKeyword({'offer'}, StdModule.say, {npcHandler = npcHandler, text = 'What do youuuu think I am? A lousy barberrrr? I\'m selliiiing ruuuunes and spellboooooks.'})
+keywordHandler:addKeyword({'market'}, StdModule.say, {npcHandler = npcHandler, text = 'Yes, that\'s a market heeeere, smarty ... Nice to seeeee I am not the only one without a braiiiin here.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'I am a FRANS.'})
+keywordHandler:addKeyword({'ferumbras'}, StdModule.say, {npcHandler = npcHandler, text = 'Wouldn\'t he beeee the perfect FRANS?'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am selliiiing ruuuunes, wands, roooods and spellbooooooks.'})
+keywordHandler:addKeyword({'sorcerer'}, StdModule.say, {npcHandler = npcHandler, text = 'Sorcerorssss, druidssss, they all come to ussss.'})
+keywordHandler:addKeyword({'magic'}, StdModule.say, {npcHandler = npcHandler, text = 'Is aaaall about magic more or lesssss, isn\'t it?'})
+keywordHandler:addKeyword({'frans'}, StdModule.say, {npcHandler = npcHandler, text = 'Floating ReeeeAnimated Necromantic Seeeervant ... FRANS.'})
+keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler, text = 'We FRANSes don\'t liiiike any bugssss.'})
+keywordHandler:addKeyword({'rune'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell blank ruuuuunes and spell ruuuuunes.'})
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-
-shopModule:addBuyableItem({'spellbook'}, 2175, 150, 'spellbook')
-shopModule:addBuyableItem({'magic lightwand', 'lightwand'}, 2162, 400, 'magic lightwand')
-shopModule:addBuyableItem({'blank rune', 'blank'}, 2260, 10, 'blank rune')
-shopModule:addBuyableItem({'life fluid', 'lifefluid'}, 2006, 60, 10, 'life fluid')
-shopModule:addBuyableItem({'mana fluid', 'manafluid'}, 2006, 55, 7, 'mana fluid')
-
-keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = "I am Frans."})
-keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = "I am a sorcerer and I run this magic shop."})
-keywordHandler:addKeyword({'magic'}, StdModule.say, {npcHandler = npcHandler, text = "I sell blank runes, spellbooks, and fluids."})
-keywordHandler:addKeyword({'rune'}, StdModule.say, {npcHandler = npcHandler, text = "I only sell blank runes. You must learn the spells to create magic runes."})
-keywordHandler:addKeyword({'fluid'}, StdModule.say, {npcHandler = npcHandler, text = "I sell life fluids and mana fluids."})
-keywordHandler:addKeyword({'venore'}, StdModule.say, {npcHandler = npcHandler, text = "Venore is a city of trade and magic."})
-
-npcHandler:setMessage(MESSAGE_GREET, "Welcome to my magic shop, |PLAYERNAME|!")
-npcHandler:setMessage(MESSAGE_FAREWELL, "Farewell.")
-npcHandler:setMessage(MESSAGE_WALKAWAY, "Farewell.")
+shopModule:addBuyableItem({'wand'}, 3075, 1000, 'wand')
+shopModule:addBuyableItem({'ultimate'}, 3160, 175, 'ultimate')
+shopModule:addBuyableItem({'fire'}, 3190, 245, 'fire')
+shopModule:addBuyableItem({'snakebite'}, 3066, 500, 'snakebite')
+shopModule:addBuyableItem({'fireball'}, 3189, 95, 'fireball')
+shopModule:addBuyableItem({'energy'}, 3166, 340, 'energy')
+shopModule:addBuyableItem({'destroy'}, 3148, 45, 'destroy')
+shopModule:addBuyableItem({'heavy'}, 3198, 125, 'heavy')
+shopModule:addBuyableItem({'convince'}, 3177, 80, 'convince')
+shopModule:addBuyableItem({'volcanic'}, 3069, 5000, 'volcanic')
+shopModule:addBuyableItem({'fire'}, 3188, 85, 'fire')
+shopModule:addBuyableItem({'intense'}, 3152, 95, 'intense')
+shopModule:addBuyableItem({'blank'}, 3147, 10, 'blank')
+shopModule:addBuyableItem({'fire'}, 3192, 235, 'fire')
+shopModule:addBuyableItem({'antidote'}, 3153, 65, 'antidote')
+shopModule:addBuyableItem({'wand'}, 3072, 5000, 'wand')
+shopModule:addBuyableItem({'wand'}, 3073, 10000, 'wand')
+shopModule:addBuyableItem({'moonlight'}, 3070, 1000, 'moonlight')
+shopModule:addBuyableItem({'quagmire'}, 3065, 10000, 'quagmire')
+shopModule:addBuyableItem({'explosion'}, 3200, 250, 'explosion')
+shopModule:addBuyableItem({'light'}, 3174, 40, 'light')
+shopModule:addBuyableItem({'energy'}, 3164, 115, 'energy')
+shopModule:addBuyableItem({'spellbook'}, 3059, 150, 'spellbook')
+shopModule:addBuyableItem({'chameleon'}, 3178, 210, 'chameleon')
+shopModule:addBuyableItem({'poison'}, 3172, 65, 'poison')
+shopModule:addBuyableItem({'poison'}, 3176, 210, 'poison')
+shopModule:addBuyableItem({'sudden'}, 3155, 325, 'sudden')
+shopModule:addBuyableItem({'great'}, 3191, 180, 'great')
+shopModule:addBuyableItem({'wand'}, 3074, 500, 'wand')
 
 npcHandler:addModule(FocusModule:new())
+

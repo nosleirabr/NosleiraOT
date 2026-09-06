@@ -2,20 +2,37 @@ local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)              npcHandler:onCreatureAppear(cid)            end
-function onCreatureDisappear(cid)           npcHandler:onCreatureDisappear(cid)         end
-function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, msg)    end
-function onThink()                          npcHandler:onThink()                        end
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Welcome to my little kingdom, |PLAYERNAME|.')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Good bye, visit me again. I will be here, promised.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Good bye, visit me again. I will be here, promised.')
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'Guess it! I give you a hint: I am not in this cell to clean it up! ...'})
+keywordHandler:addKeyword({'jail'}, StdModule.say, {npcHandler = npcHandler, text = 'You mean that\'s a JAIL? They told me it\'s the finest hotel in town! THAT explains the lousy roomservice!'})
+keywordHandler:addKeyword({'djinn'}, StdModule.say, {npcHandler = npcHandler, text = 'I won\'t talk about that.'})
+keywordHandler:addKeyword({'citizen'}, StdModule.say, {npcHandler = npcHandler, text = 'Rich enough to spare a little, don\'t you agree? Well, they didn\'t agree.'})
+keywordHandler:addKeyword({'ankrahmun'}, StdModule.say, {npcHandler = npcHandler, text = 'Yes, I\'ve lived in Ankrahmun for quite some time. Ahh, good old times! ...'})
+keywordHandler:addKeyword({'fight'}, StdModule.say, {npcHandler = npcHandler, text = 'Hey, most people I killed were even worse than me.'})
+keywordHandler:addKeyword({'sell'}, StdModule.say, {npcHandler = npcHandler, text = 'I would like to sell you a secret, but I\'m out of business for too long.'})
+keywordHandler:addKeyword({'noodles'}, StdModule.say, {npcHandler = npcHandler, text = 'I bet one could get some fine ransom, if he dognappes this furball.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'My name is Partos, but you can call me Party.'})
+keywordHandler:addKeyword({'king'}, StdModule.say, {npcHandler = npcHandler, text = 'Yeah, a king is a man that can rob people by law, and not by night like me.'})
+keywordHandler:addKeyword({'quentin'}, StdModule.say, {npcHandler = npcHandler, text = 'By the gods, he visits us \'criminals\' now and then to \'save\' us. Who is going to save me from this boredom on two legs?'})
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'Geee, someone stole my watch. Bad company down here.'})
+keywordHandler:addKeyword({'gold'}, StdModule.say, {npcHandler = npcHandler, text = 'Gold got me in here.'})
+keywordHandler:addKeyword({'crime'}, StdModule.say, {npcHandler = npcHandler, text = 'Bah, I did nothing serious. I just had a little fun. In Ankrahmun nobody would have cared about these kind of things...'})
+keywordHandler:addKeyword({'tibia'}, StdModule.say, {npcHandler = npcHandler, text = 'I love this world. I just wish I could see some other part of it now and then.'})
+keywordHandler:addKeyword({'monster'}, StdModule.say, {npcHandler = npcHandler, text = 'At least I am safe from them down here.'})
+keywordHandler:addKeyword({'news'}, StdModule.say, {npcHandler = npcHandler, text = 'I hardly hear any news down here.'})
+keywordHandler:addKeyword({'army'}, StdModule.say, {npcHandler = npcHandler, text = 'Bah, the king\'s pawns. I spit on them.'})
+keywordHandler:addKeyword({'thais'}, StdModule.say, {npcHandler = npcHandler, text = 'I love the city. I just wish I could see some other part of it now and then.'})
+keywordHandler:addKeyword({'party'}, StdModule.say, {npcHandler = npcHandler, text = 'Yeah! Come in and let\'s have a party.'})
+keywordHandler:addKeyword({'waterpipe'}, StdModule.say, {npcHandler = npcHandler, text = 'My waterpipe? I lost it. But it doesn\'t matter. I quit smoking anyway.'})
 
-keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = "I am Partos."})
-keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = "Job? I'm a prisoner! Can't you see?!"})
-keywordHandler:addKeyword({'prison'}, StdModule.say, {npcHandler = npcHandler, text = "Yes, I am in prison. They caught me."})
-keywordHandler:addKeyword({'thief'}, StdModule.say, {npcHandler = npcHandler, text = "I used to be a thief. But not a very good one, it seems."})
-keywordHandler:addKeyword({'fruit'}, StdModule.say, {npcHandler = npcHandler, text = "I'd do anything for an apple or some grapes."})
-keywordHandler:addKeyword({'jail'}, StdModule.say, {npcHandler = npcHandler, text = "I will rot in here if nobody helps me."})
-
-npcHandler:setMessage(MESSAGE_GREET, "Oh, a visitor! Hello |PLAYERNAME|.")
-npcHandler:setMessage(MESSAGE_FAREWELL, "Finally I can rest in silence.")
-npcHandler:setMessage(MESSAGE_WALKAWAY, "Finally I can rest in silence.")
+local shopModule = ShopModule:new()
+npcHandler:addModule(shopModule)
 
 npcHandler:addModule(FocusModule:new())
+

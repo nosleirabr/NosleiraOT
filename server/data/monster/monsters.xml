@@ -109,5 +109,8 @@
 	<monster name="Shredderthrower" file="bosses/shredderthrower.xml"/>
 	<monster name="Thalas" file="bosses/thalas.xml"/>
 	<monster name="Vashresamun" file="bosses/vashresamun.xml"/>
+	<monster name="Orshabaal" file="bosses/orshabaal.xml"/>
+	<monster name="General Murius" file="bosses/general_murius.xml"/>
+	<monster name="Grorlam" file="bosses/grorlam.xml"/>
 	
 </monsters>

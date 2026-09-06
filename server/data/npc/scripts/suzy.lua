@@ -1,19 +1,20 @@
-﻿local keywordHandler = KeywordHandler:new()
+local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)              npcHandler:onCreatureAppear(cid)            end
-function onCreatureDisappear(cid)           npcHandler:onCreatureDisappear(cid)         end
-function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, msg)    end
-function onThink()                          npcHandler:onThink()                        end
-
-npcHandler:setMessage(MESSAGE_GREET, "Welcome to the post office, |PLAYERNAME|.")
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Welcome |PLAYERNAME|! What can I do for you?')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Good bye.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Good bye.')
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I work in this bank. I can change money for you.'})
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'It is exactly the current time.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'I am Suzy.'})
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 
-shopModule:addBuyableItem({'parcel'}, 2595, 15, 1, 'parcel')
-shopModule:addBuyableItem({'label'}, 2599, 1, 1, 'label')
-shopModule:addBuyableItem({'letter'}, 2597, 8, 1, 'letter')
-
 npcHandler:addModule(FocusModule:new())
+

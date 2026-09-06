@@ -1,0 +1,43 @@
+local keywordHandler = KeywordHandler:new()
+local npcHandler = NpcHandler:new(keywordHandler)
+NpcSystem.parseParameters(npcHandler)
+
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Farewell, stranger. May Uman the Wise guide your steps in this treacherous land.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Farewell, stranger. May Uman the Wise guide your steps in this treacherous land.')
+keywordHandler:addKeyword({'alesar'}, StdModule.say, {npcHandler = npcHandler, text = 'I know that name. He is a Marid. This djinn is one of the best smiths ever to live. You should see the scimitars he makes - hard as titanium yet light as a desert breeze. ...'})
+keywordHandler:addKeyword({'ascension'}, StdModule.say, {npcHandler = npcHandler, text = 'The concept of ascension is central to the pharaoh\'s creed. I am not sure I really understand it, but apparently it has to do with transformation to undeath. Nice, isn\'t it?'})
+keywordHandler:addKeyword({'melchior'}, StdModule.say, {npcHandler = npcHandler, text = 'That is my name.'})
+keywordHandler:addKeyword({'mourn'}, StdModule.say, {npcHandler = npcHandler, text = 'Spare me that inane twaddle, will you? I am glad enough to be alive, thank you.'})
+keywordHandler:addKeyword({'djinn'}, StdModule.say, {npcHandler = npcHandler, text = 'The djinns are a wondrous race. Swift and strong they are and larger, much larger than any man. ...'})
+keywordHandler:addKeyword({'darashia'}, StdModule.say, {npcHandler = npcHandler, text = '<Sighs> Aah yes... Darashia. I would give anything if I could see it again.'})
+keywordHandler:addKeyword({'daraman'}, StdModule.say, {npcHandler = npcHandler, text = 'Daraman was a holy man, a true prophet. He showed us how we can master grief and affliction through dignity and brotherliness. It is a shame I only came to fully appreciate his teachings when fate had cast me into darkness.'})
+keywordHandler:addKeyword({'blind'}, StdModule.say, {npcHandler = npcHandler, text = 'Yes, I am. I was not born that way, but a cruel fate caused me to lose my eyesight.'})
+keywordHandler:addKeyword({'temple'}, StdModule.say, {npcHandler = npcHandler, text = 'That temple is very old, and for centuries it used to be a place of worship and of contemplation. Now that the priests there are fanatic followers of the pharaoh this is no longer a holy place.'})
+keywordHandler:addKeyword({'palace'}, StdModule.say, {npcHandler = npcHandler, text = 'The palace lies to the south of the arena and to the west of the temple. Better stay clear of that place. If but half the things I have heard about it are true this palace is not a place for the living anymore.'})
+keywordHandler:addKeyword({'efreet'}, StdModule.say, {npcHandler = npcHandler, text = 'Beware the Efreet, stranger! They hate all humans, and if they had their way all of us would be killed. If you meet one be sure to say the word of greeting immediately because otherwise you will be killed in a heartbeat. ...'})
+keywordHandler:addKeyword({'rah'}, StdModule.say, {npcHandler = npcHandler, text = 'Ah yes - I recognise that. According to the pharaoh that is a living being\'s soul.'})
+keywordHandler:addKeyword({'marid'}, StdModule.say, {npcHandler = npcHandler, text = 'The Marid are gentle, kind-hearted djinn, or at least that is how they act towards humans. However, they are quite reclusive, too. They will not talk to human unless he says the word of greeting first. ...'})
+keywordHandler:addKeyword({'pharaoh'}, StdModule.say, {npcHandler = npcHandler, text = 'The pharaoh? He is always in the palace, so I have heard only rumors about him. But I know one thing for sure - he is mad. End of story.'})
+keywordHandler:addKeyword({'edron'}, StdModule.say, {npcHandler = npcHandler, text = 'I have never been to cities on other continents. And I suppose now I never will. I would be glad enough to leave this place.'})
+keywordHandler:addKeyword({'akh'}, StdModule.say, {npcHandler = npcHandler, text = 'In the pharaoh\'s creed, this is what the physical body is called.'})
+keywordHandler:addKeyword({'tibia'}, StdModule.say, {npcHandler = npcHandler, text = 'Tibia is such a beautiful place. I would give it all if I could see it again.'})
+keywordHandler:addKeyword({'scarab'}, StdModule.say, {npcHandler = npcHandler, text = 'Those damn scavengers! I detest them. When I was stumbling through the desert, all blind and desperate, they followed me around. ...'})
+keywordHandler:addKeyword({'uthun'}, StdModule.say, {npcHandler = npcHandler, text = 'According to the pharaoh\'s teachings this is the total of a living being\'s memories and personal experiences.'})
+keywordHandler:addKeyword({'haroun'}, StdModule.say, {npcHandler = npcHandler, text = 'A Marid trader. I have often had dealings with him. He drove me mad because he never accepted any haggling, but then he never ever tried to trick me. He was not really a trader at heart, I suppose. He was more of a monk or maybe a preacher.'})
+keywordHandler:addKeyword({'arena'}, StdModule.say, {npcHandler = npcHandler, text = 'Ah yes, the arena. I do not really know what\'s going on there, because I have never seen it myself. However, I often hear strange noises from there, cheers and jeers and sometimes pityful screams.'})
+keywordHandler:addKeyword({'gabel'}, StdModule.say, {npcHandler = npcHandler, text = 'He is the leader of the Marid! I have never met him myself, but everybody was full of praise for him back at Ashta\'daramai. The legend has it that it was him who introduced the djinns to wise Daraman\'s teachings.'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am a poor beggar. I try to make a meagre living here since a cruel fate has left me a blind man.'})
+keywordHandler:addKeyword({'malor'}, StdModule.say, {npcHandler = npcHandler, text = 'Malor is the Efreets\' leader. He is perhaps not the strongest of all efreet, but his treachery and cruelty are certainly unrivalled. He was defeated a long, long time ago, but he was not killed. ...'})
+keywordHandler:addKeyword({'fate'}, StdModule.say, {npcHandler = npcHandler, text = 'Fate played a cruel trick on old Melchior. If you want me to, I can tell you my story - talking about one\'s grievances does help to ease the pain. So - would you like to hear my story?'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'My late father, may he rest in peace, chose to call me Melchior.'})
+keywordHandler:addKeyword({'ankrahmun'}, StdModule.say, {npcHandler = npcHandler, text = 'I hate this city. Period. I would never have come here, but I haven\'t had much of a choice. The caravan that picked me up in the Kha\'zeel was headed for this place, and I was glad enough they brought me here. ...'})
+
+local shopModule = ShopModule:new()
+npcHandler:addModule(shopModule)
+
+npcHandler:addModule(FocusModule:new())
+

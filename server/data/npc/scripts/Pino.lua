@@ -1,28 +1,23 @@
-﻿local keywordHandler = KeywordHandler:new()
+local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)              npcHandler:onCreatureAppear(cid)            end
-function onCreatureDisappear(cid)           npcHandler:onCreatureDisappear(cid)         end
-function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, msg)    end
-function onThink()                          npcHandler:onThink()                        end
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Greetings, traveller |PLAYERNAME|.')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Good bye!')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Good bye!')
+keywordHandler:addKeyword({'femur'}, StdModule.say, {npcHandler = npcHandler, text = 'You are probably talking about the FEMOR hills.'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am a carpetpilot. I can fly you to the Femor Hills or Darashia.'})
+keywordHandler:addKeyword({'passage'}, StdModule.say, {npcHandler = npcHandler, text = 'I can fly you to Darashia on Darama or to the Femor Hills if you like. Where do you want to go?'})
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'It\'s the current time right now.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'Pino at your service.'})
+keywordHandler:addKeyword({'tibia'}, StdModule.say, {npcHandler = npcHandler, text = 'What a wonderful world. Especially if you look down on it.'})
 
--- Edron carpet pilot (Pino)
-addTravelKeyword(keywordHandler, npcHandler, 'darashia', 40, TravelHarbours.carpetDarashia, 'Darashia', 'Hold on!')
-addTravelKeyword(keywordHandler, npcHandler, 'femor', 60, TravelHarbours.carpetFemor, 'the Femor Hills', 'Hold on!')
-addTravelKeyword(keywordHandler, npcHandler, 'hills', 60, TravelHarbours.carpetFemor, 'the Femor Hills', 'Hold on!')
+local shopModule = ShopModule:new()
+npcHandler:addModule(shopModule)
 
-local destinations = 'I can fly you to {Darashia} or the Femor {hills}.'
-keywordHandler:addKeyword({'fly'}, StdModule.say, {npcHandler = npcHandler, text = destinations})
-keywordHandler:addKeyword({'sail'}, StdModule.say, {npcHandler = npcHandler, text = destinations})
-keywordHandler:addKeyword({'passage'}, StdModule.say, {npcHandler = npcHandler, text = destinations})
-keywordHandler:addKeyword({'ride'}, StdModule.say, {npcHandler = npcHandler, text = destinations})
-keywordHandler:addKeyword({'trip'}, StdModule.say, {npcHandler = npcHandler, text = destinations})
-keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am a carpet pilot.'})
-keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'My name is Pino.'})
-keywordHandler:addKeyword({'edron'}, StdModule.say, {npcHandler = npcHandler, text = 'This is Edron. Where do you want to fly?'})
-
-npcHandler:setMessage(MESSAGE_GREET, 'Daraman\'s blessings, |PLAYERNAME|. Need a carpet {ride}?')
-npcHandler:setMessage(MESSAGE_FAREWELL, 'Daraman\'s blessings.')
-npcHandler:setMessage(MESSAGE_WALKAWAY, 'Daraman\'s blessings.')
 npcHandler:addModule(FocusModule:new())
+

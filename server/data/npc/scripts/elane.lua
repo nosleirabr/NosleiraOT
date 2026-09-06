@@ -1,26 +1,53 @@
-﻿local keywordHandler = KeywordHandler:new()
+local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)              npcHandler:onCreatureAppear(cid)            end
-function onCreatureDisappear(cid)           npcHandler:onCreatureDisappear(cid)         end
-function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, msg)    end
-function onThink()                          npcHandler:onThink()                        end
-
-npcHandler:setMessage(MESSAGE_GREET, "Hello |PLAYERNAME|. Distance fighting gear.")
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Welcome to the paladins, |PLAYERNAME|! Can I help you?')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Bye.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Bye.')
+keywordHandler:addKeyword({'sherry'}, StdModule.say, {npcHandler = npcHandler, text = 'The McRonalds are simple farmers.'})
+keywordHandler:addKeyword({'warrior'}, StdModule.say, {npcHandler = npcHandler, text = 'Of course, we aren\'t as strong as knights, but no druid or sorcerer will ever defeat a paladin with a sword.'})
+keywordHandler:addKeyword({'skill'}, StdModule.say, {npcHandler = npcHandler, text = 'Paladins are great warriors and magicians. Besides that we are excellent missile fighters. Many people in Tibia want to join us.'})
+keywordHandler:addKeyword({'gregor'}, StdModule.say, {npcHandler = npcHandler, text = 'He and his guildfellows lack the grace of a true warrior.'})
+keywordHandler:addKeyword({'ferumbras'}, StdModule.say, {npcHandler = npcHandler, text = 'Someday I will slay that bastard!'})
+keywordHandler:addKeyword({'news'}, StdModule.say, {npcHandler = npcHandler, text = 'I am a paladin, not a storyteller.'})
+keywordHandler:addKeyword({'galuna'}, StdModule.say, {npcHandler = npcHandler, text = 'One of the most important members of our guild. She makes all the bows and arrows we need.'})
+keywordHandler:addKeyword({'muriel'}, StdModule.say, {npcHandler = npcHandler, text = 'Just another arrogant sorcerer.'})
+keywordHandler:addKeyword({'marvik'}, StdModule.say, {npcHandler = npcHandler, text = 'A skilled healer, that\'s for sure.'})
+keywordHandler:addKeyword({'oswald'}, StdModule.say, {npcHandler = npcHandler, text = 'If there wouldn\'t be higher powers to protect him...'})
+keywordHandler:addKeyword({'sam'}, StdModule.say, {npcHandler = npcHandler, text = 'Strong man. But a little shy.'})
+keywordHandler:addKeyword({'member'}, StdModule.say, {npcHandler = npcHandler, text = 'Every paladin profits from his vocation. It has many advantages to be a paladin.'})
+keywordHandler:addKeyword({'frodo'}, StdModule.say, {npcHandler = npcHandler, text = 'The alcohol he sells shrouds the mind and the eye.'})
+keywordHandler:addKeyword({'missile'}, StdModule.say, {npcHandler = npcHandler, text = 'Paladins are the best missile fighters in Tibia!'})
+keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler, text = 'A weapon of myth. I don\'t believe that this weapon exists.'})
+keywordHandler:addKeyword({'profit'}, StdModule.say, {npcHandler = npcHandler, text = 'We will help you to improve your skills. Besides I offer spells for paladins.'})
+keywordHandler:addKeyword({'magician'}, StdModule.say, {npcHandler = npcHandler, text = 'There are many magic spells and runes paladins can use.'})
+keywordHandler:addKeyword({'gorn'}, StdModule.say, {npcHandler = npcHandler, text = 'He sells a lot of useful equipment.'})
+keywordHandler:addKeyword({'lugri'}, StdModule.say, {npcHandler = npcHandler, text = 'A follower of evil that will get what he deserves one day.'})
+keywordHandler:addKeyword({'spell'}, StdModule.say, {npcHandler = npcHandler, text = 'Sorry, I only sell spells to paladins.'})
+keywordHandler:addKeyword({'elane'}, StdModule.say, {npcHandler = npcHandler, text = 'Yes?'})
+keywordHandler:addKeyword({'king'}, StdModule.say, {npcHandler = npcHandler, text = 'King Tibianus is a wise ruler.'})
+keywordHandler:addKeyword({'paladin'}, StdModule.say, {npcHandler = npcHandler, text = 'Paladins are great warriors and magicians. Besides that we are excellent missile fighters. Many people in Tibia want to join us.'})
+keywordHandler:addKeyword({'army'}, StdModule.say, {npcHandler = npcHandler, text = 'Some paladins serve in the kings army.'})
+keywordHandler:addKeyword({'general'}, StdModule.say, {npcHandler = npcHandler, text = 'Harkath Bloodblade is the royal general.'})
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'Oops. I have forgotten my watch.'})
+keywordHandler:addKeyword({'quentin'}, StdModule.say, {npcHandler = npcHandler, text = 'A humble monk and a wise man.'})
+keywordHandler:addKeyword({'harkath'}, StdModule.say, {npcHandler = npcHandler, text = 'A fine warrior and a skilled general.'})
+keywordHandler:addKeyword({'lynda'}, StdModule.say, {npcHandler = npcHandler, text = 'Hm, a litte too nice for my taste.'})
+keywordHandler:addKeyword({'baxter'}, StdModule.say, {npcHandler = npcHandler, text = 'He has some potential.'})
+keywordHandler:addKeyword({'bozo'}, StdModule.say, {npcHandler = npcHandler, text = 'How spineless do you have to be to become a jester?'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am the leader of the Paladins. I help our members.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'My name is Elane. I am the famous leader of the Paladins.'})
+keywordHandler:addKeyword({'spellbook'}, StdModule.say, {npcHandler = npcHandler, text = 'In a spellbook your spells are listed. There you will find the pronunciation of each spell. If you want to buy one, visit Xodet in his magic shop.'})
+keywordHandler:addKeyword({'vocation'}, StdModule.say, {npcHandler = npcHandler, text = 'Your vocation is your profession. There are four vocations in Tibia: Paladins, knights, sorcerers, and druids.'})
+keywordHandler:addKeyword({'advantage'}, StdModule.say, {npcHandler = npcHandler, text = 'We will help you to improve your skills. Besides I offer spells for paladins.'})
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 
-shopModule:addBuyableItem({'arrow'}, 2544, 3, 1, 'arrow')
-shopModule:addBuyableItem({'bolt'}, 2543, 4, 1, 'bolt')
-shopModule:addBuyableItem({'bow'}, 2456, 400, 1, 'bow')
-shopModule:addBuyableItem({'crossbow'}, 2455, 500, 1, 'crossbow')
-shopModule:addBuyableItem({'spear'}, 2389, 10, 1, 'spear')
-shopModule:addBuyableItem({'throwing knife'}, 2410, 25, 1, 'throwing knife')
-shopModule:addBuyableItem({'throwing star'}, 2399, 50, 1, 'throwing star')
-shopModule:addSellableItem({'bow'}, 2456, 100, 'bow')
-shopModule:addSellableItem({'crossbow'}, 2455, 120, 'crossbow')
-shopModule:addSellableItem({'spear'}, 2389, 3, 'spear')
-
 npcHandler:addModule(FocusModule:new())
+

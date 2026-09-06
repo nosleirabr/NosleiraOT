@@ -2,18 +2,45 @@ local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)              npcHandler:onCreatureAppear(cid)            end
-function onCreatureDisappear(cid)           npcHandler:onCreatureDisappear(cid)         end
-function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, msg)    end
-function onThink()                          npcHandler:onThink()                        end
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'LONG LIVE KING TIBIANUS!')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'LONG LIVE THE KING!')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'LONG LIVE THE KING!')
+keywordHandler:addKeyword({'castle'}, StdModule.say, {npcHandler = npcHandler, text = 'His Royal Highness ordered the castle to be open for all his subjects.'})
+keywordHandler:addKeyword({'stutch'}, StdModule.say, {npcHandler = npcHandler, text = 'He is soldier in the silver guard.'})
+keywordHandler:addKeyword({'work'}, StdModule.say, {npcHandler = npcHandler, text = 'We have a rat problem in the sewers. In the name of our glorious king I am paying 1 blinking piece of gold for every freshly killed rat you bring to me.'})
+keywordHandler:addKeyword({'tyrant'}, StdModule.say, {npcHandler = npcHandler, text = 'Take this!'})
+keywordHandler:addKeyword({'shit'}, StdModule.say, {npcHandler = npcHandler, text = 'Take this!'})
+keywordHandler:addKeyword({'news'}, StdModule.say, {npcHandler = npcHandler, text = 'It is rumoured that Ferumbras is planning a new attack on town.'})
+keywordHandler:addKeyword({'sell'}, StdModule.say, {npcHandler = npcHandler, text = 'Visit Tibia\'s shopkeepers to buy their fine wares.'})
+keywordHandler:addKeyword({'battlegroup'}, StdModule.say, {npcHandler = npcHandler, text = 'There are the dogs of war, the red guards, and the silver guards.'})
+keywordHandler:addKeyword({'sam'}, StdModule.say, {npcHandler = npcHandler, text = 'He is a fine blacksmith. Almost all our weapons are made by him.'})
+keywordHandler:addKeyword({'benjamin'}, StdModule.say, {npcHandler = npcHandler, text = 'He was one of the king\'s best generals, now he is a bit ...uhm... forgetful.'})
+keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler, text = 'Gorn and I searched for this weapon in the darkest corners of each dungeon, but found nothing.'})
+keywordHandler:addKeyword({'city'}, StdModule.say, {npcHandler = npcHandler, text = 'Now that the king returned, we will clean the city from all scum.'})
+keywordHandler:addKeyword({'fuck'}, StdModule.say, {npcHandler = npcHandler, text = 'Take this!'})
+keywordHandler:addKeyword({'lunatic'}, StdModule.say, {npcHandler = npcHandler, text = 'Take this!'})
+keywordHandler:addKeyword({'gorn'}, StdModule.say, {npcHandler = npcHandler, text = 'An old friend of mine. He was once a great warrior and adventurer, now he is running a shop.'})
+keywordHandler:addKeyword({'subject'}, StdModule.say, {npcHandler = npcHandler, text = 'We all live under the benevolent guidance of our king.'})
+keywordHandler:addKeyword({'harsky'}, StdModule.say, {npcHandler = npcHandler, text = 'He is soldier in the silver guard.'})
+keywordHandler:addKeyword({'asshole'}, StdModule.say, {npcHandler = npcHandler, text = 'Take this!'})
+keywordHandler:addKeyword({'king'}, StdModule.say, {npcHandler = npcHandler, text = 'King Tibianus III is our wise and just leader!'})
+keywordHandler:addKeyword({'army'}, StdModule.say, {npcHandler = npcHandler, text = 'Our brave army, which protects our city, consists of three battlegroups.'})
+keywordHandler:addKeyword({'partos'}, StdModule.say, {npcHandler = npcHandler, text = 'He was wanted for a long time and got caught stealing some time ago.'})
+keywordHandler:addKeyword({'idiot'}, StdModule.say, {npcHandler = npcHandler, text = 'Take this!'})
+keywordHandler:addKeyword({'stupid'}, StdModule.say, {npcHandler = npcHandler, text = 'Take this!'})
+keywordHandler:addKeyword({'bozo'}, StdModule.say, {npcHandler = npcHandler, text = 'The royal jester. I dont think he is funny.'})
+keywordHandler:addKeyword({'chester'}, StdModule.say, {npcHandler = npcHandler, text = 'This man is paranoid, but I guess that is useful in his job.'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am a proud member of the king\'s army. It is my duty to guard the castle.'})
+keywordHandler:addKeyword({'scum'}, StdModule.say, {npcHandler = npcHandler, text = 'To much scum roams our streets in our days, the red guards will take care of them.'})
+keywordHandler:addKeyword({'tbi'}, StdModule.say, {npcHandler = npcHandler, text = 'There is almost nothing known about that organization.'})
 
-keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = "I am Baxter, the guard."})
-keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = "I guard the castle and look for suspicious people."})
-keywordHandler:addKeyword({'king'}, StdModule.say, {npcHandler = npcHandler, text = "King Tibianus is a great ruler."})
-keywordHandler:addKeyword({'rat'}, StdModule.say, {npcHandler = npcHandler, text = "Sometimes there are rats in the dungeons. If you see one, kill it."})
-
-npcHandler:setMessage(MESSAGE_GREET, "Long live the king, |PLAYERNAME|!")
-npcHandler:setMessage(MESSAGE_FAREWELL, "LONG LIVE THE KING!")
-npcHandler:setMessage(MESSAGE_WALKAWAY, "LONG LIVE THE KING!")
+local shopModule = ShopModule:new()
+npcHandler:addModule(shopModule)
+shopModule:addBuyableItem({'rat'}, 3994, 1, 'rat')
 
 npcHandler:addModule(FocusModule:new())
+

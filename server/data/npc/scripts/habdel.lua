@@ -1,26 +1,55 @@
-﻿local keywordHandler = KeywordHandler:new()
+local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)              npcHandler:onCreatureAppear(cid)            end
-function onCreatureDisappear(cid)           npcHandler:onCreatureDisappear(cid)         end
-function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, msg)    end
-function onThink()                          npcHandler:onThink()                        end
-
-npcHandler:setMessage(MESSAGE_GREET, "Ahlan |PLAYERNAME|. Weapons of the desert.")
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Welcome |PLAYERNAME|! See the fine weapons I sell.')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Good bye. Come back soon.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Good bye. Come back soon.')
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'Don\'t worry, there is enough time left to finish our deal.'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell weapons that are as lethal as the bite of the desertlion and as quick as the sandwasp.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'My name is Habdel Ibn Haqui.'})
+keywordHandler:addKeyword({'thanks'}, StdModule.say, {npcHandler = npcHandler, text = 'You are welcome.'})
+keywordHandler:addKeyword({'drefia'}, StdModule.say, {npcHandler = npcHandler, text = 'Even the undead will fall a second time for the weapons you buy from me.'})
+keywordHandler:addKeyword({'monster'}, StdModule.say, {npcHandler = npcHandler, text = 'With my weapons you have to fear the monsters no longer and you will brave any danger or dungeon!'})
+keywordHandler:addKeyword({'offer'}, StdModule.say, {npcHandler = npcHandler, text = 'My offers are light and heavy weapons.'})
+keywordHandler:addKeyword({'light'}, StdModule.say, {npcHandler = npcHandler, text = 'I have clubs, daggers, spears, swords, maces, rapiers, morning stars, and sabres. What\'s your choice?'})
+keywordHandler:addKeyword({'heavy'}, StdModule.say, {npcHandler = npcHandler, text = 'I have the best two handed swords in Tibia. I also sell battle hammers and battle axes. What\'s your choice?'})
+keywordHandler:addKeyword({'help'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell and buy weapons. Just ask what you need or tell me what you offer.'})
+keywordHandler:addKeyword({'armor'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell only weapons. For armor, ask Azil in the other shop.'})
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-
-shopModule:addBuyableItem({'dagger'}, 2379, 5, 1, 'dagger')
-shopModule:addBuyableItem({'mace'}, 2398, 90, 1, 'mace')
-shopModule:addBuyableItem({'sabre'}, 2385, 35, 1, 'sabre')
-shopModule:addBuyableItem({'scimitar'}, 2419, 150, 1, 'scimitar')
-shopModule:addBuyableItem({'sword'}, 2376, 85, 1, 'sword')
-shopModule:addSellableItem({'dagger'}, 2379, 2, 'dagger')
-shopModule:addSellableItem({'mace'}, 2398, 30, 'mace')
-shopModule:addSellableItem({'sabre'}, 2385, 12, 'sabre')
-shopModule:addSellableItem({'scimitar'}, 2419, 100, 'scimitar')
-shopModule:addSellableItem({'sword'}, 2376, 25, 'sword')
+shopModule:addBuyableItem({'sword'}, 3264, 85, 'sword')
+shopModule:addBuyableItem({'sabre'}, 3273, 25, 'sabre')
+shopModule:addBuyableItem({'dagger'}, 3267, 5, 'dagger')
+shopModule:addBuyableItem({'mace'}, 3286, 90, 'mace')
+shopModule:addBuyableItem({'club'}, 3270, 5, 'club')
+shopModule:addBuyableItem({'spear'}, 3277, 10, 'spear')
+shopModule:addBuyableItem({'battle'}, 3305, 350, 'battle')
+shopModule:addBuyableItem({'throwing'}, 3287, 50, 'throwing')
+shopModule:addBuyableItem({'morning'}, 3282, 430, 'morning')
+shopModule:addBuyableItem({'two'}, 3265, 950, 'two')
+shopModule:addBuyableItem({'battle'}, 3266, 235, 'battle')
+shopModule:addBuyableItem({'rapier'}, 3272, 15, 'rapier')
+shopModule:addSellableItem({'sell'}, 3282, 100, 'sell')
+shopModule:addSellableItem({'sell'}, 3267, 1, 'sell')
+shopModule:addSellableItem({'sell'}, 3269, 310, 'sell')
+shopModule:addSellableItem({'sell'}, 3305, 50, 'sell')
+shopModule:addSellableItem({'sell'}, 3275, 260, 'sell')
+shopModule:addSellableItem({'sell'}, 3277, 1, 'sell')
+shopModule:addSellableItem({'sell'}, 3279, 470, 'sell')
+shopModule:addSellableItem({'sell'}, 3286, 23, 'sell')
+shopModule:addSellableItem({'sell'}, 3272, 3, 'sell')
+shopModule:addSellableItem({'sell'}, 3265, 190, 'sell')
+shopModule:addSellableItem({'sell'}, 3270, 1, 'sell')
+shopModule:addSellableItem({'sell'}, 3283, 118, 'sell')
+shopModule:addSellableItem({'sell'}, 3273, 5, 'sell')
+shopModule:addSellableItem({'sell'}, 3264, 15, 'sell')
+shopModule:addSellableItem({'sell'}, 3266, 75, 'sell')
 
 npcHandler:addModule(FocusModule:new())
+

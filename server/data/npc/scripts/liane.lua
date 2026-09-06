@@ -2,23 +2,29 @@ local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)              npcHandler:onCreatureAppear(cid)            end
-function onCreatureDisappear(cid)           npcHandler:onCreatureDisappear(cid)         end
-function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, msg)    end
-function onThink()                          npcHandler:onThink()                        end
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Hello |PLAYERNAME|. May I help you?')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'It was a pleasure to help you.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'It was a pleasure to help you.')
+keywordHandler:addKeyword({'carlin'}, StdModule.say, {npcHandler = npcHandler, text = 'Our wonderful town is protected by the wise Queen Eloise.'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am working here at the post office. If you have questions about the Royal Carlin Mail System or the depots ask me.'})
+keywordHandler:addKeyword({'ghostlands'}, StdModule.say, {npcHandler = npcHandler, text = 'We don\'t deliver letters or parcels there, sorry.'})
+keywordHandler:addKeyword({'benjamin'}, StdModule.say, {npcHandler = npcHandler, text = 'He is the postman in Thais and somewhat stupid. But he never sents wrong letters or parcels.'})
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'Now it\'s the current time.'})
+keywordHandler:addKeyword({'headquarter'}, StdModule.say, {npcHandler = npcHandler, text = 'Its just south oh Kazordoon. Follow the road and you will run right into it.'})
+keywordHandler:addKeyword({'office'}, StdModule.say, {npcHandler = npcHandler, text = 'I rarely leave my office. You are welcome at any time.'})
+keywordHandler:addKeyword({'kevin'}, StdModule.say, {npcHandler = npcHandler, text = 'Kevin Postner was already leader of the guild as I joined. I can\'t imagine anyone better for that position.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'My name is Liane.'})
+keywordHandler:addKeyword({'thais'}, StdModule.say, {npcHandler = npcHandler, text = 'A town ruled by men, a dangerous place. Anyway, we bring also letters and parcels there.'})
+keywordHandler:addKeyword({'queen'}, StdModule.say, {npcHandler = npcHandler, text = 'Our Queen\'s rule makes Carlin prosper.'})
+keywordHandler:addKeyword({'wally'}, StdModule.say, {npcHandler = npcHandler, text = 'Wally and I became pen-pals in the course of years.'})
+keywordHandler:addKeyword({'join'}, StdModule.say, {npcHandler = npcHandler, text = 'You might apply for a membership in our haedquarter.'})
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 
-shopModule:addBuyableItem({'parcel'}, 2595, 15, 'parcel')
-shopModule:addBuyableItem({'letter'}, 2597, 8, 'letter')
-shopModule:addBuyableItem({'label'}, 2599, 1, 'label')
-
-keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = "I am Liane."})
-keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = "I run the post office of Carlin. I sell parcels, labels, and letters."})
-
-npcHandler:setMessage(MESSAGE_GREET, "Hello. Need a parcel or a letter?")
-npcHandler:setMessage(MESSAGE_FAREWELL, "Goodbye.")
-npcHandler:setMessage(MESSAGE_WALKAWAY, "Goodbye.")
-
 npcHandler:addModule(FocusModule:new())
+

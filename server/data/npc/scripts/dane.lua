@@ -2,30 +2,25 @@ local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)              npcHandler:onCreatureAppear(cid)            end
-function onCreatureDisappear(cid)           npcHandler:onCreatureDisappear(cid)         end
-function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, msg)    end
-function onThink()                          npcHandler:onThink()                        end
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Welcome to the wave cellar, |PLAYERNAME|.')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Please come back from time to time.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Please come back from time to time.')
+keywordHandler:addKeyword({'news'}, StdModule.say, {npcHandler = npcHandler, text = 'I heard nothing interesting lately.'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am the owner of this place of relaxation.'})
+keywordHandler:addKeyword({'food'}, StdModule.say, {npcHandler = npcHandler, text = 'Sorry, we just sell drinks.'})
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'It is exactly the current time.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'I am Dane.'})
+keywordHandler:addKeyword({'cellar'}, StdModule.say, {npcHandler = npcHandler, text = 'It\'s pretty, isn\'t it?'})
+keywordHandler:addKeyword({'alcohol'}, StdModule.say, {npcHandler = npcHandler, text = 'Alcohol makes people too aggressive. We don\'t need such stuff in Carlin.'})
+keywordHandler:addKeyword({'offer'}, StdModule.say, {npcHandler = npcHandler, text = 'I can offer you milk, water, and lemonade.'})
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-
-shopModule:addBuyableItem({'bread'}, 2689, 4, 'bread')
-shopModule:addBuyableItem({'cheese'}, 2696, 6, 'cheese')
-shopModule:addBuyableItem({'egg'}, 2328, 2, 'egg')
-shopModule:addBuyableItem({'meat'}, 2666, 5, 'meat')
-shopModule:addBuyableItem({'ham'}, 2671, 8, 'ham')
-shopModule:addBuyableItem({'beer'}, 2012, 5, 3, 'mug of beer')
-shopModule:addBuyableItem({'wine'}, 2012, 10, 15, 'mug of wine')
-
-keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = "I am Dane."})
-keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = "I run this tavern."})
-keywordHandler:addKeyword({'tavern'}, StdModule.say, {npcHandler = npcHandler, text = "Welcome to the best tavern in Carlin!"})
-keywordHandler:addKeyword({'food'}, StdModule.say, {npcHandler = npcHandler, text = "I sell meat, bread, cheese, ham, and eggs."})
-keywordHandler:addKeyword({'drink'}, StdModule.say, {npcHandler = npcHandler, text = "I sell beer and wine."})
-
-npcHandler:setMessage(MESSAGE_GREET, "Welcome to my tavern, |PLAYERNAME|. Want some {food} or {drinks}?")
-npcHandler:setMessage(MESSAGE_FAREWELL, "Goodbye.")
-npcHandler:setMessage(MESSAGE_WALKAWAY, "Goodbye.")
+shopModule:addBuyableItem({'lemonade'}, 2875, 5, 'lemonade')
 
 npcHandler:addModule(FocusModule:new())
+

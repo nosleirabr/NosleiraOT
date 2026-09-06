@@ -2,9 +2,15 @@
 <raids>
 	<!-- Interval in seconds, margin in seconds -->
 	<!-- Thais Orcs: average every 7 days (604800s) -->
-	<raid name="Orcs in Thais" file="thais_orcs.xml" interval="604800" chance="20" margin="86400" />
+	<raid name="Orcs in Thais" file="thais_orcs.xml" interval="604800" chance="20" margin="1440" />
 	<!-- Thais Rats: average every 3 days (259200s) -->
-	<raid name="Rats in Thais" file="thais_rats.xml" interval="259200" chance="30" margin="86400" />
+	<raid name="Rats in Thais" file="thais_rats.xml" interval="259200" chance="30" margin="1440" />
 	<!-- Darashia Undeads: average every 5 days (432000s) -->
-	<raid name="Undeads in Darashia" file="darashia_undeads.xml" interval="432000" chance="25" margin="86400" />
+	<raid name="Undeads in Darashia" file="darashia_undeads.xml" interval="432000" chance="25" margin="1440" />
+	<!-- Venore Elves: average every 5 days (432000s) -->
+	<raid name="Elves in Venore" file="venore_elves.xml" interval="432000" chance="25" margin="1440" />
+	<!-- Ankrahmun Scarabs: average every 6 days (518400s) -->
+	<raid name="Scarabs in Ankrahmun" file="ankrahmun_scarabs.xml" interval="518400" chance="20" margin="1440" />
+	<!-- Edron Orshabaal: average every 14 days (1209600s) -->
+	<raid name="Orshabaal in Edron" file="edron_orshabaal.xml" interval="1209600" chance="10" margin="1440" />
 </raids>

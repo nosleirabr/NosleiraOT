@@ -1,19 +1,48 @@
-﻿local keywordHandler = KeywordHandler:new()
+local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)              npcHandler:onCreatureAppear(cid)            end
-function onCreatureDisappear(cid)           npcHandler:onCreatureDisappear(cid)         end
-function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, msg)    end
-function onThink()                          npcHandler:onThink()                        end
-
-npcHandler:setMessage(MESSAGE_GREET, "Welcome to the post office, |PLAYERNAME|.")
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Be greeted, traveller.')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'It was a pleasure to help you.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'It was a pleasure to help you.')
+keywordHandler:addKeyword({'fur'}, StdModule.say, {npcHandler = npcHandler, text = 'As far as I heard some of the minor orcs carry a pice of fur as a fetish or lucky charm with them.'})
+keywordHandler:addKeyword({'headquarter'}, StdModule.say, {npcHandler = npcHandler, text = 'Its humble and practical. Considering we have bases all over the known world we don\'t need a bigger base anyways. On the other hand Mr. Postner is dreaming about a postman academy now and then.'})
+keywordHandler:addKeyword({'markwin'}, StdModule.say, {npcHandler = npcHandler, text = 'This minotaur is quite moody. Better make sure not to anger him. He\'s likely to call for his guards as soon as he notices a stranger, so you are on tough luck if you ever find him.'})
+keywordHandler:addKeyword({'olrik'}, StdModule.say, {npcHandler = npcHandler, text = 'This Olrik was made postman only for convenience. He is quite aware that his attitude and affiliation with the thaian government makes it impossible for him to rise in rank. This leads only to him behaving even worse tough.'})
+keywordHandler:addKeyword({'dove'}, StdModule.say, {npcHandler = npcHandler, text = 'Dove is as good as a dozend pigeons. He He He.'})
+keywordHandler:addKeyword({'brassacres'}, StdModule.say, {npcHandler = npcHandler, text = 'This guy might be hard to find. Hes likely disguising himself. If you see someone suspicious, try to ask other people who are around about him. That might give you some clue.'})
+keywordHandler:addKeyword({'mailbox'}, StdModule.say, {npcHandler = npcHandler, text = 'Our mailboxes are quite reliable but know and then one has to be fixed. Especually in the more rough climates.'})
+keywordHandler:addKeyword({'advancement'}, StdModule.say, {npcHandler = npcHandler, text = 'The exalted archpostman Kevin Postner alone decides about advancement of our members. All ranks come with certain privileges.'})
+keywordHandler:addKeyword({'crowbar'}, StdModule.say, {npcHandler = npcHandler, text = 'Most general stores should sell crowbars. I think the store in Edron sells some for instance.'})
+keywordHandler:addKeyword({'Kazordoon'}, StdModule.say, {npcHandler = npcHandler, text = 'The city of the dwarfs is a bit hidden and new postoficers often get lost while looking for it. Just look for a hidden passage to a western valley in the mountaion called the big old one.'})
+keywordHandler:addKeyword({'carlin'}, StdModule.say, {npcHandler = npcHandler, text = 'Carlin is an upcoming power in theese days. Albeit its ambitions it still dwarfs the old kingdom of thais in power and influence.'})
+keywordHandler:addKeyword({'venore'}, StdModule.say, {npcHandler = npcHandler, text = 'I think no longer is king Tibianus reigning this city, nor are the merchants ruling it, regardless what they might think. The true monarch before whom all there bow is the money.'})
+keywordHandler:addKeyword({'hint'}, StdModule.say, {npcHandler = npcHandler, text = 'I can\'t help you much with your missions. Of course we tell you everything we know and do\'t make our missions needlesly difficult.'})
+keywordHandler:addKeyword({'thais'}, StdModule.say, {npcHandler = npcHandler, text = 'One of the oldest holdings of humanity that still exist and the heart of the biggest kingdom in the known world.'})
+keywordHandler:addKeyword({'kevin'}, StdModule.say, {npcHandler = npcHandler, text = 'Oh, our boss is upstairs. Better only disturb him with important issues though.'})
+keywordHandler:addKeyword({'edron'}, StdModule.say, {npcHandler = npcHandler, text = 'I gues Edron isn\'t the source of wealth and rescources as the thaians hoped. The defection of those knights did cause the expansion and exploitation there to an halt.'})
+keywordHandler:addKeyword({'posthorn'}, StdModule.say, {npcHandler = npcHandler, text = 'A posthorn is a postmens bride ... or a postwomans husband. The only true friend a lonly postofficer has in the foregin lands and dangerous places he has to visit.'})
+keywordHandler:addKeyword({'noodles'}, StdModule.say, {npcHandler = npcHandler, text = 'This dog is his majestys most priced possesion and heavily guarded. Anger the dog and you anger the king.'})
+keywordHandler:addKeyword({'privileges'}, StdModule.say, {npcHandler = npcHandler, text = 'Our privileges are top secret, other people envy us enough already for beeing members in this splendid guild.'})
+keywordHandler:addKeyword({'join'}, StdModule.say, {npcHandler = npcHandler, text = 'You have to talk with the exalted archpostman Kevin Postner if you want to join our prestigeous guild.'})
+keywordHandler:addKeyword({'ben'}, StdModule.say, {npcHandler = npcHandler, text = 'Old Ben lost some of his marbles in some battle long ago. He is still a quite capable postman though ... on second thought thats some disturbing fact.'})
+keywordHandler:addKeyword({'mission'}, StdModule.say, {npcHandler = npcHandler, text = 'Ask Mr. Postner about your current missions.'})
+keywordHandler:addKeyword({'liane'}, StdModule.say, {npcHandler = npcHandler, text = 'Although I never met her in person we became penpals over the time.'})
+keywordHandler:addKeyword({'darama'}, StdModule.say, {npcHandler = npcHandler, text = 'A far away place with strange customs and an even stranger philosophy. One day I might travel there to see it on my own.'})
+keywordHandler:addKeyword({'defection'}, StdModule.say, {npcHandler = npcHandler, text = 'I know nothing special about that story. I only heared that a good part of the knightly order the king sent there succumbed to their lust for wealth and power and turned against their swordbrethren.'})
+keywordHandler:addKeyword({'bones'}, StdModule.say, {npcHandler = npcHandler, text = 'If I would be looking for bones I\'d inspect some skeletons ... If I weren\'t so affraid of them that is.'})
+keywordHandler:addKeyword({'wally'}, StdModule.say, {npcHandler = npcHandler, text = 'Yes, thats me, Wally!'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am working here at the post office for Kevin.'})
+keywordHandler:addKeyword({'uniform'}, StdModule.say, {npcHandler = npcHandler, text = 'We could badly need new uniforms.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'I\'m Wally the post officer.'})
+keywordHandler:addKeyword({'lokur'}, StdModule.say, {npcHandler = npcHandler, text = 'Dwarfs make quite good postmen. They are stubborn, strong and ... sturdy. Its a waste that he prefers a job behind the counter.'})
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 
-shopModule:addBuyableItem({'parcel'}, 2595, 15, 1, 'parcel')
-shopModule:addBuyableItem({'label'}, 2599, 1, 1, 'label')
-shopModule:addBuyableItem({'letter'}, 2597, 8, 1, 'letter')
-
 npcHandler:addModule(FocusModule:new())
+
