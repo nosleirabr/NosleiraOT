@@ -1,43 +1,35 @@
-# Server (TFS 1.2 / Tibia 7.4)
+# OpenTibia-740 (workspace)
 
-## O que é esta camada
+Workspace multi-repo do stack **Tibia 7.4**. Este repositório só tem orquestração (Compose), docs genéricos e bootstrap.
 
-- **Raiz de runtime do server**: `server/server/`
-- **Fontes C++**: `server/src/`
-- **Config**: `server/server/config.lua` (montado nos containers)
-- **Schema do DB**: `server/schema.sql`
-- **Data**: `server/server/data/` (npc, items, actions, spells, etc.)
+## Comece por aqui
 
-## Learnings principais
+1. [`docs/BOOTSTRAP.md`](docs/BOOTSTRAP.md) — clones + stack
+2. [`docs/README.md`](docs/README.md) — índice de documentação
+3. [`AGENTS.md`](AGENTS.md) — roteamento para agentes
+4. [`docs/MAP_AS_CODE_FLOW.md`](docs/MAP_AS_CODE_FLOW.md) — YAML → bake → TFS
 
-- **Login numérico (7.4)**: o client envia account como `uint32`; DB/site devem usar nomes de account numéricos.
-  - Veja `docs/learnings/wiki/login-numeric-accounts-7-4.md`
+## Repositórios (siblings)
 
-## Logs / debugging
+| Pasta local | GitLab |
+|-------------|--------|
+| `server/` | `opentibia-740/server` |
+| `site/` | `opentibia-740/site` |
+| `client/` | `opentibia-740/client` |
+| `maps/` | `opentibia-740/maps` |
+| `tools/map-editor/` | `opentibia-740/tools/map_editor` |
+| `infra/ci-templates/` | `opentibia-740/infra/ci-templates` |
+| `.cursor/` / `.agents/` | `opentibia-740/ai` |
 
-- Prefira logs do docker:
-  - `docker compose logs -f tfs`
+## Stack
 
-## Links
+- Server: TFS 1.2 (Docker build em `server/Dockerfile`)
+- Site: MyAAC (`site/Dockerfile`)
+- Maps: map-as-code (`maps/src` → `otmap build` → `maps/build/world.otbm`)
+- Compose: **este** repo (`docker-compose.yml`)
 
-- Guia do projeto: [`README.md`](../README.md) da raiz (roteamento para agentes: [`AGENTS.md`](../AGENTS.md))
-- Catálogo de learnings: `docs/learnings/index.md`
+## Skills
 
----
+Repo [`opentibia-740/ai`](https://gitlab.com/opentibia-740/ai) clonado em `.cursor` e `.agents` (ver BOOTSTRAP). Catálogo: [`docs/SKILLS.md`](docs/SKILLS.md).
 
-# Upstream: forgottenserver 7.4
-
-Baseado em um branch downgraded por [@ninjalulz](https://github.com/ninjalulz/), que segundo o arquivo 'definition.h' é **TFS 1.2**. O [Forgotten Server](https://github.com/otland/forgottenserver/) original é um emulador de servidor MMORPG gratuito e open-source escrito em C++. É um fork do projeto [OpenTibia Server](https://github.com/opentibia/server). Client customizado incluído (client 7.72 com dat/spr/pic 7.4).
-
-### Getting Started
-
-* [Compiling](https://github.com/otland/forgottenserver/wiki/Compiling)
-* [Scripting Reference](https://github.com/otland/forgottenserver/wiki/Script-Interface)
-
-### Support
-
-Se precisar de ajuda, visite o [nosso tópico no fórum OTLand](https://otland.net/threads/7-4-tfs-1-2.245320/).
-
-### Issues
-
-Usamos o [issue tracker no GitHub](https://github.com/babymannen/theforgottenserver-7.4/issues).
+Brain local: pasta `brain/` (gitignored; ainda não versionada).

@@ -1,0 +1,69 @@
+services:
+  mysql:
+    image: mariadb:10.11
+    container_name: ot74-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ot74}
+      MYSQL_USER: ${MYSQL_USER:-ot74}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ot74}
+    ports:
+      - "${MYSQL_PUBLISH_ADDR:-0.0.0.0}:${MYSQL_PUBLISH_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./server/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  tfs:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: ot74-tfs
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      MYSQL_HOST: ${MYSQL_HOST:-mysql}
+      MYSQL_PORT: ${MYSQL_PORT:-3306}
+      MYSQL_USER: ${MYSQL_USER:-ot74}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ot74}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ot74}
+      SERVER_IP: ${SERVER_IP:-127.0.0.1}
+    ports:
+      - "${LOGIN_PORT:-7171}:7171"
+      - "${GAME_PORT:-7172}:7172"
+    volumes:
+      - ./server/server:/srv
+      - ./maps/build/world.otbm:/srv/data/world/world.otbm:ro
+      - ./maps/world-spawn.xml:/srv/data/world/world-spawn.xml:ro
+      - ./maps/world-house.xml:/srv/data/world/world-house.xml:ro
+    working_dir: /srv
+
+  myaac:
+    build:
+      context: ./site
+      dockerfile: Dockerfile
+    container_name: ot74-myaac
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "${SITE_PUBLISH_ADDR:-0.0.0.0}:${SITE_PORT:-8080}:80"
+    volumes:
+      - ./site:/var/www/html
+      - ./server/server:/srv:ro
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ot74}
+      MYSQL_USER: ${MYSQL_USER:-ot74}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ot74}
+
+volumes:
+  mysql_data:
