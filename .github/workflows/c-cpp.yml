@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: Server C/C++ CI
 
 on:
   push:
@@ -8,16 +8,32 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./server
 
     steps:
     - uses: actions/checkout@v4
-    - name: configure
-      run: ./configure
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake pkg-config libboost-system-dev libboost-iostreams-dev liblua5.3-dev libmysqlclient-dev libpugixml-dev libgmp-dev
+        
+    - name: Disable cotire
+      run: |
+        sed -i 's/include(cotire)/#include(cotire)/' CMakeLists.txt
+        sed -i '/set_target_properties(tfs PROPERTIES COTIRE/d' CMakeLists.txt
+        sed -i '/cotire(tfs)/d' CMakeLists.txt
+        
+    - name: Configure CMake
+      run: |
+        mkdir -p build
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Release -DUSE_LUAJIT=OFF -DLUA_INCLUDE_DIR=/usr/include/lua5.3 -DLUA_LIBRARY=/usr/lib/x86_64-linux-gnu/liblua5.3.so
+        
+    - name: Build
+      run: |
+        cd build
+        cmake --build . -- -j"$(nproc)"
