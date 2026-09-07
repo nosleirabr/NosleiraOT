@@ -1,0 +1,11 @@
+﻿# Runtime / local
+*.map
+*.log
+ot74-client.log
+ot74-poc-v8.log
+
+# Nested clone leftover
+.git/
+
+# Developer-only feature overrides (never ship to players)
+/dev_features.lua

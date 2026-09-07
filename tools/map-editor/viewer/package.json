@@ -1,0 +1,13 @@
+{
+  "name": "ot74-map-viewer-qa",
+  "private": true,
+  "type": "module",
+  "description": "Playwright QA for the OT 7.4 map viewer",
+  "scripts": {
+    "qa:editor": "node qa-editor.mjs",
+    "qa:chests": "node qa-quest-chests.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.58.2"
+  }
+}

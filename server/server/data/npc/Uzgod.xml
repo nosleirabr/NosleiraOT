@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<npc name="Uzgod" script="uzgod.lua" walkinterval="2000" floorchange="0">
+  <health now="100" max="100" />
+  <look type="160" head="96" body="60" legs="97" feet="116" />
+  <parameters></parameters>
+</npc>

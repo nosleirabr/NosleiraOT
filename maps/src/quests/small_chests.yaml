@@ -1,0 +1,78 @@
+kind: quest
+name: small_chests
+patches:
+  - at: [33313, 31591, 15]
+    aid: 2000
+    uid: 10005
+    id: 1740
+    contents:
+      - id: 2493
+  - at: [33313, 31592, 15]
+    aid: 2000
+    uid: 10006
+    id: 1740
+    contents:
+      - id: 2520
+  - at: [33313, 31593, 15]
+    aid: 2000
+    uid: 10007
+    id: 1740
+    contents:
+      - id: 2645
+  - at: [32144, 32096, 11]
+    aid: 2000
+    uid: 2460
+    id: 1740
+    contents:
+      - id: 2460
+  - at: [32141, 32097, 11]
+    aid: 2000
+    uid: 2464
+    id: 1740
+    contents:
+      - id: 2464
+  - at: [32146, 32097, 11]
+    aid: 2000
+    uid: 52148
+    id: 1740
+    contents:
+      - id: 2088
+        aid: 4601
+  - at: [32149, 32105, 11]
+    aid: 2000
+    uid: 52149
+    id: 1740
+    contents:
+      - id: 2149
+  - at: [32124, 32064, 12]
+    aid: 2000
+    uid: 2395
+    id: 1741
+    contents:
+      - id: 2395
+  - at: [32127, 32065, 12]
+    aid: 2000
+    uid: 52159
+    id: 1741
+    contents:
+      - id: 2159
+  - at: [32130, 32066, 12]
+    aid: 2000
+    uid: 2580
+    id: 1741
+    contents:
+      - id: 2580
+  - at: [32005, 32139, 3]
+    aid: 2000
+    uid: 2103
+    id: 2103
+  - at: [32102, 32235, 8]
+    aid: 2000
+    uid: 2404
+    id: 1740
+    contents:
+      - id: 2404
+  - at: [32179, 32224, 9]
+    aid: 2000
+    uid: 54322
+    id: 3104

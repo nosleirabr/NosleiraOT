@@ -1,0 +1,19 @@
+kind: quest
+name: bright_sword
+patches:
+  - at: [32594, 32212, 9]
+    aid: 30047
+    match: [1945, 1946]
+  # Uids 10027/10028 are Medusa Shield quest (Drefia) — do not reuse.
+  - at: [32632, 32228, 8]
+    aid: 2000
+    uid: 10047
+    contents:
+      - id: 2407 # bright sword
+  # Tile vizinho não tinha contentor; dead tree próximo (find-match).
+  - at: [32651, 32244, 7]
+    aid: 2000
+    uid: 10048
+    match: [2720, 2709, 2710, 2711, 2712, 2713, 2714, 2715, 2716, 2717, 2718, 2719]
+    contents:
+      - id: 2156 # red gem

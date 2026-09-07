@@ -1,0 +1,44 @@
+local keywordHandler = KeywordHandler:new()
+local npcHandler = NpcHandler:new(keywordHandler)
+NpcSystem.parseParameters(npcHandler)
+
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'The Hard Rock Tavern greets you, |PLAYERNAME|.')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Good bye, |PLAYERNAME|. Tell your friends about us and visit us again.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Good bye, |PLAYERNAME|. Tell your friends about us and visit us again.')
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am running this upper part of the Hard Rock Tavern.'})
+keywordHandler:addKeyword({'pits'}, StdModule.say, {npcHandler = npcHandler, text = 'Well, they do a lot of fighting down there.'})
+keywordHandler:addKeyword({'amazon'}, StdModule.say, {npcHandler = npcHandler, text = 'I can only hope those wild women don\'t scare away more customers than come here in order to fight against them.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'I am Maria.'})
+keywordHandler:addKeyword({'food'}, StdModule.say, {npcHandler = npcHandler, text = 'We offer cookies, bread, cheese, ham, and meat, as well as eggs and tomatoes.'})
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'Don\'t be that hasty.'})
+keywordHandler:addKeyword({'carlin'}, StdModule.say, {npcHandler = npcHandler, text = 'As far as the merchants say it\'s economically unimportant.'})
+keywordHandler:addKeyword({'swampelves'}, StdModule.say, {npcHandler = npcHandler, text = 'Well there\'s a hidden city called Shadowthorn of those warlike elves in the swamps. They are not amused of civilisation at their doorsteps and have been plotting against Venore for years.'})
+keywordHandler:addKeyword({'army'}, StdModule.say, {npcHandler = npcHandler, text = 'Good fighters need good entertainment. That\'s what they get here.'})
+keywordHandler:addKeyword({'maria'}, StdModule.say, {npcHandler = npcHandler, text = 'Yes, I am Maria, Maria Corona.'})
+keywordHandler:addKeyword({'ferumbras'}, StdModule.say, {npcHandler = npcHandler, text = 'I think he\'s more a Thaian problem.'})
+keywordHandler:addKeyword({'tibia'}, StdModule.say, {npcHandler = npcHandler, text = 'In the long run it\'s money that rules everything in Tibia.'})
+keywordHandler:addKeyword({'david'}, StdModule.say, {npcHandler = npcHandler, text = 'I am sorry but I don\'t know him personaly. I heared he entertained people here long before I moved to Venore.'})
+keywordHandler:addKeyword({'king'}, StdModule.say, {npcHandler = npcHandler, text = 'In Venore, everyone is a king ... until he runs out of luck or money.'})
+keywordHandler:addKeyword({'drink'}, StdModule.say, {npcHandler = npcHandler, text = 'Do you want beer, wine, lemonade, or water?'})
+keywordHandler:addKeyword({'news'}, StdModule.say, {npcHandler = npcHandler, text = 'Bah, only the usual swampelves stories.'})
+keywordHandler:addKeyword({'thais'}, StdModule.say, {npcHandler = npcHandler, text = 'It\'s a shame that this lousy city is the heart of the kingdom.'})
+keywordHandler:addKeyword({'buy'}, StdModule.say, {npcHandler = npcHandler, text = 'Food and drinks as much as you can pay for.'})
+keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler, text = 'I\'d rather have a stainless steel cooking pan than such a knife.'})
+
+local shopModule = ShopModule:new()
+npcHandler:addModule(shopModule)
+shopModule:addBuyableItem({'egg'}, 3606, 2, 'egg')
+shopModule:addBuyableItem({'lemonade'}, 2880, 2, 'lemonade')
+shopModule:addBuyableItem({'cheese'}, 3607, 6, 'cheese')
+shopModule:addBuyableItem({'bread'}, 3600, 4, 'bread')
+shopModule:addBuyableItem({'tomato'}, 3596, 5, 'tomato')
+shopModule:addBuyableItem({'ham'}, 3582, 8, 'ham')
+shopModule:addBuyableItem({'cookie'}, 3598, 5, 'cookie')
+shopModule:addBuyableItem({'meat'}, 3577, 5, 'meat')
+
+npcHandler:addModule(FocusModule:new())
+

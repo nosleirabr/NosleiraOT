@@ -1,0 +1,15 @@
+kind: quest
+name: postman
+patches:
+  # Caixa na troll cave (z=11); YAML antigo 32431,32241,10 só tinha ground.
+  - at: [32443, 32238, 11]
+    aid: 2000
+    uid: 10030
+    contents:
+      - id: 2332 # post horn
+boxes:
+  # Kevin (Thais post, z=6) — box antigo 32320,31960,8 não tinha portas no realmap.
+  - from: [32358, 32218, 6]
+    to: [32360, 32230, 6]
+    aid: 30052
+    kind: door

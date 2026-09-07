@@ -170,3 +170,11 @@ pip-log.txt
 .*.swp
 .*.swo
 
+
+/.cursor/
+/.agents/
+/brain/
+.env
+.env.*
+!.env.template
+

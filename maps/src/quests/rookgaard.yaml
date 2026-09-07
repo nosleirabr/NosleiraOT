@@ -1,0 +1,42 @@
+kind: quest
+name: rookgaard
+patches:
+  - at: [32092, 32162, 8]
+    aid: 2000
+    uid: 2050 # Sewer Torch Quest
+  - at: [32099, 32198, 9]
+    aid: 2000
+    uid: 2384 # Rapier Quest
+  - at: [32174, 32149, 11]
+    aid: 2000
+    uid: 2412 # Katana Quest
+  - at: [32175, 32145, 11]
+    aid: 2000
+    uid: 2473 # Viking Helmet Quest
+  - at: [32176, 32132, 9]
+    aid: 2000
+    uid: 20002 # Katana Quest Key 4603
+  - at: [32150, 32111, 12]
+    aid: 2000
+    uid: 20003 # Bear Room Quest Chest
+  - at: [32171, 32197, 7]
+    aid: 2000
+    uid: 20001 # Leather Armor Quest
+  - at: [31973, 32209, 12]
+    aid: 2000
+    uid: 52169
+  - at: [31977, 32209, 12]
+    aid: 2000
+    uid: 52170
+  - at: [32039, 32121, 13]
+    aid: 2000
+    uid: 52171
+  - at: [32098, 32204, 8]
+    aid: 50001 # Bear Room Lever 1
+    match: [1945, 1946]
+  - at: [32104, 32204, 8]
+    aid: 50001 # Bear Room Lever 2
+    match: [1945, 1946]
+  - at: [32182, 32145, 11]
+    aid: 52412 # Katana Quest Poison/Gate Lever
+    match: [1945, 1946]

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<npc name="Velvet" script="velvet.lua" walkinterval="3000" floorchange="0">
+  <health now="100" max="100" />
+  <look type="136" head="59" body="96" legs="115" feet="95" />
+  <parameters></parameters>
+</npc>

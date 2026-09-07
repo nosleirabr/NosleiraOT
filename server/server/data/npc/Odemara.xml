@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Odemara" script="odemara.lua" walkinterval="3000" floorchange="0">
+	<health now="100" max="100" />
+	<look type="138" head="22" body="99" legs="5" feet="76" />
+</npc>
+

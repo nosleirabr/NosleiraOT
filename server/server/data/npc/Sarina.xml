@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Sarina" script="sarina.lua" walkinterval="3000" floorchange="0">
+	<health now="100" max="100" />
+	<look type="136" head="41" body="72" legs="95" feet="96" />
+	<parameters>
+		<parameter key="module_shop" value="1" />
+		<parameter key="message_greet" value="Hello |PLAYERNAME|. Tools and supplies. Want to buy some {equipment}?" />
+		<parameter key="shop_buyable" value="backpack,1988,20;bag,1987,5;fishing rod,2580,150;rope,2120,50;shovel,2554,50;torch,2050,2" />
+		<parameter key="shop_sellable" value="fishing rod,2580,40;rope,2120,15;shovel,2554,8" />
+	</parameters>
+</npc>
+

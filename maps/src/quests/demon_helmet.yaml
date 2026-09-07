@@ -1,0 +1,6 @@
+kind: quest
+name: demon_helmet
+patches:
+  - at: [33330, 31591, 15]
+    aid: 50666
+    match: [1945, 1946]

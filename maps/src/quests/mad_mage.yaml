@@ -1,0 +1,25 @@
+kind: quest
+name: mad_mage
+patches:
+  - at: [32413, 32230, 10]
+    aid: 30046
+    match: [1945, 1946]
+  # Baús no z=15 (YAML antigo apontava z=14 vazio); find-match no baked OTBM.
+  - at: [32416, 32215, 15]
+    aid: 2000
+    uid: 10055
+    match: [1739, 1740, 1741, 1774, 1775]
+    contents:
+      - id: 2323 # hat of the mad
+  - at: [32416, 32216, 15]
+    aid: 2000
+    uid: 10056
+    match: [1739, 1740, 1741, 1774, 1775]
+    contents:
+      - id: 2197 # stone skin amulet (7.4)
+  - at: [32416, 32217, 15]
+    aid: 2000
+    uid: 10057
+    match: [1739, 1740, 1741, 1770, 1774, 1775]
+    contents:
+      - id: 2131 # star amulet (7.4)

@@ -1,0 +1,33 @@
+kind: quest
+name: deeper_fibula
+patches:
+  # Realmap: TP em 32172,32439,8 (YAML 32174,32437,9 vazio).
+  - at: [32172, 32439, 8]
+    aid: 30071
+    match: [1386, 1387]
+  # Sala de recompensas no realmap: baús em Fibula z=7 (YAML 32320,32460,9 estava vazio).
+  - at: [32165, 32435, 7]
+    aid: 2000
+    uid: 10050
+    contents:
+      - id: 2528 # tower shield
+  - at: [32166, 32435, 7]
+    aid: 2000
+    uid: 10051
+    contents:
+      - id: 2430 # knight axe
+  - at: [32165, 32439, 7]
+    aid: 2000
+    uid: 10052
+    contents:
+      - id: 2475 # warrior helmet
+  - at: [32166, 32439, 7]
+    aid: 2000
+    uid: 10053
+    contents:
+      - id: 2213 # dwarven ring
+  - at: [32163, 32433, 7]
+    aid: 2000
+    uid: 10054
+    contents:
+      - id: 2197 # elven amulet

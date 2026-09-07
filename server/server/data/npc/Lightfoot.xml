@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<npc name="Lightfoot" script="lightfoot.lua" walkinterval="2000" floorchange="0">
+  <health now="100" max="100" />
+  <look type="32" head="20" body="30" legs="40" feet="50" />
+  <parameters></parameters>
+</npc>

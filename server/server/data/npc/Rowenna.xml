@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Rowenna" script="rowenna.lua" walkinterval="3000" floorchange="0">
+	<health now="100" max="100" />
+	<look type="139" head="132" body="38" legs="76" feet="38" />
+	<parameters>
+		<parameter key="module_shop" value="1" />
+		<parameter key="message_greet" value="Hello |PLAYERNAME|. Fine weapons. Want to buy a {weapon}?" />
+		<parameter key="shop_buyable" value="axe,2386,20;dagger,2379,5;mace,2398,90;rapier,2384,15;sabre,2385,35;short sword,2406,30;spear,2389,10;sword,2376,85" />
+		<parameter key="shop_sellable" value="axe,2386,7;dagger,2379,2;mace,2398,30;rapier,2384,5;sabre,2385,12;short sword,2406,10;spear,2389,3;sword,2376,25" />
+	</parameters>
+</npc>
+

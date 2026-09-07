@@ -1,0 +1,47 @@
+kind: quest
+name: banshee
+patches:
+  - at: [32220, 31842, 15]
+    aid: 30041
+    match: [1945, 1946]
+  - at: [32220, 31843, 15]
+    aid: 30042
+    match: [1945, 1946]
+  - at: [32220, 31844, 15]
+    aid: 30043
+    match: [1945, 1946]
+  - at: [32220, 31845, 15]
+    aid: 30044
+    match: [1945, 1946]
+  - at: [32220, 31846, 15]
+    aid: 30045
+    match: [1945, 1946]
+  # Realmap sem baús na sala — id: cria 1740 (como Game.createItem do injector).
+  - at: [32215, 31850, 15]
+    id: 1740
+    aid: 2000
+    uid: 10061 # Banshee: boots of haste
+    contents:
+      - id: 2195 # boots of haste
+  - at: [32216, 31850, 15]
+    id: 1740
+    aid: 2000
+    uid: 10062 # Banshee: giant sword
+    contents:
+      - id: 2393 # giant sword
+  - at: [32217, 31850, 15]
+    id: 1740
+    aid: 2000
+    uid: 10063 # Banshee: tower shield
+    contents:
+      - id: 2528 # tower shield
+  - at: [32218, 31850, 15]
+    id: 1740
+    aid: 2000
+    uid: 10064 # Banshee: stealth ring
+    contents:
+      - id: 2165 # stealth ring
+  # Pearl seal: YAML 32269,31861,11 sem TP; cluster real em 32266,318xx,12.
+  - at: [32266, 31860, 12]
+    aid: 30048
+    match: [1386, 1387]

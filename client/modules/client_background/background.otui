@@ -1,0 +1,75 @@
+UIWidget
+  id: background
+  anchors.fill: parent
+  focusable: false
+  image-source: /images/background
+  image-smooth: true
+
+  MainMenuPanel
+    id: mainMenuPanel
+    size: 117 171
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+    margin-left: 60
+    margin-bottom: 70
+    phantom: true
+
+  UIWidget
+    id: mainMenuButtons
+    size: 117 171
+    anchors.left: mainMenuPanel.left
+    anchors.top: mainMenuPanel.top
+    focusable: false
+
+    MainMenuButton
+      id: enterGameButton
+      !text: tr('Enter Game')
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.top: parent.top
+      margin-top: 16
+      @onClick: MainMenu.onEnterGame()
+
+    MainMenuButton
+      id: accessAccountButton
+      !text: tr('Access Account')
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.top: parent.top
+      margin-top: 46
+      @onClick: MainMenu.onAccessAccount()
+
+    MainMenuButton
+      id: optionsButton
+      !text: tr('Options')
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.top: parent.top
+      margin-top: 76
+      @onClick: MainMenu.onOptions()
+
+    MainMenuButton
+      id: infoButton
+      !text: tr('Info')
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.top: parent.top
+      margin-top: 106
+      @onClick: MainMenu.onInfo()
+
+    MainMenuButton
+      id: exitGameButton
+      !text: tr('Exit Game')
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.top: parent.top
+      margin-top: 136
+      @onClick: MainMenu.onExit()
+
+  UILabel
+    id: clientVersionLabel
+    background-color: #00000099
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    text-align: center
+    text-auto-resize: false
+    width: 220
+    height: 90
+    padding: 2
+    color: #ffffff
+    font: terminus-14px-bold

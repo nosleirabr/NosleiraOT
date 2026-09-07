@@ -1,0 +1,48 @@
+kind: quest
+name: hota
+# 10044 OK no YAML antigo. Demais patches apontavam tiles sem sarcófago/baú.
+# No baked realmap só há contentores livres no cluster Omruc (~3321x,3299x,14) + 2 sarcófagos 1409.
+# Peças recolocadas aí até auditoria tomb-a-tomb; não é a distribuição clássica 1/tomba.
+patches:
+  - at: [33207, 32897, 14]
+    aid: 2000
+    uid: 10040
+    match: [1408, 1409, 1738, 1739, 1740, 1741]
+    contents:
+      - id: 2335 # Ashmunrah: left horn
+  - at: [33217, 32897, 14]
+    aid: 2000
+    uid: 10041
+    match: [1408, 1409, 1738, 1739, 1740, 1741]
+    contents:
+      - id: 2336 # Dipthrah: right horn
+  - at: [33210, 32999, 14]
+    aid: 2000
+    uid: 10042
+    contents:
+      - id: 2337 # Mahrdis: left piece
+  - at: [33212, 33001, 14]
+    aid: 2000
+    uid: 10043
+    contents:
+      - id: 2338 # Morguthis: right piece
+  - at: [33212, 32999, 14]
+    aid: 2000
+    uid: 10044
+    contents:
+      - id: 2339 # Omruc: left eye
+  - at: [33209, 32999, 14]
+    aid: 2000
+    uid: 10045
+    contents:
+      - id: 2340 # Rahemos: right eye
+  - at: [33210, 33002, 14]
+    aid: 2000
+    uid: 10046
+    contents:
+      - id: 2341 # Thalas: helmet ornament
+  # Forge: realmap sem alavanca — id: cria (injector fazia Game.createItem).
+  - at: [33186, 32672, 13]
+    id: 1945
+    aid: 30070
+    match: [1945, 1946]

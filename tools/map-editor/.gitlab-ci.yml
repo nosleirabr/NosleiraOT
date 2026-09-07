@@ -1,0 +1,24 @@
+include:
+  - project: opentibia-740/infra/ci-templates
+    ref: main
+    file:
+      - /templates/defaults.yml
+      - /jobs/workspace.yml
+      - /jobs/dotnet.yml
+
+variables:
+  OT740_REPO_ROLE: map-editor
+  OT740_DOTNET_BUILD_PROJECT: tools/map-editor/Ot74.Map.Cli/Ot74.Map.Cli.csproj
+  OT740_DOTNET_TEST_PROJECT: tools/map-editor/tests/Ot74.Map.Tests/Ot74.Map.Tests.csproj
+
+dotnet-build:
+  extends:
+    - .ot740_workspace_before_script
+    - .ot740_dotnet_build
+
+dotnet-test-l1-l2:
+  extends:
+    - .ot740_workspace_before_script
+    - .ot740_dotnet_test
+  needs:
+    - dotnet-build

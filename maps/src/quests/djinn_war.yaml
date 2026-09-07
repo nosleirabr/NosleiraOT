@@ -1,0 +1,36 @@
+kind: quest
+name: djinn_war
+patches:
+  # Torres reais (YAML antigo 33042/33060 z=2 estava vazio).
+  - at: [33100, 32519, 2]
+    aid: 2000
+    uid: 10031 # Marid / Blue Djinn — gemmed lamp
+    contents:
+      - id: 2344 # gemmed lamp
+      - id: 2152 # platinum coin
+        count: 6
+  - at: [33044, 32619, 5]
+    aid: 2000
+    uid: 10032 # Efreet / Green Djinn — gemmed lamp
+    contents:
+      - id: 2344
+      - id: 2152
+        count: 6
+boxes:
+  # Entrada + base da torre Marid (injector tinha dois boxes com o mesmo aid).
+  - from: [33030, 32310, 7]
+    to: [33060, 32330, 7]
+    aid: 30061
+    kind: door
+  - from: [33090, 32510, 1]
+    to: [33110, 32540, 7]
+    aid: 30061
+    kind: door
+  - from: [33050, 32260, 7]
+    to: [33080, 32290, 7]
+    aid: 30062
+    kind: door
+  - from: [33035, 32615, 1]
+    to: [33055, 32640, 7]
+    aid: 30062
+    kind: door

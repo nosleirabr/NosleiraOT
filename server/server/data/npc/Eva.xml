@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<npc name="Eva" script="eva.lua" walkinterval="2000" floorchange="0">
+  <health now="100" max="100" />
+  <look type="136" head="96" body="98" legs="95" feet="0" />
+  <parameters></parameters>
+</npc>

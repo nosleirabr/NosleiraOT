@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>otmap</AssemblyName>
+    <RootNamespace>Ot74.Map.Cli</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="YamlDotNet" Version="16.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Ot74.Map.Core\Otbm\*.cs" Link="Core\%(Filename)%(Extension)" />
+    <Compile Include="..\Ot74.Map.Source\*.cs" Link="Source\%(Filename)%(Extension)" />
+    <Compile Include="..\Ot74.Map.Items\*.cs" Link="Items\%(Filename)%(Extension)" />
+    <Compile Include="..\Ot74.Map.Sprites\*.cs" Link="Sprites\%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

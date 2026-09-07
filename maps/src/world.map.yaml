@@ -1,0 +1,28 @@
+kind: world
+name: opentibia-740
+# Fonte = sectors/ + meta/ + quests/. Sem baseline OTBM no Git.
+sectors: sectors
+regions:
+  - regions/*.yaml
+quests:
+  - quests/annihilator.yaml
+  - quests/desert.yaml
+  - quests/paradox.yaml
+  - quests/demon_helmet.yaml
+  - quests/behemoth_quest.yaml
+  - quests/rookgaard.yaml
+  - quests/chests_main.yaml
+  - quests/banshee.yaml
+  - quests/mad_mage.yaml
+  - quests/bright_sword.yaml
+  - quests/postman.yaml
+  - quests/djinn_war.yaml
+  - quests/hota.yaml
+  - quests/deeper_fibula.yaml
+  - quests/decorative_levers.yaml
+  - quests/level_doors.yaml
+  - quests/small_chests.yaml
+townsFile: meta/towns.yaml
+waypointsFile: meta/waypoints.yaml
+mapDataFile: meta/mapdata.yaml
+headerFile: meta/header.yaml

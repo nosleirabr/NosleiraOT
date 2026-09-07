@@ -1,0 +1,91 @@
+kind: quest
+name: chests_main
+patches:
+  - at: [32593, 31647, 4]
+    aid: 2000
+    uid: 10014 # Elvenbane
+  - at: [32880, 31955, 11]
+    aid: 2000
+    uid: 10019 # Crown Armor
+  - at: [32868, 31955, 11]
+    aid: 2000
+    uid: 10017 # Crown Shield
+  - at: [32781, 32327, 7]
+    aid: 2000
+    uid: 10016 # Key 5010
+  - at: [32980, 31727, 9]
+    aid: 2000
+    uid: 10011 # Fire Sword
+  - at: [32981, 31727, 9]
+    aid: 2000
+    uid: 10012 # Knight Armor
+  - at: [32985, 31727, 9]
+    aid: 2000
+    uid: 10013 # Knight Axe
+  # DH levers (não confundir com Behemoth 50667 em 33290,31715,12).
+  - at: [33330, 31591, 15]
+    aid: 50666
+    match: [1945, 1946]
+  - at: [33316, 31591, 15]
+    aid: 50667
+    match: [1387]
+  # Ported from PR #122 (epic-82) — fixed UIDs; do not reuse postman 10030 / banshee range.
+  - at: [32331, 32262, 8]
+    aid: 2000
+    uid: 10029 # Mintwallin Cyclops (4-item chest)
+    contents:
+      - id: 2464 # chain armor
+      - id: 2458 # chain helmet
+      - id: 2388 # hatchet
+      - id: 2145 # small diamond
+  - at: [32421, 32215, 15]
+    aid: 2000
+    uid: 10058 # Small Ruby (PR used 10030 — reserved for post horn)
+    contents:
+      - id: 2147 # small ruby
+  - at: [32761, 32013, 7]
+    aid: 2000
+    uid: 10021 # Blood Herb (dead tree Green Claw; find-match vs OTBM)
+    match: [2720, 2709, 2710, 2711, 2712, 2713, 2714, 2715, 2716, 2717, 2718, 2719]
+  - at: [32453, 32048, 8]
+    aid: 2000
+    uid: 10022 # Noble Armor (Mt Sternum crypt; find-match)
+  - at: [32403, 32061, 10]
+    aid: 2000
+    uid: 10059 # Crown Helmet (Mt Sternum; find-match)
+  # Realmap sem baús neste cluster — id: cria (como injector).
+  - at: [32813, 32361, 12]
+    id: 1740
+    aid: 2000
+    uid: 10023 # Griffin Shield
+  - at: [32814, 32361, 12]
+    id: 1740
+    aid: 2000
+    uid: 10060 # Obsidian Lance
+scans:
+  - center: [32587, 32256, 8]
+    radius: 10
+    uids: [10010]
+  - center: [33163, 31646, 11]
+    radius: 20
+    uids: [10015, 10026]
+  - center: [33081, 31658, 11]
+    radius: 10
+    uids: [10018]
+  - center: [33220, 32389, 3]
+    radius: 10
+    uids: [10017]
+  - center: [32479, 31611, 15]
+    radius: 15
+    uids: [10020] # Golden Armor (Warlock); do not reuse Medusa 10028
+  - center: [32470, 32250, 9]
+    radius: 15
+    uids: [10024]
+  - center: [32250, 31800, 8]
+    radius: 15
+    uids: [10025]
+boxes:
+  - from: [32669, 32067, 8]
+    to: [32675, 32073, 8]
+    aid: 30018
+    kind: chest

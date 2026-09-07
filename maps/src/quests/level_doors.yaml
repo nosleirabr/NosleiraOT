@@ -1,0 +1,102 @@
+kind: quest
+name: level_doors
+patches:
+  - at: [32212, 32435, 10]
+    aid: 1050
+    transform: 1229
+  - at: [32483, 31630, 10]
+    aid: 1030
+    transform: 1229
+  - at: [32486, 31633, 10]
+    aid: 1030
+    transform: 1227
+  - at: [32479, 31634, 10]
+    aid: 1030
+    transform: 1227
+  - at: [32483, 31635, 10]
+    aid: 1030
+    transform: 1229
+  - at: [32602, 32207, 10]
+    aid: 1045
+    transform: 1229
+  - at: [33085, 31650, 10]
+    aid: 1060
+    transform: 1227
+  - at: [32353, 32073, 11]
+    aid: 1040
+    transform: 1227
+  - at: [33032, 32398, 11]
+    aid: 1060
+    transform: 1227
+  - at: [33037, 32398, 11]
+    aid: 1060
+    transform: 1227
+  - at: [33302, 31691, 11]
+    aid: 1030
+    transform: 1227
+  - at: [33302, 31692, 11]
+    aid: 1030
+    transform: 1227
+  - at: [32874, 31974, 12]
+    aid: 1050
+    transform: 1229
+  - at: [32875, 31974, 12]
+    aid: 1050
+    transform: 1229
+  - at: [32475, 31946, 13]
+    aid: 1035
+    transform: 1229
+  - at: [32510, 31956, 13]
+    aid: 1032
+    transform: 1229
+  - at: [33211, 31638, 13]
+    aid: 1100
+    transform: 1229
+  - at: [33214, 31671, 13]
+    aid: 1100
+    transform: 1227
+  - at: [33216, 31671, 13]
+    aid: 1100
+    transform: 1227
+  - at: [32223, 31869, 14]
+    aid: 1060
+    transform: 1229
+  - at: [32544, 32179, 14]
+    aid: 1040
+    transform: 1229
+  - at: [33190, 31684, 14]
+    aid: 1070
+    transform: 1229
+  - at: [33195, 31684, 14]
+    aid: 1070
+    transform: 1229
+  - at: [33297, 31670, 14]
+    aid: 1080
+    transform: 1229
+  - at: [32483, 31722, 15]
+    aid: 1060
+    transform: 1227
+  - at: [32424, 32145, 15]
+    aid: 1030
+    transform: 1227
+  - at: [32479, 32174, 15]
+    aid: 1030
+    transform: 1227
+  - at: [32804, 31583, 2]
+    aid: 1025
+    transform: 1229
+  - at: [32567, 31969, 3]
+    aid: 1030
+    transform: 1227
+  - at: [32448, 32042, 8]
+    aid: 1035
+    transform: 1229
+  - at: [32673, 32100, 8]
+    aid: 1020
+    transform: 1229
+  - at: [32325, 32389, 9]
+    aid: 1025
+    transform: 1229
+  - at: [32981, 31760, 9]
+    aid: 1040
+    transform: 1229

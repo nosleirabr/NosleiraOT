@@ -1,0 +1,28 @@
+-- Copy to `dev_features.lua` in this folder (gitignored) to re-enable non-7.4
+-- features while developing. Do NOT distribute that file to players.
+--
+-- Return a table; only listed keys are overridden. Defaults live in ot74_dev.lua.
+--
+-- Example: turn on action bars + terminal for a stripping session:
+-- return {
+--   actionBars = true,
+--   luaTerminal = true,
+-- }
+
+return {
+  -- bot = true,
+  -- lightHack = true,
+  -- actionBars = true,
+  -- topBar = true,
+  -- healthOverlays = true,
+  -- fpsPingOverlay = true,
+  -- questLog = true,
+  -- cooldownWidgets = true,
+  -- profiles = true,
+  -- shaders = true,
+  -- clientFeedback = true,
+  -- mobileUi = true,
+  -- luaTerminal = true,
+  -- loginTopMenu = true,
+  -- loginBranding = true,
+}

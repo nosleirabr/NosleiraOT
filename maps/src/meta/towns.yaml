@@ -1,0 +1,290 @@
+kind: towns
+towns:
+- id: 1
+  name: Rookgaard
+  temple:
+  - 32097
+  - 32219
+  - 7
+- id: 2
+  name: Thais
+  temple:
+  - 32369
+  - 32241
+  - 7
+- id: 3
+  name: Carlin
+  temple:
+  - 32360
+  - 31782
+  - 7
+- id: 4
+  name: Kazordoon
+  temple:
+  - 32649
+  - 31925
+  - 11
+- id: 5
+  name: Ab'Dendriel
+  temple:
+  - 32732
+  - 31634
+  - 7
+- id: 6
+  name: Edron
+  temple:
+  - 33217
+  - 31814
+  - 8
+- id: 7
+  name: Darashia
+  temple:
+  - 33213
+  - 32454
+  - 1
+- id: 8
+  name: Venore
+  temple:
+  - 32957
+  - 32076
+  - 7
+- id: 9
+  name: Ankrahmun
+  temple:
+  - 33194
+  - 32853
+  - 8
+- id: 10
+  name: Isle of Solitude
+  temple:
+  - 32316
+  - 31942
+  - 7
+- id: 11
+  name: Fibula
+  temple:
+  - 32176
+  - 32437
+  - 7
+- id: 12
+  name: Senja
+  temple:
+  - 32125
+  - 31667
+  - 7
+- id: 13
+  name: Folda
+  temple:
+  - 32046
+  - 31582
+  - 7
+- id: 14
+  name: Vega
+  temple:
+  - 32027
+  - 31692
+  - 7
+- id: 15
+  name: Havoc
+  temple:
+  - 32783
+  - 32243
+  - 6
+- id: 16
+  name: Orc
+  temple:
+  - 32901
+  - 31771
+  - 7
+- id: 17
+  name: Minocity
+  temple:
+  - 32404
+  - 32124
+  - 15
+- id: 18
+  name: Minoroom
+  temple:
+  - 32139
+  - 32109
+  - 11
+- id: 19
+  name: Desert
+  temple:
+  - 32653
+  - 32117
+  - 7
+- id: 20
+  name: Swamp
+  temple:
+  - 32724
+  - 31976
+  - 6
+- id: 21
+  name: Home
+  temple:
+  - 32316
+  - 31942
+  - 7
+- id: 22
+  name: Mists
+  temple:
+  - 32854
+  - 32333
+  - 6
+- id: 23
+  name: FibulaDungeon
+  temple:
+  - 32189
+  - 32426
+  - 9
+- id: 24
+  name: DragonIsle
+  temple:
+  - 32781
+  - 31603
+  - 7
+- id: 25
+  name: HellsGate
+  temple:
+  - 32675
+  - 31648
+  - 10
+- id: 26
+  name: Necropolis
+  temple:
+  - 32786
+  - 31683
+  - 14
+- id: 27
+  name: Trollcaves
+  temple:
+  - 32493
+  - 32259
+  - 8
+- id: 28
+  name: Elvenbane
+  temple:
+  - 32590
+  - 31657
+  - 7
+- id: 29
+  name: Fieldofglory
+  temple:
+  - 32430
+  - 31671
+  - 7
+- id: 30
+  name: Hills
+  temple:
+  - 32553
+  - 31827
+  - 6
+- id: 31
+  name: Sternum
+  temple:
+  - 32463
+  - 32077
+  - 7
+- id: 32
+  name: Northport
+  temple:
+  - 32486
+  - 31610
+  - 7
+- id: 33
+  name: Greenshore
+  temple:
+  - 32273
+  - 32053
+  - 7
+- id: 34
+  name: Stonehome
+  temple:
+  - 33319
+  - 31766
+  - 7
+- id: 35
+  name: Camp
+  temple:
+  - 32655
+  - 32208
+  - 7
+- id: 36
+  name: Cormaya
+  temple:
+  - 33302
+  - 31970
+  - 7
+- id: 37
+  name: Drefia
+  temple:
+  - 32996
+  - 32417
+  - 7
+- id: 38
+  name: Ghostship
+  temple:
+  - 33318
+  - 32171
+  - 6
+- id: 39
+  name: VenoreDragons
+  temple:
+  - 32793
+  - 32155
+  - 8
+- id: 40
+  name: Shadowthorn
+  temple:
+  - 33086
+  - 32157
+  - 7
+- id: 41
+  name: Amazons
+  temple:
+  - 32839
+  - 31925
+  - 7
+- id: 42
+  name: KingsIsle
+  temple:
+  - 32174
+  - 31940
+  - 7
+- id: 43
+  name: Ghostlands
+  temple:
+  - 32223
+  - 31831
+  - 7
+- id: 44
+  name: Oasis
+  temple:
+  - 33132
+  - 32661
+  - 7
+- id: 45
+  name: Marid
+  temple:
+  - 33103
+  - 32539
+  - 6
+- id: 46
+  name: Efreet
+  temple:
+  - 33053
+  - 32622
+  - 6
+- id: 47
+  name: Eremo
+  temple:
+  - 33323
+  - 31883
+  - 7
+- id: 48
+  name: GM
+  temple:
+  - 32316
+  - 31942
+  - 7

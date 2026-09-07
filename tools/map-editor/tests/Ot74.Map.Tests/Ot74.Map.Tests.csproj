@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Ot74.Gameplay.Tests.Map</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="YamlDotNet" Version="16.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Ot74.Map.Core\Ot74.Map.Core.csproj" />
+    <ProjectReference Include="..\..\Ot74.Map.Source\Ot74.Map.Source.csproj" />
+    <ProjectReference Include="..\..\Ot74.Map.Items\Ot74.Map.Items.csproj" />
+    <ProjectReference Include="..\..\Ot74.Map.Sprites\Ot74.Map.Sprites.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Ot74.Gameplay.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Map\*.cs" Link="Map\%(Filename)%(Extension)" />
+    <Compile Include="RepoPaths.cs" />
+    <Compile Include="Failures.cs" />
+  </ItemGroup>
+</Project>

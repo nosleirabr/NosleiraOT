@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<npc name="Legola" script="legola.lua" walkinterval="2000" floorchange="0">
+  <health now="100" max="100" />
+  <look type="137" head="72" body="68" legs="68" feet="95" />
+  <parameters></parameters>
+</npc>

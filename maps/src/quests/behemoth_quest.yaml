@@ -1,0 +1,19 @@
+kind: quest
+name: behemoth_quest
+patches:
+  # Injector clássico: 33290,31715,12 — NÃO confundir com alavanca Annihilator (33226,31671,13).
+  - at: [33290, 31715, 12]
+    aid: 50667
+    match: [1945, 1946]
+  - at: [33294, 31658, 13]
+    aid: 2000
+    uid: 10001 # Demon Shield
+  - at: [33295, 31658, 13]
+    aid: 2000
+    uid: 10002 # Golden Armor
+  - at: [33297, 31658, 13]
+    aid: 2000
+    uid: 10003 # Guardian Halberd
+  - at: [33298, 31658, 13]
+    aid: 2000
+    uid: 10004 # Platinum Amulet

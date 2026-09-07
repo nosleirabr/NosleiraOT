@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OT 7.4 map viewer</title>
+  <link rel="stylesheet" href="viewer.css">
+</head>
+<body class="editor-on">
+  <header>
+    <h1>OT 7.4 map viewer</h1>
+    <label class="goto">Pos
+      <input id="gotoPos" type="text" placeholder="x y z" spellcheck="false" title="Ctrl+F — cole x y z com espaços ou vírgulas e Enter">
+    </label>
+    <button type="button" id="gotoBtn" title="Ir para a posição">Ir</button>
+    <button type="button" id="zoomOut" title="Zoom out (-)">−</button>
+    <span id="zoomLabel">24px</span>
+    <button type="button" id="zoomIn" title="Zoom in (+)">+</button>
+    <button type="button" id="zoomReset" title="Reset view">Reset</button>
+    <button type="button" id="floorPrev" title="PageUp — sobe (menor Z / superfície)">↑ surf</button>
+    <label>Z <input id="floor" type="number" min="0" max="15" value="7" title="Tibia: maior Z = mais fundo"></label>
+    <button type="button" id="floorNext" title="PageDown — desce (maior Z / cave)">↓ cave</button>
+    <label class="tog"><input type="checkbox" id="togNpc" checked> NPC</label>
+    <label class="tog"><input type="checkbox" id="togMonster" checked> Mob</label>
+    <label class="tog"><input type="checkbox" id="togSpawn" checked> Spawn</label>
+    <label class="tog"><input type="checkbox" id="togHouse" checked> House</label>
+    <button type="button" id="btnSave" disabled title="Grava nos JSON do viewer e nos YAML de setor (Ctrl+S)">Salvar</button>
+    <span class="spacer"></span>
+    <span id="status" class="status">—</span>
+  </header>
+  <main>
+    <aside id="palettePane" class="palette">
+      <h2>Itens</h2>
+      <select id="paletteGroup" title="Grupo da paleta (RME)">
+        <option value="all">Todos</option>
+        <option value="ground">Ground</option>
+        <option value="walls">Walls</option>
+        <option value="doors">Doors</option>
+        <option value="containers">Containers</option>
+        <option value="teleports">Teleports</option>
+        <option value="fields">Fields</option>
+        <option value="fluids">Fluids</option>
+        <option value="holes">Holes</option>
+        <option value="other">Other</option>
+      </select>
+      <input id="paletteSearch" type="search" placeholder="Buscar nome ou id…" autocomplete="off">
+      <p id="paletteHint" class="hint palette-hint">Clique na paleta e no mapa para colocar. Clique seleciona. Ctrl+arrastar navega. Del apaga. Ctrl+C/V/Z copia, cola e desfaz.</p>
+      <div id="paletteScroller" class="palette-scroller">
+        <div id="paletteList" class="palette-list"></div>
+      </div>
+      <h2>Spawns</h2>
+      <select id="spawnKind" title="Filtrar NPC ou monster">
+        <option value="all">Todos</option>
+        <option value="monster">Monsters</option>
+        <option value="npc">NPCs</option>
+      </select>
+      <input id="spawnSearch" type="search" placeholder="Nome do monster/NPC…" autocomplete="off">
+      <div class="btn-row spawn-actions">
+        <button type="button" id="btnAddSpawn" title="Cria um spawn no SQM selecionado">Novo spawn</button>
+      </div>
+      <p class="hint palette-hint">Clique num nome e depois no mapa para colocar. Arraste o monster para mudar a posição.</p>
+      <div id="spawnScroller" class="palette-scroller spawn-scroller">
+        <div id="spawnList" class="palette-list"></div>
+      </div>
+    </aside>
+    <canvas id="view"></canvas>
+    <aside id="inspectPane">
+      <h2 id="inspectTitle">Propriedades</h2>
+      <p class="hint" id="inspectHint" hidden>
+        Clique = selecionar · Ctrl+arrastar = pan · scroll = zoom · <kbd>WASD</kbd> = câmera.
+        <kbd>Ctrl+F</kbd> = ir para posição. <kbd>Del</kbd> = apagar. <kbd>Ctrl+Z</kbd> = desfazer.
+      </p>
+      <div id="props" hidden></div>
+      <pre id="inspect">Clique em um tile.</pre>
+    </aside>
+  </main>
+  <div id="containerLayer" class="container-layer" hidden></div>
+  <script src="viewer.js"></script>
+  <script src="editor.js"></script>
+</body>
+</html>
