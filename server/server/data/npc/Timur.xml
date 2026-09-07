@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<npc name="Timur" script="timur.lua" walkinterval="2000" floorchange="0">
-  <health now="100" max="100" />
-  <look type="128" head="0" body="116" legs="63" feet="95" />
-  <parameters></parameters>
-</npc>

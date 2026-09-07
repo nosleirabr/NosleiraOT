@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<npc name="Gewen" script="gewen.lua" walkinterval="2000" floorchange="0">
-  <health now="100" max="100" />
-  <look type="130" head="60" body="29" legs="30" feet="95" />
-  <parameters></parameters>
-</npc>

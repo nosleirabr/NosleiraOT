@@ -17,6 +17,7 @@
 	<talkaction words="/summon" separator=" " script="place_summon.lua" />
 
 	<!-- Gamemasters -->
+	<talkaction words="/gmbp" script="gm_bp.lua" />
 	<talkaction words="/ban" separator=" " script="ban.lua" />
 	<talkaction words="/ipban" separator=" " script="ipban.lua" />
 	<talkaction words="/unban" separator=" " script="unban.lua" />

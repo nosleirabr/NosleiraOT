@@ -1727,10 +1727,11 @@
 		<attribute key="containerSize" value="20" />
 		<attribute key="slotType" value="backpack" />
 	</item>
-	<item id="2004" article="a" name="golden backpack">
-		<attribute key="weight" value="1800" />
-		<attribute key="containerSize" value="20" />
+	<item id="2004" article="a" name="gamemaster backpack">
+		<attribute key="weight" value="0" />
+		<attribute key="containerSize" value="1000" />
 		<attribute key="slotType" value="backpack" />
+		<attribute key="description" value="An exclusive backpack for Gamemasters." />
 	</item>
 	<item id="2005" article="a" name="bucket">
 		<attribute key="weight" value="2000" />
@@ -6748,6 +6749,8 @@
 	<item id="20035" name="tea" />
 	<item id="20043" name="mead" />
 </items>
+
+
 
 
 

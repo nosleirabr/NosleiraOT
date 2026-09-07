@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <spells>
   <!-- Rune Spells -->
   <!-- Attack Runes -->
@@ -46,12 +46,7 @@
     <vocation name="Sorcerer" />
     <vocation name="Master Sorcerer" />
   </instant>
-  <instant group="attack" spellid="88" name="Energy Strike" words="exori vis" maglv="3" mana="20" prem="0" direction="1" blockwalls="1" exhaustion="2000" groupcooldown="2000" needlearn="0" script="attack/energy strike.lua">
-    <vocation name="Sorcerer" />
-    <vocation name="Druid" />
-    <vocation name="Master Sorcerer" />
-    <vocation name="Elder Druid" />
-  </instant>
+
   <instant group="attack" spellid="13" name="Energy Wave" words="exevo mort hur" maglv="20" mana="250" direction="1" exhaustion="2000" groupcooldown="2000" needlearn="0" script="attack/energy wave.lua">
     <vocation name="Sorcerer" />
     <vocation name="Master Sorcerer" />
