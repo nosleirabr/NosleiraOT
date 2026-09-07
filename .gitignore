@@ -178,3 +178,12 @@ pip-log.txt
 .env.*
 !.env.template
 
+
+# Binaries and assets
+*.exe
+*.dll
+*.otbm
+*.spr
+*.dat
+*.zip
+
