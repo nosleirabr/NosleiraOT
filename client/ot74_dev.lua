@@ -22,6 +22,11 @@ OT74Dev = {
   clientFeedback = false,   -- client_feedback telemetry UI
   mobileUi = false,         -- client_mobile
   luaTerminal = false,      -- client_terminal (Ctrl+T)
+  imbuingSystem = false,    -- game_imbuing (imbuements = 12.x+)
+  preySystem = false,       -- game_prey (prey = 10.x+)
+  marketSystem = false,     -- game_market (market = 9.x+)
+  spellList = false,        -- game_spelllist (spell list UI pós-7.4)
+  unjustifiedPoints = false,-- game_unjustifiedpoints (sistema pós-7.4)
 
   -- Tela inicial / login (CipSoft 7.4)
   loginTopMenu = false,     -- barra superior OTC fora do jogo

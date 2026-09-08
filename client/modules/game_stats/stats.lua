@@ -2,20 +2,31 @@ ui = nil
 updateEvent = nil
 
 function init()
+  -- Overlay de FPS/Ping não existia no Tibia 7.4 original
+  if not OT74DevEnabled('fpsPingOverlay') then
+    return
+  end
+
   ui = g_ui.loadUI('stats', modules.game_interface.getMapPanel())
-  
+
   if not modules.client_options.getOption("showPing") then
     ui.fps:hide()
   end
   if not modules.client_options.getOption("showFps") then
     ui.ping:hide()
   end
-  
+
   updateEvent = scheduleEvent(update, 200)
 end
 
 function terminate()
-  removeEvent(updateEvent)
+  if updateEvent then
+    removeEvent(updateEvent)
+  end
+  if ui then
+    ui:destroy()
+    ui = nil
+  end
 end
 
 function update()

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<npc name="Gorn" script="gorn.lua" walkinterval="2000" floorchange="0">
+  <health now="100" max="100" />
+  <look type="129" head="58" body="68" legs="101" feet="95" />
+  <parameters></parameters>
+</npc>

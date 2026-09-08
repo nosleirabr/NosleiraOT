@@ -1,0 +1,47 @@
+local keywordHandler = KeywordHandler:new()
+local npcHandler = NpcHandler:new(keywordHandler)
+NpcSystem.parseParameters(npcHandler)
+
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Greetings |PLAYERNAME|, you child of wealth and generousity. What wise decision to buy my wares.')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Good bye, may Daraman bless your travels.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Good bye, may Daraman bless your travels.')
+keywordHandler:addKeyword({'equipment'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell shovels, picks, scythes, bags, ropes, backpacks, plates, cups, scrolls, documents, parchments, watches, fishing rods and sixpacks of worms. Of course, I sell lightsources, too.'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'Oh, I guess your cleverness already made the profession of the humble equipment tradesman obvious to you.'})
+keywordHandler:addKeyword({'worm'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell worms only in sixpacks for 5 gold each, how many sixpacks of worms do you want to buy?'})
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'I would love to tell you the time, but I can not make the watchmaker\'s kids starve as a gazelle in the heart of the desert.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'I am Halif Ibn Onor, known as Halif the honest.'})
+keywordHandler:addKeyword({'food'}, StdModule.say, {npcHandler = npcHandler, text = 'I am deeply sorry but you have to look for that elsewhere.'})
+keywordHandler:addKeyword({'light'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell torches, candlesticks, candelabras, and oil, o seeker of enlightment.'})
+
+local shopModule = ShopModule:new()
+npcHandler:addModule(shopModule)
+shopModule:addBuyableItem({'crowbar'}, 3304, 260, 'crowbar')
+shopModule:addBuyableItem({'rod'}, 3483, 150, 'rod')
+shopModule:addBuyableItem({'present'}, 2856, 10, 'present')
+shopModule:addBuyableItem({'shovel'}, 3457, 10, 'shovel')
+shopModule:addBuyableItem({'bottle'}, 2875, 3, 'bottle')
+shopModule:addBuyableItem({'watch'}, 2906, 20, 'watch')
+shopModule:addBuyableItem({'torch'}, 2920, 2, 'torch')
+shopModule:addBuyableItem({'oil'}, 2874, 20, 'oil')
+shopModule:addBuyableItem({'candlestick'}, 2917, 2, 'candlestick')
+shopModule:addBuyableItem({'scroll'}, 2815, 5, 'scroll')
+shopModule:addBuyableItem({'bag'}, 2858, 4, 'bag')
+shopModule:addBuyableItem({'scythe'}, 3453, 50, 'scythe')
+shopModule:addBuyableItem({'pick'}, 3456, 50, 'pick')
+shopModule:addBuyableItem({'document'}, 2834, 12, 'document')
+shopModule:addBuyableItem({'bucket'}, 2873, 4, 'bucket')
+shopModule:addBuyableItem({'backpack'}, 2866, 10, 'backpack')
+shopModule:addBuyableItem({'water'}, 2901, 40, 'water')
+shopModule:addBuyableItem({'rope'}, 3003, 50, 'rope')
+shopModule:addBuyableItem({'parchment'}, 2835, 8, 'parchment')
+shopModule:addBuyableItem({'cup'}, 2881, 2, 'cup')
+shopModule:addBuyableItem({'candelabr'}, 2911, 8, 'candelabr')
+shopModule:addBuyableItem({'plate'}, 2905, 6, 'plate')
+shopModule:addSellableItem({'sell'}, 3003, 8, 'sell')
+
+npcHandler:addModule(FocusModule:new())
+

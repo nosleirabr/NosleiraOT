@@ -95,6 +95,9 @@ function offline()
 end
 
 function init()
+  -- Lista de Spells (UI) não existia nesta forma no Tibia 7.4
+  if not OT74DevEnabled('spellList') then return end
+
   connect(g_game, { onGameStart = online,
                     onGameEnd   = offline })
 
@@ -170,6 +173,9 @@ function init()
 end
 
 function terminate()
+  -- Guard: módulo pode não ter sido inicializado se gate spellList estava desligado
+  if not spelllistWindow then return end
+
   disconnect(g_game, { onGameStart = online,
                        onGameEnd   = offline })
 

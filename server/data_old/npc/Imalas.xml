@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Imalas" script="imalas.lua" walkinterval="3000" floorchange="0">
+	<health now="100" max="100" />
+	<look type="128" head="115" body="10" legs="39" feet="114" />
+</npc>
+

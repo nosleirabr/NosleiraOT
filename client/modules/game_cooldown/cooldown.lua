@@ -14,6 +14,11 @@ cooldowns = {}
 groupCooldown = {}
 
 function init()
+  -- Cooldowns de spell não existiam no Tibia 7.4 original
+  if not OT74DevEnabled('cooldownWidgets') then
+    return
+  end
+
   connect(g_game, { onGameStart = online,
                     onSpellGroupCooldown = onSpellGroupCooldown,
                     onSpellCooldown = onSpellCooldown })
@@ -41,10 +46,13 @@ function init()
 end
 
 function terminate()
+  -- Guard: módulo pode não ter sido inicializado se gate cooldownWidgets estava desligado
+  if not cooldownWindow then return end
+
   disconnect(g_game, { onGameStart = online,
                        onSpellGroupCooldown = onSpellGroupCooldown,
                        onSpellCooldown = onSpellCooldown })
-                       
+
   for key, val in pairs(cooldowns) do
     removeCooldown(key)
   end

@@ -1,0 +1,45 @@
+local keywordHandler = KeywordHandler:new()
+local npcHandler = NpcHandler:new(keywordHandler)
+NpcSystem.parseParameters(npcHandler)
+
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Good bye. I really hope we\'ll talk again soon.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Good bye. I really hope we\'ll talk again soon.')
+keywordHandler:addKeyword({'castle'}, StdModule.say, {npcHandler = npcHandler, text = 'I love this castle! It\'s so beautiful.'})
+keywordHandler:addKeyword({'noodles'}, StdModule.say, {npcHandler = npcHandler, text = 'Oh, he is sooooo cute!'})
+keywordHandler:addKeyword({'weapon'}, StdModule.say, {npcHandler = npcHandler, text = 'I know so little about weapons, so tell me something about weapons, please.'})
+keywordHandler:addKeyword({'gregor'}, StdModule.say, {npcHandler = npcHandler, text = 'I like brave fighters like him.'})
+keywordHandler:addKeyword({'thief'}, StdModule.say, {npcHandler = npcHandler, text = 'Oh, sorry, I have to hurry, bye!'})
+keywordHandler:addKeyword({'news'}, StdModule.say, {npcHandler = npcHandler, text = 'You should ask Oswald about news. He loves them.'})
+keywordHandler:addKeyword({'sell'}, StdModule.say, {npcHandler = npcHandler, text = 'Sorry, I have nothing to sell.'})
+keywordHandler:addKeyword({'muriel'}, StdModule.say, {npcHandler = npcHandler, text = 'Powerful sorcerers frighten me a little.'})
+keywordHandler:addKeyword({'marvik'}, StdModule.say, {npcHandler = npcHandler, text = 'Druids seldom visit a town, what do you know about druids?'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I do some work now and then. Nothing unusual, though.'})
+keywordHandler:addKeyword({'oswald'}, StdModule.say, {npcHandler = npcHandler, text = 'As far as I know, he is working in the castle.'})
+keywordHandler:addKeyword({'help'}, StdModule.say, {npcHandler = npcHandler, text = 'I am deeply sorry, I can\'t help you.'})
+keywordHandler:addKeyword({'sam'}, StdModule.say, {npcHandler = npcHandler, text = 'He is soooo strong! What muscles! What a body! Did you ask him for a date?'})
+keywordHandler:addKeyword({'king'}, StdModule.say, {npcHandler = npcHandler, text = 'The king, that lives in this fascinating castle? I think he does look kind of cute in his luxurious robes, doesn\'t he?'})
+keywordHandler:addKeyword({'benjamin'}, StdModule.say, {npcHandler = npcHandler, text = 'He is a little simple minded but always nice and well dressed.'})
+keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler, text = 'Oh, I am just a girl and know nothing about magic swords and such things.'})
+keywordHandler:addKeyword({'gorn'}, StdModule.say, {npcHandler = npcHandler, text = 'He should really sell some stylish gowns or something like that. We Tibians never get some clothing of the latest fashion. It\'s a shame.'})
+keywordHandler:addKeyword({'tibia'}, StdModule.say, {npcHandler = npcHandler, text = 'I would like to visit the beach more often, but I guess it\'s too dangerous.'})
+keywordHandler:addKeyword({'rumour'}, StdModule.say, {npcHandler = npcHandler, text = 'I am a little shy and so don\'t hear many rumors'})
+keywordHandler:addKeyword({'sewer'}, StdModule.say, {npcHandler = npcHandler, text = 'What gives you the impression, I am the kind of women, you find in sewers?'})
+keywordHandler:addKeyword({'elane'}, StdModule.say, {npcHandler = npcHandler, text = 'I personally think it\'s inappropriate for a woman to become a warrior, what do you think about that?'})
+keywordHandler:addKeyword({'dog'}, StdModule.say, {npcHandler = npcHandler, text = 'I like dogs, the little ones at least. Do you like dogs, too?'})
+keywordHandler:addKeyword({'partos'}, StdModule.say, {npcHandler = npcHandler, text = 'I ... don\'t know someone named like that.'})
+keywordHandler:addKeyword({'quentin'}, StdModule.say, {npcHandler = npcHandler, text = 'I don\'t understand this lonely monks. I love company too much to become one. He, he, he!'})
+keywordHandler:addKeyword({'magic'}, StdModule.say, {npcHandler = npcHandler, text = 'I believe that love is stronger then all magic, don\'t you agree?'})
+keywordHandler:addKeyword({'bozo'}, StdModule.say, {npcHandler = npcHandler, text = 'Oh, isn\'t he funny? I could listen to him the whole day.'})
+keywordHandler:addKeyword({'yenny'}, StdModule.say, {npcHandler = npcHandler, text = 'Yenny? I know no Yenny, nor have I ever used that name! You have mistook me with someone else.'})
+keywordHandler:addKeyword({'monster'}, StdModule.say, {npcHandler = npcHandler, text = 'UH! What a terrifying topic. Please let us speak about something more pleasant, I am a weak and small woman after all.'})
+keywordHandler:addKeyword({'god'}, StdModule.say, {npcHandler = npcHandler, text = 'You should ask about that in one of the temples.'})
+
+local shopModule = ShopModule:new()
+npcHandler:addModule(shopModule)
+
+npcHandler:addModule(FocusModule:new())
+

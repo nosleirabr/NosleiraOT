@@ -1,0 +1,45 @@
+local keywordHandler = KeywordHandler:new()
+local npcHandler = NpcHandler:new(keywordHandler)
+NpcSystem.parseParameters(npcHandler)
+
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Welcome to my little shop, adventurer! First read my blackboards.')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Bye, bye.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Bye, bye.')
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'I am sorry, I have no watch.'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am selling equipment. Do you want something?'})
+keywordHandler:addKeyword({'equipment'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell torches, scrolls, documents, parchments, ropes, fishing rods, sixpacks of worms, arrows, bolts, and a nice helmet.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'I am Timur. Sorry, I have not much equipment for sale. The business is running low.'})
+keywordHandler:addKeyword({'fluid'}, StdModule.say, {npcHandler = npcHandler, text = 'The magic shops have a monopole on fluids now... argl!'})
+keywordHandler:addKeyword({'ammo'}, StdModule.say, {npcHandler = npcHandler, text = 'I have arrows and bolts in this shop.'})
+keywordHandler:addKeyword({'food'}, StdModule.say, {npcHandler = npcHandler, text = 'If you are looking for food, buy a rod and go fishing.'})
+keywordHandler:addKeyword({'helmet'}, StdModule.say, {npcHandler = npcHandler, text = 'I can sell you a viking helmet in a very good quality.'})
+keywordHandler:addKeyword({'bow'}, StdModule.say, {npcHandler = npcHandler, text = 'We have too few bows on this isle for our hunters.'})
+keywordHandler:addKeyword({'weapon'}, StdModule.say, {npcHandler = npcHandler, text = 'At the moment I have no weapons to offer. Weapons are very rare on this isle, so I have to buy a few.'})
+keywordHandler:addKeyword({'crossbow'}, StdModule.say, {npcHandler = npcHandler, text = 'We have too few crossbows on this isle for our hunters.'})
+keywordHandler:addKeyword({'worm'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell worms only in sixpacks for 5 gold each, how many sixpacks of worms do you want to buy?'})
+keywordHandler:addKeyword({'fibula'}, StdModule.say, {npcHandler = npcHandler, text = 'It\'s a very nice isle. But we don\'t have enough weapons to defeat the many wolves.'})
+keywordHandler:addKeyword({'wolf'}, StdModule.say, {npcHandler = npcHandler, text = 'They are everywhere around the village.'})
+
+local shopModule = ShopModule:new()
+npcHandler:addModule(shopModule)
+shopModule:addBuyableItem({'viking'}, 3367, 265, 'viking')
+shopModule:addBuyableItem({'torch'}, 2920, 3, 'torch')
+shopModule:addBuyableItem({'arrow'}, 3447, 3, 'arrow')
+shopModule:addBuyableItem({'document'}, 2834, 12, 'document')
+shopModule:addBuyableItem({'rope'}, 3003, 65, 'rope')
+shopModule:addBuyableItem({'rod'}, 3483, 170, 'rod')
+shopModule:addBuyableItem({'parchment'}, 2835, 8, 'parchment')
+shopModule:addBuyableItem({'scroll'}, 2815, 10, 'scroll')
+shopModule:addBuyableItem({'bolt'}, 3446, 4, 'bolt')
+shopModule:addSellableItem({'sell'}, 3286, 30, 'sell')
+shopModule:addSellableItem({'sell'}, 3367, 66, 'sell')
+shopModule:addSellableItem({'sell'}, 3350, 130, 'sell')
+shopModule:addSellableItem({'sell'}, 3349, 160, 'sell')
+shopModule:addSellableItem({'sell'}, 3276, 25, 'sell')
+
+npcHandler:addModule(FocusModule:new())
+

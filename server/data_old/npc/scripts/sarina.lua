@@ -1,0 +1,43 @@
+local keywordHandler = KeywordHandler:new()
+local npcHandler = NpcHandler:new(keywordHandler)
+NpcSystem.parseParameters(npcHandler)
+
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Oh, please come in, |PLAYERNAME|. What can I do for you?')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Good bye.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Good bye.')
+keywordHandler:addKeyword({'equipment'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell shovels, picks, scythes, fishing rods, sixpacks of worms, bags, ropes, backpacks, plates, cups, scrolls, documents, parchments, footballs, and watches. I also sell means of illumination.'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am selling equipment of all kinds. Do you need anything?'})
+keywordHandler:addKeyword({'ghostlands'}, StdModule.say, {npcHandler = npcHandler, text = 'Since the druids sealed that placed with their magic, rarely anyone was there. Perhaps whatever haunted that place is long gone, who knows.'})
+keywordHandler:addKeyword({'worm'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell worms only in six-packs for 5 gold each, how many sixpacks of worms do you want to buy?'})
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'It is exactly the current time. Maybe you want to buy a watch?'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'I am Sarina. I am selling everything the adventurer needs.'})
+keywordHandler:addKeyword({'food'}, StdModule.say, {npcHandler = npcHandler, text = 'Sorry, I don\'t sell food.'})
+keywordHandler:addKeyword({'illumination'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell torches, candlesticks, candelabra, and oil.'})
+
+local shopModule = ShopModule:new()
+npcHandler:addModule(shopModule)
+shopModule:addBuyableItem({'pick'}, 3456, 50, 'pick')
+shopModule:addBuyableItem({'shovel'}, 3457, 50, 'shovel')
+shopModule:addBuyableItem({'backpack'}, 2868, 20, 'backpack')
+shopModule:addBuyableItem({'watch'}, 2906, 20, 'watch')
+shopModule:addBuyableItem({'football'}, 2990, 111, 'football')
+shopModule:addBuyableItem({'oil'}, 2874, 20, 'oil')
+shopModule:addBuyableItem({'candlestick'}, 2917, 3, 'candlestick')
+shopModule:addBuyableItem({'scroll'}, 2815, 5, 'scroll')
+shopModule:addBuyableItem({'scythe'}, 3453, 50, 'scythe')
+shopModule:addBuyableItem({'rope'}, 3003, 50, 'rope')
+shopModule:addBuyableItem({'document'}, 2834, 12, 'document')
+shopModule:addBuyableItem({'torch'}, 2920, 2, 'torch')
+shopModule:addBuyableItem({'bag'}, 2860, 5, 'bag')
+shopModule:addBuyableItem({'candelab'}, 2911, 8, 'candelab')
+shopModule:addBuyableItem({'parchment'}, 2835, 8, 'parchment')
+shopModule:addBuyableItem({'cup'}, 2881, 3, 'cup')
+shopModule:addBuyableItem({'rod'}, 3483, 150, 'rod')
+shopModule:addBuyableItem({'plate'}, 2905, 6, 'plate')
+
+npcHandler:addModule(FocusModule:new())
+

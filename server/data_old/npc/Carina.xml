@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Carina" script="money_exchange.lua" walkinterval="2000" floorchange="0">
+	<health now="100" max="100" />
+	<look type="138" head="97" body="70" legs="94" feet="76" />
+	<parameters>
+		<parameter key="module_shop" value="1" />
+		<parameter key="message_greet" value="Hello |PLAYERNAME|. Jewelry and gems." />
+		<parameter key="shop_buyable" value="bronze amulet,2172,100;crystal necklace,2125,400;silver amulet,2170,100;wedding ring,2121,990" />
+		<parameter key="shop_sellable" value="black pearl,2144,280;small diamond,2145,300;small emerald,2149,250;small ruby,2147,250;small sapphire,2146,250;white pearl,2143,160" />
+	</parameters>
+</npc>
+

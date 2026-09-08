@@ -2,6 +2,9 @@ local settings = {}
 ChangedProfile = false
 
 function init()
+  -- Perfis de personagem não existiam no Tibia 7.4
+  if not OT74DevEnabled('profiles') then return end
+
   connect(g_game, {
     onGameStart = online,
     onGameEnd = offline

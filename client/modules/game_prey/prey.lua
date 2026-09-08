@@ -54,6 +54,9 @@ function timeleftTranslation(timeleft, forPreyTimeleft) -- in seconds
 end
   
 function init()
+  -- Sistema de Prey não existia no Tibia 7.4 (adicionado no 10.x)
+  if not OT74DevEnabled('preySystem') then return end
+
   connect(g_game, {
     onGameStart = check,
     onGameEnd = hide,
@@ -112,6 +115,9 @@ function onHover(widget)
 end
 
 function terminate()
+  -- Guard: módulo pode não ter sido inicializado se gate preySystem estava desligado
+  if not preyWindow then return end
+
   disconnect(g_game, {
     onGameStart = check,
     onGameEnd = hide,
