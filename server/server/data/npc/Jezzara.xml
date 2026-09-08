@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<npc name="Jezzara" script="jezzara.lua" walkinterval="3000" floorchange="0">
-  <health now="100" max="100" />
-  <look type="138" head="3" body="43" legs="91" feet="97" />
-  <parameters></parameters>
-</npc>

@@ -29,10 +29,10 @@ loginProtocolPort = 7171
 gameProtocolPort = 7172
 statusProtocolPort = 7171
 maxPlayers = 0
-motd = "Welcome to Global-War!"
+motd = "Welcome to Nosleira-OT!"
 onePlayerOnlinePerAccount = true
 allowClones = false
-serverName = "Global-War"
+serverName = "Nosleira-OT"
 statusTimeout = 5000
 replaceKickOnLogin = true
 maxPacketsPerSecond = 25
@@ -106,6 +106,7 @@ ownerName = ""
 ownerEmail = ""
 url = "https://otland.net/"
 location = "Sweden"
+
 
 
 

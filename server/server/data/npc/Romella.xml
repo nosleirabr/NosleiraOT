@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<npc name="Romella" script="romella.lua" walkinterval="3000" floorchange="0">
-  <health now="100" max="100" />
-  <look type="139" head="79" body="39" legs="77" feet="115" />
-  <parameters></parameters>
-</npc>

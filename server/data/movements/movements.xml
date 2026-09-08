@@ -177,4 +177,8 @@
 	<movevent event="StepIn" actionid="30071" script="quests/deeper_fibula.lua" />
 
     <movevent event="StepIn" actionid="50667" script="quests/dh_teleport.lua"/>
+	<movevent event="Equip" itemid="2004" slot="backpack" script="gamemaster_backpack.lua" />
+	<movevent event="DeEquip" itemid="2004" slot="backpack" script="gamemaster_backpack.lua" />
 </movements>
+
+

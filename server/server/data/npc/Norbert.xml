@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<npc name="Norbert" script="norbert.lua" walkinterval="3000" floorchange="0">
-  <health now="100" max="100" />
-  <look type="128" head="6" body="79" legs="93" feet="14" />
-  <parameters></parameters>
-</npc>

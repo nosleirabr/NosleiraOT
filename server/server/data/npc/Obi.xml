@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<npc name="Obi" script="obi.lua" walkinterval="2000" floorchange="0">
-  <health now="100" max="100" />
-  <look type="131" head="19" body="63" legs="96" feet="38" />
-  <parameters></parameters>
-</npc>
