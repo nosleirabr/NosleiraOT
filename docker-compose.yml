@@ -39,10 +39,10 @@ services:
       - "${LOGIN_PORT:-7171}:7171"
       - "${GAME_PORT:-7172}:7172"
     volumes:
-      - ./server/server:/srv
+      - ./server:/srv
       - ./maps/build/world.otbm:/srv/data/world/world.otbm:ro
-      - ./maps/world-spawn.xml:/srv/data/world/world-spawn.xml:ro
-      - ./maps/world-house.xml:/srv/data/world/world-house.xml:ro
+      - ./maps/build/world-spawn.xml:/srv/data/world/world-spawn.xml:ro
+      - ./maps/build/world-house.xml:/srv/data/world/world-house.xml:ro
     working_dir: /srv
 
   myaac:
@@ -58,7 +58,7 @@ services:
       - "${SITE_PUBLISH_ADDR:-0.0.0.0}:${SITE_PORT:-8080}:80"
     volumes:
       - ./site:/var/www/html
-      - ./server/server:/srv:ro
+      - ./server:/srv:ro
     environment:
       MYSQL_HOST: mysql
       MYSQL_DATABASE: ${MYSQL_DATABASE:-ot74}
