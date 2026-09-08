@@ -1,4 +1,4 @@
-﻿# TFS 1.2 (7.4) — multi-stage build (context = this server repo root)
+# TFS 1.2 (7.4) — multi-stage build (context = this server repo root)
 FROM ubuntu:22.04 AS build
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -47,8 +47,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY --from=build /src/build/tfs /usr/local/bin/tfs
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY docker/healthcheck.sh /usr/local/bin/healthcheck.sh
 RUN sed -i 's/\r$//' /usr/local/bin/entrypoint.sh \
- && chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/tfs
+ && chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/tfs /usr/local/bin/healthcheck.sh
 
 WORKDIR /srv
 EXPOSE 7171 7172
