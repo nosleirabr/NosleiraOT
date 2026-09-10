@@ -1,35 +1,47 @@
-# OpenTibia-740 (workspace)
+# Nosleira OT Server 7.4
 
-Workspace multi-repo do stack **Tibia 7.4**. Este repositório só tem orquestração (Compose), docs genéricos e bootstrap.
-
-## Comece por aqui
-
-1. [`docs/BOOTSTRAP.md`](docs/BOOTSTRAP.md) — clones + stack
-2. [`docs/README.md`](docs/README.md) — índice de documentação
-3. [`AGENTS.md`](AGENTS.md) — roteamento para agentes
-4. [`docs/MAP_AS_CODE_FLOW.md`](docs/MAP_AS_CODE_FLOW.md) — YAML → bake → TFS
-
-## Repositórios (siblings)
-
-| Pasta local | GitLab |
-|-------------|--------|
-| `server/` | `opentibia-740/server` |
-| `site/` | `opentibia-740/site` |
-| `client/` | `opentibia-740/client` |
-| `maps/` | `opentibia-740/maps` |
-| `tools/map-editor/` | `opentibia-740/tools/map_editor` |
-| `infra/ci-templates/` | `opentibia-740/infra/ci-templates` |
-| `.cursor/` / `.agents/` | `opentibia-740/ai` |
+Servidor **Tibia 7.4** classico com realmap autentico (TibiCAM 222222), fidelidade total a era 7.4 e stack moderno.
 
 ## Stack
 
-- Server: TFS 1.2 (Docker build em `server/Dockerfile`)
-- Site: MyAAC (`site/Dockerfile`)
-- Maps: map-as-code (`maps/src` → `otmap build` → `maps/build/world.otbm`)
-- Compose: **este** repo (`docker-compose.yml`)
+- **Server:** TFS 1.2 (C++ / Lua)
+- **Site:** MyAAC
+- **Banco:** MariaDB
+- **Infra:** Docker Compose
 
-## Skills
+## Milestones
 
-Repo [`opentibia-740/ai`](https://gitlab.com/opentibia-740/ai) clonado em `.cursor` e `.agents` (ver BOOTSTRAP). Catálogo: [`docs/SKILLS.md`](docs/SKILLS.md).
+| Milestone | Status |
+|-----------|--------|
+| M0 - Fundacao do stack | Concluido |
+| M1 - Jogabilidade nucleo | Em andamento |
+| M2 - Paridade de conteudo 7.4 | Planejado |
+| M3 - Server testavel CI | Planejado |
+| M4 - Client com codigo-fonte | Planejado |
+| M5 - Infra nuvem e seguranca | Planejado |
+| M6 - Release base estavel | Planejado |
 
-Brain local: pasta `brain/` (gitignored; ainda não versionada).
+## Comecar (desenvolvimento local)
+
+```bash
+git clone https://github.com/nosleirabr/Oteserver7.4.git
+cd Oteserver7.4
+docker compose up -d --build
+```
+
+Login padrao: conta **1** / senha **admin123** / personagem **Admin**
+
+## Roadmap e Issues
+
+Acompanhe o progresso nas [Issues](https://github.com/nosleirabr/Oteserver7.4/issues) organizadas por milestone e prioridade.
+
+| Label | Significado |
+|-------|------------|
+| P0-Critico | Bloqueia jogabilidade - tratar imediatamente |
+| P1-Grave | Paridade necessaria para base estavel |
+| P2-Moderado | Importante mas nao bloqueia o milestone |
+| P3-Melhoria | Nice-to-have, iceboxavel |
+
+## Licenca
+
+Projeto privado - uso interno.
