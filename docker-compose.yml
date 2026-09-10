@@ -4,12 +4,13 @@ services:
     container_name: ot74-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?MYSQL_ROOT_PASSWORD must be set in .env}
       MYSQL_DATABASE: ${MYSQL_DATABASE:-ot74}
       MYSQL_USER: ${MYSQL_USER:-ot74}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ot74}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?MYSQL_PASSWORD must be set in .env}
+    # Banco de dados apenas acessível internamente; MYSQL_PUBLISH_ADDR=127.0.0.1 no .env para acesso local via ferramentas
     ports:
-      - "${MYSQL_PUBLISH_ADDR:-0.0.0.0}:${MYSQL_PUBLISH_PORT:-3306}:3306"
+      - "${MYSQL_PUBLISH_ADDR:-127.0.0.1}:${MYSQL_PUBLISH_PORT:-3306}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./server/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
@@ -18,6 +19,9 @@ services:
       interval: 5s
       timeout: 5s
       retries: 20
+    # Limites de recursos: proteção básica contra loops e DoS interno
+    mem_limit: 512m
+    pids_limit: 100
 
   tfs:
     build:
@@ -32,7 +36,7 @@ services:
       MYSQL_HOST: ${MYSQL_HOST:-mysql}
       MYSQL_PORT: ${MYSQL_PORT:-3306}
       MYSQL_USER: ${MYSQL_USER:-ot74}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ot74}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?MYSQL_PASSWORD must be set in .env}
       MYSQL_DATABASE: ${MYSQL_DATABASE:-ot74}
       SERVER_IP: ${SERVER_IP:-127.0.0.1}
     ports:
@@ -44,6 +48,8 @@ services:
       - ./maps/build/world-spawn.xml:/srv/data/world/world-spawn.xml:ro
       - ./maps/build/world-house.xml:/srv/data/world/world-house.xml:ro
     working_dir: /srv
+    mem_limit: 1g
+    pids_limit: 200
 
   myaac:
     build:
@@ -63,7 +69,9 @@ services:
       MYSQL_HOST: mysql
       MYSQL_DATABASE: ${MYSQL_DATABASE:-ot74}
       MYSQL_USER: ${MYSQL_USER:-ot74}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ot74}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?MYSQL_PASSWORD must be set in .env}
+    mem_limit: 256m
+    pids_limit: 150
 
 volumes:
   mysql_data:
