@@ -1,0 +1,44 @@
+local keywordHandler = KeywordHandler:new()
+local npcHandler = NpcHandler:new(keywordHandler)
+NpcSystem.parseParameters(npcHandler)
+
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Ashari |PLAYERNAME|.')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Asha Thrazi.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Asha Thrazi.')
+keywordHandler:addKeyword({'carlin'}, StdModule.say, {npcHandler = npcHandler, text = 'The druids of Carlin seek our guidance now and then.'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell bows, arrows, crossbows and bolts. I also teach some spells.'})
+keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler, text = 'Our people have a bugfarm in the southeast of Ab\'Dendriel.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'I am known as Irea.'})
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'That\'s unimportant.'})
+keywordHandler:addKeyword({'olrik'}, StdModule.say, {npcHandler = npcHandler, text = 'His trade seems to be the delivery of messages and items.'})
+keywordHandler:addKeyword({'dwarfs'}, StdModule.say, {npcHandler = npcHandler, text = 'Bearded, heavy, and small.'})
+keywordHandler:addKeyword({'abdaisim'}, StdModule.say, {npcHandler = npcHandler, text = 'One day we will be reunited.'})
+keywordHandler:addKeyword({'cenath'}, StdModule.say, {npcHandler = npcHandler, text = 'I often listen to their tales.'})
+keywordHandler:addKeyword({'ferumbras'}, StdModule.say, {npcHandler = npcHandler, text = 'Who is that?'})
+keywordHandler:addKeyword({'elves'}, StdModule.say, {npcHandler = npcHandler, text = 'Humans or dwarfs will never understand us.'})
+keywordHandler:addKeyword({'deraisim'}, StdModule.say, {npcHandler = npcHandler, text = 'My people love the woods.'})
+keywordHandler:addKeyword({'troll'}, StdModule.say, {npcHandler = npcHandler, text = 'I despise them.'})
+keywordHandler:addKeyword({'humans'}, StdModule.say, {npcHandler = npcHandler, text = 'Humans have so little time to learn.'})
+keywordHandler:addKeyword({'news'}, StdModule.say, {npcHandler = npcHandler, text = 'My news are not for your ears.'})
+keywordHandler:addKeyword({'crunor'}, StdModule.say, {npcHandler = npcHandler, text = 'The master of nature. He nurtures us and is our benevolent protector.'})
+keywordHandler:addKeyword({'thais'}, StdModule.say, {npcHandler = npcHandler, text = 'I don\'t understand what interest this humans form a far away land have in our town.'})
+keywordHandler:addKeyword({'spell'}, StdModule.say, {npcHandler = npcHandler, text = 'I teach \'Conjure Arrow\', \'Poison Arrow\', and \'Explosive Arrow\'.'})
+keywordHandler:addKeyword({'magic'}, StdModule.say, {npcHandler = npcHandler, text = 'I teach spells to create enchanted arrows.'})
+keywordHandler:addKeyword({'teshial'}, StdModule.say, {npcHandler = npcHandler, text = 'They have left so long ago.'})
+keywordHandler:addKeyword({'venore'}, StdModule.say, {npcHandler = npcHandler, text = 'Their traders are verry intrusive.'})
+keywordHandler:addKeyword({'kuridai'}, StdModule.say, {npcHandler = npcHandler, text = 'They provide us with tools and metal.'})
+keywordHandler:addKeyword({'roderick'}, StdModule.say, {npcHandler = npcHandler, text = 'What is this humans use at all? I don\'t understabd it.'})
+
+local shopModule = ShopModule:new()
+npcHandler:addModule(shopModule)
+shopModule:addBuyableItem({'arrow'}, 3447, 2, 'arrow')
+shopModule:addBuyableItem({'bow'}, 3350, 350, 'bow')
+shopModule:addBuyableItem({'crossbow'}, 3349, 450, 'crossbow')
+shopModule:addBuyableItem({'bolt'}, 3446, 3, 'bolt')
+
+npcHandler:addModule(FocusModule:new())
+

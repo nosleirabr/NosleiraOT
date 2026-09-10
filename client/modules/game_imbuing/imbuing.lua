@@ -14,6 +14,9 @@ local clearConfirmWindow
 local imbueConfirmWindow
 
 function init()
+  -- Imbuements não existiam no Tibia 7.4 (feature adicionada no 12.x)
+  if not OT74DevEnabled('imbuingSystem') then return end
+
   connect(g_game, {
     onGameEnd = hide,
     onResourceBalance = onResourceBalance,
@@ -130,13 +133,16 @@ function setProtection(value)
 end
 
 function terminate()
+  -- Guard: módulo pode não ter sido inicializado se gate imbuingSystem estava desligado
+  if not imbuingWindow then return end
+
   disconnect(g_game, {
     onGameEnd = hide,
     onResourceBalance = onResourceBalance,
     onImbuementWindow = onImbuementWindow,
     onCloseImbuementWindow = onCloseImbuementWindow
   })
-  
+
   imbuingWindow:destroy()
 end
 

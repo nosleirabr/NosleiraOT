@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<npc name="Bashira" script="bashira.lua" walkinterval="0" floorchange="0">
+  <health now="100" max="100" />
+  <look type="159" head="78" body="63" legs="97" feet="76" />
+  <parameters></parameters>
+</npc>

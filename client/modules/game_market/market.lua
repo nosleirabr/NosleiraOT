@@ -973,6 +973,9 @@ local function initInterface()
 end
 
 function init()
+  -- Mercado (Market) não existia no Tibia 7.4 (adicionado no 9.x)
+  if not OT74DevEnabled('marketSystem') then return end
+
   g_ui.importStyle('market')
   g_ui.importStyle('ui/general/markettabs')
   g_ui.importStyle('ui/general/marketbuttons')
@@ -997,6 +1000,9 @@ function init()
 end
 
 function terminate()
+  -- Guard: módulo pode não ter sido inicializado se gate marketSystem estava desligado
+  if not marketWindow then return end
+
   Market.close()
 
   unregisterMessageMode(MessageModes.Market, onMarketMessage)

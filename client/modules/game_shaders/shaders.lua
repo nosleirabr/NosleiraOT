@@ -1,4 +1,7 @@
 function init()
+  -- Shaders personalizados não existiam no Tibia 7.4
+  if not OT74DevEnabled('shaders') then return end
+
   -- add manually your shaders from /data/shaders
 
   -- map shaders

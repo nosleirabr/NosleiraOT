@@ -15,6 +15,9 @@ weekSkullWidget = nil
 monthSkullWidget = nil
 
 function init()
+  -- Pontos injustificados não existiam no Tibia 7.4
+  if not OT74DevEnabled('unjustifiedPoints') then return end
+
   connect(g_game, { onGameStart = online,
                     onUnjustifiedPointsChange = onUnjustifiedPointsChange,
                     onOpenPvpSituationsChange = onOpenPvpSituationsChange })
@@ -48,6 +51,9 @@ function init()
 end
 
 function terminate()
+  -- Guard: módulo pode não ter sido inicializado se gate unjustifiedPoints estava desligado
+  if not unjustifiedPointsWindow then return end
+
   disconnect(g_game, { onGameStart = online,
                        onUnjustifiedPointsChange = onUnjustifiedPointsChange,
                        onOpenPvpSituationsChange = onOpenPvpSituationsChange })

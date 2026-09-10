@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Frans" script="frans.lua" walkinterval="3000" floorchange="0">
+	<health now="100" max="100" />
+	<look typeex="2229" />
+</npc>
+

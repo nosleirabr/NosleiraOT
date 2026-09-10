@@ -8,6 +8,9 @@ local callDelay = 1000 -- each call delay is also increased by random values (0-
 local dispatcher = {}
 
 function init()
+  -- Quest Log não existia no Tibia 7.4 (adicionado no 7.9+)
+  if not OT74DevEnabled('questLog') then return end
+
   g_ui.importStyle('questlogwindow')
 
   window = g_ui.createWidget('QuestLogWindow', rootWidget)
@@ -29,6 +32,9 @@ function init()
 end
 
 function terminate()
+  -- Guard: módulo pode não ter sido inicializado se gate questLog estava desligado
+  if not window then return end
+
   disconnect(g_game, { onQuestLog = onGameQuestLog,
                        onQuestLine = onGameQuestLine,
                        onGameEnd = offline,

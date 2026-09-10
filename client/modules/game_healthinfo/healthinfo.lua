@@ -63,14 +63,19 @@ function init()
   soulLabel = healthInfoWindow:recursiveGetChildById('soulLabel')
   capLabel = healthInfoWindow:recursiveGetChildById('capLabel')
 
-  overlay = g_ui.createWidget('HealthOverlay', modules.game_interface.getMapPanel())  
+  overlay = g_ui.createWidget('HealthOverlay', modules.game_interface.getMapPanel())
   healthCircleFront = overlay:getChildById('healthCircleFront')
   manaCircleFront = overlay:getChildById('manaCircleFront')
   healthCircle = overlay:getChildById('healthCircle')
   manaCircle = overlay:getChildById('manaCircle')
   topHealthBar = overlay:getChildById('topHealthBar')
   topManaBar = overlay:getChildById('topManaBar')
-  
+
+  -- Fidelidade 7.4: overlays modernos de HP/Mana não existiam no cliente original
+  if not OT74DevEnabled('healthOverlays') then
+    overlay:setVisible(false)
+  end
+
   connect(overlay, { onGeometryChange = onOverlayGeometryChange })
   
   -- load condition icons
@@ -165,32 +170,34 @@ function onHealthChange(localPlayer, health, maxHealth)
     maxHealth = health
   end
 
-  healthBar:setText(comma_value(health) .. ' / ' .. comma_value(maxHealth))
   healthBar:setTooltip(tr(healthTooltip, health, maxHealth))
   healthBar:setValue(health, 0, maxHealth)
 
-  topHealthBar:setText(comma_value(health) .. ' / ' .. comma_value(maxHealth))
-  topHealthBar:setTooltip(tr(healthTooltip, health, maxHealth))
-  topHealthBar:setValue(health, 0, maxHealth)
+  -- Overlay moderno só atualizado quando habilitado (não existe no 7.4 original)
+  if OT74DevEnabled('healthOverlays') then
+    topHealthBar:setText(comma_value(health) .. ' / ' .. comma_value(maxHealth))
+    topHealthBar:setTooltip(tr(healthTooltip, health, maxHealth))
+    topHealthBar:setValue(health, 0, maxHealth)
 
-  local healthPercent = math.floor(g_game.getLocalPlayer():getHealthPercent())
-  local Yhppc = math.floor(208 * (1 - (healthPercent / 100)))
-  local rect = { x = 0, y = Yhppc, width = 63, height = 208 - Yhppc + 1 }
-  healthCircleFront:setImageClip(rect)
-  healthCircleFront:setImageRect(rect)
+    local healthPercent = math.floor(g_game.getLocalPlayer():getHealthPercent())
+    local Yhppc = math.floor(208 * (1 - (healthPercent / 100)))
+    local rect = { x = 0, y = Yhppc, width = 63, height = 208 - Yhppc + 1 }
+    healthCircleFront:setImageClip(rect)
+    healthCircleFront:setImageRect(rect)
 
-  if healthPercent > 92 then
-    healthCircleFront:setImageColor("#00BC00FF")
-  elseif healthPercent > 60 then
-    healthCircleFront:setImageColor("#50A150FF")
-  elseif healthPercent > 30 then
-    healthCircleFront:setImageColor("#A1A100FF")
-  elseif healthPercent > 8 then
-    healthCircleFront:setImageColor("#BF0A0AFF")
-  elseif healthPercent > 3 then
-    healthCircleFront:setImageColor("#910F0FFF")
-  else
-    healthCircleFront:setImageColor("#850C0CFF")
+    if healthPercent > 92 then
+      healthCircleFront:setImageColor("#00BC00FF")
+    elseif healthPercent > 60 then
+      healthCircleFront:setImageColor("#50A150FF")
+    elseif healthPercent > 30 then
+      healthCircleFront:setImageColor("#A1A100FF")
+    elseif healthPercent > 8 then
+      healthCircleFront:setImageColor("#BF0A0AFF")
+    elseif healthPercent > 3 then
+      healthCircleFront:setImageColor("#910F0FFF")
+    else
+      healthCircleFront:setImageColor("#850C0CFF")
+    end
   end
 end
 
@@ -198,19 +205,21 @@ function onManaChange(localPlayer, mana, maxMana)
   if mana > maxMana then
     maxMana = mana
   end
-  
-  manaBar:setText(comma_value(mana) .. ' / ' .. comma_value(maxMana))
+
   manaBar:setTooltip(tr(manaTooltip, mana, maxMana))
   manaBar:setValue(mana, 0, maxMana)
 
-  topManaBar:setText(comma_value(mana) .. ' / ' .. comma_value(maxMana))
-  topManaBar:setTooltip(tr(manaTooltip, mana, maxMana))
-  topManaBar:setValue(mana, 0, maxMana)
+  -- Overlay moderno só atualizado quando habilitado (não existe no 7.4 original)
+  if OT74DevEnabled('healthOverlays') then
+    topManaBar:setText(comma_value(mana) .. ' / ' .. comma_value(maxMana))
+    topManaBar:setTooltip(tr(manaTooltip, mana, maxMana))
+    topManaBar:setValue(mana, 0, maxMana)
 
-  local Ymppc = math.floor(208 * (1 - (math.floor((maxMana - (maxMana - mana)) * 100 / maxMana) / 100)))
-  local rect = { x = 0, y = Ymppc, width = 63, height = 208 - Ymppc + 1 }
-  manaCircleFront:setImageClip(rect)
-  manaCircleFront:setImageRect(rect)
+    local Ymppc = math.floor(208 * (1 - (math.floor((maxMana - (maxMana - mana)) * 100 / maxMana) / 100)))
+    local rect = { x = 0, y = Ymppc, width = 63, height = 208 - Ymppc + 1 }
+    manaCircleFront:setImageClip(rect)
+    manaCircleFront:setImageRect(rect)
+  end
 end
 
 function onLevelChange(localPlayer, value, percent)

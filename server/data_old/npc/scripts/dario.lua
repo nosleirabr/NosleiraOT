@@ -1,0 +1,45 @@
+local keywordHandler = KeywordHandler:new()
+local npcHandler = NpcHandler:new(keywordHandler)
+NpcSystem.parseParameters(npcHandler)
+
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
+function onThink()						npcHandler:onThink()						end
+npcHandler:setMessage(MESSAGE_GREET, 'Ashari |PLAYERNAME|.')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Asha Thrazi.')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Asha Thrazi.')
+keywordHandler:addKeyword({'carlin'}, StdModule.say, {npcHandler = npcHandler, text = 'I was there some time ago. It was lovely and reminded me of my home Ab\'Dendriel.'})
+keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am the master archer of the arena. I train distance fighters and sell them equipment.'})
+keywordHandler:addKeyword({'arkhothep'}, StdModule.say, {npcHandler = npcHandler, text = 'The pharaoh seems to be mighty beyond imagination.'})
+keywordHandler:addKeyword({'palace'}, StdModule.say, {npcHandler = npcHandler, text = 'Under the palace are crypts, full of minor undead and creatures that have failed the pharaoh. He allows everyone to slay them as they see it fit.'})
+keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'I am Dario of Ab\'Dendriel.'})
+keywordHandler:addKeyword({'ammo'}, StdModule.say, {npcHandler = npcHandler, text = 'Do you need arrows for a bow, or bolts for a crossbow?'})
+keywordHandler:addKeyword({'ashmunrah'}, StdModule.say, {npcHandler = npcHandler, text = 'There was some fighting long ago. The old pharaoh lost his power to his son Arkhothep.'})
+keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'Time is unimportant to me.'})
+keywordHandler:addKeyword({'ankrahmun'}, StdModule.say, {npcHandler = npcHandler, text = 'Ankrahmun is unlike any other city I\'ve seen. Sometimes it gives me shivers ... on the other hand it makes me stay on guard and feel alive, despite the undeath cult.'})
+keywordHandler:addKeyword({'temple'}, StdModule.say, {npcHandler = npcHandler, text = 'The temple is somewhere south at the coast.'})
+keywordHandler:addKeyword({'buy'}, StdModule.say, {npcHandler = npcHandler, text = 'I am selling bows, crossbows, and ammunition. Do you need anything?'})
+keywordHandler:addKeyword({'venore'}, StdModule.say, {npcHandler = npcHandler, text = 'I did not like the greedy attitude of the people there.'})
+keywordHandler:addKeyword({'daraman'}, StdModule.say, {npcHandler = npcHandler, text = 'You should ask about him in Darashia. People there talked a lot about him.'})
+keywordHandler:addKeyword({'tibia'}, StdModule.say, {npcHandler = npcHandler, text = 'I travel a lot to see everything. For now I settle here for some time.'})
+keywordHandler:addKeyword({'kazordoon'}, StdModule.say, {npcHandler = npcHandler, text = 'The small people are too hectic and greedy. They don\'t understand the harmony of nature.'})
+keywordHandler:addKeyword({'undead'}, StdModule.say, {npcHandler = npcHandler, text = 'I don\'t understand this cult yet. Just ask around and people will tell you.'})
+keywordHandler:addKeyword({'thais'}, StdModule.say, {npcHandler = npcHandler, text = 'Thais is too crowded for my taste.'})
+keywordHandler:addKeyword({'scarab'}, StdModule.say, {npcHandler = npcHandler, text = 'Scarabs are dangerous. They are quick, resistant to poison and theis shells are hard as steel.'})
+keywordHandler:addKeyword({'spell'}, StdModule.say, {npcHandler = npcHandler, text = 'Sorry, I only sell spells to paladins.'})
+keywordHandler:addKeyword({'ascension'}, StdModule.say, {npcHandler = npcHandler, text = 'I don\'t care for this human concepts.'})
+keywordHandler:addKeyword({'edron'}, StdModule.say, {npcHandler = npcHandler, text = 'I think Edron is quite typical for a human settlement.'})
+keywordHandler:addKeyword({'darashia'}, StdModule.say, {npcHandler = npcHandler, text = 'The city seemed a bit dull and peacefull to me, so I left for Ankrahmun.'})
+keywordHandler:addKeyword({'darama'}, StdModule.say, {npcHandler = npcHandler, text = 'This continent is hard and challenging. I like challenges.'})
+keywordHandler:addKeyword({'arena'}, StdModule.say, {npcHandler = npcHandler, text = 'People who fight here do it on their own choice. So I don\'t care.'})
+
+local shopModule = ShopModule:new()
+npcHandler:addModule(shopModule)
+shopModule:addBuyableItem({'arrow'}, 3447, 2, 'arrow')
+shopModule:addBuyableItem({'bow'}, 3350, 400, 'bow')
+shopModule:addBuyableItem({'crossbow'}, 3349, 500, 'crossbow')
+shopModule:addBuyableItem({'bolt'}, 3446, 3, 'bolt')
+
+npcHandler:addModule(FocusModule:new())
+
