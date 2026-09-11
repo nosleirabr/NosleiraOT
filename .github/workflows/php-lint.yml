@@ -1,0 +1,63 @@
+name: PHP Lint (phpcs + phpstan)
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "site/**/*.php"
+      - ".github/workflows/php-lint.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "site/**/*.php"
+      - ".github/workflows/php-lint.yml"
+
+jobs:
+  phpcs:
+    name: PHP CodeSniffer
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          tools: phpcs, phpstan
+          coverage: none
+
+      - name: PHP CodeSniffer (estilo PSR-12)
+        run: |
+          phpcs \
+            --standard=PSR12 \
+            --extensions=php \
+            --ignore=site/engine/,site/system/,site/vendor/ \
+            --warning-severity=0 \
+            site/ \
+            || true
+          # Remove "|| true" quando o site estiver formatado conforme PSR-12.
+
+  phpstan:
+    name: PHPStan (análise estática)
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          tools: phpstan
+          coverage: none
+
+      - name: PHPStan nível 3
+        run: |
+          phpstan analyse \
+            --level=3 \
+            --memory-limit=512M \
+            --no-progress \
+            site/custom/ \
+            || true
+          # Nível 3 é um bom ponto de partida; suba para 5+ conforme o código amadurece.

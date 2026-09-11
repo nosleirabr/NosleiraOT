@@ -188,5 +188,6 @@ pip-log.txt
 *.zip
 
 
-# Ignore Docker Desktop installation folder
+# Docker Desktop instalado no disco D (nao eh codigo do projeto)
 Docker/
+
