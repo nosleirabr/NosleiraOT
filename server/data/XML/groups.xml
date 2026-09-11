@@ -3,7 +3,7 @@
     <group id="1" name="Player" flags="0" customFlags="0" access="0" maxdepotitems="0" maxvipentries="100" />
     <group id="2" name="Tutor" flags="16777216" customFlags="2" access="0" maxdepotitems="0" maxvipentries="200" />
     <group id="3" name="Senior Tutor" flags="68736598016" customFlags="14" access="0" maxdepotitems="0" maxvipentries="200" />
-    <group id="4" name="Gamemaster" flags="3808558964575" customFlags="257215" access="1" maxdepotitems="0" maxvipentries="200" />
-    <group id="5" name="Community Manager" flags="3808558964575" customFlags="781823" access="1" maxdepotitems="0" maxvipentries="200" />
-    <group id="6" name="God" flags="3808558964575" customFlags="2097151" access="1" maxdepotitems="0" maxvipentries="200" />
+    <group id="4" name="Gamemaster" flags="495027328392" customFlags="257215" access="1" maxdepotitems="0" maxvipentries="200" />
+    <group id="5" name="Community Manager" flags="547103940088" customFlags="781823" access="1" maxdepotitems="0" maxvipentries="200" />
+    <group id="6" name="God" flags="547103940088" customFlags="2097151" access="1" maxdepotitems="0" maxvipentries="200" />
 </groups>
