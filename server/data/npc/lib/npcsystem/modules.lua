@@ -226,6 +226,26 @@ if Modules == nil then
 		return true
 	end
 
+	function FocusModule:addGreetMessage(message)
+		if type(message) == "string" then
+			local obj = { message }
+			obj.callback = FocusModule.messageMatcher
+			if self.npcHandler and self.npcHandler.keywordHandler then
+				self.npcHandler.keywordHandler:addKeyword(obj, FocusModule.onGreet, {module = self})
+			end
+		end
+	end
+
+	function FocusModule:addFarewellMessage(message)
+		if type(message) == "string" then
+			local obj = { message }
+			obj.callback = FocusModule.messageMatcher
+			if self.npcHandler and self.npcHandler.keywordHandler then
+				self.npcHandler.keywordHandler:addKeyword(obj, FocusModule.onFarewell, {module = self})
+			end
+		end
+	end
+
 	-- Greeting callback function.
 	function FocusModule.onGreet(cid, message, keywords, parameters)
 		parameters.module.npcHandler:onGreet(cid)

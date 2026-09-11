@@ -9,7 +9,7 @@ function onUse(player, item, fromPosition, target, toPosition, isHotkey)
                 return true
             end
         end
-        return false -- let standard crowbar logic run if not this
+        return destroyItem(player, target, toPosition)
     end
 
     -- Mission 9: Deliver Bag of Letters to Santa's Mailbox

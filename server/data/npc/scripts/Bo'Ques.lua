@@ -8,7 +8,9 @@ function onCreatureSay(cid, type, msg)		npcHandler:onCreatureSay(cid, type, msg)
 function onThink()		npcHandler:onThink()		end
 
 local voices = { {text = 'Now, where was I...'} }
-npcHandler:addModule(VoiceModule:new(voices))
+if VoiceModule then
+	npcHandler:addModule(VoiceModule:new(voices))
+end
 
 local function creatureSayCallback(cid, type, msg)
 	if not npcHandler:isFocused(cid) then
