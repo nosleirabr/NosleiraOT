@@ -13,3 +13,20 @@ npcHandler:addModule(shopModule)
 
 npcHandler:addModule(FocusModule:new())
 
+
+local function creatureSayCallback(cid, type, msg)
+    if not npcHandler:isFocused(cid) then
+        return false
+    end
+    
+    local player = Player(cid)
+    if msgcontains(msg, "measurements") then
+        if player:getStorageValue(12456) >= 1 then
+            npcHandler:say("My measurements? What do you want to do with my measurements? ... well, I am 1.83m...", cid)
+            player:setStorageValue(12456, player:getStorageValue(12456) + 1)
+            npcHandler.topic[cid] = 0
+        end
+    end
+    return true
+end
+npcHandler:setCallback(CALLBACK_MESSAGE_DEFAULT, creatureSayCallback)

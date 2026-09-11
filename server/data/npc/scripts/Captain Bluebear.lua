@@ -8,7 +8,7 @@ function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, 
 function onThink()                          npcHandler:onThink()                        end
 
 -- Thais harbour (z=7 on this map)
-addTravelKeyword(keywordHandler, npcHandler, 'carlin', 110, TravelHarbours.carlin, 'Carlin')
+addTravelKeyword(keywordHandler, npcHandler, 'carlin', 110, TravelHarbours.carlin, 'Carlin', nil, function(player) if player:getStorageValue(12450) == 1 then player:setStorageValue(12450, 2) end end)
 addTravelKeyword(keywordHandler, npcHandler, 'ab\'dendriel', 130, TravelHarbours.abdendriel, 'Ab\'Dendriel')
 addTravelKeyword(keywordHandler, npcHandler, 'abdendriel', 130, TravelHarbours.abdendriel, 'Ab\'Dendriel')
 addTravelKeyword(keywordHandler, npcHandler, 'edron', 160, TravelHarbours.edron, 'Edron')
@@ -28,3 +28,4 @@ npcHandler:setMessage(MESSAGE_GREET, 'Welcome on board, |PLAYERNAME|. Where can 
 npcHandler:setMessage(MESSAGE_FAREWELL, 'Good bye. Recommend us if you were satisfied with our service.')
 npcHandler:setMessage(MESSAGE_WALKAWAY, 'Good bye then.')
 npcHandler:addModule(FocusModule:new())
+

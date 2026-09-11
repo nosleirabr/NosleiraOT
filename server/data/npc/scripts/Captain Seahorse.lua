@@ -11,7 +11,7 @@ addTravelKeyword(keywordHandler, npcHandler, 'thais', 160, TravelHarbours.thais,
 addTravelKeyword(keywordHandler, npcHandler, 'carlin', 110, TravelHarbours.carlin, 'Carlin')
 addTravelKeyword(keywordHandler, npcHandler, 'ab\'dendriel', 70, TravelHarbours.abdendriel, 'Ab\'Dendriel')
 addTravelKeyword(keywordHandler, npcHandler, 'abdendriel', 70, TravelHarbours.abdendriel, 'Ab\'Dendriel')
-addTravelKeyword(keywordHandler, npcHandler, 'venore', 40, TravelHarbours.venore, 'Venore')
+addTravelKeyword(keywordHandler, npcHandler, 'venore', 40, TravelHarbours.venore, 'Venore', nil, function(player) if player:getStorageValue(12450) == 3 then player:setStorageValue(12450, 4) end end)
 addTravelKeyword(keywordHandler, npcHandler, 'ankrahmun', 160, TravelHarbours.ankrahmun, 'Ankrahmun')
 addTravelKeyword(keywordHandler, npcHandler, 'cormaya', 20, TravelHarbours.cormaya, 'Cormaya')
 
@@ -28,3 +28,4 @@ npcHandler:setMessage(MESSAGE_GREET, 'Welcome on board, |PLAYERNAME|. Where can 
 npcHandler:setMessage(MESSAGE_FAREWELL, 'Good bye. Recommend us if you were satisfied with our service.')
 npcHandler:setMessage(MESSAGE_WALKAWAY, 'Good bye then.')
 npcHandler:addModule(FocusModule:new())
+
