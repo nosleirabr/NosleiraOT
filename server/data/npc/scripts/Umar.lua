@@ -4,46 +4,94 @@ NpcSystem.parseParameters(npcHandler)
 
 function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
 function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
-function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
-function onThink()						npcHandler:onThink()						end
-npcHandler:setMessage(MESSAGE_FAREWELL, '<salutes>Aaaa -tention!.')
-npcHandler:setMessage(MESSAGE_WALKAWAY, '<salutes>Aaaa -tention!.')
-keywordHandler:addKeyword({'alesar'}, StdModule.say, {npcHandler = npcHandler, text = 'Ah. That guy. He was one of us, a Marid, but he left long ago. I have no idea why. Rumours and hearsay is all I ever get.'})
-keywordHandler:addKeyword({'ascension'}, StdModule.say, {npcHandler = npcHandler, text = 'Apparently that is what the followers of the pharaoh are striving for. It has to do with that pharaoh\'s teachings.'})
-keywordHandler:addKeyword({'lamp'}, StdModule.say, {npcHandler = npcHandler, text = 'Djinns sleep in lamps. I don\'t know what is so special about that.'})
-keywordHandler:addKeyword({'girls'}, StdModule.say, {npcHandler = npcHandler, text = 'You did not know there are female djinns, did you? That\'s because they are quite rare. They are the greatest treasures of our race, and we guard them jealously.'})
-keywordHandler:addKeyword({'djinn'}, StdModule.say, {npcHandler = npcHandler, text = 'Well, I am a djinn, but only as far as my physical aspect is concerned. As far as my way of thinking is concerned I think I might actually be somebody else. You now - not even a djinn. In fact, I think I might be a dwarf.'})
-keywordHandler:addKeyword({'darashia'}, StdModule.say, {npcHandler = npcHandler, text = 'They say Darashia is a beautiful human city somewhere to the north. I would really love to see it, but I can\'t abandon my post.'})
-keywordHandler:addKeyword({'things'}, StdModule.say, {npcHandler = npcHandler, text = 'Yes. About the world and the gods and all that. And about girls. Yes, about girls, mostly.'})
-keywordHandler:addKeyword({'gods'}, StdModule.say, {npcHandler = npcHandler, text = 'I have not made my mind up what to think about the gods yet. I am still struggling with Daraman\'s teachings.'})
-keywordHandler:addKeyword({'daraman'}, StdModule.say, {npcHandler = npcHandler, text = 'Daraman has changed our lives. I mean, we were not stupid or anything before he came, but still it was different. Fa\'hradin says that while Zathroth made us intelligent, Daraman made us think.'})
-keywordHandler:addKeyword({'ankrahmun'}, StdModule.say, {npcHandler = npcHandler, text = 'I was there, long ago. We had a garrison based in Ankrahmun during the early phases of the war. That was before the whole plains of the Kha\'labal were set on fire.'})
-keywordHandler:addKeyword({'temple'}, StdModule.say, {npcHandler = npcHandler, text = 'In these heretic times the priests at Ankrahmun\'s temple are devoted to the teachings of that pompous pharaoh.'})
-keywordHandler:addKeyword({'palace'}, StdModule.say, {npcHandler = npcHandler, text = 'I remember the palace. It was a beautiful place. Ah... those were happy days.'})
-keywordHandler:addKeyword({'efreet'}, StdModule.say, {npcHandler = npcHandler, text = 'I have thought long and hard about this and I have come to the conclusion that all Efreet are scum.'})
-keywordHandler:addKeyword({'king'}, StdModule.say, {npcHandler = npcHandler, text = 'Okay, let\'s do this again. Gabel says he isn\'t a king, but he acts like one, which makes him one anyway - right? ...'})
-keywordHandler:addKeyword({'rah'}, StdModule.say, {npcHandler = npcHandler, text = 'That\'s just some heretic drivel. Don\'t ask me about it.'})
-keywordHandler:addKeyword({'marid'}, StdModule.say, {npcHandler = npcHandler, text = 'That\'s us. I suppose we are the good guys in this war. Although good is relative, of course. So let\'s say, we are relatively good. Depends on the point of view, really.'})
-keywordHandler:addKeyword({'human'}, StdModule.say, {npcHandler = npcHandler, text = 'See. That\'s another problem. In the past, it was us against you - djinn against humans. But one day this guy came along, and all of a sudden things were so much more complicated. ...'})
-keywordHandler:addKeyword({'zathroth'}, StdModule.say, {npcHandler = npcHandler, text = 'Zathroth is not very popular among the djinn because it is said that he abandoned us even though he was our creator. Legend has it that we failed to meet his expectations. ...'})
-keywordHandler:addKeyword({'tibia'}, StdModule.say, {npcHandler = npcHandler, text = 'Tibia is a beautiful world. Not that I see much of it, staring at this wall night and day.'})
-keywordHandler:addKeyword({'dwarf'}, StdModule.say, {npcHandler = npcHandler, text = 'Yes. Consider this: Dwarves live in the mountains. So do I. And just like dwarves I really like gold. But most of all, dwarves like beer. ...'})
-keywordHandler:addKeyword({'edron'}, StdModule.say, {npcHandler = npcHandler, text = 'I understand the humans have founded some beautiful cities. I would like to see them, but as long as I have to stay here that won\'t happen. Which means I will not go anywhere as long as the war goes on.'})
-keywordHandler:addKeyword({'djema'}, StdModule.say, {npcHandler = npcHandler, text = 'You know her? She\'s a human like you. I like her lots because she often comes down here for a chat. Nobody else around here does that.'})
-keywordHandler:addKeyword({'melchior'}, StdModule.say, {npcHandler = npcHandler, text = 'That name rings a bell. A trader from Ankrahmun... or was it Darashia? I remember him and his mule. He used to come up here quite often to do business with Haroun. ...'})
-keywordHandler:addKeyword({'scarab'}, StdModule.say, {npcHandler = npcHandler, text = 'I don\'t care whether or not they are special animals. None of that creeping vermin will enter Ashta\'daramai as long as I am here!'})
-keywordHandler:addKeyword({'philosopher'}, StdModule.say, {npcHandler = npcHandler, text = 'Yes. Comes with the job. You see - here I am, sitting on the same chair all day and staring at the same blank wall. So what happens is that my mind starts wandering. And, you know, I start thinking. You know - about all kinds of things.'})
-keywordHandler:addKeyword({'war'}, StdModule.say, {npcHandler = npcHandler, text = 'We had thought the war was over for good when Malor was finally imprisoned. That little creep is as obstinate as... as... well, as a really obstinate djinn.'})
-keywordHandler:addKeyword({'pass'}, StdModule.say, {npcHandler = npcHandler, text = 'If you want to enter our fortress you have to become one of us and fight the Efreet. ...'})
-keywordHandler:addKeyword({'pharaoh'}, StdModule.say, {npcHandler = npcHandler, text = 'They say the new pharaoh is mad!'})
-keywordHandler:addKeyword({'gabel'}, StdModule.say, {npcHandler = npcHandler, text = 'He is our king and leader. Well, he isn\'t a king, you know. I mean, from a technical point of view he is, but he does not wear a crown or anything, and he says he isn\'t one, so even though he is one he isn\'t. Right?'})
-keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am the gatekeeper of Ashta\'daramai. That\'s what Gabel told me to do. You know - keeping the courtyard clean, getting rid of salesmen, keeping Efreet scum out... that kind of thing. But in my spare time I work as a part-time philosopher.'})
-keywordHandler:addKeyword({'malor'}, StdModule.say, {npcHandler = npcHandler, text = 'Malor is evil. I mean - really evil. Things used to be much better when he was still locked away in that lamp.'})
-keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'I am Umar. Pleased to meet you!'})
-keywordHandler:addKeyword({'gate'}, StdModule.say, {npcHandler = npcHandler, text = 'On the orders of king Gabel, who technically is no real king, only Marid may enter Ashta\'daramai.'})
+function onCreatureSay(cid, type, msg)		npcHandler:onCreatureSay(cid, type, msg)		end
+function onThink()				npcHandler:onThink()					end
 
-local shopModule = ShopModule:new()
-npcHandler:addModule(shopModule)
+local function greetCallback(cid, message)
+	local player = Player(cid)
+	if not msgcontains(message, 'djanni\'hah') and player:getStorageValue(51102) ~= 1 then
+		npcHandler:say('Whoa! A human! This is no place for you, |PLAYERNAME|. Go and play somewhere else.', cid)
+		return false
+	end
 
-npcHandler:addModule(FocusModule:new())
+	if player:getStorageValue(51101) == -1 then
+		npcHandler:say({
+			'Hahahaha! ...',
+			'|PLAYERNAME|, that almost sounded like the word of greeting. Humans - cute they are!'
+		}, cid)
+		return false
+	end
+
+	if player:getStorageValue(51102) ~= 1 then
+		npcHandler:setMessage(MESSAGE_GREET, {
+			'Whoa? You know the word! Amazing, |PLAYERNAME|! ...',
+			'I should go and tell Fa\'hradin. ...',
+			'Well. Why are you here anyway, |PLAYERNAME|?'
+		})
+	else
+		npcHandler:setMessage(MESSAGE_GREET, '|PLAYERNAME|! How\'s it going these days? What brings you {here}?')
+	end
+	return true
+end
+
+local function creatureSayCallback(cid, type, msg)
+	if not npcHandler:isFocused(cid) then
+		return false
+	end
+
+	local player = Player(cid)
+	if msgcontains(msg, 'passage') then
+		if player:getStorageValue(51102) ~= 1 then
+			npcHandler:say({
+				'If you want to enter our fortress you have to become one of us and fight the Efreet. ...',
+				'So, are you willing to do so?'
+			}, cid)
+			npcHandler.topic[cid] = 1
+		else
+			npcHandler:say('You already have the permission to enter Ashta\'daramai.', cid)
+		end
+
+	elseif npcHandler.topic[cid] == 1 then
+		if msgcontains(msg, 'yes') then
+			if player:getStorageValue(51103) ~= 1 then
+				npcHandler:say('Are you sure? You pledge loyalty to king Gabel, who is... you know. And you are willing to never ever set foot on Efreets\' territory, unless you want to kill them? Yes?', cid)
+				npcHandler.topic[cid] = 2
+			else
+				npcHandler:say('I don\'t believe you! You better go now.', cid)
+				npcHandler.topic[cid] = 0
+			end
+
+		elseif msgcontains(msg, 'no') then
+			npcHandler:say('This isn\'t your war anyway, human.', cid)
+			npcHandler.topic[cid] = 0
+		end
+
+	elseif npcHandler.topic[cid] == 2 then
+		if msgcontains(msg, 'yes') then
+			npcHandler:say({
+				'Oh. Ok. Welcome then. You may pass. ...',
+				'And don\'t forget to kill some Efreets, now and then.'
+			}, cid)
+			player:setStorageValue(51102, 1)
+			player:setStorageValue(51101, 0)
+
+		elseif msgcontains(msg, 'no') then
+			npcHandler:say('This isn\'t your war anyway, human.', cid)
+		end
+		npcHandler.topic[cid] = 0
+	end
+	return true
+end
+
+npcHandler:setMessage(MESSAGE_FAREWELL, '<salutes>Aaaa -tention!')
+npcHandler:setMessage(MESSAGE_WALKAWAY, '<salutes>Aaaa -tention!')
+
+npcHandler:setCallback(CALLBACK_GREET, greetCallback)
+npcHandler:setCallback(CALLBACK_MESSAGE_DEFAULT, creatureSayCallback)
+
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+focusModule:addGreetMessage('djanni\'hah')
+npcHandler:addModule(focusModule)
 

@@ -9,6 +9,11 @@
 	<action itemid="2330" script="quests/postman_items.lua" />
 	<action itemid="2331" script="quests/postman_items.lua" />
 
+			<!-- Djinn War -->
+	<action uniqueid="2285" script="quests/djinn_war_actions.lua" />
+	<action uniqueid="3024" script="quests/djinn_war_actions.lua" />
+	<action actionid="5390" script="quests/djinn_war_actions.lua" />
+
 	<!-- Quests -->
 	<action actionid="2000" script="quests/system.lua" />
 	<action actionid="2001" script="quests/system2.lua" />
@@ -174,6 +179,8 @@
 	<!-- Map-as-code: remaining unlabeled levers (decorative_levers.yaml -> aid 50999) -->
 	<action actionid="50999" script="quests/decorative_lever.lua" />
 </actions>
+
+
 
 
 
