@@ -84,7 +84,7 @@ if Modules == nil then
 				npcHandler:say("You are already promoted!", cid)
 			elseif player:getLevel() < parameters.level then
 				npcHandler:say("I am sorry, but I can only promote you once you have reached level " .. parameters.level .. ".", cid)
-			elseif not player:removeMoney(parameters.cost) then
+						elseif not player:removeMoney(parameters.discount == 'postman' and player:getStorageValue(12460) >= 1 and math.max(0, parameters.cost - 10) or parameters.cost) then
 				npcHandler:say("You do not have enough money!", cid)
 			else
 				npcHandler:say(parameters.text, cid)
@@ -141,7 +141,7 @@ if Modules == nil then
 		if player:isPremium() or not parameters.premium then
 			if player:hasBlessing(parameters.bless) then
 				npcHandler:say("Gods have already blessed you with this blessing!", cid)
-			elseif not player:removeMoney(parameters.cost) then
+						elseif not player:removeMoney(parameters.discount == 'postman' and player:getStorageValue(12460) >= 1 and math.max(0, parameters.cost - 10) or parameters.cost) then
 				npcHandler:say("You don't have enough money for blessing.", cid)
 			else
 				player:addBlessing(parameters.bless)
@@ -170,7 +170,7 @@ if Modules == nil then
 				npcHandler:say("First get rid of those blood stains! You are not going to ruin my vehicle!", cid)
 			elseif parameters.level and player:getLevel() < parameters.level then
 				npcHandler:say("You must reach level " .. parameters.level .. " before I can let you go there.", cid)
-			elseif not player:removeMoney(parameters.cost) then
+						elseif not player:removeMoney(parameters.discount == 'postman' and player:getStorageValue(12460) >= 1 and math.max(0, parameters.cost - 10) or parameters.cost) then
 				npcHandler:say("You don't have enough money.", cid)
 			else
 				npcHandler:say(parameters.msg or "Set the sails!", cid)
@@ -1212,3 +1212,4 @@ if Modules == nil then
 		return true
 	end
 end
+
