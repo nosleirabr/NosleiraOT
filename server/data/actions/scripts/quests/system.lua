@@ -9,13 +9,24 @@ local questRewards = {
     [52169] = { {itemId = 2651, count = 1} }, -- Coat
     [52170] = { {itemId = 2382, count = 1} }, -- Club
     [52171] = { {itemId = 2120, count = 1} }, -- Rope
+    [52148] = { {itemId = 2088, count = 1, actionId = 4601} }, -- Key 4601 (Bear Room)
+    [52149] = { {itemId = 2149, count = 1} }, -- Small Emerald
+    [52159] = { {itemId = 2159, count = 1} }, -- Scarab Coin
     [2050] = { {itemId = 2050, count = 1} }, -- Sewer Torch Quest
+    [2103] = { {itemId = 2103, count = 1} }, -- Tome / Book
     [2384] = { {itemId = 2384, count = 1} }, -- Rapier Quest
+    [2395] = { {itemId = 2395, count = 1} }, -- Carlin Sword Quest
+    [2404] = { {itemId = 2404, count = 1} }, -- Combat Knife
     [2412] = { {itemId = 2412, count = 1} }, -- Katana Quest
+    [2460] = { {itemId = 2460, count = 1} }, -- Brass Helmet
+    [2464] = { {itemId = 2464, count = 1} }, -- Chain Armor
     [2473] = { {itemId = 2473, count = 1} }, -- Viking Helmet Quest
+    [2580] = { {itemId = 2580, count = 1} }, -- Fishing Rod
+    [2676] = { {itemId = 2676, count = 1} }, -- Banana
     [20001] = { {itemId = 2467, count = 1} }, -- Leather Armor Quest / Doublet Room
     [20002] = { {itemId = 2088, count = 1, actionId = 4603} }, -- Key 4603
     [20003] = { {itemId = 2530, count = 1}, {itemId = 2480, count = 1} }, -- Bear Room: Copper Shield + Legion Helmet
+    [54322] = { {itemId = 1987, count = 1} }, -- Present Box (Rookgaard)
 
     -- === BEHEMOTH QUEST ===
     [10001] = { {itemId = 2520, count = 1} }, -- Demon Shield
