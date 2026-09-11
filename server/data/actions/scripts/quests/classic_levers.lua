@@ -40,6 +40,51 @@ local levers = {
         end
     },
     
+    -- Demon Helmet Quest Lever
+    [30018] = {
+        name = "Demon Helmet Quest",
+        toggle = true,
+        onExecute = function(player, leverPos)
+            -- Position of the blocking rock (typical 7.4 realmap pos: 33314, 31592, 15)
+            local rockPos = Position(33314, 31592, 15)
+            local rockTile = Tile(rockPos)
+            local rockId = 1354 -- Large stone ID
+
+            if rockTile then
+                local rockItem = rockTile:getItemById(rockId)
+                if rockItem then
+                    rockItem:remove()
+                    player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You hear a rock moving somewhere.")
+                else
+                    Game.createItem(rockId, 1, rockPos)
+                    player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You hear a rock moving somewhere.")
+                end
+            end
+            return true
+        end
+    },
+    
+    -- Banshee Quest Warlock Lever (Isle of Kings Warlock Room)
+    [30019] = {
+        name = "Banshee Quest Warlock Lever",
+        toggle = true,
+        onExecute = function(player, leverPos)
+            -- Position of the magic wall or stone blocking the warlock room
+            local wallPos = Position(32204, 31853, 15)
+            local wallId = 1354
+            
+            local wallTile = Tile(wallPos)
+            if wallTile then
+                local wallItem = wallTile:getItemById(wallId)
+                if wallItem then
+                    wallItem:remove()
+                else
+                    Game.createItem(wallId, 1, wallPos)
+                end
+            end
+            return true
+        end
+    },
     -- Desert Quest Lever
     [30017] = {
         name = "Desert Quest",
@@ -62,23 +107,25 @@ function onUse(player, item, fromPosition, target, toPosition, isHotkey)
     local doorRet = handleDoorExecution(player, item, fromPosition, target, toPosition)
     if doorRet ~= nil then return doorRet end
 
+
     if item.itemid ~= 1945 then
         if item.itemid == 1946 then
             item:transform(1945)
+            if quest.onExecuteToggleBack then
+                quest.onExecuteToggleBack(player, item:getPosition())
+            elseif quest.toggle then
+                quest.onExecute(player, item:getPosition())
+            end
         end
         return true
     end
 
-    local quest = levers[item.uid] or levers[item.actionid]
-    if not quest then
-        return false
-    end
 
     local leverPos = item:getPosition()
     local validPlayers = {}
     
     -- 1. Validação de Jogadores e Sacrifícios
-    for i, pConfig in ipairs(quest.players) do
+    for i, pConfig in ipairs(quest.players or {}) do
         local playerPos = Position(leverPos.x + pConfig.relPos.x, leverPos.y + pConfig.relPos.y, leverPos.z)
         local tile = Tile(playerPos)
         
@@ -147,3 +194,8 @@ function onUse(player, item, fromPosition, target, toPosition, isHotkey)
     item:transform(1946)
     return true
 end
+
+
+
+
+
