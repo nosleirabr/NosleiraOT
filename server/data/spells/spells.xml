@@ -235,89 +235,69 @@
     <vocation name="Elder Druid" />
     <vocation name="Royal Paladin" />
   </instant>
-  <conjure group="global" spellid="92" name="Enchant Staff" words="exeta vis" maglv="22" mana="80" prem="0" conjureId="2433" reagentId="2401" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureItem">
+  <conjure group="global" spellid="92" name="Enchant Staff" words="exeta vis" maglv="22" mana="80" prem="0" conjureId="2433" reagentId="2401" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureItem">
     <vocation name="Master Sorcerer" />
   </conjure>
-  <conjure group="global" spellid="51" name="Conjure Arrow" words="exevo con" maglv="2" mana="40" soul="0" conjureId="2544" conjureCount="30" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureItem">
+  <conjure group="global" spellid="51" name="Conjure Arrow" words="exevo con" maglv="2" mana="40" soul="0" conjureId="2544" conjureCount="30" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureItem">
     <vocation name="Paladin" />
     <vocation name="Royal Paladin" />
   </conjure>
-  <conjure group="global" spellid="79" name="Conjure Bolt" words="exevo con mort" maglv="6" mana="70" soul="0" prem="0" conjureId="2543" conjureCount="20" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureItem">
+  <conjure group="global" spellid="79" name="Conjure Bolt" words="exevo con mort" maglv="6" mana="70" soul="0" prem="0" conjureId="2543" conjureCount="20" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureItem">
     <vocation name="Paladin" />
     <vocation name="Royal Paladin" />
   </conjure>
-  <conjure group="global" spellid="49" name="Explosive Arrow" words="exevo con flam" maglv="10" mana="120" soul="0" conjureId="2546" conjureCount="10" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureItem">
+  <conjure group="global" spellid="49" name="Explosive Arrow" words="exevo con flam" maglv="10" mana="120" soul="0" conjureId="2546" conjureCount="10" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureItem">
     <vocation name="Paladin" />
     <vocation name="Royal Paladin" />
   </conjure>
-  <conjure group="global" spellid="48" name="Poisoned Arrow" words="exevo con pox" maglv="5" mana="70" soul="0" conjureId="2545" conjureCount="20" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureItem">
+  <conjure group="global" spellid="48" name="Poisoned Arrow" words="exevo con pox" maglv="5" mana="70" soul="0" conjureId="2545" conjureCount="20" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureItem">
     <vocation name="Paladin" />
     <vocation name="Royal Paladin" />
   </conjure>
-  <conjure group="global" spellid="95" name="Power Bolt" words="exevo con vis" maglv="14" mana="200" soul="0" prem="0" conjureId="2547" conjureCount="2" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureItem">
+  <conjure group="global" spellid="95" name="Power Bolt" words="exevo con vis" maglv="14" mana="200" soul="0" prem="0" conjureId="2547" conjureCount="2" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureItem">
     <vocation name="Royal Paladin" />
   </conjure>
   <!-- END Instant Spells -->
   <!-- Conjure Rune Spells -->
-  <conjure name="Energy Field" words="adevo grav vis" maglv="5" mana="80" soul="0" reagentId="2260" conjureId="2277" conjureCount="3" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
+  <conjure name="Energy Field" words="adevo grav vis" maglv="5" mana="80" soul="0" reagentId="2260" conjureId="2277" conjureCount="3" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
     <vocation name="Sorcerer" />
     <vocation name="Druid" />
     <vocation name="Master Sorcerer" />
     <vocation name="Elder Druid" />
   </conjure>
-  <conjure name="Energy Wall" words="adevo mas grav vis" maglv="18" mana="250" soul="0" reagentId="2260" conjureId="2279" conjureCount="4" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
+  <conjure name="Energy Wall" words="adevo mas grav vis" maglv="18" mana="250" soul="0" reagentId="2260" conjureId="2279" conjureCount="4" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
     <vocation name="Sorcerer" />
     <vocation name="Druid" />
     <vocation name="Master Sorcerer" />
     <vocation name="Elder Druid" />
   </conjure>
-  <conjure name="Energybomb" words="adevo mas vis" maglv="18" mana="220" soul="0" prem="0" reagentId="2260" conjureId="2262" conjureCount="2" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
+  <conjure name="Energybomb" words="adevo mas vis" maglv="18" mana="220" soul="0" prem="0" reagentId="2260" conjureId="2262" conjureCount="2" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
     <vocation name="Sorcerer" />
     <vocation name="Master Sorcerer" />
   </conjure>
-  <conjure name="Envenom" words="adevo res pox" maglv="7" mana="100" soul="0" reagentId="2260" conjureId="2292" conjureCount="2" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
+  <conjure name="Envenom" words="adevo res pox" maglv="7" mana="100" soul="0" reagentId="2260" conjureId="2292" conjureCount="2" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
     <vocation name="Druid" />
     <vocation name="Elder Druid" />
   </conjure>
-  <conjure name="Explosion" words="adevo mas hur" maglv="12" mana="180" soul="0" reagentId="2260" conjureId="2313" conjureCount="3" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
-    <vocation name="Sorcerer" />
-    <vocation name="Druid" />
-    <vocation name="Master Sorcerer" />
-    <vocation name="Elder Druid" />
-  </conjure>
-  <conjure name="Fire Field" words="adevo grav flam" maglv="3" mana="60" soul="0" reagentId="2260" conjureId="2301" conjureCount="3" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
+  <conjure name="Explosion" words="adevo mas hur" maglv="12" mana="180" soul="0" reagentId="2260" conjureId="2313" conjureCount="3" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
     <vocation name="Sorcerer" />
     <vocation name="Druid" />
     <vocation name="Master Sorcerer" />
     <vocation name="Elder Druid" />
   </conjure>
-  <conjure name="Fire Wall" words="adevo mas grav flam" maglv="13" mana="200" soul="0" reagentId="2260" conjureId="2303" conjureCount="4" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
+  <conjure name="Fire Field" words="adevo grav flam" maglv="3" mana="60" soul="0" reagentId="2260" conjureId="2301" conjureCount="3" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
     <vocation name="Sorcerer" />
     <vocation name="Druid" />
     <vocation name="Master Sorcerer" />
     <vocation name="Elder Druid" />
   </conjure>
-  <conjure name="Fireball" words="adori flam" maglv="5" mana="60" soul="0" prem="0" reagentId="2260" conjureId="2302" conjureCount="3" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
-    <vocation name="Sorcerer" />
-    <vocation name="Druid" />
-    <vocation name="Paladin" />
-    <vocation name="Master Sorcerer" />
-    <vocation name="Elder Druid" />
-    <vocation name="Royal Paladin" />
-  </conjure>
-  <conjure name="Firebomb" words="adevo mas flam" maglv="9" mana="150" soul="0" reagentId="2260" conjureId="2305" conjureCount="2" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
+  <conjure name="Fire Wall" words="adevo mas grav flam" maglv="13" mana="200" soul="0" reagentId="2260" conjureId="2303" conjureCount="4" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
     <vocation name="Sorcerer" />
     <vocation name="Druid" />
     <vocation name="Master Sorcerer" />
     <vocation name="Elder Druid" />
   </conjure>
-  <conjure name="Great Fireball" words="adori gran flam" maglv="9" mana="120" soul="0" reagentId="2260" conjureId="2304" conjureCount="2" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
-    <vocation name="Sorcerer" />
-    <vocation name="Master Sorcerer" />
-    <vocation name="Druid" />
-    <vocation name="Elder Druid" />
-  </conjure>
-  <conjure name="Heavy Magic Missile" words="adori gran" maglv="3" mana="70" soul="0" reagentId="2260" conjureId="2311" conjureCount="5" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
+  <conjure name="Fireball" words="adori flam" maglv="5" mana="60" soul="0" prem="0" reagentId="2260" conjureId="2302" conjureCount="3" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
     <vocation name="Sorcerer" />
     <vocation name="Druid" />
     <vocation name="Paladin" />
@@ -325,7 +305,19 @@
     <vocation name="Elder Druid" />
     <vocation name="Royal Paladin" />
   </conjure>
-  <conjure name="Light Magic Missile" words="adori" maglv="1" mana="40" soul="0" reagentId="2260" conjureId="2287" conjureCount="10" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
+  <conjure name="Firebomb" words="adevo mas flam" maglv="9" mana="150" soul="0" reagentId="2260" conjureId="2305" conjureCount="2" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
+    <vocation name="Sorcerer" />
+    <vocation name="Druid" />
+    <vocation name="Master Sorcerer" />
+    <vocation name="Elder Druid" />
+  </conjure>
+  <conjure name="Great Fireball" words="adori gran flam" maglv="9" mana="120" soul="0" reagentId="2260" conjureId="2304" conjureCount="2" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
+    <vocation name="Sorcerer" />
+    <vocation name="Master Sorcerer" />
+    <vocation name="Druid" />
+    <vocation name="Elder Druid" />
+  </conjure>
+  <conjure name="Heavy Magic Missile" words="adori gran" maglv="3" mana="70" soul="0" reagentId="2260" conjureId="2311" conjureCount="5" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
     <vocation name="Sorcerer" />
     <vocation name="Druid" />
     <vocation name="Paladin" />
@@ -333,59 +325,7 @@
     <vocation name="Elder Druid" />
     <vocation name="Royal Paladin" />
   </conjure>
-  <conjure name="Poisonbomb" words="adevo mas pox" maglv="8" mana="130" soul="0" prem="0" reagentId="2260" conjureId="2286" conjureCount="2" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
-    <vocation name="Druid" />
-    <vocation name="Elder Druid" />
-  </conjure>
-  <conjure name="Poison Field" words="adevo grav pox" maglv="2" mana="50" soul="0" reagentId="2260" conjureId="2285" conjureCount="3" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
-    <vocation name="Sorcerer" />
-    <vocation name="Druid" />
-    <vocation name="Master Sorcerer" />
-    <vocation name="Elder Druid" />
-  </conjure>
-  <conjure name="Poison Wall" words="adevo mas grav pox" maglv="11" mana="160" soul="0" reagentId="2260" conjureId="2289" conjureCount="4" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
-    <vocation name="Sorcerer" />
-    <vocation name="Druid" />
-    <vocation name="Master Sorcerer" />
-    <vocation name="Elder Druid" />
-  </conjure>
-  <conjure name="Soulfire" words="adevo res flam" maglv="13" mana="150" soul="0" prem="0" reagentId="2260" conjureId="2308" conjureCount="2" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
-    <vocation name="Sorcerer" />
-    <vocation name="Druid" />
-    <vocation name="Master Sorcerer" />
-    <vocation name="Elder Druid" />
-  </conjure>
-  <conjure name="Sudden Death" words="adori vita vis" maglv="25" mana="220" soul="0" reagentId="2260" conjureId="2268" conjureCount="1" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
-    <vocation name="Sorcerer" />
-    <vocation name="Master Sorcerer" />
-  </conjure>
-  <conjure name="Antidote Rune" words="adana pox" maglv="5" mana="50" soul="0" reagentId="2260" conjureId="2266" conjureCount="1" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
-    <vocation name="Druid" />
-    <vocation name="Elder Druid" />
-  </conjure>
-  <conjure name="Intense Healing Rune" words="adura gran" maglv="4" mana="60" soul="0" reagentId="2260" conjureId="2265" conjureCount="1" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
-    <vocation name="Druid" />
-    <vocation name="Elder Druid" />
-  </conjure>
-  <conjure name="Ultimate Healing Rune" words="adura vita" maglv="11" mana="100" soul="0" reagentId="2260" conjureId="2273" conjureCount="1" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
-    <vocation name="Druid" />
-    <vocation name="Elder Druid" />
-  </conjure>
-  <conjure name="Animate Dead" words="adana mort" maglv="7" mana="300" soul="0" prem="0" reagentId="2260" conjureId="2316" conjureCount="1" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
-    <vocation name="Sorcerer" />
-    <vocation name="Druid" />
-    <vocation name="Master Sorcerer" />
-    <vocation name="Elder Druid" />
-  </conjure>
-  <conjure name="Convince Creature" words="adeta sio" maglv="10" mana="100" soul="0" reagentId="2260" conjureId="2290" conjureCount="1" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
-    <vocation name="Druid" />
-    <vocation name="Elder Druid" />
-  </conjure>
-  <conjure name="Chameleon" words="adevo ina" maglv="11" mana="150" soul="0" reagentId="2260" conjureId="2291" conjureCount="1" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
-    <vocation name="Druid" />
-    <vocation name="Elder Druid" />
-  </conjure>
-  <conjure name="Desintegrate" words="adito tera" maglv="8" mana="100" soul="0" prem="0" reagentId="2260" conjureId="2310" conjureCount="3" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
+  <conjure name="Light Magic Missile" words="adori" maglv="1" mana="40" soul="0" reagentId="2260" conjureId="2287" conjureCount="10" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
     <vocation name="Sorcerer" />
     <vocation name="Druid" />
     <vocation name="Paladin" />
@@ -393,7 +333,59 @@
     <vocation name="Elder Druid" />
     <vocation name="Royal Paladin" />
   </conjure>
-  <conjure name="Destroy Field" words="adito grav" maglv="6" mana="60" soul="0" reagentId="2260" conjureId="2261" conjureCount="3" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
+  <conjure name="Poisonbomb" words="adevo mas pox" maglv="8" mana="130" soul="0" prem="0" reagentId="2260" conjureId="2286" conjureCount="2" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
+    <vocation name="Druid" />
+    <vocation name="Elder Druid" />
+  </conjure>
+  <conjure name="Poison Field" words="adevo grav pox" maglv="2" mana="50" soul="0" reagentId="2260" conjureId="2285" conjureCount="3" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
+    <vocation name="Sorcerer" />
+    <vocation name="Druid" />
+    <vocation name="Master Sorcerer" />
+    <vocation name="Elder Druid" />
+  </conjure>
+  <conjure name="Poison Wall" words="adevo mas grav pox" maglv="11" mana="160" soul="0" reagentId="2260" conjureId="2289" conjureCount="4" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
+    <vocation name="Sorcerer" />
+    <vocation name="Druid" />
+    <vocation name="Master Sorcerer" />
+    <vocation name="Elder Druid" />
+  </conjure>
+  <conjure name="Soulfire" words="adevo res flam" maglv="13" mana="150" soul="0" prem="0" reagentId="2260" conjureId="2308" conjureCount="2" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
+    <vocation name="Sorcerer" />
+    <vocation name="Druid" />
+    <vocation name="Master Sorcerer" />
+    <vocation name="Elder Druid" />
+  </conjure>
+  <conjure name="Sudden Death" words="adori vita vis" maglv="25" mana="220" soul="0" reagentId="2260" conjureId="2268" conjureCount="1" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
+    <vocation name="Sorcerer" />
+    <vocation name="Master Sorcerer" />
+  </conjure>
+  <conjure name="Antidote Rune" words="adana pox" maglv="5" mana="50" soul="0" reagentId="2260" conjureId="2266" conjureCount="1" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
+    <vocation name="Druid" />
+    <vocation name="Elder Druid" />
+  </conjure>
+  <conjure name="Intense Healing Rune" words="adura gran" maglv="4" mana="60" soul="0" reagentId="2260" conjureId="2265" conjureCount="1" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
+    <vocation name="Druid" />
+    <vocation name="Elder Druid" />
+  </conjure>
+  <conjure name="Ultimate Healing Rune" words="adura vita" maglv="11" mana="100" soul="0" reagentId="2260" conjureId="2273" conjureCount="1" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
+    <vocation name="Druid" />
+    <vocation name="Elder Druid" />
+  </conjure>
+  <conjure name="Animate Dead" words="adana mort" maglv="7" mana="300" soul="0" prem="0" reagentId="2260" conjureId="2316" conjureCount="1" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
+    <vocation name="Sorcerer" />
+    <vocation name="Druid" />
+    <vocation name="Master Sorcerer" />
+    <vocation name="Elder Druid" />
+  </conjure>
+  <conjure name="Convince Creature" words="adeta sio" maglv="10" mana="100" soul="0" reagentId="2260" conjureId="2290" conjureCount="1" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
+    <vocation name="Druid" />
+    <vocation name="Elder Druid" />
+  </conjure>
+  <conjure name="Chameleon" words="adevo ina" maglv="11" mana="150" soul="0" reagentId="2260" conjureId="2291" conjureCount="1" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
+    <vocation name="Druid" />
+    <vocation name="Elder Druid" />
+  </conjure>
+  <conjure name="Desintegrate" words="adito tera" maglv="8" mana="100" soul="0" prem="0" reagentId="2260" conjureId="2310" conjureCount="3" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
     <vocation name="Sorcerer" />
     <vocation name="Druid" />
     <vocation name="Paladin" />
@@ -401,11 +393,19 @@
     <vocation name="Elder Druid" />
     <vocation name="Royal Paladin" />
   </conjure>
-  <conjure name="Magic Wall" words="adevo grav tera" maglv="14" mana="250" soul="0" prem="0" reagentId="2260" conjureId="2293" conjureCount="4" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
+  <conjure name="Destroy Field" words="adito grav" maglv="6" mana="60" soul="0" reagentId="2260" conjureId="2261" conjureCount="3" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
+    <vocation name="Sorcerer" />
+    <vocation name="Druid" />
+    <vocation name="Paladin" />
+    <vocation name="Master Sorcerer" />
+    <vocation name="Elder Druid" />
+    <vocation name="Royal Paladin" />
+  </conjure>
+  <conjure name="Magic Wall" words="adevo grav tera" maglv="14" mana="250" soul="0" prem="0" reagentId="2260" conjureId="2293" conjureCount="4" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
     <vocation name="Sorcerer" />
     <vocation name="Master Sorcerer" />
   </conjure>
-  <conjure name="Paralyze" words="adana ani" maglv="35" mana="900" soul="0" prem="0" reagentId="2260" conjureId="2278" conjureCount="1" exhaustion="1000" groupcooldown="1000" needlearn="0" function="conjureRune">
+  <conjure name="Paralyze" words="adana ani" maglv="35" mana="900" soul="0" prem="0" reagentId="2260" conjureId="2278" conjureCount="1" exhaustion="2000" groupcooldown="2000" needlearn="0" function="conjureRune">
     <vocation name="Druid" />
     <vocation name="Elder Druid" />
   </conjure>
