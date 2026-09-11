@@ -60,9 +60,9 @@ mapAuthor = "ond"
 
 -- MySQL
 mysqlHost = "mysql"
-mysqlUser = "#Aezakmix1995"
-mysqlPass = "#Aezakmix1995"
-mysqlDatabase = "#Aezakmix1995"
+mysqlUser = "ot74"
+mysqlPass = "mv%ybJvh^^ZQ14rPoRYVZw!baT0G8%RI"
+mysqlDatabase = "ot74"
 mysqlPort = 3306
 mysqlSock = ""
 passwordType = "sha1"

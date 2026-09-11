@@ -4,41 +4,88 @@ NpcSystem.parseParameters(npcHandler)
 
 function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
 function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
-function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
-function onThink()						npcHandler:onThink()						end
+function onCreatureSay(cid, type, msg)		npcHandler:onCreatureSay(cid, type, msg)		end
+function onThink()		npcHandler:onThink()		end
+
+local voices = { {text = 'Now, where was I...'} }
+npcHandler:addModule(VoiceModule:new(voices))
+
+local function creatureSayCallback(cid, type, msg)
+	if not npcHandler:isFocused(cid) then
+		return false
+	end
+
+	local player = Player(cid)
+	local missionProgress = player:getStorageValue(51111)
+	if msgcontains(msg, 'recipe') or msgcontains(msg, 'mission') then
+		if missionProgress < 1 then
+			npcHandler:say({
+				'My collection of recipes is almost complete. There are only but a few that are missing. ...',
+				'Hmmm... now that we talk about it. There is something you could help me with. Are you interested?'
+			}, cid)
+			npcHandler.topic[cid] = 1
+		else
+			npcHandler:say('I already told you about the recipes I am missing, now please try to find a cookbook of the dwarven kitchen.', cid)
+		end
+
+	elseif msgcontains(msg, 'cookbook') then
+		if missionProgress == -1 then
+			npcHandler:say({
+				'I\'m preparing the food for all djinns in Ashta\'daramai. ...',
+				'Therefore, I\'m what is commonly called a cook, although I do not like that word too much. It is vulgar. I prefer to call myself \'chef\'.'
+			}, cid)
+		elseif missionProgress == 1 then
+			npcHandler:say('Do you have the cookbook of the dwarven kitchen with you? Can I have it?', cid)
+			npcHandler.topic[cid] = 2
+		else
+			npcHandler:say('Thanks again, for bringing me that book!', cid)
+		end
+
+	elseif npcHandler.topic[cid] == 1 then
+		if msgcontains(msg, 'yes') then
+			npcHandler:say({
+				'Fine! Even though I know so many recipes, I\'m looking for the description of some dwarven meals. ...',
+				'So, if you could bring me a cookbook of the dwarven kitchen, I\'ll reward you well.'
+			}, cid)
+			player:setStorageValue(51111, 1)
+
+		elseif msgcontains(msg, 'no') then
+			npcHandler:say('Well, too bad.', cid)
+		end
+		npcHandler.topic[cid] = 0
+
+	elseif npcHandler.topic[cid] == 2 then
+		if msgcontains(msg, 'yes') then
+			if not player:removeItem(2347, 1) then
+				npcHandler:say('Too bad. I must have this book.', cid)
+				return true
+			end
+
+			npcHandler:say({
+				'The book! You have it! Let me see! <browses the book> ...',
+				'Dragon Egg Omelette, Dwarven beer sauce... it\'s all there. This is great! Here is your well-deserved reward. ...',
+				'Incidentally, I have talked to Fa\'hradin about you during dinner. I think he might have some work for you. Why don\'t you talk to him about it?'
+			}, cid)
+			player:setStorageValue(51111, 2)
+			player:addItem(2146, 3)
+
+		elseif msgcontains(msg, 'no') then
+			npcHandler:say('Too bad. I must have this book.', cid)
+		end
+		npcHandler.topic[cid] = 0
+	end
+	return true
+end
+
+npcHandler:setMessage(MESSAGE_GREET, 'Hey! A human! What are you doing in my kitchen, |PLAYERNAME|?')
 npcHandler:setMessage(MESSAGE_FAREWELL, 'Goodbye. I am sure you will come back for more. They all do.')
 npcHandler:setMessage(MESSAGE_WALKAWAY, 'Goodbye. I am sure you will come back for more. They all do.')
-keywordHandler:addKeyword({'alesar'}, StdModule.say, {npcHandler = npcHandler, text = 'Ah - that guy. You probably don\'t know it, but nobody around here likes to hear that name. It brings back painful memories, you know. His betrayal was such a heavy blow to us. I think I will never understand what made him do it? It is a mystery.'})
-keywordHandler:addKeyword({'ascension'}, StdModule.say, {npcHandler = npcHandler, text = 'As far as I know that is one of the pharaoh\'s crazy ideas. Just a load of baloney.'})
-keywordHandler:addKeyword({'melchior'}, StdModule.say, {npcHandler = npcHandler, text = 'Ah yes, the trader - right? I remember him. He used to travel the mountains with his mule. A tough haggler and a real skinflint, he was. I thought he had fallen down a cliff with all his money.'})
-keywordHandler:addKeyword({'connoisseur'}, StdModule.say, {npcHandler = npcHandler, text = 'Yes! That\'s it! I have always trouble with pronouncing that damn word. A conno... conni... ah, hang it all!'})
-keywordHandler:addKeyword({'djinn'}, StdModule.say, {npcHandler = npcHandler, text = 'That is our race. It has seen better days, you know. ...'})
-keywordHandler:addKeyword({'darashia'}, StdModule.say, {npcHandler = npcHandler, text = 'I have heard good things about this place. I understand the Caliph is a true gourmet. People who eat good food can\'t be bad, that\'s what I say.'})
-keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I\'m preparing the food for all djinn in Ashta\'daramai. ...'})
-keywordHandler:addKeyword({'daraman'}, StdModule.say, {npcHandler = npcHandler, text = 'Ah yes. That human WAS special, believe me. Did you know I talked to him myself, back in those days? In fact, I even had an argument with him because he dared to insult my work! He drove me mad when he called me a self-indulgent glutton. ...'})
-keywordHandler:addKeyword({'ankrahmun'}, StdModule.say, {npcHandler = npcHandler, text = 'No djinn who is in his right state of mind would want to go there? What for? The land is ruled by an undead nut case, and from what I have heard his subjects are no better.'})
-keywordHandler:addKeyword({'palace'}, StdModule.say, {npcHandler = npcHandler, text = 'Who would like to live in a palace if there is never the delicious smell of freshly prepared food! I would not want to live there. Not for love nor for money.'})
-keywordHandler:addKeyword({'efreet'}, StdModule.say, {npcHandler = npcHandler, text = 'A bunch of ignorants and primitives, that\'s what they are. You should see the things they eat! ...'})
-keywordHandler:addKeyword({'king'}, StdModule.say, {npcHandler = npcHandler, text = 'Gabel used to be king, you know. I must confess I miss those days a bit because I was allowed to carry the title of his royal majesty\'s personal cook. Ah, those were the days.'})
-keywordHandler:addKeyword({'rah'}, StdModule.say, {npcHandler = npcHandler, text = 'Hm. Is that some exotic spice? Hang on, I know! It is a kind of lizard stew - right?'})
-keywordHandler:addKeyword({'marid'}, StdModule.say, {npcHandler = npcHandler, text = 'That is us - the loyalists who have have remained faithful to Gabel and to good cooking.'})
-keywordHandler:addKeyword({'pharaoh'}, StdModule.say, {npcHandler = npcHandler, text = 'Apparently he is an undead! And what\'s worse, he actually chose that fate for himself! Undead! Imagine that! Never sleep, never laugh, and worst of all: Never eat! What a crackpot!'})
-keywordHandler:addKeyword({'edron'}, StdModule.say, {npcHandler = npcHandler, text = 'Ah, the northern cities. One day I will start an extensive culinary expedition there. I have this dream of writing some sort of culinary guide, you know. Isn\'t that a great idea?'})
-keywordHandler:addKeyword({'chef'}, StdModule.say, {npcHandler = npcHandler, text = 'Chef sounds nice, doesn\'t it? Well... I must admit I do not really know what it means, but it certainly sounds classy.'})
-keywordHandler:addKeyword({'tibia'}, StdModule.say, {npcHandler = npcHandler, text = 'It may be that this world is wide and full of adventure, but to be honest I am not at all keen to see it myself. A comfortable lamp to sleep in and a well equipped kitchen is all I need.'})
-keywordHandler:addKeyword({'djema'}, StdModule.say, {npcHandler = npcHandler, text = 'Djema is a nice girl, but she eats so little. It\'s frustrating, really. Humans and their little stomachs!'})
-keywordHandler:addKeyword({'food'}, StdModule.say, {npcHandler = npcHandler, text = 'I know many recipes for preparing the finest food on Darama and maybe even whole Tibia!'})
-keywordHandler:addKeyword({'scarab'}, StdModule.say, {npcHandler = npcHandler, text = 'Ah yes. I like them well. Especially with a good sauce or in a stew. But they have to be young! Have you tried ancient scarab? Their meat is impossible to chew unless you have teeth made of titanium.'})
-keywordHandler:addKeyword({'war'}, StdModule.say, {npcHandler = npcHandler, text = 'I have never been much of a warrior, but I will storm into battle swinging my meat cleaver if necessary. We simply must win this war!'})
-keywordHandler:addKeyword({'human'}, StdModule.say, {npcHandler = npcHandler, text = 'I totally agree with Gabel that djinn and humans can learn from each other. ...'})
-keywordHandler:addKeyword({'gabel'}, StdModule.say, {npcHandler = npcHandler, text = 'He is my boss. A most loyal customer and a real con... conni... well, a man of taste, at any rate. His favourite dish is Scarabée au Vin served with onions and rice.'})
-keywordHandler:addKeyword({'zathroth'}, StdModule.say, {npcHandler = npcHandler, text = 'That is a sad story, and like most djinn I dislike talking about it. Let\'s put it this way. Once there was a great cook who worked hard to prepare the finest meal of his life. ...'})
-keywordHandler:addKeyword({'malor'}, StdModule.say, {npcHandler = npcHandler, text = 'That accursed traitor! I think there will never be peace until he is completely vanquished. If only he would allow me to cook for him. I would fix him a dinner he would never forget.'})
-keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'My name is Bo\'ques. Perhaps you know my name from a restaurant guide.'})
-keywordHandler:addKeyword({'lamp'}, StdModule.say, {npcHandler = npcHandler, text = 'You would not believe it, but those lamps are actually quite comfy. And on top of that they are immensely practical! Did you ever try to stash one of your beds into your pocket?'})
 
-local shopModule = ShopModule:new()
-npcHandler:addModule(shopModule)
+npcHandler:setCallback(CALLBACK_MESSAGE_DEFAULT, creatureSayCallback)
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+focusModule:addGreetMessage('djanni\'hah')
+npcHandler:addModule(focusModule)
 

@@ -25,11 +25,34 @@ keywordHandler:addKeyword({'privilege'}, StdModule.say, {npcHandler = npcHandler
 keywordHandler:addKeyword({'thais'}, StdModule.say, {npcHandler = npcHandler, text = 'Thais is kind of a fashion hell. If there was an award for the most ugly citizens, it would go to Thais.'})
 keywordHandler:addKeyword({'hugo'}, StdModule.say, {npcHandler = npcHandler, text = 'Well it\'s not my real name. I took it because people think it\'s scaring and manly. I hate people doubting my manhood for being a tailor, you know.'})
 keywordHandler:addKeyword({'tax'}, StdModule.say, {npcHandler = npcHandler, text = 'I don\'t care about such mundane things like \'taxes\'.'})
-keywordHandler:addKeyword({'uniform'}, StdModule.say, {npcHandler = npcHandler, text = 'I don\'t get it, what uniforms you are talking about.'})
 keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler, text = 'I don\'t care for such fairytales.'})
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 
+
+local function creatureSayCallback(cid, type, msg)
+	if not npcHandler:isFocused(cid) then return false end
+	local player = Player(cid)
+	
+	if msgcontains(msg, "uniforms") then
+		if player:getStorageValue(12455) == 1 then
+			npcHandler:say("A new uniform for the post officers? I am sorry but my dog ate the last dress pattern we used. You need to supply us with a new dress pattern.", cid)
+			npcHandler.topic[cid] = 1
+		end
+	elseif msgcontains(msg, "dress pattern") then
+		if npcHandler.topic[cid] == 1 then
+			npcHandler:say("It was ... wonderous beyond wildest imaginations! I have no clue where Kevin Postner got it from. Better ask him.", cid)
+			player:setStorageValue(12455, 2)
+		elseif player:getStorageValue(12455) == 11 then
+			npcHandler:say("By the gods of fashion! Didn't it do that I fed the last dress pattern to my poor dog? Will this mocking of all which is taste and fashion never stop?? Ok, ok, you will get those ugly, stinking uniforms and now get lost, fashion terrorist.", cid)
+			player:setStorageValue(12455, 12)
+		end
+		npcHandler.topic[cid] = 0
+	end
+	return true
+end
+npcHandler:setCallback(CALLBACK_MESSAGE_DEFAULT, creatureSayCallback)
 npcHandler:addModule(FocusModule:new())
+
 

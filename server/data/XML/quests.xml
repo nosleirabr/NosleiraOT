@@ -26,20 +26,43 @@
          <missionstate id="1" description="You defeated Ashmunrah and received a life crystal."/>
      </mission>
 </quest>
-<quest name="The Djinn War - Efreet Faction" startstorageid="51120" startstoragevalue="1">
-     <mission name="The Faction" storageid="51120" startvalue="1" endvalue="3">
-         <missionstate id="1" description="You have joined the Efreet faction. Find Ba'raj in Mal'ouquar for your first mission."/>
-         <missionstate id="2" description="You have received a mission from Ba'raj, talk to Gabel."/>
-         <missionstate id="3" description="You have finished the Efreet faction."/>
-     </mission>
-</quest>
-<quest name="The Djinn War - Marid Faction" startstorageid="51110" startstoragevalue="1">
-     <mission name="The Faction" storageid="51110" startvalue="1" endvalue="3">
-         <missionstate id="1" description="You have joined the Marid faction. Find Bo'ques in Ashta'daramai for your first mission."/>
-         <missionstate id="2" description="You have received a mission from Bo'ques, talk to Gabel."/>
-         <missionstate id="3" description="You have finished the Marid faction."/>
-     </mission>
-</quest>
+
+	<quest name="The Djinn War - Efreet Faction" startstorageid="51120" startstoragevalue="1">
+		<mission name="Efreet Mission 1: The Supply Thief" storageid="51121" startvalue="1" endvalue="3">
+			<missionstate id="1" description="Travel to Thais and keep your eyes open for something that might give you a clue on the supply thief." />
+			<missionstate id="2" description="You have found the potential supply thief - Partos in Thais seemed very suspicious. Baa'leal might be interested in this matter." />
+			<missionstate id="3" description="You have reported the case to Baa'leal. He seemed very satisfied and told you that Alesar might have another mission for you." />
+		</mission>
+		<mission name="Efreet Mission 2: The Tear of Daraman" storageid="51122" startvalue="1" endvalue="3">
+			<missionstate id="1" description="Sneak into Ashta'daramai and steal a &quot;Tear of Daraman&quot;. For more information about these gems visit the Efreet library." />
+			<missionstate id="2" description="You have successfully managed to steal a Tear of Daraman from Ashta'daramai. Bring it to Alesar." />
+			<missionstate id="3" description="You have delivered Daraman's Tear. Alesar seemed very satisfied and told you that Malor himself might have another mission for you." />
+		</mission>
+		<mission name="Efreet Mission 3: The Sleeping Lamp" storageid="51123" startvalue="1" endvalue="3">
+			<missionstate id="1" description="Malor asked you to find Fa'hradin's sleeping lamp in the orc fortress at Ulderek's Rock. Then, sneak into Ashta'daramai and exchange Gabel's sleeping lamp with Fa'hradin's lamp." />
+			<missionstate id="2" description="You successfully exchanged the lamps. Malor will be happy to hear about this." />
+			<missionstate id="3" description="The Efreet are very satisfied with your help. King Malor allowed you to trade with Yaman and Alesar." />
+		</mission>
+	</quest>
+	<quest name="The Djinn War - Marid Faction" startstorageid="51110" startstoragevalue="1">
+		<mission name="Marid Mission 1: The Dwarven Kitchen" storageid="51111" startvalue="1" endvalue="2">
+			<missionstate id="1" description="Bring a cookbook of the dwarven kitchen to Bo'ques." />
+			<missionstate id="2" description="You have delivered the cookbook. Bo'ques seemed very satisfied and told you that Fa'hradin might have another mission for you." />
+		</mission>
+		<mission name="Marid Mission 2: The Spyreport" storageid="51112" startvalue="1" endvalue="2">
+			<missionstate id="1" description="Fa'hradin asked you to sneak into the Efreet fortress Mal'ouqhah and find their undercover spy. The codeword is PIEDPIPER." />
+			<missionstate id="2" description="You have delivered the spyreport. Fa'hradin seemed impressed and told you that Gabel himself might have another mission for you." />
+		</mission>
+		<mission name="Rata'Mari and the Cheese" storageid="51113" startvalue="1" endvalue="2">
+			<missionstate id="1" description="You have promised Rata'Mari cheese. Once you deliver some to him, he will hand over his spyreport." />
+			<missionstate id="2" description="You got Rata'Mari's spyreport. He seems to be quite happy with the cheese you brought him." />
+		</mission>
+		<mission name="Marid Mission 3: The Sleeping Lamp" storageid="51114" startvalue="1" endvalue="3">
+			<missionstate id="1" description="Gabel asked you to find Fa'hradin's sleeping lamp in the orc fortress at Ulderek's Rock. Then, sneak into Mal'ouqhah and exchange Malor's sleeping lamp with Fa'hradin's lamp." />
+			<missionstate id="2" description="You successfully exchanged the lamps. Gabel will be happy to hear about this." />
+			<missionstate id="3" description="The Marid deeply appreciate your help. King Gabel allowed you to trade with Haroun and Nah'bob." />
+		</mission>
+	</quest>
 <quest name="The Queen of the Banshees" startstorageid="50013" startstoragevalue="1">
      <mission name="The First Seal" storageid="50014" startvalue="1" endvalue="1">
          <missionstate id="1" description="You have unlocked the first seal."/>
@@ -151,3 +174,4 @@
      </mission>
 </quest>
 </quests>
+

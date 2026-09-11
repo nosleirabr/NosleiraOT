@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
+		<!-- Postman Quest -->
+	<action uniqueid="3018" script="quests/postman_actions.lua" />
+	<action uniqueid="3116" script="quests/postman_actions.lua" />
+	<action uniqueid="3120" script="quests/postman_actions.lua" />
+	<action itemid="2416" script="quests/postman_items.lua" />
+	<action itemid="10515" script="quests/postman_items.lua" />
+	<action itemid="2330" script="quests/postman_items.lua" />
+	<action itemid="2331" script="quests/postman_items.lua" />
+
+			<!-- Djinn War -->
+	<action uniqueid="2285" script="quests/djinn_war_actions.lua" />
+	<action uniqueid="3024" script="quests/djinn_war_actions.lua" />
+	<action actionid="5390" script="quests/djinn_war_actions.lua" />
+
 	<!-- Quests -->
 	<action actionid="2000" script="quests/system.lua" />
 	<action actionid="2001" script="quests/system2.lua" />
 	<action actionid="30015" script="quests/annihilator_chests.lua" />
-	<action actionid="30016" script="quests/classic_levers.lua" />
+		<action actionid="30016" script="quests/classic_levers.lua" />
 	<action actionid="30017" script="quests/classic_levers.lua" />
+		<action actionid="30018" script="quests/classic_levers.lua" />
+	<action actionid="30019" script="quests/classic_levers.lua" />
+	<action actionid="30024" script="quests/classic_levers.lua" />
 
 	<action actionid="30020" script="quests/paradox_chests.lua" />
 	<action actionid="30021" script="quests/paradox_chests.lua" />
@@ -162,4 +179,9 @@
 	<!-- Map-as-code: remaining unlabeled levers (decorative_levers.yaml -> aid 50999) -->
 	<action actionid="50999" script="quests/decorative_lever.lua" />
 </actions>
+
+
+
+
+
 

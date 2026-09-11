@@ -51,4 +51,12 @@ npcHandler:setCallback(CALLBACK_MESSAGE_DEFAULT, creatureSayCallback)
 npcHandler:setMessage(MESSAGE_GREET, "I greet thee, my loyal subject |PLAYERNAME|.")
 npcHandler:setMessage(MESSAGE_FAREWELL, "Farewell.")
 npcHandler:setMessage(MESSAGE_WALKAWAY, "Farewell.")
+
+local uniformKeyword = keywordHandler:addKeyword({'uniform'}, StdModule.say, {npcHandler = npcHandler, text = 'I remember about those uniforms, they had a camouflage inlay so they could be worn the inside out too. I will send some color samples via mail to Mr. Postner.'},
+	function(player) return player:getStorageValue(12455) == 5 end,
+	function(player) player:setStorageValue(12455, 6) end
+)
+keywordHandler:addKeyword({'uniform'}, StdModule.say, {npcHandler = npcHandler, text = 'The uniforms of our guards and soldiers are of unparraleled quality of course.'})
+
 npcHandler:addModule(FocusModule:new())
+

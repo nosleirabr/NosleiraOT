@@ -27,5 +27,28 @@ local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 shopModule:addBuyableItem({'key'}, 2968, 2000, 'key')
 
+
+local function creatureSayCallback(cid, type, msg)
+	if not npcHandler:isFocused(cid) then return false end
+	local player = Player(cid)
+	
+	if msgcontains(msg, "present") then
+		if player:getStorageValue(12454) == 2 then
+			npcHandler:say("You have a present for me?? Realy?", cid)
+			npcHandler.topic[cid] = 1
+		end
+	elseif msgcontains(msg, "yes") then
+		if npcHandler.topic[cid] == 1 then
+			if player:removeItem(2331, 1) then
+				npcHandler:say("Thank you very much!", cid)
+				player:setStorageValue(12454, 3)
+				npcHandler.topic[cid] = 0
+			end
+		end
+	end
+	return true
+end
+npcHandler:setCallback(CALLBACK_MESSAGE_DEFAULT, creatureSayCallback)
 npcHandler:addModule(FocusModule:new())
+
 

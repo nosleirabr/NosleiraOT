@@ -1,0 +1,46 @@
+name: Lua Lint (luacheck)
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "server/**/*.lua"
+      - ".github/workflows/lua-lint.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "server/**/*.lua"
+      - ".github/workflows/lua-lint.yml"
+
+jobs:
+  luacheck:
+    name: Luacheck
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar luacheck
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y luarocks
+          sudo luarocks install luacheck
+
+      - name: Verificar sintaxe e estilo Lua
+        run: |
+          luacheck server/server/data/ \
+            --exclude-files "server/server/data/lib/compat/**" \
+            --max-line-length 120 \
+            --globals "dofile" "loadfile" "require" \
+            --globals "print" "pairs" "ipairs" "type" "tostring" "tonumber" \
+            --globals "table" "string" "math" "os" "io" \
+            --globals "Game" "Player" "Monster" "Npc" "Item" "Tile" "Position" \
+            --globals "ItemType" "Creature" "Combat" "Condition" "MoveEvent" \
+            --globals "CreatureEvent" "TalkAction" "Action" "GlobalEvent" \
+            --globals "EventCallback" "RaidEvent" "SpellGroup" "Weapon" \
+            --globals "Result" "db" "logger" \
+            --no-unused-args \
+            --codes \
+            || true
+          # "--|| true" evita falso-positivo: luacheck retorna exit 1 em warnings.
+          # Remova "|| true" quando o datapack estiver 100% limpo.

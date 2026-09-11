@@ -2,64 +2,90 @@ local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid) npcHandler:onCreatureAppear(cid) end
-function onCreatureDisappear(cid) npcHandler:onCreatureDisappear(cid) end
-function onThink() npcHandler:onThink() end
-function onCreatureSay(cid, type, msg) npcHandler:onCreatureSay(cid, type, msg) end
+function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)		npcHandler:onCreatureSay(cid, type, msg)		end
+function onThink()				npcHandler:onThink()					end
 
 local function creatureSayCallback(cid, type, msg)
-    if not npcHandler:isFocused(cid) then return false end
-    local player = Player(cid)
-    local state = npcHandler:getTopic(cid)
-    local faction = player:getStorageValue(40000)
-    local mission = player:getStorageValue(40001) -- Marid mission state
+	if not npcHandler:isFocused(cid) then
+		return false
+	end
 
-    if msgcontains(msg, "mission") then
-        if faction == 2 then
-            npcHandler:say("You are an ally of the Efreet! Begone!", cid)
-            return false
-        end
+	local player = Player(cid)
+	local missionProgress = player:getStorageValue(51114)
+	if msgcontains(msg, 'mission') then
+		if player:getStorageValue(51112) ~= 2 then
+			npcHandler:say({
+				'So you would like to fight for us, would you. Hmm. ...',
+				'That is a noble resolution you have made there, human, but I\'m afraid I cannot accept your generous offer at this point of time. ...',
+				'Do not get me wrong, but I am not the kind of guy to send an inexperienced soldier into certain death! So you might ask around here for a more suitable mission.'
+			}, cid)
 
-        if faction == -1 or faction == 0 then
-            npcHandler:say("Are you offering your help to the Marid?", cid)
-            npcHandler:setTopic(cid, 1)
-        elseif faction == 1 then
-            if mission < 3 then
-                npcHandler:say("You have sworn loyalty to us, but you must first complete the missions given by Bo'ques and Fa'hradin.", cid)
-            elseif mission == 3 then
-                npcHandler:say("Fa'hradin has told me about your extraordinary exploit. I have one final mission for you. We need to retrieve Fa'hradin's lamp from the Orc King and place it in Malor's chambers. Are you prepared to do us that final favour?", cid)
-                npcHandler:setTopic(cid, 2)
-            elseif mission == 4 then
-                npcHandler:say("Have you found Fa'hradin's lamp and placed it in Malor's personal chambers?", cid)
-                npcHandler:setTopic(cid, 3)
-            elseif mission >= 5 then
-                npcHandler:say("You are a true friend of the Marid. You may now trade with Haroun and Nah'Bob.", cid)
-            end
-        end
-    elseif state == 1 and msgcontains(msg, "yes") then
-        npcHandler:say("Very well! You are now an ally of the Marid. You can never join the Efreet. Talk to Bo'ques for your first mission.", cid)
-        player:setStorageValue(40000, 1) -- Set to Marid Faction
-        player:setStorageValue(40001, 1) -- Start Marid missions
-        npcHandler:setTopic(cid, 0)
-    elseif state == 2 and msgcontains(msg, "yes") then
-        npcHandler:say("All right. Listen! Sneak into Ulderek's Rock and find the lamp, then enter Mal'ouquah again and exchange his sleeping lamp with Fa'hradin's lamp!", cid)
-        player:setStorageValue(40001, 4) -- Started final mission
-        npcHandler:setTopic(cid, 0)
-    elseif state == 3 and msgcontains(msg, "yes") then
-        if player:getStorageValue(40007) == 1 then -- Assume swapping the lamp in Mal'ouquah sets this storage
-            npcHandler:say("Daraman shall bless you and all humans! You have done us all a huge service! You are now welcome to trade with Haroun and Nah'bob!", cid)
-            player:setStorageValue(40001, 5) -- Completed Marid quest
-        else
-            npcHandler:say("I don't think you have exchanged the lamp yet. Do not return until it is done!", cid)
-        end
-        npcHandler:setTopic(cid, 0)
-    end
-    return true
+		elseif missionProgress < 1 then
+			npcHandler:say({
+				'Sooo. Fa\'hradin has told me about your extraordinary exploit, and I must say I am impressed. ...',
+				'Your fragile human form belies your courage and your fighting spirit. ...',
+				'I hardly dare to ask you because you have already done so much for us, but there is a task to be done, and I cannot think of anybody else who would be better suited to fulfill it than you. ...',
+				'Think carefully, human, for this mission will bring you into real danger. Are you prepared to do us that final favour?'
+			}, cid)
+			npcHandler.topic[cid] = 1
+
+		elseif missionProgress == 1 then
+			npcHandler:say('You haven\'t finished your final mission yet. Shall I explain it again to you?', cid)
+			npcHandler.topic[cid] = 1
+
+		elseif missionProgress == 2 then
+			npcHandler:say('Have you found Fa\'hradin\'s lamp and placed it in Malor\'s personal chambers?', cid)
+			npcHandler.topic[cid] = 2
+		else
+			npcHandler:say('There\'s no mission left for you, friend of the Marid. However, I have a task for you.', cid)
+		end
+
+	elseif npcHandler.topic[cid] == 1 then
+		if msgcontains(msg, 'yes') then
+			npcHandler:say({
+				'All right. Listen! Thanks to Rata\'mari\'s report we now know what Malor is up to: he wants to do to me what I have done to him - he wants to imprison me in Fa\'hradin\'s lamp! ...',
+				'Of course, that won\'t happen. Now, we know his plans. ...',
+				'But I am aiming at something different. We have learnt one important thing: At this point of time, Malor does not have the lamp yet, which means it is still where he left it. We need that lamp! If we get it back we can imprison him again! ...',
+				'From all we know the lamp is still in the Orc King\'s possession! Therefore I want to ask you to enter thewell guarded halls over at Ulderek\'s Rock and find the lamp. ...',
+				'Once you have acquired the lamp you must enter Mal\'ouquah again. Sneak into Malor\'s personal chambersand exchange his sleeping lamp with Fa\'hradin\'s lamp! ...',
+				'If you succeed, the war could be over one night later! I and all djinn will be in your debt forever! May Daraman watch over you!'
+			}, cid)
+			player:setStorageValue(51114, 1)
+
+		elseif msgcontains(msg, 'no') then
+			npcHandler:say('As you wish.', cid)
+		end
+		npcHandler.topic[cid] = 0
+
+	elseif npcHandler.topic[cid] == 2 then
+		if msgcontains(msg, 'yes') then
+			npcHandler:say({
+				'Daraman shall bless you and all humans! You have done us all a huge service! Soon, this awful war will be over! ...',
+				'Know, that from now on you are considered one of us and are welcome to trade with Haroun and Nah\'bob whenever you want to!'
+			}, cid)
+			player:setStorageValue(51114, 3)
+			player:setStorageValue(51116, 1)
+			player:addAchievement('Marid Ally')
+
+		elseif msgcontains(msg, 'no') then
+			npcHandler:say('Don\'t give up! May Daraman watch over you!', cid)
+		end
+		npcHandler.topic[cid] = 0
+	end
+	return true
 end
 
-keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'I am the King of the Marid.'})
+npcHandler:setMessage(MESSAGE_GREET, 'Welcome, human |PLAYERNAME|, to our humble abode.')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Farewell, stranger. May Uman open your minds and your hearts to Daraman\'s wisdom!')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Farewell, stranger. May Uman open your minds and your hearts to Daraman\'s wisdom!')
 
 npcHandler:setCallback(CALLBACK_MESSAGE_DEFAULT, creatureSayCallback)
-npcHandler:setMessage(MESSAGE_GREET, "Welcome, human |PLAYERNAME|.")
-npcHandler:setMessage(MESSAGE_FAREWELL, "Farewell.")
-npcHandler:addModule(FocusModule:new())
+
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+focusModule:addGreetMessage('djanni\'hah')
+npcHandler:addModule(focusModule)
+
