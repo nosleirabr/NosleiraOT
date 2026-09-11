@@ -187,3 +187,6 @@ pip-log.txt
 *.dat
 *.zip
 
+
+# Ignore Docker Desktop installation folder
+Docker/
