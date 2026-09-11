@@ -1,7 +1,7 @@
--- OT 7.4 product client (OTClientV8)
+-- NosleiraOT 7.4 product client (OTClientV8)
 -- Server: TFS 1.2 protocol 7.72, numeric account login.
 
-APP_NAME = "ot74-client"
+APP_NAME = "nosleiraot-client"
 APP_VERSION = 772
 DEFAULT_LAYOUT = "retro"
 
@@ -17,12 +17,12 @@ Services = {
 
 -- ip:port:version only. Do not append feature flags (:25:30:80:90).
 Servers = {
-  ["OT74 Local"] = "127.0.0.1:7171:772"
+  ["NosleiraOT Local"] = "127.0.0.1:7171:772"
 }
 
 ALLOW_CUSTOM_SERVERS = false
 
-g_app.setName("OT 7.4 Client")
+g_app.setName("NosleiraOT 7.4")
 
 -- Developer feature gates (defaults faithful; optional /dev_features.lua override).
 dofile('/ot74_dev.lua')

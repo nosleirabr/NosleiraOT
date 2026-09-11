@@ -1,4 +1,4 @@
-﻿# Client (OTClientV8 → fidelidade 7.4)
+# Client (OTClientV8 → fidelidade 7.4)
 
 Produto: **OTClientV8** falando protocolo **772** com o TFS deste repo.  
 Objetivo: UI e comportamento o mais próximos possível do **CipSoft Tibia 7.4** (Christmas Update 2004), sem bot/shop/overlays modernos para o jogador final.
@@ -47,7 +47,7 @@ client/
   mods/                               # mods opcionais (ex.: healthbars, autoload false)
 ```
 
-Config do usuário final vai para AppData sob `APP_NAME` (`ot74-client`), não para o repo.
+Config do usuário final vai para AppData sob `APP_NAME` (`nosleiraot-client`), não para o repo.
 
 ## Gate só para nós (`OT74Dev`)
 
