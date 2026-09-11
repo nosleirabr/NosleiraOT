@@ -100,13 +100,244 @@ local levers = {
             -- Knight (West)
             {relPos = {x = -6, y = 3, z = 0}, newPos = Position(32671, 32069, 8), vocations = {4, 8}, sacrifice = {relPos = {x = -8, y = 3, z = 0}, itemid = 2376}}
         }
+    },
+
+    -- Black Knight Slime Room
+    [30046] = {
+        name = "Black Knight Slime Room",
+        toggle = false,
+        onExecute = function(player, leverPos)
+            local wallIds = {1026, 1498, 1304, 387, 1025}
+            local wallPos = Position(leverPos.x + 1, leverPos.y, leverPos.z)
+            local wallTile = Tile(wallPos)
+
+            if wallTile then
+                for _, wId in ipairs(wallIds) do
+                    local wall = wallTile:getItemById(wId)
+                    if wall then
+                        wall:remove()
+                    end
+                end
+            end
+            wallPos:sendMagicEffect(CONST_ME_POFF)
+            player:sendTextMessage(MESSAGE_INFO_DESCR, "You hear a grinding noise as a passage opens.")
+            return true
+        end,
+        onExecuteToggleBack = function(player, leverPos)
+            local wallPos = Position(leverPos.x + 1, leverPos.y, leverPos.z)
+            local wallTile = Tile(wallPos)
+            if wallTile and wallTile:getItemCountById(1026) == 0 then
+                Game.createItem(1026, 1, wallPos)
+            end
+            wallPos:sendMagicEffect(CONST_ME_TELEPORT)
+            player:sendTextMessage(MESSAGE_INFO_DESCR, "You hear a grinding noise as the passage closes.")
+        end
+    },
+    [30024] = {
+        name = "Black Knight Slime Room (Alias)",
+        toggle = false,
+        onExecute = function(player, leverPos) return levers[30046].onExecute(player, leverPos) end,
+        onExecuteToggleBack = function(player, leverPos) return levers[30046].onExecuteToggleBack(player, leverPos) end
+    },
+
+    -- Bright Sword Quest
+    [30047] = {
+        name = "Bright Sword Quest",
+        toggle = false,
+        onExecute = function(player, leverPos)
+            local barrelPos = Position(leverPos.x, leverPos.y + 1, leverPos.z)
+            local ringPos = Position(leverPos.x - 1, leverPos.y + 1, leverPos.z)
+            local stonePos = Position(leverPos.x + 2, leverPos.y, leverPos.z)
+            
+            local barrelTile = Tile(barrelPos)
+            local ringTile = Tile(ringPos)
+            local stoneTile = Tile(stonePos)
+            
+            if not barrelTile or not ringTile or not stoneTile then
+                player:sendCancelMessage("The layout of the room is invalid.")
+                return false
+            end
+            
+            local barrel = barrelTile:getItemById(2595)
+            local ring = ringTile:getItemById(2166)
+            
+            if barrel and ring then
+                local stone = stoneTile:getItemById(1355)
+                if stone then
+                    stone:remove()
+                    stonePos:sendMagicEffect(CONST_ME_POFF)
+                    ring:remove(1)
+                    return true
+                else
+                    player:sendCancelMessage("The stone is already removed.")
+                    return false
+                end
+            else
+                player:sendCancelMessage("The sacrifices are not in the correct position.")
+                return false
+            end
+        end,
+        onExecuteToggleBack = function(player, leverPos)
+            local stonePos = Position(leverPos.x + 2, leverPos.y, leverPos.z)
+            Game.createItem(1355, 1, stonePos)
+            stonePos:sendMagicEffect(CONST_ME_TELEPORT)
+        end
+    },
+
+    -- Paradox Tower Magic Walls
+    [30033] = {
+        name = "Paradox Tower Magic Walls",
+        toggle = false,
+        onExecute = function(player, leverPos)
+            local wallPos1 = Position(32478, 31907, 7)
+            local wallPos2 = Position(32479, 31907, 7)
+            local tile1 = Tile(wallPos1)
+            local tile2 = Tile(wallPos2)
+            local wall1 = tile1 and tile1:getItemById(1498)
+            local wall2 = tile2 and tile2:getItemById(1498)
+            
+            if wall1 or wall2 then
+                if wall1 then wall1:remove() end
+                if wall2 then wall2:remove() end
+                player:sendTextMessage(MESSAGE_INFO_DESCR, "You hear a mechanism clicking and the magic walls disappear.")
+            else
+                Game.createItem(1498, 1, wallPos1)
+                Game.createItem(1498, 1, wallPos2)
+                player:sendTextMessage(MESSAGE_INFO_DESCR, "You hear a mechanism clicking and the magic walls reappear.")
+            end
+            return true
+        end,
+        onExecuteToggleBack = function(player, leverPos)
+            local wallPos1 = Position(32478, 31907, 7)
+            local wallPos2 = Position(32479, 31907, 7)
+            local tile1 = Tile(wallPos1)
+            local tile2 = Tile(wallPos2)
+            local wall1 = tile1 and tile1:getItemById(1498)
+            local wall2 = tile2 and tile2:getItemById(1498)
+            
+            if wall1 or wall2 then
+                if wall1 then wall1:remove() end
+                if wall2 then wall2:remove() end
+                player:sendTextMessage(MESSAGE_INFO_DESCR, "You hear a mechanism clicking and the magic walls disappear.")
+            else
+                Game.createItem(1498, 1, wallPos1)
+                Game.createItem(1498, 1, wallPos2)
+                player:sendTextMessage(MESSAGE_INFO_DESCR, "You hear a mechanism clicking and the magic walls reappear.")
+            end
+        end
+    },
+
+    -- Paradox Tower Stairs
+    [30030] = {
+        name = "Paradox Tower Stairs",
+        toggle = false,
+        onExecute = function(player, leverPos)
+            local stairPositions = {
+                [14] = Position(32476, 31904, 7),
+                [6]  = Position(32481, 31903, 6),
+                [5]  = Position(32479, 31904, 5),
+                [4]  = Position(32478, 31903, 4),
+                [3]  = Position(32476, 31899, 3)
+            }
+            local leverZ = leverPos.z
+            local stairPos = stairPositions[leverZ]
+            
+            if not stairPos then
+                player:sendTextMessage(MESSAGE_INFO_DESCR, "This lever seems to be broken.")
+                return false
+            end
+            
+            local tile = Tile(stairPos)
+            if tile then
+                local existing = tile:getItemById(414)
+                if not existing then
+                    Game.createItem(414, 1, stairPos)
+                    stairPos:sendMagicEffect(CONST_ME_MAGIC_BLUE)
+                    player:sendTextMessage(MESSAGE_INFO_DESCR, "You hear a loud rumble far away.")
+                    
+                    local function removeStair(pos)
+                        local t = Tile(pos)
+                        if t then
+                            local stair = t:getItemById(414)
+                            if stair then
+                                stair:remove()
+                                pos:sendMagicEffect(CONST_ME_POFF)
+                            end
+                        end
+                        local leverTile = Tile(leverPos)
+                        if leverTile then
+                            local lever = leverTile:getItemById(1946)
+                            if lever then
+                                lever:transform(1945)
+                            end
+                        end
+                    end
+                    addEvent(removeStair, 30 * 1000, stairPos)
+                end
+            end
+            return true
+        end,
+        onExecuteToggleBack = function(player, leverPos)
+            player:sendTextMessage(MESSAGE_INFO_DESCR, "The mechanism is resetting.")
+        end
     }
 }
+
+
+    for i = 1, 5 do
+        levers[30040 + i] = {
+            name = "Banshee Logic Seal " .. i,
+            toggle = false,
+            onExecute = function(player, leverPos)
+                local storage = 30040
+                local warlockPos = {Position(32220, 31847, 15), Position(32221, 31847, 15)}
+                local leverIndex = i
+                local currentState = player:getStorageValue(storage)
+                if currentState == -1 then currentState = 0 end
+                
+                if currentState == (leverIndex - 1) then
+                    player:setStorageValue(storage, leverIndex)
+                    player:getPosition():sendMagicEffect(CONST_ME_MAGIC_BLUE)
+                    
+                    if leverIndex == 5 then
+                        player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You hear a mechanism clicking. You have absorbed the energy of the Logic Seal!")
+                        player:getPosition():sendMagicEffect(CONST_ME_MAGIC_RED)
+                        if player:getStorageValue(50006) < 1 then
+                            player:setStorageValue(50006, 1)
+                            local totalSeals = player:getStorageValue(50000)
+                            if totalSeals < 0 then totalSeals = 0 end
+                            player:setStorageValue(50000, totalSeals + 1)
+                        end
+                    end
+                    return true
+                else
+                    player:setStorageValue(storage, 0)
+                    for _, pos in ipairs(warlockPos) do
+                        Game.createMonster("Warlock", pos)
+                    end
+                    player:getPosition():sendMagicEffect(CONST_ME_POISONAREA)
+                    return true
+                end
+            end,
+            onExecuteToggleBack = function(player, leverPos)
+                local storage = 30040
+                local leverIndex = i
+                local currentState = player:getStorageValue(storage)
+                if currentState == leverIndex then
+                    player:setStorageValue(storage, leverIndex - 1)
+                end
+            end
+        }
+    end
+
 
 function onUse(player, item, fromPosition, target, toPosition, isHotkey)
     local doorRet = handleDoorExecution(player, item, fromPosition, target, toPosition)
     if doorRet ~= nil then return doorRet end
 
+
+    local quest = levers[item.actionid]
+    if not quest then return false end
 
     if item.itemid ~= 1945 then
         if item.itemid == 1946 then
@@ -194,6 +425,7 @@ function onUse(player, item, fromPosition, target, toPosition, isHotkey)
     item:transform(1946)
     return true
 end
+
 
 
 
