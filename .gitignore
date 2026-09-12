@@ -186,6 +186,7 @@ pip-log.txt
 *.spr
 *.dat
 *.zip
+*.apk
 
 
 # Docker Desktop instalado no disco D (nao eh codigo do projeto)
