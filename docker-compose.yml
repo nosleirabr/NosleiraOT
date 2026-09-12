@@ -1,6 +1,7 @@
 services:
   mysql:
     image: mariadb:10.11
+    command: ["--skip-name-resolve", "--innodb-buffer-pool-size=256M", "--innodb-flush-log-at-trx-commit=2"]
     container_name: ot74-mysql
     restart: unless-stopped
     environment:

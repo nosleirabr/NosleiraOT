@@ -105,7 +105,7 @@ convertUnsafeScripts = true
 -- NOTE: defaultPriority only works on Windows and sets process
 -- priority, valid values are: "normal", "above-normal", "high"
 defaultPriority = "high"
-startupDatabaseOptimization = false
+startupDatabaseOptimization = true
 
 -- Status server information
 ownerName = ""

@@ -9,3 +9,11 @@ ot74-poc-v8.log
 
 # Developer-only feature overrides (never ship to players)
 /dev_features.lua
+
+# Ignore build artifacts and large files
+*.apk
+*.zip
+*.rar
+*.log
+stdout.txt
+stderr.txt
