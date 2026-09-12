@@ -2,6 +2,7 @@ UIWidget
   id: background
   anchors.fill: parent
   focusable: false
+  // Background customizado em PNG
   image-source: /images/background.png
   image-smooth: true
 
