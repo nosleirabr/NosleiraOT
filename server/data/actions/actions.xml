@@ -30,7 +30,6 @@
 	<action actionid="30023" script="quests/paradox_chests.lua" />
 	<action actionid="30030" script="quests/classic_levers.lua" />
 	<action actionid="30033" script="quests/classic_levers.lua" />
-	<action actionid="30034" script="quests/paradox_door.lua" />
 
 	<!-- Tools -->
 	<action itemid="2420" script="tools/machete.lua" />
@@ -158,13 +157,6 @@
 	<action actionid="30046" script="quests/classic_levers.lua" />
 	<action actionid="30047" script="quests/classic_levers.lua" />
 	<!-- Lote 5: Complexas Parte C -->
-	<action actionid="30051" script="quests/postman_doors.lua" />
-	<action actionid="30052" script="quests/postman_doors.lua" />
-	<action actionid="30053" script="quests/postman_doors.lua" />
-	<action actionid="30054" script="quests/postman_doors.lua" />
-	<action actionid="30055" script="quests/postman_doors.lua" />
-	<action actionid="30061" script="quests/djinn_doors.lua" />
-	<action actionid="30062" script="quests/djinn_doors.lua" />
 	<!-- Missing test levers mapped for compliance -->
 	<action actionid="1945" script="quests/rookgaard/rookgaard_levers.lua" />
 	<action actionid="52413" script="quests/rookgaard/rookgaard_levers.lua" />
@@ -180,6 +172,7 @@
 	<!-- Map-as-code: remaining unlabeled levers (decorative_levers.yaml -> aid 50999) -->
 	<action actionid="50999" script="quests/decorative_lever.lua" />
 </actions>
+
 
 
 
