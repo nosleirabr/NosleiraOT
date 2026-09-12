@@ -127,6 +127,21 @@ local questRewards = {
     [10030] = { {itemId = 2332, count = 1} }, -- Post Horn
     [10031] = { {itemId = 2344, count = 1}, {itemId = 2152, count = 6} }, -- Marid gemmed lamp + platinum
     [10032] = { {itemId = 2344, count = 1}, {itemId = 2152, count = 6} }, -- Efreet gemmed lamp + platinum
+
+    -- === MISSING CHESTS DISCOVERED FROM AUDIT (Issue #82) ===
+    [2103] = { {itemId = 2103, count = 1} }, -- Honey Flower
+    [2395] = { {itemId = 2395, count = 1} }, -- Mace
+    [2404] = { {itemId = 2404, count = 1} }, -- Combat Knife
+    [2417] = { {itemId = 2417, count = 1} }, -- Battle Shield
+    [2460] = { {itemId = 2460, count = 1} }, -- Brass Helmet
+    [2464] = { {itemId = 2464, count = 1} }, -- Chain Armor
+    [2521] = { {itemId = 2521, count = 1} }, -- Dark Shield
+    [2580] = { {itemId = 2580, count = 1} }, -- Poison Arrows
+    [2676] = { {itemId = 2676, count = 1} }, -- Banana
+    [52148] = { {itemId = 2088, count = 1, actionId = 4601} }, -- Key 4601
+    [52149] = { {itemId = 2149, count = 1} }, -- Small Emerald
+    [52159] = { {itemId = 2159, count = 1} }, -- Scarab Coin
+    [54322] = {} -- White Raven / Misc (Empty chest)
 }
 
 
