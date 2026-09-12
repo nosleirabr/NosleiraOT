@@ -2,7 +2,7 @@ UIWidget
   id: background
   anchors.fill: parent
   focusable: false
-  image-source: /images/background
+  image-source: /images/background.png
   image-smooth: true
 
   MainMenuPanel
