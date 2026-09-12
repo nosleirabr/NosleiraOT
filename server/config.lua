@@ -33,9 +33,15 @@ motd = "Welcome to Nosleira-OT!"
 onePlayerOnlinePerAccount = true
 allowClones = false
 serverName = "Nosleira-OT"
-statusTimeout = 5000
+statusTimeout = 2000
 replaceKickOnLogin = true
-maxPacketsPerSecond = 25
+maxPacketsPerSecond = 200
+
+-- Anti-DDoS and Security
+loginTries = 5
+retryTimeout = 5 * 1000
+loginTimeout = 60 * 1000
+maxPlayers = 1000
 
 -- Deaths
 -- NOTE: Leave deathLosePercent as -1 if you want to use the default
