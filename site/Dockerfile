@@ -28,7 +28,7 @@ RUN { \
     echo "session.cookie_httponly = On"; \
     echo "session.cookie_samesite = Strict"; \
     echo "session.use_strict_mode = On"; \
-    echo "disable_functions = exec,passthru,shell_exec,system,proc_open,popen,curl_multi_exec,parse_ini_file,show_source"; \
+    echo "disable_functions = exec,passthru,shell_exec,system,proc_open,popen,curl_multi_exec,show_source"; \
     echo "file_uploads = On"; \
     echo "upload_max_filesize = 10M"; \
     echo "post_max_size = 12M"; \

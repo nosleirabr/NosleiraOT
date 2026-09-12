@@ -11,6 +11,9 @@ end
 
 function load()
   local version = g_game.getClientVersion()
+  if version == 0 and APP_VERSION then
+    version = APP_VERSION
+  end
   local things = g_settings.getNode('things')
   
   local datPath, sprPath

@@ -91,6 +91,12 @@ function UIComboBox:getCurrentOption()
   end
 end
 
+function UIComboBox:getOptionByIndex(index)
+  if table.haskey(self.options, index) then
+    return self.options[index].text
+  end
+end
+
 function UIComboBox:addOption(text, data)
   table.insert(self.options, { text = text, data = data })
   local index = #self.options

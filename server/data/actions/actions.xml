@@ -28,8 +28,8 @@
 	<action actionid="30021" script="quests/paradox_chests.lua" />
 	<action actionid="30022" script="quests/paradox_chests.lua" />
 	<action actionid="30023" script="quests/paradox_chests.lua" />
-	<action actionid="30030" script="quests/paradox_levers.lua" />
-	<action actionid="30033" script="quests/paradox_wall_lever.lua" />
+	<action actionid="30030" script="quests/classic_levers.lua" />
+	<action actionid="30033" script="quests/classic_levers.lua" />
 	<action actionid="30034" script="quests/paradox_door.lua" />
 
 	<!-- Tools -->
@@ -122,7 +122,8 @@
 	<action itemid="1386" script="other/teleport.lua" />
 	<action itemid="3678" script="other/teleport.lua" />
 	<action fromid="2376" toid="2404" script="other/destroy.lua" />
-	<action fromid="2406" toid="2419" script="other/destroy.lua" />
+	<action fromid="2406" toid="2415" script="other/destroy.lua" />
+	<action fromid="2417" toid="2419" script="other/destroy.lua" />
 	<action fromid="2421" toid="2453" script="other/destroy.lua" />
 	<action fromid="2005" toid="2009" script="other/fluids.lua" />
 	<action fromid="2011" toid="2015" script="other/fluids.lua" />
@@ -149,13 +150,13 @@
 	<!-- Rookgaard Levers -->
 	<action actionid="50001" script="quests/rookgaard/rookgaard_levers.lua" />
 	<action actionid="52412" script="quests/rookgaard/rookgaard_levers.lua" />
-	<action actionid="30041" script="quests/banshee_warlock_levers.lua" />
-	<action actionid="30042" script="quests/banshee_warlock_levers.lua" />
-	<action actionid="30043" script="quests/banshee_warlock_levers.lua" />
-	<action actionid="30044" script="quests/banshee_warlock_levers.lua" />
-	<action actionid="30045" script="quests/banshee_warlock_levers.lua" />
-	<action actionid="30046" script="quests/slime_lever.lua" />
-	<action actionid="30047" script="quests/bright_sword_lever.lua" />
+	<action actionid="30041" script="quests/classic_levers.lua" />
+	<action actionid="30042" script="quests/classic_levers.lua" />
+	<action actionid="30043" script="quests/classic_levers.lua" />
+	<action actionid="30044" script="quests/classic_levers.lua" />
+	<action actionid="30045" script="quests/classic_levers.lua" />
+	<action actionid="30046" script="quests/classic_levers.lua" />
+	<action actionid="30047" script="quests/classic_levers.lua" />
 	<!-- Lote 5: Complexas Parte C -->
 	<action actionid="30051" script="quests/postman_doors.lua" />
 	<action actionid="30052" script="quests/postman_doors.lua" />
@@ -179,6 +180,7 @@
 	<!-- Map-as-code: remaining unlabeled levers (decorative_levers.yaml -> aid 50999) -->
 	<action actionid="50999" script="quests/decorative_lever.lua" />
 </actions>
+
 
 
 
