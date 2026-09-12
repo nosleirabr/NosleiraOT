@@ -1,4 +1,4 @@
-<IfModule mod_autoindex.c>
+ï»¿<IfModule mod_autoindex.c>
 	Options -Indexes
 </IfModule>
 
@@ -21,7 +21,7 @@
 </IfModule>
 
 # ----------------------------------------------------------
-# Proteções Adicionais Anti-Bot e Anti-Exploit
+# Protecoes Adicionais Anti-Bot e Anti-Exploit
 # ----------------------------------------------------------
 <IfModule mod_rewrite.c>
     RewriteEngine On
