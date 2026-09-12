@@ -19,3 +19,21 @@
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule ^.*$ index.php [L]
 </IfModule>
+
+# ----------------------------------------------------------
+# Proteções Adicionais Anti-Bot e Anti-Exploit
+# ----------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Bloquear SQL Injection basica pela URL
+    RewriteCond %{QUERY_STRING} (?:;|%22|%27|%3C|%3E|%00|%0A|%0D) [NC,OR]
+    RewriteCond %{QUERY_STRING} (?:UNION|SELECT|INSERT|UPDATE|DELETE|DROP|TRUNCATE|ALTER|EXEC|CHR|CHAR|CAST|CONVERT|WAITFOR|DELAY) [NC,OR]
+    RewriteCond %{QUERY_STRING} (?:CONCAT|CHAR|ASCII|BIN|HEX|UNHEX|BASE64_DECODE|MD5|SHA1) [NC,OR]
+    RewriteCond %{QUERY_STRING} (?:SCRIPT|SRC|JAVASCRIPT|VBSCRIPT|ONLOAD|ONCLICK|ONERROR|ONMOUSEOVER|ONFOCUS) [NC,OR]
+    RewriteCond %{QUERY_STRING} (?:EVAL|BASE64|GLOBALS|REQUEST) [NC]
+    RewriteRule ^(.*)$ - [F,L]
+
+    # Bloquear User Agents maliciosos ou spammers
+    RewriteCond %{HTTP_USER_AGENT} ^.*(libwww-perl|curl|wget|python|nikto|sqlmap|scanner|nmap|masscan|zmeu).*$ [NC]
+    RewriteRule ^(.*)$ - [F,L]
+</IfModule>
