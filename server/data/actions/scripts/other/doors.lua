@@ -44,9 +44,127 @@ local function toggleDoorLock(doorItem, locked)
 	unlockedDoors[keyId][#unlockedDoors[keyId] + 1] = doorPosition
 end
 
+local customDoors = {
+    -- Paradox Door
+    [30034] = function(player, item, toPosition)
+        if player:getGroup():getAccess() > 0 then
+            item:transform(item:getId() == 1213 and 1214 or 1213)
+            return true
+        end
+        if player:getLevel() < 30 then
+            player:sendTextMessage(MESSAGE_INFO_DESCR, "Only players of level 30 or higher may pass.")
+            return false
+        end
+        local function hasKey3822(p)
+            local function searchContainer(container)
+                for i = 0, container:getSize() - 1 do
+                    local it = container:getItem(i)
+                    if it then
+                        if it:getId() >= 2086 and it:getId() <= 2092 and it:getActionId() == 3822 then
+                            return true
+                        elseif it:isContainer() then
+                            if searchContainer(Container(it.uid)) then return true end
+                        end
+                    end
+                end
+                return false
+            end
+            for slot = CONST_SLOT_FIRST, CONST_SLOT_LAST do
+                local it = p:getSlotItem(slot)
+                if it then
+                    if it:getId() >= 2086 and it:getId() <= 2092 and it:getActionId() == 3822 then
+                        return true
+                    elseif it:isContainer() then
+                        if searchContainer(Container(it.uid)) then return true end
+                    end
+                end
+            end
+            return false
+        end
+        if not hasKey3822(player) then
+            player:sendTextMessage(MESSAGE_INFO_DESCR, "It is locked.")
+            return false
+        end
+        item:transform(item:getId() == 1213 and 1214 or 1213)
+        return true
+    end,
+    -- Postman Doors
+    [30051] = function(player, item, toPosition)
+        if player:getStorageValue(12460) >= 1 then 
+            item:transform(item:getId() + 1)
+            player:teleportTo(toPosition, true)
+            return true
+        end
+        player:sendTextMessage(MESSAGE_INFO_DESCR, "You don't have the required Postman rank to enter.")
+        return false
+    end,
+    [30052] = function(player, item, toPosition)
+        if player:getStorageValue(12460) >= 2 then 
+            item:transform(item:getId() + 1)
+            player:teleportTo(toPosition, true)
+            return true
+        end
+        player:sendTextMessage(MESSAGE_INFO_DESCR, "You don't have the required Postman rank to enter.")
+        return false
+    end,
+    [30053] = function(player, item, toPosition)
+        if player:getStorageValue(12460) >= 3 then 
+            item:transform(item:getId() + 1)
+            player:teleportTo(toPosition, true)
+            return true
+        end
+        player:sendTextMessage(MESSAGE_INFO_DESCR, "You don't have the required Postman rank to enter.")
+        return false
+    end,
+    [30054] = function(player, item, toPosition)
+        if player:getStorageValue(12460) >= 4 then 
+            item:transform(item:getId() + 1)
+            player:teleportTo(toPosition, true)
+            return true
+        end
+        player:sendTextMessage(MESSAGE_INFO_DESCR, "You don't have the required Postman rank to enter.")
+        return false
+    end,
+    [30055] = function(player, item, toPosition)
+        if player:getStorageValue(12460) >= 5 then 
+            item:transform(item:getId() + 1)
+            player:teleportTo(toPosition, true)
+            return true
+        end
+        player:sendTextMessage(MESSAGE_INFO_DESCR, "You don't have the required Postman rank to enter.")
+        return false
+    end,
+    -- Djinn Doors
+    [30061] = function(player, item, toPosition)
+        if player:getStorageValue(51110) > 0 then 
+            item:transform(item:getId() + 1)
+            player:teleportTo(toPosition, true)
+            return true
+        end
+        player:sendTextMessage(MESSAGE_INFO_DESCR, "You are not pledged to the Marid (Blue Djinn) faction.")
+        return false
+    end,
+    [30062] = function(player, item, toPosition)
+        if player:getStorageValue(51120) > 0 then 
+            item:transform(item:getId() + 1)
+            player:teleportTo(toPosition, true)
+            return true
+        end
+        player:sendTextMessage(MESSAGE_INFO_DESCR, "You are not pledged to the Efreet (Green Djinn) faction.")
+        return false
+    end
+}
+
 function executeDoor(player, item, fromPosition, target, toPosition)
 	local itemId = item:getId()
 	local actionId = item:getActionId()
+
+	local customDoor = customDoors[actionId]
+	if customDoor then
+		customDoor(player, item, toPosition)
+		return true
+	end
+
 
 	if isInArray(questDoors, itemId) then
 		if player:getStorageValue(actionId) ~= -1 then
@@ -136,3 +254,4 @@ function onUse(player, item, fromPosition, target, toPosition)
 end
 
 _G.executeDoor = executeDoor
+
