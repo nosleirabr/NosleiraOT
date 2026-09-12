@@ -23,6 +23,9 @@ Servers = {
 ALLOW_CUSTOM_SERVERS = false
 
 g_app.setName("NosleiraOT 7.4")
+if g_game then
+  g_game.setClientVersion(APP_VERSION)
+end
 
 -- Developer feature gates (defaults faithful; optional /dev_features.lua override).
 dofile('/ot74_dev.lua')
