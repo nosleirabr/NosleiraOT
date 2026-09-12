@@ -1,7 +1,7 @@
 -- NosleiraOT 7.4 product client (OTClientV8)
 -- Server: TFS 1.2 protocol 7.72, numeric account login.
 
-APP_NAME = "nosleiraot-client"
+APP_NAME = "NosleiraOT-Classic-7.4"
 APP_VERSION = 772
 DEFAULT_LAYOUT = "retro"
 
@@ -22,7 +22,7 @@ Servers = {
 
 ALLOW_CUSTOM_SERVERS = false
 
-g_app.setName("NosleiraOT 7.4")
+g_app.setName("NosleiraOT - Classic 7.4")
 if g_game then
   g_game.setClientVersion(APP_VERSION)
 end
