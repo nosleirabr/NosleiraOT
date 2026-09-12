@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>OTServer Launcher</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="drag-bar"></div>
+
+    <div class="tibia-panel">
+        <div class="close-btn" id="closeBtn">X</div>
+        
+        <div class="tibia-header">
+            OTServer Launcher
+        </div>
+
+        <div class="tibia-text">
+            Bem-vindo aventureiro.<br>Selecione a era que deseja explorar:
+        </div>
+
+        <select id="realmSelect" class="tibia-select">
+            <option value="74">Tibia Clássico (7.4)</option>
+            <option value="15">Tibia Moderno (15.0+)</option>
+        </select>
+
+        <button class="tibia-button" id="playBtn">Enter Game</button>
+        <button class="tibia-button" id="optionsBtn">Options</button>
+        <button class="tibia-button" id="exitBtn">Exit Game</button>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
