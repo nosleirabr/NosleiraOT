@@ -49,7 +49,11 @@ if($save)
 			$account_name = $_POST['account'];
 		}
 		else {
-			$account_id = $_POST['account'];
+			$account_id = mt_rand(100000, 999999);
+			while($account_db->load($account_id)->isLoaded()) {
+				$account_id = mt_rand(100000, 999999);
+			}
+			$_POST['account'] = $account_id;
 		}
 	}
 
@@ -261,9 +265,7 @@ if($save)
 
 				$twig->display('success.html.twig', array(
 					'title' => 'Account Created',
-					'description' => 'Your account ' . $account_type . ' is <b>' . $tmp_account . '</b><br/>You will need the account ' . $account_type . ' and your password to play on ' . configLua('serverName') . '.
-						Please keep your account ' . $account_type . ' and password in a safe place and
-						never give your account ' . $account_type . ' or password to anybody.',
+					'description' => 'Your account has been created successfully.<br/><br/><strong>We have sent your Account Number to your e-mail address (' . $email . ').</strong><br/>Please check your inbox (and spam folder) to find your login information!<br/><br/>You will need this Account Number and your password to play on ' . configLua('serverName') . '.',
 					'custom_buttons' => setting('core.account_create_character_create') ? '' : null
 				));
 			}
@@ -307,9 +309,7 @@ if($save)
 			echo ' See you in Tibia!<br/><br/>';
 			$twig->display('success.html.twig', array(
 				'title' => 'Account Created',
-				'description' => 'Your account ' . $account_type . ' is <b>' . $tmp_account . '</b><br/>You will need the account ' . $account_type . ' and your password to play on ' . configLua('serverName') . '.
-						Please keep your account ' . $account_type . ' and password in a safe place and
-						never give your account ' . $account_type . ' or password to anybody.',
+				'description' => 'Your account has been created successfully.<br/><br/><strong>We have sent your Account Number to your e-mail address (' . $email . ').</strong><br/>Please check your inbox (and spam folder) to find your login information!<br/><br/>You will need this Account Number and your password to play on ' . configLua('serverName') . '.',
 				'custom_buttons' => setting('core.account_create_character_create') ? '' : null
 			));
 
@@ -393,3 +393,7 @@ if($save && setting('core.account_create_character_create')) {
 }
 
 $twig->display('account.create.html.twig', $params);
+
+
+
+
