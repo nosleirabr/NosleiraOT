@@ -1,4 +1,4 @@
-local keywordHandler = KeywordHandler:new()
+ï»¿local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
@@ -6,8 +6,8 @@ function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
 function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
 function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
 function onThink()						npcHandler:onThink()						end
-npcHandler:setMessage(MESSAGE_FAREWELL, 'Bon appétit, and come back soon for your daily dose of vitamins!')
-npcHandler:setMessage(MESSAGE_WALKAWAY, 'Bon appétit, and come back soon for your daily dose of vitamins!')
+npcHandler:setMessage(MESSAGE_FAREWELL, 'Bon appÃ©tit, and come back soon for your daily dose of vitamins!')
+npcHandler:setMessage(MESSAGE_WALKAWAY, 'Bon appÃ©tit, and come back soon for your daily dose of vitamins!')
 keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text = 'Alors, guess what my job might be, standing \'ere in the middle of all these juicy exotic fruits?'})
 keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'Time is the current time now.'})
 keywordHandler:addKeyword({'fruits'}, StdModule.say, {npcHandler = npcHandler, text = 'I offer you bananas, melons, pumpkins, white mushrooms, oranges, strawberries, and blueberries.'})
@@ -26,4 +26,5 @@ shopModule:addBuyableItem({'white'}, 3723, 10, 'white')
 shopModule:addBuyableItem({'orange'}, 3586, 10, 'orange')
 
 npcHandler:addModule(FocusModule:new())
+
 
