@@ -49,9 +49,9 @@ local settings = g_configs.getSettings()
 local layout = DEFAULT_LAYOUT
 if g_app.isMobile() then
   layout = "mobile"
-elseif settings:exists('layout') then
-  layout = settings:getValue('layout')
 end
+-- Força o layout padrão e ignora o que estava salvo no config.otml
+settings:setValue('layout', layout)
 g_resources.setLayout(layout)
 
 g_modules.discoverModules()
