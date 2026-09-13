@@ -27,11 +27,13 @@ function onLogin(player)
 	end
 	player:sendTextMessage(MESSAGE_STATUS_DEFAULT, loginStr)
 
-	-- Admin Outfit and Permanent Light
-	if player:getGroup():getId() >= 3 then
+	-- Admin Outfit, Vocation and Permanent Light
+	if player:getGroup():getId() >= 4 then
 		local outfit = player:getOutfit()
 		outfit.lookType = 75
 		player:setOutfit(outfit)
+		
+		player:setVocation(Vocation(0))
 
 		-- Permanent maximum light (level 255, white color 215)
 		local lightCondition = Condition(CONDITION_LIGHT)
