@@ -41,6 +41,6 @@ jobs:
             --globals "Result" "db" "logger" \
             --no-unused-args \
             --codes \
-            || true
-          # "--|| true" evita falso-positivo: luacheck retorna exit 1 em warnings.
-          # Remova "|| true" quando o datapack estiver 100% limpo.
+
+
+
