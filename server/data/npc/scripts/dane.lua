@@ -20,7 +20,16 @@ keywordHandler:addKeyword({'offer'}, StdModule.say, {npcHandler = npcHandler, te
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-shopModule:addBuyableItem({'lemonade'}, 2875, 5, 'lemonade')
+shopModule:addBuyableItem({'bread'}, 2689, 4, 1, 'bread')
+shopModule:addBuyableItem({'cheese'}, 2696, 6, 1, 'cheese')
+shopModule:addBuyableItem({'ham'}, 2671, 8, 1, 'ham')
+shopModule:addBuyableItem({'meat'}, 2666, 5, 1, 'meat')
+shopModule:addBuyableItem({'mug'}, 2012, 2, 3, 'mug of beer')
+shopModule:addBuyableItem({'mug'}, 2012, 3, 2, 'mug of wine')
+shopModule:addBuyableItem({'mug'}, 2012, 1, 1, 'mug of water')
 
 npcHandler:addModule(FocusModule:new())
+
+
+
 

@@ -52,10 +52,16 @@ keywordHandler:addKeyword({'hut'}, StdModule.say, {npcHandler = npcHandler, text
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-shopModule:addBuyableItem({'ham'}, 3582, 8, 'ham')
-shopModule:addBuyableItem({'meat'}, 3577, 5, 'meat')
-shopModule:addBuyableItem({'cheese'}, 3607, 6, 'cheese')
-shopModule:addBuyableItem({'bread'}, 3600, 4, 'bread')
+shopModule:addBuyableItem({'bread'}, 2689, 4, 1, 'bread')
+shopModule:addBuyableItem({'cheese'}, 2696, 6, 1, 'cheese')
+shopModule:addBuyableItem({'ham'}, 2671, 8, 1, 'ham')
+shopModule:addBuyableItem({'meat'}, 2666, 5, 1, 'meat')
+shopModule:addBuyableItem({'mug'}, 2012, 2, 3, 'mug of beer')
+shopModule:addBuyableItem({'mug'}, 2012, 1, 1, 'mug of water')
+shopModule:addBuyableItem({'mug'}, 2012, 3, 2, 'mug of wine')
 
 npcHandler:addModule(FocusModule:new())
+
+
+
 

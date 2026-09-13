@@ -26,6 +26,16 @@ keywordHandler:addKeyword({'missile'}, StdModule.say, {npcHandler = npcHandler, 
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
+shopModule:addBuyableItem({'bow'}, 2456, 400, 1, 'bow')
+shopModule:addBuyableItem({'crossbow'}, 2455, 500, 1, 'crossbow')
+shopModule:addBuyableItem({'arrow'}, 2544, 3, 1, 'arrow')
+shopModule:addBuyableItem({'bolt'}, 2543, 4, 1, 'bolt')
+shopModule:addBuyableItem({'poison'}, 2545, 18, 1, 'poison arrow')
+shopModule:addSellableItem({'bow'}, 2456, 130, 'bow')
+shopModule:addSellableItem({'crossbow'}, 2455, 160, 'crossbow')
 
 npcHandler:addModule(FocusModule:new())
+
+
+
 
