@@ -175,7 +175,7 @@ Mesma regra de M1: código Done não fecha o milestone sem aceitação manual. L3 au
 
 | Epic | Prioridade | Notas |
 |------|------------|-------|
-| CI obrigatório L1+L2+L3 em PR | P0 | Já há workflow; endurecer gate |
+| CI obrigatório L1+L2+L3 em PR | P0 | **Feito** | Linting endurecido |
 | Ampliar L3 (quests, spawns, travel) | P0 | Novos branches => novos testes |
 | L4 protocolo em pipeline opt-in/nightly | P1 | Stack Docker no CI |
 | Mitigações de dupe / exploits era 7.4 | P1 | `ITEM_DUPLICATION_BUGS.md` |
