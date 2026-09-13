@@ -129,7 +129,7 @@ MountButton < CombatBox
 
 InventoryWindow < HeadlessMiniWindow
   icon: /images/topbuttons/inventory
-  height: 178
+  height: 240
   id: inventoryWindow
   @onClose: modules.game_inventory.onMiniWindowClose()
   &save: true
@@ -320,6 +320,10 @@ InventoryWindow < HeadlessMiniWindow
           @onClick: g_game.stop(); g_game.cancelAttackAndFollow()
 
         InventoryButton
+          !text: tr('Quests')
+          @onClick: modules.game_questlog.toggle()
+
+        InventoryButton
           !text: tr('Options')
           @onClick: modules.client_options.toggle()
 
@@ -330,4 +334,25 @@ InventoryWindow < HeadlessMiniWindow
         InventoryButton
           !text: tr('Logout')
           @onClick: modules.game_interface.tryLogout()
+          
+        Panel
+          id: bottomButtons
+          layout:
+            type: horizontalBox
+            spacing: 2
+          height: 18
+          margin-top: 2
+          
+          InventoryButton
+            !text: tr('Skills')
+            width: 42
+            @onClick: modules.game_skills.toggle()
+          InventoryButton
+            !text: tr('Battle')
+            width: 42
+            @onClick: modules.game_battle.toggle()
+          InventoryButton
+            !text: tr('VIP')
+            width: 42
+            @onClick: modules.game_viplist.toggle()
 
