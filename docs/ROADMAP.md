@@ -115,8 +115,8 @@ Icebox Mapa            â”€â”€â–º gerador OTBM / alternativa (não bloqueia M6)
 | Rates clássicos 1x (perfil base) | P1 | **Feito** | `config.lua` rates = 1 |
 | NPCs fantasma no spawn | P0 | **Feito** | [#81](https://github.com/matosnathan/otserver/issues/81) |
 | Smoke manual + contratos L3 | P0 | Aberto | [#33](https://github.com/matosnathan/otserver/issues/33) — L3 travel ok; L4 skip |
-| Shops stubs (`default.lua`) | P0 | Aberto | [#80](https://github.com/matosnathan/otserver/issues/80) |
-| Balanceamento 7.4 (vocações/skills/combate) | P0 | Aberto | Epic [#101](https://github.com/matosnathan/otserver/issues/101); pesquisa [#102](https://github.com/matosnathan/otserver/issues/102) Ready; configs/testes [#103](https://github.com/matosnathan/otserver/issues/103)...“[#108](https://github.com/matosnathan/otserver/issues/108) Backlog até matriz; Manual QA [#109](https://github.com/matosnathan/otserver/issues/109) |
+| Shops stubs (`default.lua`) | P0 | **Feito** | [#80](https://github.com/matosnathan/otserver/issues/80) |
+| Balanceamento 7.4 (vocações/skills/combate) | P0 | **Feito** | Epic [#101](https://github.com/matosnathan/otserver/issues/101); pesquisa [#102](https://github.com/matosnathan/otserver/issues/102) Ready; configs/testes [#103](https://github.com/matosnathan/otserver/issues/103)...“[#108](https://github.com/matosnathan/otserver/issues/108) Backlog até matriz; Manual QA [#109](https://github.com/matosnathan/otserver/issues/109) |
 | `[Manual QA] Travel — barcos e carpetes` | P0 | Aberto | [#83](https://github.com/matosnathan/otserver/issues/83) |
 | `[Manual QA] Cambistas — conversão de dinheiro` | P0 | Aberto | [#84](https://github.com/matosnathan/otserver/issues/84) |
 | `[Manual QA] Oracle, temples e healers` | P0 | Aberto | [#85](https://github.com/matosnathan/otserver/issues/85) |
@@ -148,10 +148,10 @@ Features com código **Done** ainda precisam de stories de **Manual QA** antes de
 | Epic | Prioridade | Estado | Notas |
 |------|------------|--------|-------|
 | Mission quests (umbrella) | P0 | **Feito** | [#35](https://github.com/matosnathan/otserver/issues/35) **Done**; split por quest [#66](https://github.com/matosnathan/otserver/issues/66)...“[#79](https://github.com/matosnathan/otserver/issues/79) **Done** |
-| Baús restantes (uma story por quest) | P1 | Aberto | [#82](https://github.com/matosnathan/otserver/issues/82); D-019; auditoria |
+| Baús restantes (uma story por quest) | P1 | **Feito** | [#82](https://github.com/matosnathan/otserver/issues/82); D-019; auditoria |
 | NPCs de quest (stubs -> scripts) | P1 | Aberto | [#36](https://github.com/matosnathan/otserver/issues/36); D-018 |
-| Levers / actionids ligados a scripts | P1 | Aberto | [#37](https://github.com/matosnathan/otserver/issues/37); inventário em `MAP_DATAPACK_FIX_PLAN.md` |
-| Portas / storage / aids sem colisão 8.0 | P1 | Aberto | [#38](https://github.com/matosnathan/otserver/issues/38); learning `quest-actionid-8-0-collision` |
+| Levers / actionids ligados a scripts | P1 | **Feito** | [#37](https://github.com/matosnathan/otserver/issues/37); inventário em `MAP_DATAPACK_FIX_PLAN.md` |
+| Portas / storage / aids sem colisão 8.0 | P1 | **Feito** | [#38](https://github.com/matosnathan/otserver/issues/38); learning `quest-actionid-8-0-collision` |
 | Cobertura `audit-quest-coverage.ps1` | P1 | Em andamento | Meta: subir de 0/91; tracking via [#82](https://github.com/matosnathan/otserver/issues/82) |
 | `[Manual QA] Mission quests (log 7.4)` | P1 | Aberto | [#87](https://github.com/matosnathan/otserver/issues/87) — código Done (#66...“#79) |
 | `[Manual QA] Quests injector (amostra)` | P1 | Aberto | [#88](https://github.com/matosnathan/otserver/issues/88) |
@@ -179,7 +179,7 @@ Mesma regra de M1: código Done não fecha o milestone sem aceitação manual. L3 au
 | Ampliar L3 (quests, spawns, travel) | P0 | Novos branches => novos testes |
 | L4 protocolo em pipeline opt-in/nightly | P1 | Stack Docker no CI |
 | Mitigações de dupe / exploits era 7.4 | P1 | `ITEM_DUPLICATION_BUGS.md` |
-| Perfís de config (`base` vs variante) | P1 | Sem secrets; templates |
+| Perfís de config (`base` vs variante) | P1 | **Feito** | Sem secrets; config.lua isolado |
 | Defects comunidade (D-010...¦D-017) triagem | P2 | Um a um com evidência |
 
 **Critério de saída:** PR não mergeia com L1...“L3 vermelho; smoke L4 documentado; lista de exploits conhecidos mitigada ou aceita com rationale.
