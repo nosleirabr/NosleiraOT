@@ -9,23 +9,23 @@ OT74Dev = {
   lightHack = false,        -- ambient fullbright / disable darkness
 
   -- Modern HUD (not in CipSoft 7.4)
-  actionBars = false,       -- modules/game_actionbar
-  topBar = false,           -- modules/game_topbar (Tibia 12)
-  healthOverlays = false,   -- top HP/mana bars + circles in game_healthinfo
-  fpsPingOverlay = false,   -- game_stats / showFps / showPing
+  actionBars = true,        -- modules/game_actionbar
+  topBar = true,            -- modules/game_topbar (Tibia 12)
+  healthOverlays = true,    -- top HP/mana bars + circles in game_healthinfo
+  fpsPingOverlay = true,    -- game_stats / showFps / showPing
 
   -- Post-7.4 / OT-only systems still present in the tree
-  questLog = false,         -- game_questlog (quest log = 7.9+)
-  cooldownWidgets = false,  -- game_cooldown
-  profiles = false,         -- client_profiles
-  shaders = false,          -- game_shaders
+  questLog = true,          -- game_questlog (quest log = 7.9+)
+  cooldownWidgets = true,   -- game_cooldown
+  profiles = true,          -- client_profiles
+  shaders = true,           -- game_shaders
   clientFeedback = false,   -- client_feedback telemetry UI
   mobileUi = false,         -- client_mobile
   luaTerminal = false,      -- client_terminal (Ctrl+T)
   imbuingSystem = false,    -- game_imbuing (imbuements = 12.x+)
   preySystem = false,       -- game_prey (prey = 10.x+)
   marketSystem = false,     -- game_market (market = 9.x+)
-  spellList = false,        -- game_spelllist (spell list UI pós-7.4)
+  spellList = true,         -- game_spelllist (spell list UI pós-7.4)
   unjustifiedPoints = false,-- game_unjustifiedpoints (sistema pós-7.4)
 
   -- Tela inicial / login (CipSoft 7.4)

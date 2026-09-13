@@ -3,7 +3,7 @@
 
 APP_NAME = "NosleiraOT-Classic-7.4"
 APP_VERSION = 772
-DEFAULT_LAYOUT = "retro"
+DEFAULT_LAYOUT = "default"
 
 -- No updater, crash reporter, or remote services.
 Services = {
