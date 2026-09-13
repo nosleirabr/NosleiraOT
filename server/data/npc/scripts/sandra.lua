@@ -27,7 +27,11 @@ keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-shopModule:addBuyableItem({'life'}, 2874, 60, 'life')
+shopModule:addBuyableItem({'life'}, 2006, 60, 10, 'life fluid')
+shopModule:addBuyableItem({'mana'}, 2006, 100, 7, 'mana fluid')
+shopModule:addBuyableItem({'vial'}, 2006, 10, 1, 'vial')
+shopModule:addSellableItem({'vial'}, 2006, 5, 'vial')
 
 npcHandler:addModule(FocusModule:new())
+
 

@@ -40,6 +40,25 @@ keywordHandler:addKeyword({'dungeon'}, StdModule.say, {npcHandler = npcHandler, 
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
+shopModule:addBuyableItem({'chain'}, 2464, 200, 1, 'chain armor')
+shopModule:addBuyableItem({'brass'}, 2465, 450, 1, 'brass armor')
+shopModule:addBuyableItem({'plate'}, 2510, 125, 1, 'plate shield')
+shopModule:addBuyableItem({'steel'}, 2509, 240, 1, 'steel shield')
+shopModule:addBuyableItem({'brass'}, 2460, 120, 1, 'brass helmet')
+shopModule:addBuyableItem({'steel'}, 2457, 580, 1, 'steel helmet')
+shopModule:addBuyableItem({'sword'}, 2376, 25, 1, 'sword')
+shopModule:addBuyableItem({'mace'}, 2398, 30, 1, 'mace')
+shopModule:addBuyableItem({'axe'}, 2386, 20, 1, 'axe')
+shopModule:addSellableItem({'chain'}, 2464, 70, 'chain armor')
+shopModule:addSellableItem({'brass'}, 2465, 150, 'brass armor')
+shopModule:addSellableItem({'plate'}, 2510, 45, 'plate shield')
+shopModule:addSellableItem({'steel'}, 2509, 80, 'steel shield')
+shopModule:addSellableItem({'brass'}, 2460, 30, 'brass helmet')
+shopModule:addSellableItem({'steel'}, 2457, 190, 'steel helmet')
+shopModule:addSellableItem({'sword'}, 2376, 7, 'sword')
+shopModule:addSellableItem({'mace'}, 2398, 8, 'mace')
+shopModule:addSellableItem({'axe'}, 2386, 7, 'axe')
 
 npcHandler:addModule(FocusModule:new())
+
 

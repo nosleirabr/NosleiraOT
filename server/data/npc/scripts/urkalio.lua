@@ -31,12 +31,11 @@ keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-shopModule:addBuyableItem({'lemonade'}, 2880, 2, 'lemonade')
-shopModule:addBuyableItem({'cheese'}, 3607, 6, 'cheese')
-shopModule:addBuyableItem({'bread'}, 3600, 4, 'bread')
-shopModule:addBuyableItem({'ham'}, 3582, 8, 'ham')
-shopModule:addBuyableItem({'cookie'}, 3598, 5, 'cookie')
-shopModule:addBuyableItem({'meat'}, 3577, 5, 'meat')
+shopModule:addBuyableItem({'meat'}, 2666, 5, 1, 'meat')
+shopModule:addBuyableItem({'ham'}, 2671, 8, 1, 'ham')
+shopModule:addBuyableItem({'beer'}, 20003, 2, 1, 'beer')
+shopModule:addBuyableItem({'wine'}, 20015, 3, 1, 'wine')
 
 npcHandler:addModule(FocusModule:new())
+
 
