@@ -23,10 +23,10 @@ allowFightBack = true
 
 -- Connection Config
 -- NOTE: maxPlayers set to 0 means no limit
-ip = "0.0.0.0"
+ip = os.getenv("SERVER_IP") or "127.0.0.1"
 bindOnlyGlobalAddress = false
-loginProtocolPort = 7171
-gameProtocolPort = 7172
+loginProtocolPort = tonumber(os.getenv("LOGIN_PORT")) or 7171
+gameProtocolPort = tonumber(os.getenv("GAME_PORT")) or 7172
 statusProtocolPort = 7171
 maxPlayers = 0
 motd = "Welcome to Nosleira-OT!"
@@ -65,11 +65,11 @@ mapName = "world"
 mapAuthor = "ond"
 
 -- MySQL
-mysqlHost = "mysql"
-mysqlUser = "ot74"
-mysqlPass = "mv%ybJvh^^ZQ14rPoRYVZw!baT0G8%RI"
-mysqlDatabase = "ot74"
-mysqlPort = 3306
+mysqlHost = os.getenv("MYSQL_HOST") or "mysql"
+mysqlUser = os.getenv("MYSQL_USER") or "ot74"
+mysqlPass = os.getenv("MYSQL_PASSWORD") or ""
+mysqlDatabase = os.getenv("MYSQL_DATABASE") or "ot74"
+mysqlPort = tonumber(os.getenv("MYSQL_PORT")) or 3306
 mysqlSock = ""
 passwordType = "sha1"
 
@@ -112,6 +112,8 @@ ownerName = ""
 ownerEmail = ""
 url = "https://otland.net/"
 location = "Sweden"
+
+
 
 
 
