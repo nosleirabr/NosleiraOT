@@ -346,3 +346,10 @@ CREATE TRIGGER `oncreate_guilds` AFTER INSERT ON `guilds`
 END
 //
 DELIMITER ;
+
+-- Default Samples for Character Creation
+INSERT IGNORE INTO `accounts` (`id`, `name`, `password`, `type`, `premdays`, `lastday`, `email`, `creation`) VALUES 
+(1, '1', '356a192b7913b04c54574d18c28d46e6395428ab', 6, 65535, 0, '', 0);
+
+INSERT IGNORE INTO `players` (`id`, `name`, `group_id`, `account_id`, `level`, `vocation`, `health`, `healthmax`, `experience`, `lookbody`, `lookfeet`, `lookhead`, `looklegs`, `looktype`, `lookaddons`, `maglevel`, `mana`, `manamax`, `manaspent`, `soul`, `town_id`, `posx`, `posy`, `posz`, `conditions`, `cap`, `sex`, `lastlogin`, `lastip`, `save`, `skull`, `skulltime`, `lastlogout`, `blessings`, `onlinetime`, `deletion`, `balance`) VALUES 
+(100, 'Rook Sample', 1, 1, 1, 0, 150, 150, 0, 68, 76, 78, 58, 128, 0, 0, 0, 0, 0, 100, 1, 32097, 32219, 7, '', 400, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
