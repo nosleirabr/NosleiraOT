@@ -147,7 +147,7 @@
 	<action actionid="50667" script="quests/behemoth_quest.lua" />
 	
 	<!-- Rookgaard Levers -->
-	<action actionid="50001" script="quests/rookgaard/rookgaard_levers.lua" />
+	<action actionid="50001" script="rookgaard/sewer_bridge.lua" />
 	<action actionid="52412" script="quests/rookgaard/rookgaard_levers.lua" />
 	<action actionid="30041" script="quests/classic_levers.lua" />
 	<action actionid="30042" script="quests/classic_levers.lua" />
@@ -171,6 +171,7 @@
 	<action actionid="30070" script="quests/hota_forge.lua" />
 	<!-- Map-as-code: remaining unlabeled levers (decorative_levers.yaml -> aid 50999) -->
 	<action actionid="50999" script="quests/decorative_lever.lua" />
+	<action itemid="9999" script="misc/test_effect.lua" />
 </actions>
 
 
