@@ -5,7 +5,7 @@
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker)
 ![Status](https://img.shields.io/badge/Status-Em_Desenvolvimento-success?style=for-the-badge)
 
-Servidor **Tibia 7.4** clássico com realmap autêntico (TibiCAM 222222), fidelidade total à era de ouro do Tibia, construído sobre uma stack moderna e de alta performance.
+Servidor **Tibia 7.4** clássico com realmap autêntico, fidelidade total à era de ouro do Tibia, construído sobre uma stack moderna e de alta performance.
 
 ---
 
