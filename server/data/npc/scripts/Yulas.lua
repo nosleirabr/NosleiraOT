@@ -22,5 +22,8 @@ shopModule:addBuyableItem({'small'}, 2782, 20, 'small')
 shopModule:addBuyableItem({'big'}, 2785, 30, 'big')
 shopModule:addBuyableItem({'round'}, 2783, 25, 'round')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

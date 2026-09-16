@@ -41,5 +41,8 @@ shopModule:addBuyableItem({'great'}, 3191, 180, 'great')
 shopModule:addBuyableItem({'wand'}, 3074, 500, 'wand')
 
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

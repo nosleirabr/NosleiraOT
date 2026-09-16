@@ -18,5 +18,8 @@ shopModule:addBuyableItem({'water'}, 2901, 10, 'water')
 shopModule:addBuyableItem({'apple'}, 3585, 3, 'apple')
 
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

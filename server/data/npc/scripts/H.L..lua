@@ -172,5 +172,8 @@ shopModule:addSellableItem({'sell'}, 3389, 84, 'sell')
 shopModule:addSellableItem({'sell'}, 3359, 50, 'sell')
 shopModule:addSellableItem({'sell'}, 3308, 6, 'sell')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

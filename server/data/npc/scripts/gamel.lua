@@ -24,5 +24,8 @@ shopModule:addBuyableItem({'staff'}, 3289, 40, 'staff')
 shopModule:addBuyableItem({'dagger'}, 3267, 5, 'dagger')
 shopModule:addBuyableItem({'throwing'}, 3298, 25, 'throwing')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

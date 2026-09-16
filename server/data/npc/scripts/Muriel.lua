@@ -12,5 +12,8 @@ npcHandler:addModule(shopModule)
 shopModule:addBuyableItem({'spellbook'}, 3059, 150, 'spellbook')
 
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

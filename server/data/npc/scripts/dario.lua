@@ -99,6 +99,9 @@ shopModule:addSellableItem({'arrow'}, 2544, 2, 'arrow')
 shopModule:addSellableItem({'bolt'}, 2543, 3, 'bolt')
 shopModule:addSellableItem({'poison'}, 2545, 5, 'poison arrow')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 
 

@@ -48,4 +48,7 @@ npcHandler:setMessage(MESSAGE_GREET, 'Welcome, |PLAYERNAME|! If you are wounded 
 npcHandler:setMessage(MESSAGE_FAREWELL, 'May the gods bless you, |PLAYERNAME|.')
 npcHandler:setMessage(MESSAGE_WALKAWAY, 'May the gods watch over you.')
 npcHandler:setCallback(CALLBACK_MESSAGE_DEFAULT, creatureSayCallback)
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)

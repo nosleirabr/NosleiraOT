@@ -28,7 +28,10 @@ shopModule:addBuyableItem({'mana'}, 2006, 100, 7, 'mana fluid')
 shopModule:addBuyableItem({'life'}, 2006, 60, 10, 'life fluid')
 shopModule:addBuyableItem({'blank'}, 2260, 10, 1, 'blank rune')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 
 
 

@@ -24,4 +24,7 @@ keywordHandler:addKeyword({'darashia'}, StdModule.say, {npcHandler = npcHandler,
 npcHandler:setMessage(MESSAGE_GREET, 'Welcome on board, |PLAYERNAME|. Where can I {sail} you today?')
 npcHandler:setMessage(MESSAGE_FAREWELL, 'Good bye.')
 npcHandler:setMessage(MESSAGE_WALKAWAY, 'Good bye then.')
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)

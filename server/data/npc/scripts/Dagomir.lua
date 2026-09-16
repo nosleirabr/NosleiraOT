@@ -11,5 +11,8 @@ npcHandler:setMessage(MESSAGE_GREET, 'Wha... what?? HOW DARE YOU!!?? LEAVE ME AL
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

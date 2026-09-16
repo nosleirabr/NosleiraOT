@@ -61,7 +61,10 @@ shopModule:addSellableItem({'sell'}, 3557, 115, 'sell')
 shopModule:addSellableItem({'sell'}, 3359, 112, 'sell')
 shopModule:addSellableItem({'sell'}, 3369, 696, 'sell')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 
 
 local function creatureSayCallback(cid, type, msg)

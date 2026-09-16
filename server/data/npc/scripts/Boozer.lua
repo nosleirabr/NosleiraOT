@@ -36,5 +36,8 @@ shopModule:addBuyableItem({'ham'}, 3582, 8, 'ham')
 shopModule:addBuyableItem({'cookie'}, 3598, 5, 'cookie')
 shopModule:addBuyableItem({'meat'}, 3577, 5, 'meat')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

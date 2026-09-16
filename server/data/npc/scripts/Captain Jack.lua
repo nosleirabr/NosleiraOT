@@ -22,4 +22,7 @@ keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, tex
 npcHandler:setMessage(MESSAGE_GREET, 'Ahoy, |PLAYERNAME|. Need a {passage}?')
 npcHandler:setMessage(MESSAGE_FAREWELL, 'Safe travels.')
 npcHandler:setMessage(MESSAGE_WALKAWAY, 'Safe travels.')
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)

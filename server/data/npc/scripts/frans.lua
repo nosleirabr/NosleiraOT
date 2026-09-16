@@ -28,6 +28,9 @@ shopModule:addBuyableItem({'spellbook'}, 2217, 400, 1, 'spellbook')
 shopModule:addBuyableItem({'life'}, 2006, 60, 10, 'life fluid')
 shopModule:addBuyableItem({'mana'}, 2006, 100, 7, 'mana fluid')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 
 

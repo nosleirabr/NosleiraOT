@@ -102,7 +102,10 @@ shopModule:addSellableItem({'viking'}, 2473, 66, 'viking helmet')
 shopModule:addSellableItem({'iron'}, 2459, 150, 'iron helmet')
 shopModule:addSellableItem({'dwarven'}, 2525, 100, 'dwarven shield')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 
 
 

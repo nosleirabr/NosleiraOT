@@ -30,6 +30,9 @@ shopModule:addBuyableItem({'bread'}, 2689, 2, 1, 'bread')
 shopModule:addBuyableItem({'cheese'}, 2696, 5, 1, 'cheese')
 shopModule:addBuyableItem({'cookie'}, 2687, 2, 1, 'cookie')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 
 

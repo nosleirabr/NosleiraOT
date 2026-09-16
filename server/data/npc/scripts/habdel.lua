@@ -56,6 +56,9 @@ shopModule:addSellableItem({'brass'}, 2511, 65, 'brass shield')
 shopModule:addSellableItem({'plate'}, 2510, 125, 'plate shield')
 shopModule:addSellableItem({'battle'}, 2513, 95, 'battle shield')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 
 

@@ -23,5 +23,8 @@ shopModule:addBuyableItem({'sofa'}, 2779, 55, 'sofa')
 shopModule:addBuyableItem({'red'}, 2775, 40, 'red')
 shopModule:addBuyableItem({'wooden'}, 2777, 15, 'wooden')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

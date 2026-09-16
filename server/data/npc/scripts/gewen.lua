@@ -1,4 +1,4 @@
-﻿local keywordHandler = KeywordHandler:new()
+local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
@@ -16,4 +16,7 @@ shopModule:addBuyableItem({'parcel'}, 2595, 15, 1, 'parcel')
 shopModule:addBuyableItem({'label'}, 2599, 1, 1, 'label')
 shopModule:addBuyableItem({'letter'}, 2597, 8, 1, 'letter')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)

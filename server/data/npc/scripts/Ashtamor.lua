@@ -29,5 +29,8 @@ npcHandler:addModule(shopModule)
 shopModule:addBuyableItem({'amphora'}, 2893, 4, 'amphora')
 shopModule:addBuyableItem({'vase'}, 2876, 3, 'vase')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

@@ -18,4 +18,7 @@ npcHandler:setMessage(MESSAGE_GREET, "Greetings, |PLAYERNAME|.")
 npcHandler:setMessage(MESSAGE_FAREWELL, "Dismissed.")
 npcHandler:setMessage(MESSAGE_WALKAWAY, "Dismissed.")
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)

@@ -113,5 +113,8 @@ shopModule:addBuyableItem({'chest'}, 2472, 10, 'chest')
 shopModule:addBuyableItem({'square'}, 2784, 25, 'square')
 shopModule:addBuyableItem({'box'}, 2469, 10, 'box')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

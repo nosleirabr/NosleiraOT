@@ -60,5 +60,8 @@ shopModule:addBuyableItem({'backpack'}, 2865, 20, 'backpack')
 shopModule:addBuyableItem({'plate'}, 2905, 6, 'plate')
 shopModule:addSellableItem({'sell'}, 3003, 8, 'sell')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

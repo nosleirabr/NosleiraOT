@@ -28,5 +28,8 @@ shopModule:addBuyableItem({'locker'}, 2791, 30, 'locker')
 shopModule:addBuyableItem({'trunk'}, 2794, 10, 'trunk')
 shopModule:addBuyableItem({'chest'}, 2472, 10, 'chest')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

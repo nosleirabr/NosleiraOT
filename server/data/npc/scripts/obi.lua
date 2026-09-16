@@ -86,7 +86,10 @@ shopModule:addSellableItem({'leather'}, 2649, 9, 'leather legs')
 shopModule:addSellableItem({'chain'}, 2648, 25, 'chain legs')
 shopModule:addSellableItem({'club'}, 2382, 1, 'club')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 
 
 

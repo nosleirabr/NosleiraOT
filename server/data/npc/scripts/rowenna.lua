@@ -55,7 +55,10 @@ shopModule:addSellableItem({'battle'}, 2378, 80, 'battle axe')
 shopModule:addSellableItem({'carlin'}, 2395, 118, 'carlin sword')
 shopModule:addSellableItem({'barbarian'}, 2429, 185, 'barbarian axe')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 
 
 

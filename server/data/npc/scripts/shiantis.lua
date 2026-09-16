@@ -59,5 +59,8 @@ shopModule:addBuyableItem({'globe'}, 2797, 50, 'globe')
 shopModule:addBuyableItem({'coal'}, 2806, 25, 'coal')
 shopModule:addBuyableItem({'birdcage'}, 2796, 50, 'birdcage')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 
