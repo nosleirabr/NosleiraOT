@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 using Ot74.Gameplay.Tests.Catalog;
 using Xunit;
 
@@ -18,7 +18,7 @@ public sealed class ShopContractTests
 	public void Lua_shop_buyable_items_are_valid()
 	{
 		var bad = new List<string>();
-		var npcDir = Path.Combine(RepoPaths.DataDir, "npc", "scripts");
+		var npcDir = RepoPaths.NpcScriptsDir;
 
 		foreach (var file in Directory.GetFiles(npcDir, "*.lua", SearchOption.TopDirectoryOnly))
 		{
@@ -43,7 +43,7 @@ public sealed class ShopContractTests
 	public void Lua_shop_sellable_items_are_valid()
 	{
 		var bad = new List<string>();
-		var npcDir = Path.Combine(RepoPaths.DataDir, "npc", "scripts");
+		var npcDir = RepoPaths.NpcScriptsDir;
 
 		foreach (var file in Directory.GetFiles(npcDir, "*.lua", SearchOption.TopDirectoryOnly))
 		{

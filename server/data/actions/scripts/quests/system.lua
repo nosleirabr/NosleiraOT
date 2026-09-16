@@ -9,7 +9,7 @@ local questRewards = {
     [52169] = { {itemId = 2651, count = 1} }, -- Coat
     [52170] = { {itemId = 2382, count = 1} }, -- Club
     [52171] = { {itemId = 2120, count = 1} }, -- Rope
-    [52148] = { {itemId = 2088, count = 1, actionId = 4601} }, -- Key 4601 (Bear Room)
+    -- [52148] Removed - Bear Room Key moved to 20003
     [52149] = { {itemId = 2149, count = 1} }, -- Small Emerald
     [52159] = { {itemId = 2159, count = 1} }, -- Scarab Coin
     [2050] = { {itemId = 2050, count = 1} }, -- Sewer Torch Quest
@@ -25,7 +25,7 @@ local questRewards = {
     [2676] = { {itemId = 2676, count = 1} }, -- Banana
     [20001] = { {itemId = 2467, count = 1} }, -- Leather Armor Quest / Doublet Room
     [20002] = { {itemId = 2088, count = 1, actionId = 4603} }, -- Key 4603
-    [20003] = { {itemId = 2530, count = 1}, {itemId = 2480, count = 1} }, -- Bear Room: Copper Shield + Legion Helmet
+    [20003] = { {itemId = 2089, count = 1, actionId = 4601} }, -- Bear Room: Copper Key 4601 only
     [54322] = { {itemId = 1987, count = 1} }, -- Present Box (Rookgaard)
 
     -- === BEHEMOTH QUEST ===
@@ -149,7 +149,7 @@ local questRewards = {
     [2521] = { {itemId = 2521, count = 1} }, -- Dark Shield
     [2580] = { {itemId = 2580, count = 1} }, -- Poison Arrows
     [2676] = { {itemId = 2676, count = 1} }, -- Banana
-    [52148] = { {itemId = 2088, count = 1, actionId = 4601} }, -- Key 4601
+    -- [52148] Removed duplicate
     [52149] = { {itemId = 2149, count = 1} }, -- Small Emerald
     [52159] = { {itemId = 2159, count = 1} }, -- Scarab Coin
     [54322] = {} -- White Raven / Misc (Empty chest)
@@ -191,7 +191,7 @@ function onUse(player, item, fromPosition, target, toPosition, isHotkey)
 		end
 	end
 
-	if player:getStorageValue(storage) > 0 then
+	if player:getStorageValue(storage) > 0 or storage == 52148 then
 		player:sendTextMessage(MESSAGE_INFO_DESCR, 'The ' .. ItemType(item.itemid):getName() .. ' is empty.')
 		return true
 	end
