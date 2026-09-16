@@ -40,8 +40,8 @@ function onUse(player, item, fromPosition, target, toPosition)
 				player:addMana(math.random(20, 75))
 				player:getPosition():sendMagicEffect(CONST_ME_MAGIC_BLUE)
 			elseif v == 10 then
-				player:addHealth(60)
-				player:getPosition():sendMagicEffect(CONST_ME_MAGIC_BLUE)
+				player:addHealth(math.random(40, 80))
+				player:getPosition():sendMagicEffect(CONST_ME_MAGIC_RED)
 			end
 			for i = 0, #fluidType do
 				if v == fluidType[i] then
