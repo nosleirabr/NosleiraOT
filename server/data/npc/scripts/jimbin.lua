@@ -28,7 +28,8 @@ keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-shopModule:addBuyableItem({'beer'}, 2880, 2, 'beer')
+-- Cerveja: ID 20003 (beer no items.xml deste datapack)
+shopModule:addBuyableItem({'beer'}, 20003, 2, 1, 'beer')
 
 local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')

@@ -9,7 +9,10 @@ function onThink()						npcHandler:onThink()						end
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-shopModule:addBuyableItem({'life'}, 2874, 60, 'life')
+-- Life fluid: ID 2006 subtype 10 (life fluid), preco classico 7.4
+shopModule:addBuyableItem({'life', 'life fluid'}, 2006, 60, 10, 'life fluid')
+-- Mana fluid: ID 2006 subtype 7 (mana fluid), preco classico 7.4
+shopModule:addBuyableItem({'mana', 'mana fluid'}, 2006, 100, 7, 'mana fluid')
 
 
 local focusModule = FocusModule:new()

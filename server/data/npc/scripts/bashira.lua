@@ -1,11 +1,11 @@
-local keywordHandler = KeywordHandler:new()
+﻿local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
-function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureAppear(cid)		npcHandler:onCreatureAppear(cid)		end
+function onCreatureDisappear(cid)	npcHandler:onCreatureDisappear(cid)		end
 function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
-function onThink()						npcHandler:onThink()						end
+function onThink()				npcHandler:onThink()				end
 npcHandler:setMessage(MESSAGE_GREET, 'Ashari |PLAYERNAME|.')
 npcHandler:setMessage(MESSAGE_FAREWELL, 'Asha Thrazi.')
 npcHandler:setMessage(MESSAGE_WALKAWAY, 'Asha Thrazi.')
@@ -22,7 +22,7 @@ keywordHandler:addKeyword({'cenath'}, StdModule.say, {npcHandler = npcHandler, t
 keywordHandler:addKeyword({'venore'}, StdModule.say, {npcHandler = npcHandler, text = 'Their merchants have no patience and all to fast they loose their masks of friedlyness.'})
 keywordHandler:addKeyword({'stuff'}, StdModule.say, {npcHandler = npcHandler, text = 'Water hoses, pitchforks, presents, buckets, bottles, and the like.'})
 keywordHandler:addKeyword({'thais'}, StdModule.say, {npcHandler = npcHandler, text = 'The people of thais boast about their mighty kingdom, but eventually their short lives will doom everything they buld.'})
-keywordHandler:addKeyword({'elves'}, StdModule.say, {npcHandler = npcHandler, text = 'That\'s our race.'})
+keywordHandler:addKeyword({'elves'}, StdModule.say, {npcHandler = npcHandler, text = 'That''s our race.'})
 keywordHandler:addKeyword({'light'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell torches, candelabra, and oil.'})
 keywordHandler:addKeyword({'food'}, StdModule.say, {npcHandler = npcHandler, text = 'I am not dealing with food.'})
 keywordHandler:addKeyword({'roderick'}, StdModule.say, {npcHandler = npcHandler, text = 'His presence here is a waste of space and talking to or even about him a waste of time.'})
@@ -40,21 +40,25 @@ local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 shopModule:addBuyableItem({'pick'}, 3456, 50, 'pick')
 shopModule:addBuyableItem({'shovel'}, 3457, 50, 'shovel')
-shopModule:addBuyableItem({'bottle'}, 2875, 3, 'bottle')
+-- Garrafa: ID 2007 (bottle real no items.xml)
+shopModule:addBuyableItem({'bottle'}, 2007, 3, 'bottle')
 shopModule:addBuyableItem({'watch'}, 2906, 20, 'watch')
 shopModule:addBuyableItem({'bag'}, 2857, 4, 'bag')
 shopModule:addBuyableItem({'torch'}, 2920, 2, 'torch')
-shopModule:addBuyableItem({'oil'}, 2874, 20, 'oil')
+-- Oleo: ID 2006 subtype 11 (oil fluid no vial), preco 20gp
+shopModule:addBuyableItem({'oil'}, 2006, 20, 11, 'oil')
 shopModule:addBuyableItem({'scroll'}, 2815, 5, 'scroll')
 shopModule:addBuyableItem({'waterskin'}, 2901, 10, 'waterskin')
 shopModule:addBuyableItem({'scythe'}, 3453, 50, 'scythe')
 shopModule:addBuyableItem({'rope'}, 3003, 50, 'rope')
 shopModule:addBuyableItem({'document'}, 2834, 12, 'document')
-shopModule:addBuyableItem({'bucket'}, 2873, 4, 'bucket')
+-- Balde: ID 2005 (bucket real no items.xml)
+shopModule:addBuyableItem({'bucket'}, 2005, 4, 'bucket')
 shopModule:addBuyableItem({'present'}, 2856, 10, 'present')
 shopModule:addBuyableItem({'rod'}, 3483, 150, 'rod')
 shopModule:addBuyableItem({'parchment'}, 2835, 8, 'parchment')
-shopModule:addBuyableItem({'cup'}, 2881, 2, 'cup')
+-- Xicara: ID 2013 (cup real no items.xml)
+shopModule:addBuyableItem({'cup'}, 2013, 2, 'cup')
 shopModule:addBuyableItem({'candelab'}, 2911, 8, 'candelab')
 shopModule:addBuyableItem({'backpack'}, 2865, 20, 'backpack')
 shopModule:addBuyableItem({'plate'}, 2905, 6, 'plate')
@@ -64,4 +68,3 @@ local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')
 focusModule:addGreetMessage('hello')
 npcHandler:addModule(focusModule)
-
