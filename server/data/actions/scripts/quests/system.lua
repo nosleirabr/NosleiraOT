@@ -176,9 +176,6 @@ local hotaQuest = {
 }
 
 function onUse(player, item, fromPosition, target, toPosition, isHotkey)
-	local doorRet = handleDoorExecution(player, item, fromPosition, target, toPosition)
-	if doorRet ~= nil then return doorRet end
-
 	local storage = specialQuests[item.actionid]
 	if not storage then
 		local uid = item:getAttribute(ITEM_ATTRIBUTE_UNIQUEID)
