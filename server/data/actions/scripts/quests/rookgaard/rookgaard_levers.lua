@@ -13,7 +13,13 @@ local config = {
 		timeToReset = 2 * 60 * 1000
 	},
 	-- Decorative (aid wired; flips sprite + message only) — from PR #121 / #37
-	[52413] = { decorative = true },
+	[52413] = { -- Secret passage from Bear Room
+		leverPos = {Position(32148, 32105, 11)},
+		stonePos = Position(32145, 32101, 11),
+		stoneId = 1304,
+		timeToReset = 15 * 60 * 1000, -- 15 minutes
+		manualToggle = true
+	},
 	[50004] = { decorative = true },
 	[50005] = { decorative = true },
 	[50006] = { decorative = true },
@@ -74,6 +80,15 @@ function onUse(player, item, fromPosition, target, toPosition, isHotkey)
 			end
 		end
 	elseif item.itemid == 1946 then
+		if quest.manualToggle then
+			local stoneTile = Tile(quest.stonePos)
+			if stoneTile and not stoneTile:getItemById(quest.stoneId) then
+				Game.createItem(quest.stoneId, 1, quest.stonePos)
+			end
+			item:transform(1945)
+			player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You hear a mechanism moving in the distance.")
+			return true
+		end
 		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "The mechanism is already active.")
 	end
 	return true

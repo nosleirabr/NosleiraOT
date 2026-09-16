@@ -23,16 +23,14 @@ keywordHandler:addKeyword({'fibula'}, StdModule.say, {npcHandler = npcHandler, t
 keywordHandler:addKeyword({'present'}, StdModule.say, {npcHandler = npcHandler, text = 'I don\'t understand what you are talking about.'})
 keywordHandler:addKeyword({'wolf'}, StdModule.say, {npcHandler = npcHandler, text = 'There are a lot of wolves outside the townwall. They disturb our farmers.'})
 
-local shopModule = ShopModule:new()
-npcHandler:addModule(shopModule)
-shopModule:addBuyableItem({'key'}, 2968, 2000, 'key')
-
-
 local function creatureSayCallback(cid, type, msg)
 	if not npcHandler:isFocused(cid) then return false end
 	local player = Player(cid)
 	
-	if msgcontains(msg, "present") then
+	if msgcontains(msg, "key") then
+		npcHandler:say("Do you want to buy the dungeon key for 2000 gold?", cid)
+		npcHandler.topic[cid] = 2
+	elseif msgcontains(msg, "present") then
 		if player:getStorageValue(12454) == 2 then
 			npcHandler:say("You have a present for me?? Realy?", cid)
 			npcHandler.topic[cid] = 1
@@ -44,6 +42,25 @@ local function creatureSayCallback(cid, type, msg)
 				player:setStorageValue(12454, 3)
 				npcHandler.topic[cid] = 0
 			end
+		elseif npcHandler.topic[cid] == 2 then
+			if player:removeMoney(2000) then
+				local key = player:addItem(2087, 1)
+				if key then
+					key:setActionId(3940)
+					npcHandler:say("Now you own the key to the dungeon.", cid)
+				else
+					npcHandler:say("You don't have enough capacity or space.", cid)
+					player:addMoney(2000)
+				end
+			else
+				npcHandler:say("You don't have enough money.", cid)
+			end
+			npcHandler.topic[cid] = 0
+		end
+	elseif msgcontains(msg, "no") then
+		if npcHandler.topic[cid] > 0 then
+			npcHandler:say("Maybe another time.", cid)
+			npcHandler.topic[cid] = 0
 		end
 	end
 	return true
