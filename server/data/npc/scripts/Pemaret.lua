@@ -20,8 +20,13 @@ local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 shopModule:addBuyableItem({'fish'}, 3578, 5, 'fish')
 
+
+addTravelKeyword(keywordHandler, npcHandler, 'edron', 20, TravelHarbours.edron, 'Edron')
+addTravelKeyword(keywordHandler, npcHandler, 'eremo', 0, TravelHarbours.eremo, 'Eremo\'s Island')
+
 local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')
 focusModule:addGreetMessage('hello')
 npcHandler:addModule(focusModule)
+
 

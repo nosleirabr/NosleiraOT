@@ -27,8 +27,12 @@ keywordHandler:addKeyword({'technomancer'}, StdModule.say, {npcHandler = npcHand
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 
+
+addTravelKeyword(keywordHandler, npcHandler, 'kazordoon', 160, TravelHarbours.steamKazordoon, 'Kazordoon')
+
 local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')
 focusModule:addGreetMessage('hello')
 npcHandler:addModule(focusModule)
+
 

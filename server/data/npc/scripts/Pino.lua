@@ -19,8 +19,14 @@ keywordHandler:addKeyword({'tibia'}, StdModule.say, {npcHandler = npcHandler, te
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 
+
+addTravelKeyword(keywordHandler, npcHandler, 'femor hills', 60, TravelHarbours.carpetFemor, 'Femor Hills')
+addTravelKeyword(keywordHandler, npcHandler, 'femor', 60, TravelHarbours.carpetFemor, 'Femor Hills')
+addTravelKeyword(keywordHandler, npcHandler, 'darashia', 40, TravelHarbours.carpetDarashia, 'Darashia')
+
 local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')
 focusModule:addGreetMessage('hello')
 npcHandler:addModule(focusModule)
+
 

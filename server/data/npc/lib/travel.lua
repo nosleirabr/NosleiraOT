@@ -31,7 +31,7 @@ TravelHarbours = {
 
 -- Travel helper. premium=true (classic 7.4 boat/carpet).
 -- Denial/success lines come from StdModule.travel (stock 7.4-era wording).
-function addTravelKeyword(keywordHandler, npcHandler, keyword, cost, destination, label, travelMsg, action)
+function addTravelKeyword(keywordHandler, npcHandler, keyword, cost, destination, label, travelMsg, action, discount)
 	local travelKeyword = keywordHandler:addKeyword({keyword}, StdModule.say, {
 		npcHandler = npcHandler,
 		text = 'Do you seek a passage to ' .. label .. ' for ' .. cost .. ' gold?'
@@ -41,7 +41,8 @@ function addTravelKeyword(keywordHandler, npcHandler, keyword, cost, destination
 		premium = true,
 		cost = cost,
 		destination = destination,
-		msg = travelMsg
+		msg = travelMsg,
+		discount = discount
 	}, nil, action)
 	travelKeyword:addChildKeyword({'no'}, StdModule.say, {
 		npcHandler = npcHandler,
