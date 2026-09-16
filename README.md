@@ -35,12 +35,12 @@ Login padrao: conta **1** / senha **admin123** / personagem **Admin**
 
 Acompanhe o progresso nas [Issues](https://github.com/nosleirabr/Oteserver7.4/issues) organizadas por milestone e prioridade.
 
-| Label | Significado |
-|-------|------------|
-| P0-Critico | Bloqueia jogabilidade - tratar imediatamente |
-| P1-Grave | Paridade necessaria para base estavel |
-| P2-Moderado | Importante mas nao bloqueia o milestone |
-| P3-Melhoria | Nice-to-have, iceboxavel |
+| Label | Significado | Status |
+|-------|------------|--------|
+| P0-Critico | Bloqueia jogabilidade - tratar imediatamente | Concluído (100%) |
+| P1-Grave | Paridade necessaria para base estavel | Em andamento (85%) |
+| P2-Moderado | Importante mas nao bloqueia o milestone | Em andamento (40%) |
+| P3-Melhoria | Nice-to-have, iceboxavel | Pendente (0%) |
 
 ## Licenca
 
