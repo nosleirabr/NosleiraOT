@@ -13,4 +13,7 @@ keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text
 npcHandler:setMessage(MESSAGE_FAREWELL, "Goodbye.")
 npcHandler:setMessage(MESSAGE_WALKAWAY, "Goodbye.")
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)

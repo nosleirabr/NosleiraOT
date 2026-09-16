@@ -1,4 +1,4 @@
-local keywordHandler = KeywordHandler:new()
+﻿local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
@@ -27,7 +27,11 @@ keywordHandler:addKeyword({'help'}, StdModule.say, {npcHandler = npcHandler, tex
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 shopModule:addBuyableItem({'amphora'}, 2893, 4, 'amphora')
-shopModule:addBuyableItem({'vase'}, 2876, 3, 'vase')
+-- Vaso: ID 2008 (vase real no items.xml)
+shopModule:addBuyableItem({'vase'}, 2008, 3, 'vase')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

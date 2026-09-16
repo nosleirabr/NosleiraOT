@@ -19,5 +19,8 @@ shopModule:addBuyableItem({'white'}, 3723, 6, 'white')
 shopModule:addBuyableItem({'red'}, 3724, 12, 'red')
 
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

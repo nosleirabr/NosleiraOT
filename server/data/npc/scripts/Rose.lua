@@ -25,5 +25,8 @@ shopModule:addBuyableItem({'indoor'}, 2811, 8, 'indoor')
 shopModule:addBuyableItem({'christmas'}, 2812, 50, 'christmas')
 shopModule:addBuyableItem({'potted'}, 2985, 5, 'potted')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

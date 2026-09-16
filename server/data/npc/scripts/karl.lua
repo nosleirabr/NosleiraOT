@@ -27,7 +27,11 @@ keywordHandler:addKeyword({'Todd'}, StdModule.say, {npcHandler = npcHandler, tex
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-shopModule:addBuyableItem({'beer'}, 2880, 20, 'beer')
+-- Cerveja: ID 20003 (beer no items.xml deste datapack), preco premium 20gp (contrabandeada)
+shopModule:addBuyableItem({'beer'}, 20003, 20, 1, 'beer')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

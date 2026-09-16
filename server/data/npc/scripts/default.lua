@@ -7,4 +7,7 @@ function onCreatureDisappear(cid)           npcHandler:onCreatureDisappear(cid) 
 function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, msg)    end
 function onThink()                          npcHandler:onThink()                        end
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)

@@ -42,7 +42,12 @@ shopModule:addBuyableItem({'mug'}, 2012, 2, 3, 'mug of beer')
 shopModule:addBuyableItem({'mug'}, 2012, 1, 1, 'mug of water')
 shopModule:addBuyableItem({'mug'}, 2012, 3, 2, 'mug of wine')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
+
+
 
 
 

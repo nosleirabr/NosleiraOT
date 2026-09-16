@@ -17,4 +17,7 @@ npcHandler:setMessage(MESSAGE_GREET, "Behave yourself, |PLAYERNAME|!")
 npcHandler:setMessage(MESSAGE_FAREWELL, "LONG LIVE THE KING!")
 npcHandler:setMessage(MESSAGE_WALKAWAY, "LONG LIVE THE KING!")
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)

@@ -97,12 +97,21 @@ shopModule:addSellableItem({'carlin'}, 2395, 118, 'carlin sword')
 shopModule:addSellableItem({'barbarian'}, 2429, 185, 'barbarian axe')
 shopModule:addSellableItem({'scale'}, 2483, 75, 'scale armor')
 shopModule:addSellableItem({'soldier'}, 2481, 16, 'soldier helmet')
+shopModule:addSellableItem({'stud'}, 2482, 2, 'stud helmet')
+shopModule:addSellableItem({'stud'}, 2526, 2, 'stud shield')
+shopModule:addSellableItem({'stud'}, 2468, 15, 'stud legs')
+shopModule:addSellableItem({'stud'}, 2484, 25, 'stud armor')
 shopModule:addSellableItem({'leather'}, 2649, 9, 'leather legs')
 shopModule:addSellableItem({'viking'}, 2473, 66, 'viking helmet')
 shopModule:addSellableItem({'iron'}, 2459, 150, 'iron helmet')
 shopModule:addSellableItem({'dwarven'}, 2525, 100, 'dwarven shield')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
+
+
 
 
 

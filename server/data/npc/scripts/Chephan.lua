@@ -28,22 +28,13 @@ keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-shopModule:addBuyableItem({'jug'}, 2882, 10, 'jug')
-shopModule:addBuyableItem({'spoon'}, 3468, 10, 'spoon')
-shopModule:addBuyableItem({'bottle'}, 2875, 3, 'bottle')
-shopModule:addBuyableItem({'fork'}, 3467, 10, 'fork')
-shopModule:addBuyableItem({'pot'}, 3465, 30, 'pot')
-shopModule:addBuyableItem({'spatula'}, 3472, 12, 'spatula')
-shopModule:addBuyableItem({'wooden'}, 3470, 5, 'wooden')
-shopModule:addBuyableItem({'baking'}, 3464, 20, 'baking')
-shopModule:addBuyableItem({'bucket'}, 2873, 4, 'bucket')
-shopModule:addBuyableItem({'mug'}, 2880, 4, 'mug')
-shopModule:addBuyableItem({'rolling'}, 3473, 12, 'rolling')
-shopModule:addBuyableItem({'cleaver'}, 3471, 15, 'cleaver')
-shopModule:addBuyableItem({'pan'}, 3466, 20, 'pan')
-shopModule:addBuyableItem({'cup'}, 2881, 2, 'cup')
-shopModule:addBuyableItem({'knife'}, 3469, 10, 'knife')
-shopModule:addBuyableItem({'plate'}, 2905, 6, 'plate')
+shopModule:addBuyableItem({'meat'}, 2666, 5, 1, 'meat')
+shopModule:addBuyableItem({'ham'}, 2671, 8, 1, 'ham')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
+
+
 

@@ -35,5 +35,8 @@ shopModule:addBuyableItem({'black'}, 2838, 15, 'black')
 shopModule:addBuyableItem({'parchment'}, 2835, 8, 'parchment')
 shopModule:addBuyableItem({'scroll'}, 2815, 5, 'scroll')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

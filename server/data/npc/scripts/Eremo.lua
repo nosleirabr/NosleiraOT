@@ -32,5 +32,8 @@ shopModule:addBuyableItem({'protection'}, 3084, 700, 'protection')
 shopModule:addBuyableItem({'amulet'}, 3057, 50000, 'amulet')
 shopModule:addBuyableItem({'broken'}, 3080, 50000, 'broken')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

@@ -27,5 +27,8 @@ keywordHandler:addKeyword({'edron'}, StdModule.say, {npcHandler = npcHandler, te
 npcHandler:setMessage(MESSAGE_GREET, 'Welcome on board, |PLAYERNAME|. Where can I {sail} you today?')
 npcHandler:setMessage(MESSAGE_FAREWELL, 'Good bye. Recommend us if you were satisfied with our service.')
 npcHandler:setMessage(MESSAGE_WALKAWAY, 'Good bye then.')
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

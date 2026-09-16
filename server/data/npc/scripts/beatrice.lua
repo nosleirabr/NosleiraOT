@@ -39,7 +39,12 @@ shopModule:addBuyableItem({'letter'}, 2597, 8, 1, 'letter')
 shopModule:addBuyableItem({'parcel'}, 2595, 15, 1, 'parcel')
 shopModule:addBuyableItem({'label'}, 2599, 1, 1, 'label')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
+
+
 
 
 

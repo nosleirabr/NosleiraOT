@@ -43,7 +43,11 @@ shopModule:addBuyableItem({'corncob'}, 3597, 3, 'corncob')
 shopModule:addBuyableItem({'carrot'}, 3595, 3, 'carrot')
 shopModule:addBuyableItem({'pumpkin'}, 3594, 10, 'pumpkin')
 shopModule:addBuyableItem({'cherry'}, 3590, 1, 'cherry')
-shopModule:addBuyableItem({'bugmilk'}, 2875, 15, 'bugmilk')
+-- Leite de bug: ID 2006 subtype 6 (milk fluid no vial), preco 15gp
+shopModule:addBuyableItem({'bugmilk'}, 2006, 15, 6, 'bug milk')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

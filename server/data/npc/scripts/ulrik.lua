@@ -35,5 +35,8 @@ shopModule:addBuyableItem({'scale'}, 3377, 260, 'scale')
 shopModule:addBuyableItem({'battle'}, 3266, 235, 'battle')
 shopModule:addBuyableItem({'soldier'}, 3375, 110, 'soldier')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

@@ -33,6 +33,21 @@ shopModule:addSellableItem({'ham'}, 2671, 8, 'ham')
 shopModule:addSellableItem({'bread'}, 2689, 4, 'bread')
 shopModule:addSellableItem({'cheese'}, 2696, 6, 'cheese')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
+
+
+
+local shopModule = ShopModule:new()
+npcHandler:addModule(shopModule)
+shopModule:addSellableItem({'beer'}, 20003, 2, 'beer')
+shopModule:addSellableItem({'water'}, 20001, 1, 'water')
+shopModule:addSellableItem({'meat'}, 2666, 5, 'meat')
+shopModule:addSellableItem({'ham'}, 2671, 8, 'ham')
+shopModule:addSellableItem({'bread'}, 2689, 4, 'bread')
+shopModule:addSellableItem({'cheese'}, 2696, 6, 'cheese')
+
 
 

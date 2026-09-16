@@ -20,5 +20,8 @@ local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 shopModule:addBuyableItem({'fish'}, 3578, 5, 'fish')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

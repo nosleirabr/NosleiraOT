@@ -38,5 +38,8 @@ shopModule:addBuyableItem({'leather'}, 3559, 10, 'leather')
 shopModule:addBuyableItem({'studded'}, 3362, 60, 'studded')
 shopModule:addBuyableItem({'leather'}, 3355, 12, 'leather')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

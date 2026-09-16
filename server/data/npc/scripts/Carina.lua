@@ -14,5 +14,8 @@ shopModule:addBuyableItem({'golden'}, 3013, 6600, 'golden')
 shopModule:addBuyableItem({'wedding'}, 3004, 990, 'wedding')
 
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

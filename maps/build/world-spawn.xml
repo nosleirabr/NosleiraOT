@@ -6113,8 +6113,8 @@
 	<spawn centerx="33060" centery="32196" centerz="7" radius="1">
 		<monster name="elf Scout" x="0" y="0" z="7" spawntime="60" />
 	</spawn>
-	<spawn centerx="32085" centery="32199" centerz="7" radius="1">
-		<npc name="Tom" x="0" y="0" z="7" spawntime="60" />
+	<spawn centerx="32086" centery="32199" centerz="7" radius="2">
+		<npc name="Tom" x="-1" y="0" z="7" spawntime="60" />
 	</spawn>
 	<spawn centerx="32360" centery="32199" centerz="7" radius="4">
 		<npc name="Sam" x="0" y="0" z="7" spawntime="60" />
@@ -6153,15 +6153,15 @@
 	<spawn centerx="32047" centery="32204" centerz="7" radius="2">
 		<npc name="Willie" x="0" y="0" z="7" spawntime="60" />
 	</spawn>
-	<spawn centerx="32109" centery="32204" centerz="7" radius="1">
-		<npc name="Obi" x="0" y="0" z="7" spawntime="60" />
-	</spawn>
 	<spawn centerx="32948" centery="32204" centerz="7" radius="1">
 		<monster name="rabbit" x="0" y="0" z="7" spawntime="60" />
 		<monster name="rabbit" x="1" y="0" z="7" spawntime="60" />
 	</spawn>
 	<spawn centerx="32037" centery="32205" centerz="7" radius="3">
 		<npc name="Billy" x="0" y="0" z="7" spawntime="60" />
+	</spawn>
+	<spawn centerx="32109" centery="32205" centerz="7" radius="1">
+		<npc name="Obi" x="0" y="-1" z="7" spawntime="60" />
 	</spawn>
 	<spawn centerx="32874" centery="32207" centerz="7" radius="1">
 		<monster name="snake" x="0" y="0" z="7" spawntime="60" />
@@ -6243,6 +6243,9 @@
 		<monster name="rabbit" x="0" y="0" z="7" spawntime="60" />
 		<monster name="rabbit" x="1" y="0" z="7" spawntime="60" />
 	</spawn>
+	<spawn centerx="32097" centery="32217" centerz="7" radius="1">
+		<npc name="Cipfried" x="1" y="1" z="7" spawntime="60" />
+	</spawn>
 	<spawn centerx="33006" centery="32217" centerz="7" radius="1">
 		<monster name="rabbit" x="0" y="0" z="7" spawntime="60" />
 		<monster name="rabbit" x="1" y="0" z="7" spawntime="60" />
@@ -6250,9 +6253,6 @@
 	<spawn centerx="32030" centery="32218" centerz="7" radius="1">
 		<monster name="snake" x="0" y="0" z="7" spawntime="60" />
 		<monster name="snake" x="1" y="0" z="7" spawntime="60" />
-	</spawn>
-	<spawn centerx="32099" centery="32218" centerz="7" radius="1">
-		<npc name="Cipfried" x="-1" y="1" z="7" spawntime="60" />
 	</spawn>
 	<spawn centerx="32476" centery="32218" centerz="7" radius="2">
 		<monster name="snake" x="-1" y="-1" z="7" spawntime="60" />
@@ -9702,9 +9702,6 @@
 		<monster name="dwarf" x="0" y="0" z="8" spawntime="60" />
 		<monster name="dwarf" x="1" y="0" z="8" spawntime="60" />
 	</spawn>
-	<spawn centerx="32200" centery="31993" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
 	<spawn centerx="32481" centery="31994" centerz="8" radius="1">
 		<monster name="dwarf" x="0" y="0" z="8" spawntime="60" />
 	</spawn>
@@ -9717,27 +9714,12 @@
 		<monster name="dwarf" x="0" y="0" z="8" spawntime="60" />
 		<monster name="dwarf" x="1" y="0" z="8" spawntime="60" />
 	</spawn>
-	<spawn centerx="32202" centery="31996" centerz="8" radius="1">
-		<monster name="fire devil" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32197" centery="31997" centerz="8" radius="1">
-		<monster name="demongoblin" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
 	<spawn centerx="32514" centery="31997" centerz="8" radius="1">
 		<monster name="rotworm" x="0" y="0" z="8" spawntime="60" />
 		<monster name="rotworm" x="1" y="0" z="8" spawntime="60" />
 	</spawn>
-	<spawn centerx="32167" centery="31998" centerz="8" radius="1">
-		<monster name="demon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32193" centery="31998" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
 	<spawn centerx="32383" centery="31998" centerz="8" radius="1">
 		<monster name="troll" x="0" y="0" z="8" spawntime="60" />
-	</spawn>
-	<spawn centerx="32204" centery="31999" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
 	</spawn>
 	<spawn centerx="32387" centery="31999" centerz="8" radius="1">
 		<monster name="cave rat" x="0" y="0" z="8" spawntime="60" />
@@ -9748,35 +9730,14 @@
 	<spawn centerx="32701" centery="31999" centerz="8" radius="1">
 		<monster name="rotworm" x="0" y="0" z="8" spawntime="60" />
 	</spawn>
-	<spawn centerx="32153" centery="32000" centerz="8" radius="1">
-		<monster name="elf arcanist" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32189" centery="32000" centerz="8" radius="1">
-		<monster name="fire elemental" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32209" centery="32000" centerz="8" radius="1">
-		<monster name="demon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
 	<spawn centerx="32383" centery="32002" centerz="8" radius="1">
 		<monster name="frost troll" x="0" y="0" z="8" spawntime="60" />
-	</spawn>
-	<spawn centerx="32155" centery="32003" centerz="8" radius="1">
-		<monster name="fire devil" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32172" centery="32003" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32186" centery="32004" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
 	</spawn>
 	<spawn centerx="33011" centery="32004" centerz="8" radius="1">
 		<monster name="rotworm" x="0" y="0" z="8" spawntime="60" />
 	</spawn>
 	<spawn centerx="32383" centery="32005" centerz="8" radius="1">
 		<monster name="swamp troll" x="0" y="0" z="8" spawntime="60" />
-	</spawn>
-	<spawn centerx="32159" centery="32006" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
 	</spawn>
 	<spawn centerx="32648" centery="32006" centerz="8" radius="1">
 		<monster name="troll" x="0" y="0" z="8" spawntime="60" />
@@ -9792,9 +9753,6 @@
 		<monster name="rotworm" x="0" y="0" z="8" spawntime="60" />
 		<monster name="rotworm" x="1" y="0" z="8" spawntime="60" />
 	</spawn>
-	<spawn centerx="32168" centery="32008" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
 	<spawn centerx="32863" centery="32009" centerz="8" radius="1">
 		<monster name="swamp troll" x="0" y="0" z="8" spawntime="60" />
 	</spawn>
@@ -9806,12 +9764,6 @@
 	<spawn centerx="33026" centery="32009" centerz="8" radius="1">
 		<monster name="rotworm" x="0" y="0" z="8" spawntime="60" />
 	</spawn>
-	<spawn centerx="32173" centery="32010" centerz="8" radius="1">
-		<monster name="demongoblin" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32178" centery="32010" centerz="8" radius="1">
-		<monster name="fire devil" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
 	<spawn centerx="32868" centery="32011" centerz="8" radius="1">
 		<monster name="cave rat" x="0" y="0" z="8" spawntime="60" />
 		<monster name="cave rat" x="1" y="0" z="8" spawntime="60" />
@@ -9821,9 +9773,6 @@
 	</spawn>
 	<spawn centerx="33073" centery="32014" centerz="8" radius="1">
 		<monster name="orc spearman" x="0" y="0" z="8" spawntime="60" />
-	</spawn>
-	<spawn centerx="32179" centery="32015" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
 	</spawn>
 	<spawn centerx="32697" centery="32015" centerz="8" radius="1">
 		<monster name="rotworm" x="0" y="0" z="8" spawntime="60" />
@@ -9849,9 +9798,6 @@
 		<monster name="snake" x="1" y="0" z="8" spawntime="60" />
 		<monster name="snake" x="1" y="1" z="8" spawntime="60" />
 	</spawn>
-	<spawn centerx="32197" centery="32020" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
 	<spawn centerx="32876" centery="32020" centerz="8" radius="1">
 		<monster name="bug" x="0" y="0" z="8" spawntime="60" />
 		<monster name="bug" x="1" y="0" z="8" spawntime="60" />
@@ -9864,58 +9810,22 @@
 	<spawn centerx="33018" centery="32022" centerz="8" radius="1">
 		<monster name="rotworm" x="0" y="0" z="8" spawntime="60" />
 	</spawn>
-	<spawn centerx="32202" centery="32023" centerz="8" radius="1">
-		<monster name="fire devil" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
 	<spawn centerx="33070" centery="32023" centerz="8" radius="1">
 		<monster name="orc spearman" x="0" y="0" z="8" spawntime="60" />
-	</spawn>
-	<spawn centerx="32182" centery="32024" centerz="8" radius="1">
-		<monster name="fire elemental" x="0" y="0" z="8" spawntime="60" direction="2" />
 	</spawn>
 	<spawn centerx="33066" centery="32024" centerz="8" radius="1">
 		<monster name="snake" x="0" y="0" z="8" spawntime="60" />
 		<monster name="snake" x="1" y="0" z="8" spawntime="60" />
 		<monster name="snake" x="1" y="1" z="8" spawntime="60" />
 	</spawn>
-	<spawn centerx="32159" centery="32025" centerz="8" radius="1">
-		<monster name="fire devil" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32193" centery="32025" centerz="8" radius="1">
-		<monster name="elf arcanist" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
 	<spawn centerx="32891" centery="32026" centerz="8" radius="1">
 		<monster name="bug" x="0" y="0" z="8" spawntime="60" />
 		<monster name="bug" x="1" y="0" z="8" spawntime="60" />
 		<monster name="bug" x="1" y="1" z="8" spawntime="60" />
 	</spawn>
-	<spawn centerx="32183" centery="32027" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32201" centery="32028" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
 	<spawn centerx="33044" centery="32028" centerz="8" radius="1">
 		<monster name="orc spearman" x="0" y="0" z="8" spawntime="60" />
 		<monster name="orc spearman" x="1" y="0" z="8" spawntime="60" />
-	</spawn>
-	<spawn centerx="32164" centery="32030" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32152" centery="32033" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32149" centery="32034" centerz="8" radius="1">
-		<monster name="fire elemental" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32186" centery="32034" centerz="8" radius="1">
-		<monster name="fire devil" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32144" centery="32035" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32194" centery="32036" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
 	</spawn>
 	<spawn centerx="32810" centery="32037" centerz="8" radius="1">
 		<monster name="rat" x="0" y="0" z="8" spawntime="60" />
@@ -9923,17 +9833,8 @@
 		<monster name="rat" x="0" y="1" z="8" spawntime="60" />
 		<monster name="rat" x="1" y="1" z="8" spawntime="60" />
 	</spawn>
-	<spawn centerx="32167" centery="32038" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
 	<spawn centerx="32450" centery="32038" centerz="8" radius="2">
 		<npc name="Skjaar" x="0" y="0" z="8" spawntime="60" />
-	</spawn>
-	<spawn centerx="32137" centery="32039" centerz="8" radius="1">
-		<monster name="fire devil" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32178" centery="32039" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
 	</spawn>
 	<spawn centerx="32872" centery="32039" centerz="8" radius="1">
 		<monster name="cave rat" x="0" y="0" z="8" spawntime="60" />
@@ -9942,9 +9843,6 @@
 	<spawn centerx="32798" centery="32040" centerz="8" radius="1">
 		<monster name="rat" x="0" y="0" z="8" spawntime="60" />
 		<monster name="rat" x="1" y="0" z="8" spawntime="60" />
-	</spawn>
-	<spawn centerx="32175" centery="32042" centerz="8" radius="1">
-		<monster name="fire elemental" x="0" y="0" z="8" spawntime="60" direction="2" />
 	</spawn>
 	<spawn centerx="33058" centery="32043" centerz="8" radius="1">
 		<monster name="snake" x="0" y="0" z="8" spawntime="60" />
@@ -9957,12 +9855,6 @@
 		<monster name="cyclops" x="0" y="1" z="8" spawntime="60" />
 		<monster name="cyclops" x="1" y="1" z="8" spawntime="60" />
 	</spawn>
-	<spawn centerx="32136" centery="32046" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32158" centery="32046" centerz="8" radius="1">
-		<monster name="fire devil" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
 	<spawn centerx="32452" centery="32046" centerz="8" radius="1">
 		<monster name="ghoul" x="0" y="0" z="8" spawntime="60" />
 		<monster name="ghoul" x="1" y="0" z="8" spawntime="60" />
@@ -9972,74 +9864,14 @@
 	<spawn centerx="33056" centery="32046" centerz="8" radius="1">
 		<monster name="orc spearman" x="0" y="0" z="8" spawntime="60" />
 	</spawn>
-	<spawn centerx="32155" centery="32049" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32163" centery="32049" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32199" centery="32049" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32207" centery="32051" centerz="8" radius="1">
-		<monster name="elf arcanist" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32217" centery="32052" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32141" centery="32053" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32192" centery="32054" centerz="8" radius="1">
-		<monster name="elf arcanist" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32226" centery="32054" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
 	<spawn centerx="32470" centery="32054" centerz="8" radius="1">
 		<monster name="cyclops" x="0" y="0" z="8" spawntime="60" />
 		<monster name="cyclops" x="1" y="0" z="8" spawntime="60" />
-	</spawn>
-	<spawn centerx="32169" centery="32055" centerz="8" radius="1">
-		<monster name="fire elemental" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32209" centery="32055" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32223" centery="32055" centerz="8" radius="1">
-		<monster name="fire devil" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32177" centery="32057" centerz="8" radius="1">
-		<monster name="fire devil" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32197" centery="32057" centerz="8" radius="1">
-		<monster name="fire devil" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32173" centery="32058" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
 	</spawn>
 	<spawn centerx="32486" centery="32059" centerz="8" radius="1">
 		<monster name="cyclops" x="0" y="0" z="8" spawntime="60" />
 		<monster name="cyclops" x="1" y="0" z="8" spawntime="60" />
 		<monster name="cyclops" x="1" y="1" z="8" spawntime="60" />
-	</spawn>
-	<spawn centerx="32178" centery="32060" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32193" centery="32060" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32187" centery="32061" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32219" centery="32061" centerz="8" radius="1">
-		<monster name="fire elemental" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32217" centery="32062" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32190" centery="32063" centerz="8" radius="1">
-		<monster name="fire elemental" x="0" y="0" z="8" spawntime="60" direction="2" />
 	</spawn>
 	<spawn centerx="33067" centery="32065" centerz="8" radius="1">
 		<monster name="beholder" x="0" y="0" z="8" spawntime="60" />
@@ -10052,32 +9884,8 @@
 		<monster name="demon skeleton" x="0" y="0" z="8" spawntime="60" />
 		<monster name="demon skeleton" x="1" y="0" z="8" spawntime="60" />
 	</spawn>
-	<spawn centerx="32202" centery="32068" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32221" centery="32068" centerz="8" radius="1">
-		<monster name="elf arcanist" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32206" centery="32069" centerz="8" radius="1">
-		<monster name="fire elemental" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32209" centery="32072" centerz="8" radius="1">
-		<monster name="dragon lord" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32219" centery="32073" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32215" centery="32075" centerz="8" radius="1">
-		<monster name="fire devil" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
 	<spawn centerx="32073" centery="32076" centerz="8" radius="1">
 		<monster name="troll" x="0" y="0" z="8" spawntime="60" />
-	</spawn>
-	<spawn centerx="32189" centery="32076" centerz="8" radius="1">
-		<monster name="fire devil" x="0" y="0" z="8" spawntime="60" direction="2" />
-	</spawn>
-	<spawn centerx="32196" centery="32078" centerz="8" radius="1">
-		<monster name="dragon" x="0" y="0" z="8" spawntime="60" direction="2" />
 	</spawn>
 	<spawn centerx="33008" centery="32078" centerz="8" radius="1">
 		<monster name="rotworm" x="0" y="0" z="8" spawntime="60" />

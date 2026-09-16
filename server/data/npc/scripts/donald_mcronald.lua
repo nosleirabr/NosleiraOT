@@ -1,4 +1,4 @@
-﻿local keywordHandler = KeywordHandler:new()
+local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
@@ -21,4 +21,7 @@ shopModule:addSellableItem({'cheese'}, 2696, 2, 'cheese')
 shopModule:addSellableItem({'meat'}, 2666, 2, 'meat')
 shopModule:addSellableItem({'ham'}, 2671, 4, 'ham')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)

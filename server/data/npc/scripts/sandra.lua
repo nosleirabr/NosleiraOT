@@ -32,6 +32,11 @@ shopModule:addBuyableItem({'mana'}, 2006, 100, 7, 'mana fluid')
 shopModule:addBuyableItem({'vial'}, 2006, 10, 1, 'vial')
 shopModule:addSellableItem({'vial'}, 2006, 5, 'vial')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
+
+
 
 

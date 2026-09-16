@@ -58,5 +58,8 @@ local uniformKeyword = keywordHandler:addKeyword({'uniform'}, StdModule.say, {np
 )
 keywordHandler:addKeyword({'uniform'}, StdModule.say, {npcHandler = npcHandler, text = 'The uniforms of our guards and soldiers are of unparraleled quality of course.'})
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

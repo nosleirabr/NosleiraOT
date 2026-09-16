@@ -27,5 +27,8 @@ shopModule:addBuyableItem({'wolf'}, 4007, 5, 'wolf')
 shopModule:addBuyableItem({'rat'}, 3994, 2, 'rat')
 shopModule:addBuyableItem({'rabbit'}, 4173, 2, 'rabbit')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

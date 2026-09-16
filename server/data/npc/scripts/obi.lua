@@ -55,6 +55,7 @@ shopModule:addBuyableItem({'leather'}, 2467, 12, 1, 'leather armor')
 shopModule:addBuyableItem({'chain'}, 2464, 200, 1, 'chain armor')
 shopModule:addBuyableItem({'brass'}, 2465, 450, 1, 'brass armor')
 shopModule:addBuyableItem({'wooden'}, 2512, 15, 1, 'wooden shield')
+shopModule:addBuyableItem({'stud'}, 2526, 50, 1, 'stud shield')
 shopModule:addBuyableItem({'bone'}, 2541, 80, 1, 'bone shield')
 shopModule:addBuyableItem({'brass'}, 2511, 65, 1, 'brass shield')
 shopModule:addBuyableItem({'plate'}, 2510, 125, 1, 'plate shield')
@@ -73,6 +74,7 @@ shopModule:addSellableItem({'rapier'}, 2384, 5, 'rapier')
 shopModule:addSellableItem({'sabre'}, 2385, 12, 'sabre')
 shopModule:addSellableItem({'mace'}, 2398, 30, 'mace')
 shopModule:addSellableItem({'wooden'}, 2512, 5, 'wooden shield')
+shopModule:addSellableItem({'stud'}, 2526, 16, 'stud shield')
 shopModule:addSellableItem({'bone'}, 2541, 20, 'bone shield')
 shopModule:addSellableItem({'brass'}, 2511, 16, 'brass shield')
 shopModule:addSellableItem({'plate'}, 2510, 45, 'plate shield')
@@ -86,7 +88,12 @@ shopModule:addSellableItem({'leather'}, 2649, 9, 'leather legs')
 shopModule:addSellableItem({'chain'}, 2648, 25, 'chain legs')
 shopModule:addSellableItem({'club'}, 2382, 1, 'club')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
+
+
 
 
 

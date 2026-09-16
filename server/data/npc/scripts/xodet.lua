@@ -24,7 +24,8 @@ shopModule:addBuyableItem({'intense'}, 3152, 95, 'intense')
 shopModule:addBuyableItem({'blank'}, 3147, 10, 'blank')
 shopModule:addBuyableItem({'fire'}, 3192, 235, 'fire')
 shopModule:addBuyableItem({'antidote'}, 3153, 65, 'antidote')
-shopModule:addBuyableItem({'life'}, 2874, 60, 'life')
+-- Life fluid: ID 2006 subtype 10 (life fluid), preco classico 7.4
+shopModule:addBuyableItem({'life', 'life fluid'}, 2006, 60, 10, 'life fluid')
 shopModule:addBuyableItem({'wand'}, 3072, 5000, 'wand')
 shopModule:addBuyableItem({'wand'}, 3073, 10000, 'wand')
 shopModule:addBuyableItem({'moonlight'}, 3070, 1000, 'moonlight')
@@ -41,5 +42,8 @@ shopModule:addBuyableItem({'great'}, 3191, 180, 'great')
 shopModule:addBuyableItem({'wand'}, 3074, 500, 'wand')
 
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

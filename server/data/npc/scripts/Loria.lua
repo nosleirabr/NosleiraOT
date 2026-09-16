@@ -10,6 +10,10 @@ function onThink()						npcHandler:onThink()						end
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 
-npcHandler:addModule(FocusModule:new())
+
 

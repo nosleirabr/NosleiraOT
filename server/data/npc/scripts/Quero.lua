@@ -25,5 +25,8 @@ shopModule:addBuyableItem({'drum'}, 2952, 140, 'drum')
 shopModule:addBuyableItem({'lyre'}, 2949, 120, 'lyre')
 shopModule:addBuyableItem({'simple'}, 2954, 150, 'simple')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

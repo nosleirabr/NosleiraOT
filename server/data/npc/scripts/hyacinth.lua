@@ -32,7 +32,13 @@ keywordHandler:addKeyword({'help'}, StdModule.say, {npcHandler = npcHandler, tex
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-shopModule:addBuyableItem({'life'}, 2874, 60, 'life')
+-- Life fluid: ID 2006 subtype 10 (life fluid), preco classico 7.4
+shopModule:addBuyableItem({'life', 'life fluid'}, 2006, 60, 10, 'life fluid')
+-- Vial vazio: jogador pode vender vials vazios por 5gp
+shopModule:addSellableItem({'vial', 'empty vial'}, 2006, 5, 'vial')
 
-npcHandler:addModule(FocusModule:new())
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
 

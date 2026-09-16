@@ -1,11 +1,11 @@
-local keywordHandler = KeywordHandler:new()
+﻿local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
-function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
+function onCreatureAppear(cid)		npcHandler:onCreatureAppear(cid)		end
+function onCreatureDisappear(cid)	npcHandler:onCreatureDisappear(cid)		end
 function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
-function onThink()						npcHandler:onThink()						end
+function onThink()				npcHandler:onThink()				end
 npcHandler:setMessage(MESSAGE_GREET, 'Oh, please come in, |PLAYERNAME|. What can I do for you?')
 npcHandler:setMessage(MESSAGE_FAREWELL, 'Good bye.')
 npcHandler:setMessage(MESSAGE_WALKAWAY, 'Good bye.')
@@ -15,7 +15,7 @@ keywordHandler:addKeyword({'ghostlands'}, StdModule.say, {npcHandler = npcHandle
 keywordHandler:addKeyword({'worm'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell worms only in six-packs for 5 gold each, how many sixpacks of worms do you want to buy?'})
 keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'It is exactly the current time. Maybe you want to buy a watch?'})
 keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'I am Sarina. I am selling everything the adventurer needs.'})
-keywordHandler:addKeyword({'food'}, StdModule.say, {npcHandler = npcHandler, text = 'Sorry, I don\'t sell food.'})
+keywordHandler:addKeyword({'food'}, StdModule.say, {npcHandler = npcHandler, text = 'Sorry, I don''t sell food.'})
 keywordHandler:addKeyword({'illumination'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell torches, candlesticks, candelabra, and oil.'})
 
 local shopModule = ShopModule:new()
@@ -25,7 +25,8 @@ shopModule:addBuyableItem({'shovel'}, 3457, 50, 'shovel')
 shopModule:addBuyableItem({'backpack'}, 2868, 20, 'backpack')
 shopModule:addBuyableItem({'watch'}, 2906, 20, 'watch')
 shopModule:addBuyableItem({'football'}, 2990, 111, 'football')
-shopModule:addBuyableItem({'oil'}, 2874, 20, 'oil')
+-- Oleo: ID 2006 subtype 11 (oil fluid no vial), preco 20gp
+shopModule:addBuyableItem({'oil'}, 2006, 20, 11, 'oil')
 shopModule:addBuyableItem({'candlestick'}, 2917, 3, 'candlestick')
 shopModule:addBuyableItem({'scroll'}, 2815, 5, 'scroll')
 shopModule:addBuyableItem({'scythe'}, 3453, 50, 'scythe')
@@ -35,9 +36,12 @@ shopModule:addBuyableItem({'torch'}, 2920, 2, 'torch')
 shopModule:addBuyableItem({'bag'}, 2860, 5, 'bag')
 shopModule:addBuyableItem({'candelab'}, 2911, 8, 'candelab')
 shopModule:addBuyableItem({'parchment'}, 2835, 8, 'parchment')
-shopModule:addBuyableItem({'cup'}, 2881, 3, 'cup')
+-- Xicara: ID 2013 (cup real no items.xml)
+shopModule:addBuyableItem({'cup'}, 2013, 3, 'cup')
 shopModule:addBuyableItem({'rod'}, 3483, 150, 'rod')
 shopModule:addBuyableItem({'plate'}, 2905, 6, 'plate')
 
-npcHandler:addModule(FocusModule:new())
-
+local focusModule = FocusModule:new()
+focusModule:addGreetMessage('hi')
+focusModule:addGreetMessage('hello')
+npcHandler:addModule(focusModule)
