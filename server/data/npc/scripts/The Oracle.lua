@@ -5,39 +5,35 @@ NpcSystem.parseParameters(npcHandler)
 local vocation = {}
 local town = {}
 
--- Town ids from towns.xml
+-- Town ids and premium requirements
 local towns = {
-	['thais'] = 2,
-	['kazordoon'] = 3,
-	['carlin'] = 4,
-	['ab\'dendriel'] = 5,
-	['venore'] = 6,
-	['darashia'] = 7,
-	['ankrahmun'] = 8,
-	['edron'] = 9
+	['thais'] = {id = 2, premium = false},
+	['kazordoon'] = {id = 3, premium = false},
+	['carlin'] = {id = 4, premium = false},
+	['ab\'dendriel'] = {id = 5, premium = false},
+	['venore'] = {id = 6, premium = false},
+	['darashia'] = {id = 7, premium = true},
+	['ankrahmun'] = {id = 8, premium = true},
+	['edron'] = {id = 9, premium = true}
 }
 
--- 7.4 starter kits
+-- 7.4 vocations (no free items)
 local vocations = {
 	['sorcerer'] = {
 		text = 'A SORCERER! ARE YOU SURE? THIS DECISION IS IRREVERSIBLE!',
-		id = 1,
-		items = {{2190, 1}, {1988, 1}, {2120, 1}, {2554, 1}}
+		id = 1
 	},
 	['druid'] = {
 		text = 'A DRUID! ARE YOU SURE? THIS DECISION IS IRREVERSIBLE!',
-		id = 2,
-		items = {{2182, 1}, {1988, 1}, {2120, 1}, {2554, 1}}
+		id = 2
 	},
 	['paladin'] = {
 		text = 'A PALADIN! ARE YOU SURE? THIS DECISION IS IRREVERSIBLE!',
-		id = 3,
-		items = {{2389, 5}, {1988, 1}, {2120, 1}, {2554, 1}}
+		id = 3
 	},
 	['knight'] = {
 		text = 'A KNIGHT! ARE YOU SURE? THIS DECISION IS IRREVERSIBLE!',
-		id = 4,
-		items = {{2383, 1}, {1988, 1}, {2120, 1}, {2554, 1}}
+		id = 4
 	}
 }
 
@@ -69,8 +65,6 @@ local function creatureSayCallback(cid, type, msg)
 	end
 
 	local player = Player(cid)
-	
-	-- Fix for topic not being initialized to 0
 	local topic = npcHandler.topic[cid]
 	if not topic then topic = 0 end
 
@@ -80,9 +74,15 @@ local function creatureSayCallback(cid, type, msg)
 			npcHandler.topic[cid] = 1
 		end
 	elseif topic == 1 then
-		local townId = towns[msg:lower()]
-		if townId then
-			town[cid] = townId
+		local townInfo = towns[msg:lower()]
+		if townInfo then
+			-- Check for premium account
+			if townInfo.premium and not player:isPremium() then
+				npcHandler:say('YOU NEED A PREMIUM ACCOUNT TO LIVE IN ' .. string.upper(msg) .. '!', cid)
+				return true
+			end
+
+			town[cid] = townInfo.id
 			npcHandler:say('IN ' .. string.upper(msg) .. '! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?', cid)
 			npcHandler.topic[cid] = 2
 		else
@@ -127,10 +127,8 @@ local function creatureSayCallback(cid, type, msg)
 			player:setOutfit(outfit)
 			
 			player:setTown(Town(town[cid]))
-			for i = 1, #chosen.items do
-				player:addItem(chosen.items[i][1], chosen.items[i][2])
-			end
 
+			-- Teleport to main
 			local temple = Town(town[cid]):getTemplePosition()
 			npcHandler:releaseFocus(cid)
 			player:getPosition():sendMagicEffect(CONST_ME_TELEPORT)
