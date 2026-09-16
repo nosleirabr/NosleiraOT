@@ -30,3 +30,14 @@ focusModule:addGreetMessage('hello')
 npcHandler:addModule(focusModule)
 
 
+
+local shopModule = ShopModule:new()
+npcHandler:addModule(shopModule)
+shopModule:addBuyableItem({'vial'}, 2006, 5, 1, 'vial')
+shopModule:addSellableItem({'blank'}, 2260, 10, 'blank rune')
+shopModule:addSellableItem({'life'}, 2006, 60, 'life fluid')
+shopModule:addSellableItem({'mana'}, 2006, 100, 'mana fluid')
+shopModule:addSellableItem({'spellbook'}, 2217, 150, 'spellbook')
+
+
+

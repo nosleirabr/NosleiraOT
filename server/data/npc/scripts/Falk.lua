@@ -42,9 +42,19 @@ keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, tex
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
+shopModule:addBuyableItem({'bow'}, 2456, 400, 1, 'bow')
+shopModule:addBuyableItem({'crossbow'}, 2455, 500, 1, 'crossbow')
+shopModule:addBuyableItem({'arrow'}, 2544, 2, 1, 'arrow')
+shopModule:addBuyableItem({'bolt'}, 2543, 3, 1, 'bolt')
+shopModule:addBuyableItem({'poison'}, 2545, 5, 1, 'poison arrow')
+shopModule:addBuyableItem({'spear'}, 2389, 10, 1, 'spear')
+shopModule:addSellableItem({'bow'}, 2456, 130, 'bow')
+shopModule:addSellableItem({'crossbow'}, 2455, 160, 'crossbow')
 
 local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')
 focusModule:addGreetMessage('hello')
 npcHandler:addModule(focusModule)
+
+
 

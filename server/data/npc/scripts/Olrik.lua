@@ -9,7 +9,9 @@ function onThink()						npcHandler:onThink()						end
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-
+shopModule:addBuyableItem({'parcel'}, 2595, 15, 1, 'parcel')
+shopModule:addBuyableItem({'letter'}, 2597, 8, 1, 'letter')
+shopModule:addBuyableItem({'label'}, 2599, 1, 1, 'label')
 
 local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')
@@ -33,3 +35,5 @@ local function creatureSayCallback(cid, type, msg)
     return true
 end
 npcHandler:setCallback(CALLBACK_MESSAGE_DEFAULT, creatureSayCallback)
+
+
