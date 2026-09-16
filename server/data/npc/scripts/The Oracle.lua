@@ -5,14 +5,19 @@ NpcSystem.parseParameters(npcHandler)
 local vocation = {}
 local town = {}
 
--- Town ids from this map's OTBM (not otserver800 globals).
+-- Town ids from towns.xml
 local towns = {
 	['thais'] = 2,
-	['carlin'] = 3,
-	['venore'] = 8
+	['kazordoon'] = 3,
+	['carlin'] = 4,
+	['ab\'dendriel'] = 5,
+	['venore'] = 6,
+	['darashia'] = 7,
+	['ankrahmun'] = 8,
+	['edron'] = 9
 }
 
--- 7.4 starter kits (no post-7.4 Daramian gear).
+-- 7.4 starter kits
 local vocations = {
 	['sorcerer'] = {
 		text = 'A SORCERER! ARE YOU SURE? THIS DECISION IS IRREVERSIBLE!',
@@ -64,21 +69,26 @@ local function creatureSayCallback(cid, type, msg)
 	end
 
 	local player = Player(cid)
-	if npcHandler.topic[cid] == 0 then
+	
+	-- Fix for topic not being initialized to 0
+	local topic = npcHandler.topic[cid]
+	if not topic then topic = 0 end
+
+	if topic == 0 then
 		if msgcontains(msg, 'yes') then
-			npcHandler:say('IN WHICH TOWN DO YOU WANT TO LIVE: {THAIS}, {CARLIN}, OR {VENORE}?', cid)
+			npcHandler:say('IN WHICH TOWN DO YOU WANT TO LIVE: {THAIS}, {CARLIN}, {VENORE}, {KAZORDOON}, {AB\'DENDRIEL}, {DARASHIA}, {ANKRAHMUN}, OR {EDRON}?', cid)
 			npcHandler.topic[cid] = 1
 		end
-	elseif npcHandler.topic[cid] == 1 then
+	elseif topic == 1 then
 		local townId = towns[msg:lower()]
 		if townId then
 			town[cid] = townId
 			npcHandler:say('IN ' .. string.upper(msg) .. '! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?', cid)
 			npcHandler.topic[cid] = 2
 		else
-			npcHandler:say('IN WHICH TOWN DO YOU WANT TO LIVE: {THAIS}, {CARLIN}, OR {VENORE}?', cid)
+			npcHandler:say('IN WHICH TOWN DO YOU WANT TO LIVE: {THAIS}, {CARLIN}, {VENORE}, {KAZORDOON}, {AB\'DENDRIEL}, {DARASHIA}, {ANKRAHMUN}, OR {EDRON}?', cid)
 		end
-	elseif npcHandler.topic[cid] == 2 then
+	elseif topic == 2 then
 		local vocationTable = vocations[msg:lower()]
 		if vocationTable then
 			npcHandler:say(vocationTable.text, cid)
@@ -87,7 +97,7 @@ local function creatureSayCallback(cid, type, msg)
 		else
 			npcHandler:say('{KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?', cid)
 		end
-	elseif npcHandler.topic[cid] == 3 then
+	elseif topic == 3 then
 		if msgcontains(msg, 'yes') then
 			local chosen = nil
 			for _, data in pairs(vocations) do
@@ -104,6 +114,18 @@ local function creatureSayCallback(cid, type, msg)
 
 			npcHandler:say('SO BE IT!', cid)
 			player:setVocation(Vocation(chosen.id))
+			
+			-- Set default vocation outfit
+			local outfit = player:getOutfit()
+			if chosen.id == 1 or chosen.id == 2 then -- Sorcerer or Druid
+				outfit.lookType = player:getSex() == PLAYERSEX_FEMALE and 138 or 130
+			elseif chosen.id == 3 then -- Paladin
+				outfit.lookType = player:getSex() == PLAYERSEX_FEMALE and 137 or 129
+			elseif chosen.id == 4 then -- Knight
+				outfit.lookType = player:getSex() == PLAYERSEX_FEMALE and 139 or 131
+			end
+			player:setOutfit(outfit)
+			
 			player:setTown(Town(town[cid]))
 			for i = 1, #chosen.items do
 				player:addItem(chosen.items[i][1], chosen.items[i][2])
