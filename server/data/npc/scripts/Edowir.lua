@@ -93,8 +93,36 @@ keywordHandler:addKeyword({'muriel'}, StdModule.say, {npcHandler = npcHandler, t
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 
+local function creatureSayCallback(cid, type, msg)
+    if not npcHandler:isFocused(cid) then return false end
+    local player = Player(cid)
+    local cost = 10000
+    if msgcontains(msg, 'spiritual') then
+        npcHandler:say('Do you wish to receive the spiritual shielding for 10000 gold?', cid)
+        npcHandler.topic[cid] = 1
+    elseif msgcontains(msg, 'yes') and npcHandler.topic[cid] == 1 then
+        if player:hasBlessing(1) then
+            npcHandler:say('You already possess this blessing.', cid)
+        elseif player:removeMoney(cost) then
+            player:addBlessing(1)
+            player:getPosition():sendMagicEffect(CONST_ME_MAGIC_BLUE)
+            npcHandler:say('So receive the spiritual shielding, pilgrim.', cid)
+        else
+            npcHandler:say('Oh. You do not have enough money.', cid)
+        end
+        npcHandler.topic[cid] = 0
+    elseif msgcontains(msg, 'no') and npcHandler.topic[cid] == 1 then
+        npcHandler:say('Ok. May the gods protect you.', cid)
+        npcHandler.topic[cid] = 0
+    end
+    return true
+end
+
+npcHandler:setCallback(CALLBACK_MESSAGE_DEFAULT, creatureSayCallback)
+
 local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')
 focusModule:addGreetMessage('hello')
 npcHandler:addModule(focusModule)
+
 
