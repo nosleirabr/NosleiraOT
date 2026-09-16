@@ -5,34 +5,35 @@ NpcSystem.parseParameters(npcHandler)
 local vocation = {}
 local town = {}
 
--- Town ids from this map's OTBM (not otserver800 globals).
+-- Town ids and premium requirements
 local towns = {
-	['thais'] = 2,
-	['carlin'] = 3,
-	['venore'] = 8
+	['thais'] = {id = 2, premium = false},
+	['kazordoon'] = {id = 3, premium = false},
+	['carlin'] = {id = 4, premium = false},
+	['ab\'dendriel'] = {id = 5, premium = false},
+	['venore'] = {id = 6, premium = false},
+	['darashia'] = {id = 7, premium = true},
+	['ankrahmun'] = {id = 8, premium = true},
+	['edron'] = {id = 9, premium = true}
 }
 
--- 7.4 starter kits (no post-7.4 Daramian gear).
+-- 7.4 vocations (no free items)
 local vocations = {
 	['sorcerer'] = {
 		text = 'A SORCERER! ARE YOU SURE? THIS DECISION IS IRREVERSIBLE!',
-		id = 1,
-		items = {{2190, 1}, {1988, 1}, {2120, 1}, {2554, 1}}
+		id = 1
 	},
 	['druid'] = {
 		text = 'A DRUID! ARE YOU SURE? THIS DECISION IS IRREVERSIBLE!',
-		id = 2,
-		items = {{2182, 1}, {1988, 1}, {2120, 1}, {2554, 1}}
+		id = 2
 	},
 	['paladin'] = {
 		text = 'A PALADIN! ARE YOU SURE? THIS DECISION IS IRREVERSIBLE!',
-		id = 3,
-		items = {{2389, 5}, {1988, 1}, {2120, 1}, {2554, 1}}
+		id = 3
 	},
 	['knight'] = {
 		text = 'A KNIGHT! ARE YOU SURE? THIS DECISION IS IRREVERSIBLE!',
-		id = 4,
-		items = {{2383, 1}, {1988, 1}, {2120, 1}, {2554, 1}}
+		id = 4
 	}
 }
 
@@ -64,21 +65,30 @@ local function creatureSayCallback(cid, type, msg)
 	end
 
 	local player = Player(cid)
-	if npcHandler.topic[cid] == 0 then
+	local topic = npcHandler.topic[cid]
+	if not topic then topic = 0 end
+
+	if topic == 0 then
 		if msgcontains(msg, 'yes') then
-			npcHandler:say('IN WHICH TOWN DO YOU WANT TO LIVE: {THAIS}, {CARLIN}, OR {VENORE}?', cid)
+			npcHandler:say('IN WHICH TOWN DO YOU WANT TO LIVE: {THAIS}, {CARLIN}, {VENORE}, {KAZORDOON}, {AB\'DENDRIEL}, {DARASHIA}, {ANKRAHMUN}, OR {EDRON}?', cid)
 			npcHandler.topic[cid] = 1
 		end
-	elseif npcHandler.topic[cid] == 1 then
-		local townId = towns[msg:lower()]
-		if townId then
-			town[cid] = townId
+	elseif topic == 1 then
+		local townInfo = towns[msg:lower()]
+		if townInfo then
+			-- Check for premium account
+			if townInfo.premium and not player:isPremium() then
+				npcHandler:say('YOU NEED A PREMIUM ACCOUNT TO LIVE IN ' .. string.upper(msg) .. '!', cid)
+				return true
+			end
+
+			town[cid] = townInfo.id
 			npcHandler:say('IN ' .. string.upper(msg) .. '! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?', cid)
 			npcHandler.topic[cid] = 2
 		else
-			npcHandler:say('IN WHICH TOWN DO YOU WANT TO LIVE: {THAIS}, {CARLIN}, OR {VENORE}?', cid)
+			npcHandler:say('IN WHICH TOWN DO YOU WANT TO LIVE: {THAIS}, {CARLIN}, {VENORE}, {KAZORDOON}, {AB\'DENDRIEL}, {DARASHIA}, {ANKRAHMUN}, OR {EDRON}?', cid)
 		end
-	elseif npcHandler.topic[cid] == 2 then
+	elseif topic == 2 then
 		local vocationTable = vocations[msg:lower()]
 		if vocationTable then
 			npcHandler:say(vocationTable.text, cid)
@@ -87,7 +97,7 @@ local function creatureSayCallback(cid, type, msg)
 		else
 			npcHandler:say('{KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?', cid)
 		end
-	elseif npcHandler.topic[cid] == 3 then
+	elseif topic == 3 then
 		if msgcontains(msg, 'yes') then
 			local chosen = nil
 			for _, data in pairs(vocations) do
@@ -104,11 +114,21 @@ local function creatureSayCallback(cid, type, msg)
 
 			npcHandler:say('SO BE IT!', cid)
 			player:setVocation(Vocation(chosen.id))
-			player:setTown(Town(town[cid]))
-			for i = 1, #chosen.items do
-				player:addItem(chosen.items[i][1], chosen.items[i][2])
+			
+			-- Set default vocation outfit
+			local outfit = player:getOutfit()
+			if chosen.id == 1 or chosen.id == 2 then -- Sorcerer or Druid
+				outfit.lookType = player:getSex() == PLAYERSEX_FEMALE and 138 or 130
+			elseif chosen.id == 3 then -- Paladin
+				outfit.lookType = player:getSex() == PLAYERSEX_FEMALE and 137 or 129
+			elseif chosen.id == 4 then -- Knight
+				outfit.lookType = player:getSex() == PLAYERSEX_FEMALE and 139 or 131
 			end
+			player:setOutfit(outfit)
+			
+			player:setTown(Town(town[cid]))
 
+			-- Teleport to main
 			local temple = Town(town[cid]):getTemplePosition()
 			npcHandler:releaseFocus(cid)
 			player:getPosition():sendMagicEffect(CONST_ME_TELEPORT)
