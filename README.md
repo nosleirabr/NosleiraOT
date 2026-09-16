@@ -13,13 +13,13 @@ Servidor **Tibia 7.4** classico com realmap autentico (TibiCAM 222222), fidelida
 
 | Milestone | Status |
 |-----------|--------|
-| M0 - Fundacao do stack | Concluido |
-| M1 - Jogabilidade nucleo | Em andamento |
-| M2 - Paridade de conteudo 7.4 | Planejado |
-| M3 - Server testavel CI | Planejado |
-| M4 - Client com codigo-fonte | Planejado |
-| M5 - Infra nuvem e seguranca | Planejado |
-| M6 - Release base estavel | Planejado |
+| M0 - Fundacao do stack | Concluído (100%) |
+| M1 - Jogabilidade nucleo | Concluído (100%) |
+| M2 - Paridade de conteudo 7.4 | Em andamento (85%) |
+| M3 - Server testavel CI | Planejado (0%) |
+| M4 - Client com codigo-fonte | Planejado (0%) |
+| M5 - Infra nuvem e seguranca | Planejado (0%) |
+| M6 - Release base estavel | Planejado (0%) |
 
 ## Comecar (desenvolvimento local)
 
