@@ -28,9 +28,15 @@ keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 
+
+addTravelKeyword(keywordHandler, npcHandler, 'darashia', 60, TravelHarbours.carpetDarashia, 'Darashia')
+addTravelKeyword(keywordHandler, npcHandler, 'edron', 60, TravelHarbours.carpetEdron, 'Edron')
+addTravelKeyword(keywordHandler, npcHandler, 'kazordoon', 60, TravelHarbours.carpetKazordoon, 'Kazordoon')
+
 local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')
 focusModule:addGreetMessage('hello')
 npcHandler:addModule(focusModule)
+
 
 
