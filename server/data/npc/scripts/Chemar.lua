@@ -30,6 +30,7 @@ npcHandler:addModule(shopModule)
 addTravelKeyword(keywordHandler, npcHandler, 'femor hills', 60, TravelHarbours.carpetFemor, 'Femor Hills')
 addTravelKeyword(keywordHandler, npcHandler, 'femor', 60, TravelHarbours.carpetFemor, 'Femor Hills')
 addTravelKeyword(keywordHandler, npcHandler, 'edron', 40, TravelHarbours.carpetEdron, 'Edron')
+addTravelKeyword(keywordHandler, npcHandler, 'kazordoon', 70, TravelHarbours.carpetKazordoon, 'Kazordoon')
 
 shopModule:addBuyableItem({'parcel'}, 2595, 15, 1, 'parcel')
 shopModule:addBuyableItem({'label'}, 2599, 1, 1, 'label')

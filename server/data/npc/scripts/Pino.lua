@@ -27,6 +27,7 @@ shopModule:addBuyableItem({'letter'}, 2597, 8, 1, 'letter')
 addTravelKeyword(keywordHandler, npcHandler, 'femor hills', 60, TravelHarbours.carpetFemor, 'Femor Hills')
 addTravelKeyword(keywordHandler, npcHandler, 'femor', 60, TravelHarbours.carpetFemor, 'Femor Hills')
 addTravelKeyword(keywordHandler, npcHandler, 'darashia', 40, TravelHarbours.carpetDarashia, 'Darashia')
+addTravelKeyword(keywordHandler, npcHandler, 'kazordoon', 70, TravelHarbours.carpetKazordoon, 'Kazordoon')
 
 local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')
