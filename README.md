@@ -74,8 +74,8 @@ Acompanhe os detalhes nas [Issues do GitHub](https://github.com/nosleirabr/Otese
 
 | Label | Significado | Status |
 |-------|-------------|--------|
-| `P0-Critico` | Bloqueia jogabilidade - tratar imediatamente | Concluído (100%) |
-| `P1-Grave` | Paridade necessária para base estável | Concluído (100%) |
+| `P0-Critico` | Bloqueia jogabilidade - tratar imediatamente | Concluído (100%) ✅ |
+| `P1-Grave` | Paridade necessária para base estável | Concluído (100%) ✅ |
 | `P2-Moderado`| Importante mas não bloqueia o milestone | Concluído (100%) ✅ |
 | `P3-Melhoria`| Nice-to-have, iceboxável | Pendente (0%) |
 
