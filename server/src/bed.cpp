@@ -160,9 +160,9 @@ bool BedItem::sleep(Player* player)
 	// make the player walk onto the bed
 	g_game.map.moveCreature(*player, *getTile());
 
-	// kick player after he sees himself walk onto the bed and it change id
+	// kick player synchronously to prevent dupe exploits before logout
 	uint32_t playerId = player->getID();
-	g_scheduler.addEvent(createSchedulerTask(SCHEDULER_MINTICKS, std::bind(&Game::kickPlayer, &g_game, playerId, false)));
+	g_game.kickPlayer(playerId, false);
 
 	// change self and partner's appearance
 	updateAppearance(player);

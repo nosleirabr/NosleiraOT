@@ -19,9 +19,9 @@ Checklist de defeitos conhecidos/da comunidade + locais para corrigir um a um.
 
 - [x] **D-010** Mapas reais podem crashar/carregar errado com versão OTBM errada ou DB ausente (IOMap parser protegido contra crashs em itens não-existentes/versões inconsistentes).
 - [x] **D-011** Divergências de Item ID quando RME items.otb != items do server (Verificado via SHA-256: Ambos RME 7.4/7.6 e Server usam exatamente o mesmo arquivo).
-- [ ] **D-012** Áreas de mapa pós-7.4 (Port Hope, Tiquanda, Dark Cathedral) se usar mapas impuros.
+- [x] **D-012** Áreas de mapa pós-7.4 (Port Hope, Tiquanda, Dark Cathedral) se usar mapas impuros (Mapeamento validado como 100% limpo pelo usuário).
 - [x] **D-013** Client é shell 7.72 + assets 7.4 — possíveis quirks de sprite/UI.
-- [ ] **D-014** Bed / UH trap / height stack historicamente precisaram de patches (UHTrap já habilitado).
+- [x] **D-014** Bed / UH trap / height stack historicamente precisaram de patches (UHTrap já habilitado).
 - [x] **D-015** Tiles de teleport sem destination em mapas reais (Corrigido 100% via RME - 93 teleports sem destino arrumados).
 - [x] **D-016** Bugs de diálogo/script de NPC em datasets mais completos.
 - [x] **D-017** Portas/baús de quest com actionids/storage errados (correções em PRs de quests/mapas).

@@ -60,11 +60,11 @@ Acompanhe nossa jornada de desenvolvimento até o lançamento da base estável.
 |-----------|--------|
 | **M0** - Fundação do stack | Concluído (100%) ✅ |
 | **M1** - Jogabilidade núcleo | Concluído (100%) ✅ |
-| **M2** - Paridade de conteúdo 7.4 | Em andamento (90%) 🚧 |
-| **M3** - Server testável CI | Planejado (0%) 📅 |
-| **M4** - Client com código-fonte | Planejado (0%) 📅 |
-| **M5** - Infra nuvem e segurança | Planejado (0%) 📅 |
-| **M6** - Release base estável | Planejado (0%) 📅 |
+| **M2** - Paridade de conteúdo 7.4 | Concluído (100%) ✅ |
+| **M3** - Server testável CI | Planejado (0%) ⏳ |
+| **M4** - Client com código-fonte | Planejado (0%) ⏳ |
+| **M5** - Infra nuvem e segurança | Planejado (0%) ⏳ |
+| **M6** - Release base estável | Planejado (0%) ⏳ |
 
 ---
 
@@ -75,8 +75,8 @@ Acompanhe os detalhes nas [Issues do GitHub](https://github.com/nosleirabr/Otese
 | Label | Significado | Status |
 |-------|-------------|--------|
 | `P0-Critico` | Bloqueia jogabilidade - tratar imediatamente | Concluído (100%) |
-| `P1-Grave` | Paridade necessária para base estável | Em andamento (90%) |
-| `P2-Moderado`| Importante mas não bloqueia o milestone | Em andamento (40%) |
+| `P1-Grave` | Paridade necessária para base estável | Concluído (100%) |
+| `P2-Moderado`| Importante mas não bloqueia o milestone | Concluído (100%) ✅ |
 | `P3-Melhoria`| Nice-to-have, iceboxável | Pendente (0%) |
 
 ---
