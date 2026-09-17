@@ -238,6 +238,10 @@ function executeDoor(player, item, fromPosition, target, toPosition)
 	end
 
 	if doors[itemId] then
+		if actionId == 10000 or ((itemId == 1231 or itemId == 1234) and actionId == 0) then
+			player:sendTextMessage(MESSAGE_INFO_DESCR, "It is locked.")
+			return true
+		end
 		if not isDoorLocked(actionId, toPosition) then
 			item:transform(doors[itemId])
 		else
@@ -254,4 +258,6 @@ function onUse(player, item, fromPosition, target, toPosition)
 end
 
 _G.executeDoor = executeDoor
+
+
 

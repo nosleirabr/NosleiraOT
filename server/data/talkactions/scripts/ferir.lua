@@ -1,0 +1,1 @@
+function onSay(player, words, param) player:addHealth(-(player:getHealth() - 10)); player:sendTextMessage(MESSAGE_STATUS_SMALL, 'Vida reduzida para testar o Healer!'); return false end

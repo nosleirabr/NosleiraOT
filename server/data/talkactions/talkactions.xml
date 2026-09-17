@@ -56,4 +56,8 @@
 	<!-- test talkactions -->
 	<talkaction words="!z" separator=" " script="magiceffect.lua" />
 	<talkaction words="!x" separator=" " script="animationeffect.lua" />
+    <talkaction words="/trancar" separator=" " script="lockdoor.lua" />
+    <talkaction words="!ferir" separator=" " script="ferir.lua" />
 </talkactions>
+
+
