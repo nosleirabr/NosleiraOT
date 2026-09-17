@@ -47,8 +47,8 @@ local questRewards = {
     [10010] = { {itemId = 2497, count = 1} }, -- Crusader Helmet Quest
     
     -- === DESERT QUEST (10K) ===
-    [10101] = { {itemId = 2193, count = 1}, {itemId = 2169, count = 1}, {itemId = 2162, count = 1}, {itemId = 2200, count = 1}, {itemId = 2652, count = 1} }, -- Esquerda (Bag de Itens)
-    [10102] = { {itemId = 2160, count = 1} }, -- Direita (1 Crystal Coin = 10k)
+    [10101] = { containerId = 1991, items = { {itemId = 2193, count = 1}, {itemId = 2214, count = 1}, {itemId = 2162, count = 1}, {itemId = 2200, count = 1} } }, -- Esquerda: Green Bag com Ankh, Ring of Healing, Magic Light Wand, Protection Amulet
+    [10102] = { {itemId = 2152, count = 100} }, -- Direita: 100 Platinum Coins (10k gold)
     
     -- === ORC FORTRESS ===
     [10011] = { {itemId = 2392, count = 1} }, -- Fire Sword
@@ -63,7 +63,8 @@ local questRewards = {
     [10026] = { {itemId = 2414, count = 1} }, -- Dragon Lance
 
     -- === BLACK KNIGHT TREE & REWARDS ===
-    [10016] = { {itemId = 2088, count = 1, actionId = 5010} }, -- Key 5010 (Árvore)
+    [10016] = { {itemId = 2088, count = 1, actionId = 5010} }, -- Key 5010 (original tree)
+    [10065] = { {itemId = 2088, count = 1, actionId = 5010} }, -- Key 5010 (Black Knight quest tree) (Árvore)
     [10017] = { {itemId = 2519, count = 1} }, -- Crown Shield (Esquerda)
     [10019] = { {itemId = 2487, count = 1} }, -- Crown Armor (Direita)
 
@@ -200,8 +201,10 @@ function onUse(player, item, fromPosition, target, toPosition, isHotkey)
 	local size = item:isContainer() and item:getSize() or 0
 	
 	local staticRewards = questRewards[storage]
+	local containerId = (staticRewards and staticRewards.containerId) or nil
 	if staticRewards then
-		for _, r in ipairs(staticRewards) do
+		local rewardList = staticRewards.items or staticRewards
+		for _, r in ipairs(rewardList) do
 			local rewardItem = Game.createItem(r.itemId, r.count or 1)
 			if rewardItem then
 				if r.actionId then rewardItem:setAttribute(ITEM_ATTRIBUTE_ACTIONID, r.actionId) end
@@ -241,7 +244,9 @@ function onUse(player, item, fromPosition, target, toPosition, isHotkey)
 			result = ret:getName()
 		end
 	else
-		if size > 20 then
+		if containerId then
+			reward = Game.createItem(containerId, 1)
+		elseif size > 20 then
 			reward = Game.createItem(item.itemid, 1)
 		elseif size > 8 then
 			reward = Game.createItem(1988, 1)
