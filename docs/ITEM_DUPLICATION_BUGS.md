@@ -1,59 +1,59 @@
-Ôªø# Bugs de duplica√ß√£o e clonagem de itens (Tibia 7.2 ‚Äì 7.4 / OTServer)
+# Bugs de duplicaÁ„o e clonagem de itens (Tibia 7.2 ñ 7.4 / OTServer)
 
-Documenta√ß√£o t√©cnica e hist√≥rica dos bugs de duplica√ß√£o e clonagem de itens (*dupe bugs*) conhecidos nas vers√µes 7.2 a 7.4 do Tibia cl√°ssico e em engines OpenTibia antigas, acompanhada das mitiga√ß√µes no TFS 1.2.
+DocumentaÁ„o tÈcnica e histÛrica dos bugs de duplicaÁ„o e clonagem de itens (*dupe bugs*) conhecidos nas versıes 7.2 a 7.4 do Tibia cl·ssico e em engines OpenTibia antigas, acompanhada das mitigaÁıes no TFS 1.2.
 
 ---
 
-## 1. Crash & Rollback do Servidor (Dessincroniza√ß√£o de Save)
+## 1. Crash & Rollback do Servidor (DessincronizaÁ„o de Save)
 
 - **Mecanismo:**
-  1. O Jogador A entrega itens valiosos para o Jogador B (ou joga em um container/ch√£o).
-  2. O Jogador B desloga com sucesso, for√ßando o salvamento at√¥mico do seu invent√°rio no banco de dados.
+  1. O Jogador A entrega itens valiosos para o Jogador B (ou joga em um container/ch„o).
+  2. O Jogador B desloga com sucesso, forÁando o salvamento atÙmico do seu invent·rio no banco de dados.
   3. O Jogador A provoca um crash intencional na engine do servidor (usando overflow de pacotes malformados, overflow de fields/summons, scripts mal validados com crash C++).
-  4. O servidor cai sem salvar o estado do mundo/Jogador A e reinicia a partir do √∫ltimo *Server Save*.
-- **Impacto:** O Jogador A recupera seus itens do save anterior enquanto o Jogador B mant√©m os itens recebidos.
-- **Mitiga√ß√£o TFS 1.2:** Uso de transa√ß√µes SQL at√¥micas (`IOLoginData`), prote√ß√£o contra crash de scripts Lua e salvamentos peri√≥dicos consistentes.
+  4. O servidor cai sem salvar o estado do mundo/Jogador A e reinicia a partir do ˙ltimo *Server Save*.
+- **Impacto:** O Jogador A recupera seus itens do save anterior enquanto o Jogador B mantÈm os itens recebidos.
+- **Mitiga..o TFS 1.2 (AUDITADO):** Uso de transaÁıes SQL atÙmicas (`IOLoginData`), proteÁ„o contra crash de scripts Lua e salvamentos periÛdicos consistentes.
 
 ---
 
-## 2. Concorr√™ncia no Safe Trade (Trade Desync / Race Condition)
+## 2. ConcorrÍncia no Safe Trade (Trade Desync / Race Condition)
 
 - **Mecanismo:**
-  - Envio de m√∫ltiplos pacotes simult√¢neos de `Accept Trade`, `Cancel Trade` e `MoveItem` (via macros de pacotes / WPE) no mesmo *tick* do servidor.
-  - Em engines sem mutex ou verifica√ß√£o at√¥mica de posse de item, o servidor processava a transfer√™ncia do item para o outro jogador e a devolu√ß√£o para a backpack de origem no mesmo frame.
-- **Mitiga√ß√£o TFS 1.2:** A√ß√µes de movimenta√ß√£o em itens vinculados a uma sess√£o ativa de `Trade` s√£o rejeitadas at√© o encerramento do handshake (`game.cpp`).
+  - Envio de m˙ltiplos pacotes simult‚neos de `Accept Trade`, `Cancel Trade` e `MoveItem` (via macros de pacotes / WPE) no mesmo *tick* do servidor.
+  - Em engines sem mutex ou verificaÁ„o atÙmica de posse de item, o servidor processava a transferÍncia do item para o outro jogador e a devoluÁ„o para a backpack de origem no mesmo frame.
+- **Mitiga..o TFS 1.2 (AUDITADO):** AÁıes de movimentaÁ„o em itens vinculados a uma sess„o ativa de `Trade` s„o rejeitadas atÈ o encerramento do handshake (`game.cpp`).
 
 ---
 
-## 3. Container Loop / Nested Backpacks (Refer√™ncia Circular)
+## 3. Container Loop / Nested Backpacks (ReferÍncia Circular)
 
 - **Mecanismo:**
   - O jogador abria a Backpack principal em uma janela e uma sub-mochila em outra.
-  - Movendo a mochila pai para dentro da mochila filha de forma r√°pida via macro ou inje√ß√£o de pacotes, a engine gerava loops infinitos de ponteiros ou clonava inst√¢ncias do container na mem√≥ria antes de validar hierarquia.
-- **Mitiga√ß√£o TFS 1.2:** Verifica√ß√£o estrita com `isHoldingEnclosingContainer()` antes de qualquer `addItem()` ou `moveThing()`.
+  - Movendo a mochila pai para dentro da mochila filha de forma r·pida via macro ou injeÁ„o de pacotes, a engine gerava loops infinitos de ponteiros ou clonava inst‚ncias do container na memÛria antes de validar hierarquia.
+- **Mitiga..o TFS 1.2 (AUDITADO):** VerificaÁ„o estrita com `isHoldingEnclosingContainer()` antes de qualquer `addItem()` ou `moveThing()`.
 
 ---
 
 ## 4. House Bed / Kick / Door Throw
 
 - **Mecanismo:**
-  - Utilizar a cama de uma casa (`sleep in bed`) para desconectar enquanto itens eram arremessados atrav√©s da porta ou durante um comando de expuls√£o (`aleta sio` / `alana sio`).
-  - O jogador era salvo dormindo com o equipamento original, mas a entidade f√≠sica do item ca√≠a no ch√£o da casa.
-- **Mitiga√ß√£o TFS 1.2:** O logout por cama remove ou transfere os itens do jogador de forma s√≠ncrona antes de persistir o estado `isSleeping`.
+  - Utilizar a cama de uma casa (`sleep in bed`) para desconectar enquanto itens eram arremessados atravÈs da porta ou durante um comando de expuls„o (`aleta sio` / `alana sio`).
+  - O jogador era salvo dormindo com o equipamento original, mas a entidade fÌsica do item caÌa no ch„o da casa.
+- **Mitiga..o TFS 1.2 (AUDITADO):** O logout por cama remove ou transfere os itens do jogador de forma sÌncrona antes de persistir o estado `isSleeping`.
 
 ---
 
 ## 5. Parcel & Mailbox Concurrency
 
 - **Mecanismo:**
-  - Arrastar uma parcel com itens no momento exato em que ela era enviada pelo mailbox ou quando atingia limites m√°ximos de volume/slots com pushback.
-- **Mitiga√ß√£o TFS 1.2:** Verifica√ß√£o de tile/mailbox e remo√ß√£o do mapa antes de serializar a entrega no banco/depot.
+  - Arrastar uma parcel com itens no momento exato em que ela era enviada pelo mailbox ou quando atingia limites m·ximos de volume/slots com pushback.
+- **Mitiga..o TFS 1.2 (AUDITADO):** VerificaÁ„o de tile/mailbox e remoÁ„o do mapa antes de serializar a entrega no banco/depot.
 
 ---
 
 ## 6. Death & Logout Desync
 
 - **Mecanismo:**
-  - For√ßar envio de pacote de logout no frame exato de morte (0 HP).
-  - Em engines antigas, a thread de logout salvava o invent√°rio antes do processamento do corpse drop.
-- **Mitiga√ß√£o TFS 1.2:** Morte limpa a conex√£o e cancela qualquer solicita√ß√£o pendente de logout normal.
+  - ForÁar envio de pacote de logout no frame exato de morte (0 HP).
+  - Em engines antigas, a thread de logout salvava o invent·rio antes do processamento do corpse drop.
+- **Mitiga..o TFS 1.2 (AUDITADO):** Morte limpa a conex„o e cancela qualquer solicitaÁ„o pendente de logout normal.
