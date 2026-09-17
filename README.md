@@ -1,4 +1,4 @@
-# ⚔️ Nosleira OT Server 7.4
+﻿# ⚔️ Nosleira OT Server 7.4
 
 ![Tibia 7.4](https://img.shields.io/badge/Tibia-7.4-blue?style=for-the-badge&logo=tibia)
 ![TFS](https://img.shields.io/badge/TFS-1.2-orange?style=for-the-badge)
