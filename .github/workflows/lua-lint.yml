@@ -28,8 +28,8 @@ jobs:
 
       - name: Verificar sintaxe e estilo Lua
         run: |
-          luacheck server/server/data/ \
-            --exclude-files "server/server/data/lib/compat/**" \
+          luacheck server/data/ \
+            --exclude-files "server/data/lib/compat/**" \
             --max-line-length 120 \
             --globals "dofile" "loadfile" "require" \
             --globals "print" "pairs" "ipairs" "type" "tostring" "tonumber" \
