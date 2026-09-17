@@ -114,3 +114,37 @@ Gotchas: não renomear pastas para `_disabled_*`; `game_actionbar` é referencia
 - Docs 7.4: [`docs/CLIENT_74.md`](../docs/CLIENT_74.md)  
 - Learning: [`docs/learnings/wiki/otclientv8-74-base.md`](../docs/learnings/wiki/otclientv8-74-base.md)  
 - Root: [`../README.md`](../README.md) / router [`../AGENTS.md`](../AGENTS.md)
+
+
+## 🔨 Build Reproduzivel (Windows)
+
+Para compilar o client do zero em uma maquina limpa Windows, siga os passos abaixo:
+
+### Requisitos
+
+1. **Visual Studio 2022**: Instale com a carga de trabalho *"Desktop development with C++"*.
+2. **CMake**: Baixe e instale a ultima versao (adicione ao PATH do sistema).
+3. **vcpkg**: 
+   ```powershell
+   git clone https://github.com/microsoft/vcpkg.git C:\vcpkg
+   cd C:\vcpkg
+   .\bootstrap-vcpkg.bat
+   .\vcpkg integrate install
+   ```
+4. **Source Code**: Garanta que o codigo fonte do client (ex: OTClient Redemption) esta clonado na pasta `client_base/OTClient-Redemption` (gitignored da base 7.4).
+
+### Automatizado (Script)
+
+Basta rodar o arquivo `build_windows.bat` disponivel nesta pasta. Ele fara:
+- A limpeza da build antiga
+- Geracao do projeto via CMake atrelando o vcpkg
+- Build da solucao no modo Release (usando o MSBuild do VS2022)
+- Copia dos binarios `otclient_dx.exe` e `otclient_gl.exe` para esta pasta `client/`.
+
+### Conectando ao Servidor Local
+
+Apos o build e execucao, o binario utiliza as configuracoes presentes no `init.lua` e `ot74_dev.lua`. Para conectar-se:
+- IP: `127.0.0.1`
+- Port: `7171`
+- Account/Password: O default de testes (Account `1`, Password `admin123`).
+- Protocolo: O client esta setado internamente para usar o protocolo 7.72 da CipSoft com assets hibridos do 7.40.
