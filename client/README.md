@@ -148,3 +148,17 @@ Apos o build e execucao, o binario utiliza as configuracoes presentes no `init.l
 - Port: `7171`
 - Account/Password: O default de testes (Account `1`, Password `admin123`).
 - Protocolo: O client esta setado internamente para usar o protocolo 7.72 da CipSoft com assets hibridos do 7.40.
+
+## Build Reproduzivel (Windows)
+Para compilar o client do zero em uma maquina limpa Windows, siga os passos abaixo:
+
+### Requisitos
+1. Visual Studio 2022 com Desktop development with C++.
+2. CMake configurado no PATH.
+3. vcpkg instalado e integrado.
+4. Source Code: OTClient clonado em client_base/OTClient-Redemption.
+
+### Automatizado
+Basta rodar o arquivo build_windows.bat disponivel nesta pasta.
+Ele fara o clean, a geracao via CMake + vcpkg e a compilacao Release.
+
