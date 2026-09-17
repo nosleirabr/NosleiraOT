@@ -1,4 +1,4 @@
-﻿local keywordHandler = KeywordHandler:new()
+local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
@@ -15,7 +15,7 @@ keywordHandler:addKeyword({'ghostlands'}, StdModule.say, {npcHandler = npcHandle
 keywordHandler:addKeyword({'worm'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell worms only in six-packs for 5 gold each, how many sixpacks of worms do you want to buy?'})
 keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, text = 'It is exactly the current time. Maybe you want to buy a watch?'})
 keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'I am Sarina. I am selling everything the adventurer needs.'})
-keywordHandler:addKeyword({'food'}, StdModule.say, {npcHandler = npcHandler, text = 'Sorry, I don''t sell food.'})
+keywordHandler:addKeyword({'food'}, StdModule.say, {npcHandler = npcHandler, text = "Sorry, I don't sell food."})
 keywordHandler:addKeyword({'illumination'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell torches, candlesticks, candelabra, and oil.'})
 
 local shopModule = ShopModule:new()

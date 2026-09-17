@@ -2,28 +2,28 @@ local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)              npcHandler:onCreatureAppear(cid)            end
-function onCreatureDisappear(cid)           npcHandler:onCreatureDisappear(cid)         end
-function onCreatureSay(cid, type, msg)      npcHandler:onCreatureSay(cid, type, msg)    end
-function onThink()                          npcHandler:onThink()                        end
+function onCreatureAppear(cid) npcHandler:onCreatureAppear(cid) end
+function onCreatureDisappear(cid) npcHandler:onCreatureDisappear(cid) end
+function onCreatureSay(cid, type, msg) npcHandler:onCreatureSay(cid, type, msg) end
+function onThink() npcHandler:onThink() end
 
-npcHandler:setMessage(MESSAGE_GREET, "Ahlan |PLAYERNAME|. Rare jewelry.")
+keywordHandler:addKeyword({'help'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell and buy armors, shields, and other equipment for those who are worthy.'})
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-
-shopModule:addBuyableItem({'bronze amulet'}, 2172, 100, 1, 'bronze amulet')
-shopModule:addBuyableItem({'crystal necklace'}, 2125, 400, 1, 'crystal necklace')
-shopModule:addBuyableItem({'ruby necklace'}, 2133, 2000, 1, 'ruby necklace')
-shopModule:addBuyableItem({'silver amulet'}, 2170, 100, 1, 'silver amulet')
-shopModule:addSellableItem({'black pearl'}, 2144, 280, 'black pearl')
-shopModule:addSellableItem({'small diamond'}, 2145, 300, 'small diamond')
-shopModule:addSellableItem({'small emerald'}, 2149, 250, 'small emerald')
-shopModule:addSellableItem({'small ruby'}, 2147, 250, 'small ruby')
-shopModule:addSellableItem({'small sapphire'}, 2146, 250, 'small sapphire')
-shopModule:addSellableItem({'white pearl'}, 2143, 160, 'white pearl')
+shopModule:addSellableItem({'royal helmet', 'rh'}, 2498, 30000, 'royal helmet')
+shopModule:addSellableItem({'crusader helmet'}, 2497, 6000, 'crusader helmet')
+shopModule:addSellableItem({'dragon scale mail', 'dsm'}, 2492, 40000, 'dragon scale mail')
+shopModule:addSellableItem({'golden armor'}, 2466, 20000, 'golden armor')
+shopModule:addSellableItem({'fire axe'}, 2432, 8000, 'fire axe')
+shopModule:addSellableItem({'fire sword'}, 2392, 4000, 'fire sword')
+shopModule:addSellableItem({'giant sword', 'gs'}, 2393, 17000, 'giant sword')
+shopModule:addSellableItem({'ice rapier'}, 2396, 1000, 'ice rapier')
+shopModule:addSellableItem({'skull staff'}, 2436, 6000, 'skull staff')
+shopModule:addSellableItem({'war hammer'}, 2391, 1200, 'war hammer')
 
 local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')
 focusModule:addGreetMessage('hello')
+focusModule:addGreetMessage('djannihah')
 npcHandler:addModule(focusModule)

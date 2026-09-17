@@ -2,40 +2,29 @@ local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
-function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
-function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
-function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
-function onThink()						npcHandler:onThink()						end
+function onCreatureAppear(cid) npcHandler:onCreatureAppear(cid) end
+function onCreatureDisappear(cid) npcHandler:onCreatureDisappear(cid) end
+function onCreatureSay(cid, type, msg) npcHandler:onCreatureSay(cid, type, msg) end
+function onThink() npcHandler:onThink() end
+
+keywordHandler:addKeyword({'help'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell and buy weapons for those who are worthy.'})
 
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
-shopModule:addBuyableItem({'dark'}, 3384, 1000, 'dark')
-shopModule:addBuyableItem({'ice'}, 3284, 5000, 'ice')
-shopModule:addBuyableItem({'dark'}, 3383, 1500, 'dark')
-shopModule:addBuyableItem({'serpent'}, 3297, 6000, 'serpent')
-shopModule:addBuyableItem({'ancient'}, 3432, 5000, 'ancient')
-
-shopModule:addSellableItem({'sell'}, 3574, 150, 'sell')
-shopModule:addSellableItem({'sell'}, 3371, 5000, 'sell')
-shopModule:addSellableItem({'sell'}, 3383, 400, 'sell')
-shopModule:addSellableItem({'sell'}, 3429, 800, 'sell')
-shopModule:addSellableItem({'sell'}, 3432, 900, 'sell')
-shopModule:addSellableItem({'sell'}, 3434, 15000, 'sell')
-shopModule:addSellableItem({'sell'}, 3281, 17000, 'sell')
-shopModule:addSellableItem({'sell'}, 3428, 8000, 'sell')
-shopModule:addSellableItem({'sell'}, 3324, 6000, 'sell')
-shopModule:addSellableItem({'sell'}, 3322, 2000, 'sell')
-shopModule:addSellableItem({'sell'}, 3318, 2000, 'sell')
-shopModule:addSellableItem({'sell'}, 3299, 50, 'sell')
-shopModule:addSellableItem({'sell'}, 3297, 900, 'sell')
-shopModule:addSellableItem({'sell'}, 3384, 250, 'sell')
-shopModule:addSellableItem({'sell'}, 3370, 5000, 'sell')
-shopModule:addSellableItem({'sell'}, 3307, 150, 'sell')
-shopModule:addSellableItem({'sell'}, 3373, 500, 'sell')
-shopModule:addSellableItem({'sell'}, 3369, 5000, 'sell')
+shopModule:addSellableItem({'broadsword'}, 2413, 500, 'broadsword')
+shopModule:addSellableItem({'clerical mace'}, 2423, 170, 'clerical mace')
+shopModule:addSellableItem({'dragon hammer'}, 2434, 2000, 'dragon hammer')
+shopModule:addSellableItem({'fire axe'}, 2432, 8000, 'fire axe')
+shopModule:addSellableItem({'fire sword'}, 2392, 4000, 'fire sword')
+shopModule:addSellableItem({'giant sword', 'gs'}, 2393, 17000, 'giant sword')
+shopModule:addSellableItem({'ice rapier'}, 2396, 1000, 'ice rapier')
+shopModule:addSellableItem({'knight axe'}, 2430, 2000, 'knight axe')
+shopModule:addSellableItem({'poison dagger'}, 2411, 50, 'poison dagger')
+shopModule:addSellableItem({'skull staff'}, 2436, 6000, 'skull staff')
+shopModule:addSellableItem({'war hammer'}, 2391, 1200, 'war hammer')
 
 local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')
 focusModule:addGreetMessage('hello')
+focusModule:addGreetMessage('djannihah')
 npcHandler:addModule(focusModule)
-

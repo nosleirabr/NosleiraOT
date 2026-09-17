@@ -1,4 +1,4 @@
-﻿local keywordHandler = KeywordHandler:new()
+local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
 
@@ -22,7 +22,7 @@ keywordHandler:addKeyword({'cenath'}, StdModule.say, {npcHandler = npcHandler, t
 keywordHandler:addKeyword({'venore'}, StdModule.say, {npcHandler = npcHandler, text = 'Their merchants have no patience and all to fast they loose their masks of friedlyness.'})
 keywordHandler:addKeyword({'stuff'}, StdModule.say, {npcHandler = npcHandler, text = 'Water hoses, pitchforks, presents, buckets, bottles, and the like.'})
 keywordHandler:addKeyword({'thais'}, StdModule.say, {npcHandler = npcHandler, text = 'The people of thais boast about their mighty kingdom, but eventually their short lives will doom everything they buld.'})
-keywordHandler:addKeyword({'elves'}, StdModule.say, {npcHandler = npcHandler, text = 'That''s our race.'})
+keywordHandler:addKeyword({'elves'}, StdModule.say, {npcHandler = npcHandler, text = "That's our race."})
 keywordHandler:addKeyword({'light'}, StdModule.say, {npcHandler = npcHandler, text = 'I sell torches, candelabra, and oil.'})
 keywordHandler:addKeyword({'food'}, StdModule.say, {npcHandler = npcHandler, text = 'I am not dealing with food.'})
 keywordHandler:addKeyword({'roderick'}, StdModule.say, {npcHandler = npcHandler, text = 'His presence here is a waste of space and talking to or even about him a waste of time.'})

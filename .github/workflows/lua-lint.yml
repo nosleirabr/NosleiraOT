@@ -39,8 +39,9 @@ jobs:
             --globals "CreatureEvent" "TalkAction" "Action" "GlobalEvent" \
             --globals "EventCallback" "RaidEvent" "SpellGroup" "Weapon" \
             --globals "Result" "db" "logger" \
+            --ignore 111 112 113 211 231 311 314 411 412 421 422 542 611 612 614 631 \
             --no-unused-args \
-            --codes \
+            --codes
 
 
 

@@ -9,7 +9,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pkg-config \
     libboost-system-dev \
     libboost-iostreams-dev \
-    libluajit-5.1-dev \
     liblua5.3-dev \
     libmysqlclient-dev \
     libpugixml-dev \
@@ -38,7 +37,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libboost-system1.74.0 \
     libboost-iostreams1.74.0 \
-    libluajit-5.1-2 \
     liblua5.3-0 \
     libmysqlclient21 \
     libpugixml1v5 \
