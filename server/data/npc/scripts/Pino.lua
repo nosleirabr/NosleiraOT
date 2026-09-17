@@ -20,6 +20,10 @@ local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 
 
+shopModule:addBuyableItem({'parcel'}, 2595, 15, 1, 'parcel')
+shopModule:addBuyableItem({'label'}, 2599, 1, 1, 'label')
+shopModule:addBuyableItem({'letter'}, 2597, 8, 1, 'letter')
+
 addTravelKeyword(keywordHandler, npcHandler, 'femor hills', 60, TravelHarbours.carpetFemor, 'Femor Hills')
 addTravelKeyword(keywordHandler, npcHandler, 'femor', 60, TravelHarbours.carpetFemor, 'Femor Hills')
 addTravelKeyword(keywordHandler, npcHandler, 'darashia', 40, TravelHarbours.carpetDarashia, 'Darashia')
