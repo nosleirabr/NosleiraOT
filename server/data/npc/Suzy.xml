@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<npc name="Suzy" script="suzy.lua" walkinterval="2000" floorchange="0">
+<?xml version="1.0" encoding="utf-8"?>
+<npc name="Suzy" script="money_exchange.lua" walkinterval="2000" floorchange="0">
   <health now="100" max="100" />
   <look type="136" head="78" body="10" legs="115" feet="95" />
   <parameters></parameters>
