@@ -3,6 +3,7 @@ defined('MYAAC') or die('Direct access not allowed!');
 $title = 'Rules';
 ?>
 
+<!-- Box 1: Termos & Regras do NosleiraOT -->
 <div class="TableContainer">
     <div class="CaptionContainer">
         <div class="CaptionInnerContainer">
@@ -64,17 +65,62 @@ $title = 'Rules';
                                                                 <b>20.</b> <b>[Enforced]</b> Players que forem constatado manipulando o UP LV forçado através de characters próprio ou de próximos será deletado, em alguns casos mais abusivos pode perder todas as contas e até contas de terceiros que tenha ligação ao caso.
                                                             </td>
                                                         </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
+<br><br>
+
+<!-- Box 2: REPORT (CTRL + R) Header Destacado -->
+<div class="TableContainer">
+    <div class="CaptionContainer">
+        <div class="CaptionInnerContainer">
+            <span class="CaptionEdgeLeftTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
+            <div class="Text">REPORT (CTRL + R)</div>
+            <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
+            <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionEdgeRightBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
+        </div>
+    </div>
+    
+    <table class="Table3" cellpadding="0" cellspacing="0">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="InnerTableContainer">
+                        <table style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="TableContentAndRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rm.gif);">
+                                            <div class="TableContentContainer">
+                                                <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+                                                    <tbody>
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
                                                             <td style="font-weight:bold; font-size: 14px; padding: 10px;">
-                                                                REPORT (CTRL + R)
+                                                                Orientações para Envio de Reports
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 12px; line-height: 1.6;">
                                                                 <ul style="margin: 0; padding-left: 20px;">
                                                                     <li style="margin-bottom: 8px;">Quando for reportar somente escreva a "situação/dúvida/problema + nickname(s) se houver algum". Nada mais ou menos do que isso. Qualquer report que extrapole essa orientação poderá ficar sem atendimento.</li>
-                                                                    <li style="margin-bottom: 8px;">Os GMS não precisam responder o seu report para efetuar o atendimento. Somente com a descrição do seu report já é possível atendê-lo, por isso é imprescindível reportar de forma adequada. Reports do tipo "gm on?", "alguém aí?", "mc aqui", não costumam serem atendidos e muito menos respondidos.</li>
+                                                                    <li style="margin-bottom: 8px;">Os GMS não precisam responder o seu report para efetuar o atendimento. Somente com a descrição do seu report já é possível atendê-lo, por isso é imprescindible reportar de forma adequada. Reports do tipo "gm on?", "alguém aí?", "mc aqui", não costumam serem atendidos e muito menos respondidos.</li>
                                                                     <li style="margin-bottom: 8px;">Reports realizados em canais impróprios (help channel, PM, Telegram, por exemplo) não serão atendidos. Se o player vier a reportar adequadamente após ter escrito em canal impróprio também poderá ficar sem atendimento.</li>
                                                                     <li style="margin-bottom: 8px;">Os GMS atendem exclusivamente pelo <b>CTRL + R</b> (report).</li>
                                                                     <li style="margin-bottom: 8px;">GMS não precisam prover explicação para quem reportou sobre atos realizados ou não realizados. Por exemplo, João reportou Maria por uso de MC em PvP. Se eventualmente Maria for notificada ou banida os GMS não se obrigam a avisar João o que aconteceu ou não.</li>
