@@ -104,7 +104,8 @@ function getMonsterImage($monster): string
 
 	$localPath = getMonsterImgPath($monster['name']);
 	if (strpos($localPath, 'nophoto.png') === false) {
-		return $localPath;
+		$v = file_exists($localPath) ? filemtime($localPath) : time();
+		return $localPath . '?v=' . $v;
 	}
 
 	if (isset($outfit['type'])) {
