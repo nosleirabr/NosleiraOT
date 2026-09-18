@@ -52,10 +52,10 @@
 					{% endif %}
 
 					<td>
+						{{ member.link|raw }}
 						{% if setting('core.account_country') %}
 							{{ member.flag_image|raw }}
 						{% endif %}
-						{{ member.link|raw }}
 					</td>
 
 					{% if setting('core.team_status') %}
@@ -132,10 +132,10 @@
 				{% endif %}
 
 				<td>
+					{{ member.link|raw }}
 					{% if setting('core.account_country') %}
 						{{ member.flag_image|raw }}
 					{% endif %}
-					{{ member.link|raw }}
 				</td>
 
 				{% if setting('core.team_status') %}

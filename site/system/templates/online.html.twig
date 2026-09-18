@@ -112,18 +112,18 @@
 
 	<tr>
 		<td class="LabelV150"><b>Location Datacenter:</b></td>
-		<td>{{ setting('core.online_datacenter')|raw }} <small>(Server date & time: - {{ "now"|date("d/m/Y H:i:s") }})</small></td>
+		<td>Brazil - São Paulo VPS <small>(Server date & time: - {{ "now"|date("d/m/Y H:i:s") }})</small></td>
 	</tr>
 	<tr>
 		<td class="LabelV150"><b>PvP Type:</b></td>
 		<td>
 			{% set worldType = config('lua')['worldType']|lower %}
 			{% if worldType in ['pvp','2','normal','open','openpvp'] %}
-			Open PvP
+			Regular PvP
 			{% elseif worldType in ['no-pvp','nopvp','non-pvp','nonpvp','1','safe','optional','optionalpvp'] %}
-			Optional PvP
+			Non-PvP
 			{% elseif worldType in ['pvp-enforced','pvpenforced','pvp-enfo','pvpenfo','pvpe','enforced','enfo','3','war','hardcore','hardcorepvp'] %}
-			Hardcore PvP
+			PvP-Enforced
 			{% endif %}
 		</td>
 	</tr>
@@ -165,10 +165,10 @@
 			{% endif %}
 
 			<td style="text-align:left">
+				{{ player.name|raw }}{{ player.skull|raw }}
 				{% if setting('core.account_country') %}
 					{{ player.country_image|raw }}
 				{% endif %}
-				{{ player.name|raw }}{{ player.skull|raw }}
 			</td>
 			<td>{{ player.level }}</td>
 			<td>{{ player.vocation }}</td>

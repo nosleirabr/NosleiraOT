@@ -27,7 +27,7 @@
 			{% set rows = rows + 1 %}
 			<tr bgcolor="{{ getStyle(rows) }}">
 				<td width="20%">Name:</td>
-				<td>{{ flag|raw }} <span style="color: {% if player.isOnline() %}green{% else %}red{% endif %}"><b>{{ player.getName() }}</b></span>{{ oldName }}</td>
+				<td><span style="color: {% if player.isOnline() %}green{% else %}red{% endif %}"><b>{{ player.getName() }}</b></span> {{ flag|raw }}{{ oldName }}</td>
 			</tr>
 
 			{% set rows = rows + 1 %}
