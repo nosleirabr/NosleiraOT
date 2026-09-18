@@ -28,4 +28,15 @@ if [ -f config.lua ]; then
   fi
 fi
 
-exec "$@"
+# Least privilege: create user if needed and run tfs as non-root
+if ! id tfs >/dev/null 2>&1; then
+  useradd -ms /bin/bash tfs
+fi
+
+# Ensure the logs directory is writable by tfs
+if [ -d "/srv/data/logs" ]; then
+  chown tfs:tfs /srv/data/logs || true
+fi
+
+# Execute CMD as tfs user
+exec gosu tfs "$@"

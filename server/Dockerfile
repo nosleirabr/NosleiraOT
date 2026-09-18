@@ -43,6 +43,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgmp10 \
     ca-certificates \
     netcat-openbsd \
+    gosu \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=build /src/build/tfs /usr/local/bin/tfs
