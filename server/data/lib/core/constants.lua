@@ -45,9 +45,24 @@ ItemIds = {
 		ULTIMATE_HEALING = 2273, -- ultimate healing rune (items.xml: spell rune)
 		GREAT_FIREBALL = 2304, -- great fireball rune (items.xml: spell rune)
 		DESTROY_FIELD = 2261, -- destroy field rune (items.xml: spell rune)
+		EXPLOSION = 2313, -- explosion rune
+		MAGIC_WALL = 2293, -- magic wall rune
+		DISINTEGRATE = 2310, -- disintegrate rune
 	},
 	CONTAINERS = {
 		BAG = 1987, -- bag
 		BACKPACK = 1988, -- backpack
+		GREEN_BACKPACK = 1998, -- green backpack
+		YELLOW_BACKPACK = 1999, -- yellow backpack
+		RED_BACKPACK = 2000, -- red backpack
+		PURPLE_BACKPACK = 2001, -- purple backpack
+		BLUE_BACKPACK = 2002, -- blue backpack
+		GREY_BACKPACK = 2003, -- grey backpack
+		GAMEMASTER_BACKPACK = 2004, -- gamemaster backpack
+		VIAL = 2006, -- vial
+	},
+	FLUIDS = {
+		MANA = 7, -- mana fluid (subtipo 7)
+		LIFE = 10, -- life fluid (subtipo 10)
 	},
 }
