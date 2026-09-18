@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    name: L1, L2, L3 Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Run Map Toolchain Tests (L2)
+      run: dotnet test tools/map-editor/tests/Ot74.Map.Tests/Ot74.Map.Tests.csproj
+
+    - name: Run Gameplay Tests (L1 & L3)
+      run: dotnet test server/tests/Ot74.Gameplay.Tests/Ot74.Gameplay.Tests.csproj

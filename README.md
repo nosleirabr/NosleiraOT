@@ -5,7 +5,7 @@
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker)
 ![Status](https://img.shields.io/badge/Status-Em_Desenvolvimento-success?style=for-the-badge)
 
-[![L3 Gameplay Tests](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/l3-tests.yml/badge.svg)](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/l3-tests.yml) [![Lua Lint](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/lua-lint.yml/badge.svg)](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/lua-lint.yml) [![C/C++ CI](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/c-cpp.yml)
+[![CI L1+L2+L3](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/ci.yml/badge.svg)](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/ci.yml) [![Lua Lint](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/lua-lint.yml/badge.svg)](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/lua-lint.yml) [![C/C++ CI](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/c-cpp.yml)
 
 Servidor **Tibia 7.4** clássico com realmap autêntico (TibiCAM), fidelidade total à era de ouro do Tibia, construído sobre uma stack moderna e de alta performance.
 
