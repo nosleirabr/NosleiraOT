@@ -31,6 +31,25 @@ local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 shopModule:addBuyableItem({'brown'}, 5913, 50, 1, 'brown piece of cloth')
 
+local function creatureSayCallback(cid, type, msg)
+	if not npcHandler:isFocused(cid) then return false end
+	local player = Player(cid)
+	
+	if msgcontains(msg, "uniforms") or msgcontains(msg, "contract") then
+		if player:getStorageValue(12455) == 1 then
+			npcHandler:say("A contract for new uniforms? Very well, I can design a dress pattern for you. But first, ask Kevin about the details.", cid)
+			player:setStorageValue(12455, 2)
+		end
+	elseif msgcontains(msg, "dress pattern") then
+		if player:getStorageValue(12455) == 11 then
+			npcHandler:say("Ah, the complete dress pattern! Wonderful! I will start manufacturing the new uniforms right away. Go report back to Kevin!", cid)
+			player:setStorageValue(12455, 12)
+		end
+	end
+	return true
+end
+npcHandler:setCallback(CALLBACK_MESSAGE_DEFAULT, creatureSayCallback)
+
 local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')
 focusModule:addGreetMessage('hello')

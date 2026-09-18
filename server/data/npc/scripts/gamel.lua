@@ -24,6 +24,30 @@ shopModule:addBuyableItem({'staff'}, 3289, 40, 'staff')
 shopModule:addBuyableItem({'dagger'}, 3267, 5, 'dagger')
 shopModule:addBuyableItem({'throwing'}, 3298, 25, 'throwing')
 
+local function creatureSayCallback(cid, type, msg)
+	if not npcHandler:isFocused(cid) then return false end
+	local player = Player(cid)
+	
+	if msgcontains(msg, "letter") or msgcontains(msg, "secret") or msgcontains(msg, "lugri") then
+		if player:getStorageValue(51111) == 1 then
+			npcHandler:say("What? A letter? Let me see! ... Ah, so you are looking for Lugri's secret shirt? I can get it for you, but it will cost you a crystal ball.", cid)
+			player:setStorageValue(51111, 2)
+		end
+	elseif msgcontains(msg, "crystal ball") then
+		if player:getStorageValue(51111) == 2 then
+			if player:removeItem(2192, 1) then
+				npcHandler:say("Great! Here is Lugri's shirt. Take it to Bo'ques!", cid)
+				player:addItem(2332, 1)
+				player:setStorageValue(51111, 3)
+			else
+				npcHandler:say("You don't have a crystal ball with you!", cid)
+			end
+		end
+	end
+	return true
+end
+
+npcHandler:setCallback(CALLBACK_MESSAGE_DEFAULT, creatureSayCallback)
 local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')
 focusModule:addGreetMessage('hello')
