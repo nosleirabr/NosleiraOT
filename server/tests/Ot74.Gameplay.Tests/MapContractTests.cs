@@ -154,6 +154,21 @@ public sealed class MapContractTests
 	}
 
 	[Fact]
+	public void All_door_ids_in_global_lua_are_registered_in_actions_xml()
+	{
+		var registeredDoorItemIds = DatapackCatalog.LoadActionItemIds(RepoPaths.ActionsXml, "other/doors.lua");
+		var (levelDoors, questDoors) = DatapackCatalog.LoadDoorIds(RepoPaths.GlobalLua);
+		var normalDoors = DatapackCatalog.LoadLuaIntSet(RepoPaths.GlobalLua, "doors");
+
+		var allDoors = new HashSet<int>(levelDoors);
+		allDoors.UnionWith(questDoors);
+		allDoors.UnionWith(normalDoors);
+
+		var missing = allDoors.Where(id => !registeredDoorItemIds.Contains(id)).ToList();
+		Assert.True(missing.Count == 0, Failures.Format("Door item IDs defined in global.lua but missing from actions.xml", missing.Select(id => id.ToString()).ToList()));
+	}
+
+	[Fact]
 	public void Travel_harbours_land_on_existing_tiles()
 	{
 		Assert.True(_catalog.Harbours.Count >= 8, $"Expected TravelHarbours table, found {_catalog.Harbours.Count}");

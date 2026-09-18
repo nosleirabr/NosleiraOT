@@ -167,7 +167,8 @@ function executeDoor(player, item, fromPosition, target, toPosition)
 
 
 	if isInArray(questDoors, itemId) then
-		if player:getStorageValue(actionId) ~= -1 then
+		-- Gamemasters possuem acesso irrestrito a portas de quest
+		if player:getGroup():getAccess() > 0 or (actionId > 0 and player:getStorageValue(actionId) ~= -1) then
 			item:transform(itemId + 1)
 			player:teleportTo(toPosition, true)
 		else
@@ -176,7 +177,8 @@ function executeDoor(player, item, fromPosition, target, toPosition)
 		return true
 
 	elseif isInArray(levelDoors, itemId) then
-		if actionId > 0 and player:getLevel() >= actionId - 1000 then
+		-- Gamemasters possuem acesso irrestrito a portas de level (Gate of Expertise)
+		if player:getGroup():getAccess() > 0 or (actionId >= 1000 and player:getLevel() >= (actionId - 1000)) then
 			item:transform(itemId + 1)
 			player:teleportTo(toPosition, true)
 		else
