@@ -27,10 +27,6 @@
 			</table>
 			<table border="0" cellpadding="4" cellspacing="1" width="100%">
 				<tr bgcolor="{{ config.vdarkborder }}">
-					{% if setting('core.account_country') %}
-					<td style="width: 11px" class="white">#</td>
-					{% endif %}
-
 					<td style="width: 10%" class="white"><b>Rank</b></td>
 
 					{% if setting('core.highscores_outfit') %}
@@ -54,10 +50,6 @@
 					<tr bgcolor="{{ getStyle(row) }}">
 						{% set row = row + 1 %}
 
-						{% if setting('core.account_country') %}
-						<td>{{ player.flag|raw }}</td>
-						{% endif %}
-
 						<td>{{ player.rank }}.</td>
 
 						{% if setting('core.highscores_outfit') %}
@@ -65,6 +57,9 @@
 						{% endif %}
 
 						<td>
+							{% if setting('core.account_country') %}
+								{{ player.flag|raw }}
+							{% endif %}
 							<a href="{{ player.link }}">
 								<span {% if setting('core.highscores_online_status') %}style="color: {% if player.online > 0 %}green{% else %}red{% endif %}"{% endif %}>{{ player.name }}</span>
 							</a>

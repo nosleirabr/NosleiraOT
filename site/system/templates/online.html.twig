@@ -139,10 +139,6 @@
 <table width="100%" class="myaac-table">
 
 	<tr class="LabelH" style="z-index: 20;">
-		{% if setting('core.account_country') %}
-			<td style="width: 6px;"><a href="{{ getLink('online')}}?order=country_{{ order == 'country_asc' ? 'desc' : 'asc' }}">#&#160;&#160;</a>
-			</td>
-		{% endif %}
 		{% if setting('core.online_outfit') %}
 			<td style="width: 32px;"><b>Outfit</b></td>
 		{% endif %}
@@ -164,15 +160,14 @@
 		{% set i = i + 1 %}
 
 		<tr style="text-align: right; height: 40px;">
-			{% if setting('core.account_country') %}
-				<td>{{ player.country_image|raw }}</td>
-			{% endif %}
-
 			{% if setting('core.online_outfit') %}
 				<td><img style="position:absolute;margin-top:-48px;margin-left:-70px;" src="{{ player.outfit }}" alt="player outfit"/></td>
 			{% endif %}
 
 			<td style="text-align:left">
+				{% if setting('core.account_country') %}
+					{{ player.country_image|raw }}
+				{% endif %}
 				{{ player.name|raw }}{{ player.skull|raw }}
 			</td>
 			<td>{{ player.level }}</td>

@@ -340,7 +340,7 @@ if($save)
 	}
 }
 
-$country_recognized = null;
+$country_recognized = 'br';
 if(setting('core.account_country_recognize')) {
 	$country_session = getSession('country');
 	if($country_session !== false) { // get from session
