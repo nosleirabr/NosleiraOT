@@ -1,4 +1,4 @@
-﻿name: CI
+name: CI
 
 on:
   push:
@@ -21,6 +21,9 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '10.0.x'
+
+    - name: Prepare Config
+      run: cp server/config.lua.dist server/config.lua
 
     - name: Run Map Toolchain Tests (L2)
       run: dotnet test tools/map-editor/tests/Ot74.Map.Tests/Ot74.Map.Tests.csproj
