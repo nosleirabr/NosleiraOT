@@ -1,4 +1,4 @@
-﻿# ÔÜö´©Å Nosleira OT Server 7.4
+# ⚔️ Nosleira OT Server 7.4
 
 ![Tibia 7.4](https://img.shields.io/badge/Tibia-7.4-blue?style=for-the-badge&logo=tibia)
 ![TFS](https://img.shields.io/badge/TFS-1.2-orange?style=for-the-badge)
@@ -7,11 +7,11 @@
 
 [![CI L1+L2+L3](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/ci.yml/badge.svg)](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/ci.yml) [![Lua Lint](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/lua-lint.yml/badge.svg)](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/lua-lint.yml) [![C/C++ CI](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/nosleirabr/Oteserver7.4/actions/workflows/c-cpp.yml)
 
-Servidor **Tibia 7.4** cl├íssico com realmap aut├¬ntico (TibiCAM), fidelidade total ├á era de ouro do Tibia, constru├¡do sobre uma stack moderna e de alta performance.
+Servidor **Tibia 7.4** clássico com realmap autêntico (TibiCAM), fidelidade total à era de ouro do Tibia, construído sobre uma stack moderna e de alta performance.
 
 ---
 
-## ­ƒøá´©Å Stack Tecnol├│gico
+## 🛠️ Stack Tecnológico
 
 - **Server Engine:** TFS 1.2 (C++ / Lua)
 - **Web Site:** MyAAC
@@ -20,24 +20,24 @@ Servidor **Tibia 7.4** cl├íssico com realmap aut├¬ntico (TibiCAM), fidelid
 
 ---
 
-## ­ƒÄ» Foco Atual (O que estamos fazendo)
+## 🎯 Foco Atual (O que estamos fazendo)
 
-Atualmente estamos trabalhando no Milestone **M2 (Paridade de conte├║do 7.4)**. As frentes de trabalho recentes incluem:
-- ­ƒÉø Revis├úo de f├│rmulas de combate e mec├ónicas cl├íssicas (Runas, Breakchance de Spears).
-- ­ƒº¬ Corre├º├úo de visuais cl├íssicos (HMM, LMM) e fluidos (Life/Mana fluid).
-- ­ƒù║´©Å Auditoria de NPCs, Quests e actions de portas/ba├║s.
+Atualmente estamos trabalhando no Milestone **M2 (Paridade de conteúdo 7.4)**. As frentes de trabalho recentes incluem:
+- 🐛 Revisão de fórmulas de combate e mecânicas clássicas (Runas, Breakchance de Spears).
+- 🧪 Correção de visuais clássicos (HMM, LMM) e fluidos (Life/Mana fluid).
+- 🗺️ Auditoria de NPCs, Quests e actions de portas/baús.
 
 ---
 
-## ­ƒÜÇ Como Iniciar (Desenvolvimento Local)
+## 🚀 Como Iniciar (Desenvolvimento Local)
 
-### Pr├®-requisitos
+### Pré-requisitos
 - [Docker](https://www.docker.com/) e Docker Compose instalados.
 - [Git](https://git-scm.com/)
 
 ### Subindo o servidor
 ```bash
-# 1. Clone o reposit├│rio
+# 1. Clone o repositório
 git clone https://github.com/nosleirabr/Oteserver7.4.git
 
 # 2. Entre na pasta
@@ -47,55 +47,55 @@ cd Oteserver7.4
 docker compose up -d --build
 ```
 
-**Credenciais padr├úo para testes:**
+**Credenciais padrão para testes:**
 - **Conta:** `1`
 - **Senha:** `admin123`
 - **Personagem God:** `Admin`
 
 ---
 
-## ­ƒù║´©Å Milestones e Progresso
+## 🗺️ Milestones e Progresso
 
-Acompanhe nossa jornada de desenvolvimento at├® o lan├ºamento da base est├ível.
+Acompanhe nossa jornada de desenvolvimento até o lançamento da base estável.
 
 | Milestone | Status |
 |-----------|--------|
-| **M0** - Funda├º├úo do stack | Conclu├¡do (100%) Ô£à |
-| **M1** - Jogabilidade n├║cleo | Conclu├¡do (100%) Ô£à |
-| **M2** - Paridade de conte├║do 7.4 | Conclu├¡do (100%) Ô£à |
-| **M3** - Server test├ível CI | Em andamento (50%) ­ƒöº |
-| **M4** - Client com c├│digo-fonte | Conclu├¡do (100%) Ô£à |
-| **M5** - Infra nuvem e seguran├ºa | Planejado (17%) ÔÅ│ |
-| **M6** - Release base est├ível | Planejado (40%) ÔÅ│ |
+| **M0** - Fundação do stack | Concluído (100%) ✅ |
+| **M1** - Jogabilidade núcleo | Concluído (100%) ✅ |
+| **M2** - Paridade de conteúdo 7.4 | Concluído (100%) ✅ |
+| **M3** - Server testável CI | Em andamento (50%) 🔧 |
+| **M4** - Client com código-fonte | Concluído (100%) ✅ |
+| **M5** - Infra nuvem e segurança | Planejado (17%) ⏳ |
+| **M6** - Release base estável | Planejado (40%) ⏳ |
 
 ---
 
-## ­ƒôï Roadmap e Issues
+## 📋 Roadmap e Issues
 
 Acompanhe os detalhes nas [Issues do GitHub](https://github.com/nosleirabr/Oteserver7.4/issues), organizadas por milestone e prioridade.
 
 | Label | Significado | Status |
 |-------|-------------|--------|
-| `P0-Critico` | Bloqueia jogabilidade - tratar imediatamente | Conclu├¡do (100%) Ô£à |
-| `P1-Grave` | Paridade necess├íria para base est├ível | Conclu├¡do (100%) Ô£à |
-| `P2-Moderado`| Importante mas n├úo bloqueia o milestone | Conclu├¡do (100%) Ô£à |
-| `P3-Melhoria`| Nice-to-have, icebox├ível | Conclu├¡do (100%) Ô£à |
+| `P0-Critico` | Bloqueia jogabilidade - tratar imediatamente | Concluído (100%) ✅ |
+| `P1-Grave` | Paridade necessária para base estável | Concluído (100%) ✅ |
+| `P2-Moderado`| Importante mas não bloqueia o milestone | Concluído (100%) ✅ |
+| `P3-Melhoria`| Nice-to-have, iceboxável | Concluído (100%) ✅ |
 
 ---
 
-## ­ƒôü Estrutura do Projeto
+## 📁 Estrutura do Projeto
 
 ```text
 Oteserver7.4/
-Ôö£ÔöÇÔöÇ client/       # Arquivos do cliente customizado
-Ôö£ÔöÇÔöÇ docker/       # Arquivos de configura├º├úo dos containers
-Ôö£ÔöÇÔöÇ maps/         # Mapa real aut├¬ntico e spawns
-Ôö£ÔöÇÔöÇ server/       # C├│digo-fonte C++, scripts Lua (TFS 1.2)
-ÔööÔöÇÔöÇ site/         # Arquivos web do MyAAC
+├── client/       # Arquivos do cliente customizado
+├── docker/       # Arquivos de configuração dos containers
+├── maps/         # Mapa real autêntico e spawns
+├── server/       # Código-fonte C++, scripts Lua (TFS 1.2)
+└── site/         # Arquivos web do MyAAC
 ```
 
 ---
 
-## ­ƒô£ Licen├ºa
+## 📜 Licença
 
 Projeto privado - uso interno exclusivo.
