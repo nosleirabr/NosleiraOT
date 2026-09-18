@@ -397,3 +397,4 @@ if($save && setting('core.account_create_character_create')) {
 }
 
 $twig->display('account.create.html.twig', $params);
+
