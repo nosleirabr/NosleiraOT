@@ -245,7 +245,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 		}
 
 		// SELECT query on database
-		$this->data = $this->db->query('SELECT `id`, ' . $nameOrNumber . '`password`, `email`, `rlname`, `location`, `country`, `web_flags`, ' . ($this->db->hasColumn('accounts', 'premdays') ? '`premdays`, ' : '') . ($this->db->hasColumn('accounts', 'lastday') ? '`lastday`, ' : ($this->db->hasColumn('accounts', 'premend') ? '`premend`,' : ($this->db->hasColumn('accounts', 'premium_ends_at') ? '`premium_ends_at`,' : ''))) . '`created`' . ($this->db->hasColumn('accounts', 'creation') ? ', `creation`' : '') . ' FROM `accounts` WHERE `id` = ' . (int) $id)->fetch();
+		$this->data = $this->db->query('SELECT `id`, ' . $nameOrNumber . '`password`, `email`, `rlname`, `location`, `country`, `web_flags`, ' . ($this->db->hasColumn('accounts', 'premdays') ? '`premdays`, ' : '') . ($this->db->hasColumn('accounts', 'lastday') ? '`lastday`, ' : ($this->db->hasColumn('accounts', 'premend') ? '`premend`,' : ($this->db->hasColumn('accounts', 'premium_ends_at') ? '`premium_ends_at`,' : ''))) . '`created` FROM `accounts` WHERE `id` = ' . (int) $id)->fetch();
 		self::$cache[$id] = $this->data;
 	}
 
@@ -493,13 +493,8 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 		{
 			throw new E_OTS_NotLoaded();
 		}
-		
-		$created = $this->data['created'];
-		if ($created == 0 && isset($this->data['creation']) && $this->data['creation'] != 0) {
-			$created = $this->data['creation'];
-		}
 
-		return $created;
+		return $this->data['created'];
 	}
 
 /**

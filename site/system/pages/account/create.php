@@ -45,9 +45,6 @@ $save = isset($_POST['save']) && $_POST['save'] == 1;
 if($save)
 {
 	if(!config('account_login_by_email')) {
-		if(!isset($_POST['account']) || empty($_POST['account'])) {
-			$_POST['account'] = mt_rand(100000, 999999); // Auto-generate 6-digit ID
-		}
 		if(USE_ACCOUNT_NAME) {
 			$account_name = $_POST['account'];
 		}
@@ -62,12 +59,17 @@ if($save)
 
 	// account
 	if(!config('account_login_by_email')) {
-		if (isset($account_id)) {
+		if(USE_ACCOUNT_NAME) {
+			if (!ctype_digit($account_name)) {
+				$errors['account'] = 'Para jogar no client 7.4, o Account Name deve conter apenas NUMEROS!';
+			} else if (!Validator::accountName($account_name)) {
+				$errors['account'] = Validator::getLastError();
+			}
+		} else {
 			if (!Validator::accountId($account_id)) {
 				$errors['account'] = Validator::getLastError();
 			}
-		} else if (!Validator::accountName($account_name))
-			$errors['account'] = Validator::getLastError();
+		}
 	}
 
 	// email
@@ -209,9 +211,6 @@ if($save)
 			$new_account->setCustomField('salt', $salt);
 
 		$new_account->setCustomField('created', time());
-		if (hasColumn('accounts', 'creation')) {
-			$new_account->setCustomField('creation', time());
-		}
 		$new_account->logAction('Account created.');
 
 		if(setting('core.account_country')) {
@@ -317,11 +316,8 @@ if($save)
 			if(setting('core.mail_enabled') && setting('core.account_welcome_mail'))
 			{
 				$mailBody = $twig->render('account.welcome_mail.html.twig', array(
-					'account' => $tmp_account,
-					'email' => $email
+					'account' => $tmp_account
 				));
-				
-				file_put_contents('emails.txt', "--- NEW EMAIL TO: " . $email . " ---\n" . $mailBody . "\n\n", FILE_APPEND);
 
 				if(_mail($email, 'Your account on ' . $config['lua']['serverName'], $mailBody))
 					echo '<br /><small>These informations were send on email address <b>' . $email . '</b>.';
@@ -397,4 +393,3 @@ if($save && setting('core.account_create_character_create')) {
 }
 
 $twig->display('account.create.html.twig', $params);
-
