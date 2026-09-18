@@ -438,12 +438,16 @@ foreach($config['menu_categories'] as $id => $cat) {
           <div id="RightArtwork">
             <img id="Monster" src="images/monsters/<?php echo logo_monster() ?>.gif" onClick="window.location = '?subtopic=creatures&creature=<?php echo $config['logo_monster'] ?>';" alt="Monster of the Week" />
             <img id="PedestalAndOnline" src="<?php echo $template_path; ?>/images/header/pedestal-and-online.gif" alt="Monster Pedestal and Players Online Box"/>
+          <style>@keyframes blinker { 50% { opacity: 0; } }</style>
           <div id="PlayersOnline" onClick="window.location = '<?php echo getLink('online'); ?>'">
 		  <?php
-			if($status['online'])
-				echo '<div id="players" style="display: inline;">' . $status['players'] . '</div><br>Players Online';
-			else
-				echo '<span style="color: red"><b>Server<br />OFFLINE</b></span>';
+			if(isset($config['server_maintenance']) && $config['server_maintenance']) {
+				echo '<span style="color: orange; font-size: 11px;"><b>SERVER<br />EM MANUTENÇÃO</b></span>';
+			} elseif($status['online']) {
+				echo '<div style="display: inline-block; width: 8px; height: 8px; background-color: #00ff00; border-radius: 50%; box-shadow: 0 0 5px #00ff00; animation: blinker 1s linear infinite; margin-right: 4px;"></div><div id="players" style="display: inline;">' . $status['players'] . '</div><br>Players Online';
+			} else {
+				echo '<span style="color: red"><b>SERVER<br />OFFLINE</b></span>';
+			}
 			?></div>
         </div>
 
@@ -460,8 +464,6 @@ foreach($config['menu_categories'] as $id => $cat) {
 				}
 			}
 
-	if($config['template_allow_change'])
-		 echo '<span style="color: white">Template:</span><br/>' . template_form();
  ?>
         </div>
       </div>

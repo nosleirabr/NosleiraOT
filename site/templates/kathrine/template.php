@@ -17,6 +17,7 @@ defined('MYAAC') or die('Direct access not allowed!');
 		<script type="text/javascript">
 			<?php require 'javascript.php'; ?>
 		</script>
+		<style>@keyframes blinker { 50% { opacity: 0; } }</style>
 		<?php echo template_place_holder('head_end'); ?>
 	</head>
 
@@ -89,13 +90,16 @@ defined('MYAAC') or die('Direct access not allowed!');
 							<td><a href="<?php echo getLink('news'); ?>"><?php echo $config['lua']['serverName']; ?></a> &raquo; <?php echo $title; ?></td>
 							<td>
 							<?php
-							if($status['online'])
-								echo '
+							if(isset($config['server_maintenance']) && $config['server_maintenance']) {
+								echo '<span style="color: orange;"><b>Server em Manutenção</b></span>';
+							} elseif($status['online']) {
+								echo '<div style="display: inline-block; width: 8px; height: 8px; background-color: #00ff00; border-radius: 50%; box-shadow: 0 0 5px #00ff00; animation: blinker 1s linear infinite; margin-right: 4px;"></div>' . '
 								<span style="color: green"><b>Server Online</b></span> &raquo;
 								Players Online: ' . $status['players'] . ' / ' . $status['playersMax'] . ' &raquo;
 								Monsters: ' . $status['monsters'] . ' &raquo; Uptime: ' . (isset($status['uptimeReadable']) ? $status['uptimeReadable'] : 'Unknown') . '';
-							else
+							} else {
 								echo '<span style="color: red"><b>Server Offline</b></span>';
+							}
 							?>
 							</td>
 						</tr>
@@ -109,10 +113,6 @@ defined('MYAAC') or die('Direct access not allowed!');
 			<div id="content-bot"></div>
 			<div id="copyrights">
 				<p><?php echo template_footer(); ?></p>
-<?php
-	if($config['template_allow_change'])
-		 echo '<span style="color: white">Template:</span><br/>' . template_form();
- ?>
 			</div>
 			<!-- End -->
 

@@ -103,6 +103,7 @@ if(count($menus) === 0) {
 				});
 			</script>
 
+		<style>@keyframes blinker { 50% { opacity: 0; } }</style>
 		<?php echo template_place_holder('head_end'); ?>
 	</head>
 
@@ -297,10 +298,13 @@ if(count($menus) === 0) {
 								<tr>
 									<td>Status:</td><td colspan=1>
 										<?php
-										if($status['online'])
-											echo '<span class="label label-success pull-right label-sm">Online</span>';
-										else
+										if(isset($config['server_maintenance']) && $config['server_maintenance']) {
+											echo '<span class="label label-warning pull-right label-sm" style="background-color: orange;">Manutenção</span>';
+										} elseif($status['online']) {
+											echo '<span class="label label-success pull-right label-sm"><div style="display: inline-block; width: 6px; height: 6px; background-color: #00ff00; border-radius: 50%; box-shadow: 0 0 5px #00ff00; animation: blinker 1s linear infinite; margin-right: 4px;"></div>Online</span>';
+										} else {
 											echo '<span class="label label-danger pull-right label-sm">Offline</span>';
+										}
 										?>
 									</td>
 								</tr>
