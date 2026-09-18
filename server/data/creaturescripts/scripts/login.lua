@@ -23,7 +23,7 @@ function onLogin(player)
 			timeZone = "CEST"
 		end
 
-		loginStr = string.format("Your last visit in " .. configManager.getString(configKeys.SERVER_NAME) .. ": %s " .. timeZone .. ".", os.date("%d. %b %Y %X", player:getLastLoginSaved()))
+		loginStr = string.format("Welcome to " .. configManager.getString(configKeys.SERVER_NAME) .. "! Your last visit was on %s " .. timeZone .. ".", os.date("%d. %b %Y %X", player:getLastLoginSaved()))
 	end
 	player:sendTextMessage(MESSAGE_STATUS_DEFAULT, loginStr)
 

@@ -39,11 +39,20 @@ local function creatureSayCallback(cid, type, msg)
     
     local player = Player(cid)
     if msgcontains(msg, "measurements") then
-        if player:getStorageValue(12456) >= 1 then
-            npcHandler:say("I think I should not tell you... but you leave me no choice. I am 1.83m and I weight... none of your business.", cid)
-            player:setStorageValue(12456, player:getStorageValue(12456) + 1)
-            npcHandler.topic[cid] = 0
+        local missionProgress = player:getStorageValue(12456)
+        if missionProgress >= 1 and missionProgress < 7 then
+            if player:getStorageValue(12465) < 1 then
+                -- Registra a medição individual da Liane
+                player:setStorageValue(12465, 1)
+                player:setStorageValue(12456, missionProgress + 1)
+                npcHandler:say("I think I should not tell you... but you leave me no choice. I am 1.83m and I weight... none of your business.", cid)
+            else
+                npcHandler:say("I already gave you my measurements!", cid)
+            end
+        else
+            npcHandler:say("I have nothing to measure.", cid)
         end
+        npcHandler.topic[cid] = 0
     end
     return true
 end

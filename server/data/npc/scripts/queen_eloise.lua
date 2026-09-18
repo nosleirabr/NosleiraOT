@@ -36,6 +36,13 @@ local function creatureSayCallback(cid, type, msg)
             npcHandler:say("Ok, whatever.", cid)
         end
         npcHandler:setTopic(cid, 0)
+    elseif msgcontains(msg, "uniform") then
+        if player:getStorageValue(12455) == 5 then
+            npcHandler:say("I remember about those uniforms, they had a camouflage inlay so they could be worn the inside out too. I will send some color samples via mail to Mr. Postner.", cid)
+            player:setStorageValue(12455, 6)
+        else
+            npcHandler:say("The uniforms of our guards and soldiers are of unparraleled quality of course.", cid)
+        end
     end
     return true
 end
@@ -52,11 +59,7 @@ npcHandler:setMessage(MESSAGE_GREET, "I greet thee, my loyal subject |PLAYERNAME
 npcHandler:setMessage(MESSAGE_FAREWELL, "Farewell.")
 npcHandler:setMessage(MESSAGE_WALKAWAY, "Farewell.")
 
-local uniformKeyword = keywordHandler:addKeyword({'uniform'}, StdModule.say, {npcHandler = npcHandler, text = 'I remember about those uniforms, they had a camouflage inlay so they could be worn the inside out too. I will send some color samples via mail to Mr. Postner.'},
-	function(player) return player:getStorageValue(12455) == 5 end,
-	function(player) player:setStorageValue(12455, 6) end
-)
-keywordHandler:addKeyword({'uniform'}, StdModule.say, {npcHandler = npcHandler, text = 'The uniforms of our guards and soldiers are of unparraleled quality of course.'})
+
 
 local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')

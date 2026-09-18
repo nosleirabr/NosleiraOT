@@ -34,6 +34,10 @@ keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text
 keywordHandler:addKeyword({'malor'}, StdModule.say, {npcHandler = npcHandler, text = 'Malor is the Efreets\' leader. He is perhaps not the strongest of all efreet, but his treachery and cruelty are certainly unrivalled. He was defeated a long, long time ago, but he was not killed. ...'})
 keywordHandler:addKeyword({'fate'}, StdModule.say, {npcHandler = npcHandler, text = 'Fate played a cruel trick on old Melchior. If you want me to, I can tell you my story - talking about one\'s grievances does help to ease the pain. So - would you like to hear my story?'})
 keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'My late father, may he rest in peace, chose to call me Melchior.'})
+keywordHandler:addKeyword({'greeting'}, StdModule.say, {npcHandler = npcHandler, text = 'If you want to talk to the Efreet, say \'djanni\'hah\'. If you want to talk to the Marid, say \'siam\'hassan\'.'})
+keywordHandler:addKeyword({'word'}, StdModule.say, {npcHandler = npcHandler, text = 'If you want to talk to the Efreet, say \'djanni\'hah\'. If you want to talk to the Marid, say \'siam\'hassan\'.'})
+keywordHandler:addKeyword({'djanni\'hah'}, StdModule.say, {npcHandler = npcHandler, text = 'That is the word of greeting for the Efreet. Use it wisely, or they will blast you to pieces!'})
+keywordHandler:addKeyword({'siam\'hassan'}, StdModule.say, {npcHandler = npcHandler, text = 'That is the word of greeting for the Marid. Use it to show respect when approaching them!'})
 keywordHandler:addKeyword({'ankrahmun'}, StdModule.say, {npcHandler = npcHandler, text = 'I hate this city. Period. I would never have come here, but I haven\'t had much of a choice. The caravan that picked me up in the Kha\'zeel was headed for this place, and I was glad enough they brought me here. ...'})
 
 local shopModule = ShopModule:new()

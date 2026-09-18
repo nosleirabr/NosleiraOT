@@ -122,4 +122,33 @@ public sealed class QuestContractTests
 		Assert.True(skullStaffChest != null, "Missing Skull Staff chest (uid 10027) in Drefia.");
 		Assert.True(blueBookChest != null, "Missing Blue Book chest (uid 10028) in Drefia.");
 	}
+
+	[Fact]
+	public void Quest_levers_for_major_74_quests_are_properly_wired()
+	{
+		int[] requiredActionIds = new[]
+		{
+			30016, // Annihilator Lever
+			50666, // Demon Helmet Quest Lever
+			30047, // Bright Sword Quest Lever
+			30030, // Paradox Tower Stairs Lever
+			30033, // Paradox Tower Magic Walls Lever
+			30041, // Banshee Logic Seal 1
+			30042, // Banshee Logic Seal 2
+			30043, // Banshee Logic Seal 3
+			30044, // Banshee Logic Seal 4
+			30045  // Banshee Logic Seal 5
+		};
+
+		var missing = new List<string>();
+		foreach (var aid in requiredActionIds)
+		{
+			if (!_catalog.Actions.TryResolve(uniqueId: 0, actionId: aid, out var handler) || !handler.ScriptExists)
+			{
+				missing.Add($"ActionId {aid} missing script handler in actions.xml");
+			}
+		}
+
+		Assert.True(missing.Count == 0, Failures.Format("Missing major quest lever handlers", missing));
+	}
 }

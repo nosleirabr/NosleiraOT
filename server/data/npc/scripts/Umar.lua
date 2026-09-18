@@ -9,7 +9,7 @@ function onThink()				npcHandler:onThink()					end
 
 local function greetCallback(cid, message)
 	local player = Player(cid)
-	if not msgcontains(message, 'djanni\'hah') and player:getStorageValue(51102) ~= 1 then
+	if not msgcontains(message, 'siam\'hassan') and not msgcontains(message, 'djanni\'hah') and player:getStorageValue(51102) ~= 1 then
 		npcHandler:say('Whoa! A human! This is no place for you, |PLAYERNAME|. Go and play somewhere else.', cid)
 		return false
 	end
@@ -93,5 +93,6 @@ local focusModule = FocusModule:new()
 focusModule:addGreetMessage('hi')
 focusModule:addGreetMessage('hello')
 focusModule:addGreetMessage('djanni\'hah')
+focusModule:addGreetMessage('siam\'hassan')
 npcHandler:addModule(focusModule)
 

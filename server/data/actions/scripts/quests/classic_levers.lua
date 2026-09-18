@@ -234,6 +234,7 @@ local levers = {
         onExecute = function(player, leverPos)
             local stairPositions = {
                 [14] = Position(32476, 31904, 7),
+                [7]  = Position(32476, 31904, 7),
                 [6]  = Position(32481, 31903, 6),
                 [5]  = Position(32479, 31904, 5),
                 [4]  = Position(32478, 31903, 4),
@@ -289,6 +290,11 @@ local levers = {
             name = "Banshee Logic Seal " .. i,
             toggle = false,
             onExecute = function(player, leverPos)
+                if player:getStorageValue(50006) >= 1 then
+                    player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You have already absorbed the energy of this seal.")
+                    return true
+                end
+
                 local storage = 30040
                 local warlockPos = {Position(32220, 31847, 15), Position(32221, 31847, 15)}
                 local leverIndex = i

@@ -20,7 +20,6 @@ keywordHandler:addKeyword({'dungeon'}, StdModule.say, {npcHandler = npcHandler, 
 keywordHandler:addKeyword({'magistrate'}, StdModule.say, {npcHandler = npcHandler, text = 'Thats me.'})
 keywordHandler:addKeyword({'farmer'}, StdModule.say, {npcHandler = npcHandler, text = 'The inhabitants of Fibula live on fishing, farming, and hunting.'})
 keywordHandler:addKeyword({'fibula'}, StdModule.say, {npcHandler = npcHandler, text = 'You are at Fibula. This isle is not very dangerous. Just the wolves bother outside the village.'})
-keywordHandler:addKeyword({'present'}, StdModule.say, {npcHandler = npcHandler, text = 'I don\'t understand what you are talking about.'})
 keywordHandler:addKeyword({'wolf'}, StdModule.say, {npcHandler = npcHandler, text = 'There are a lot of wolves outside the townwall. They disturb our farmers.'})
 
 local function creatureSayCallback(cid, type, msg)
@@ -31,9 +30,11 @@ local function creatureSayCallback(cid, type, msg)
 		npcHandler:say("Do you want to buy the dungeon key for 2000 gold?", cid)
 		npcHandler.topic[cid] = 2
 	elseif msgcontains(msg, "present") then
-		if player:getStorageValue(12454) == 2 then
-			npcHandler:say("You have a present for me?? Realy?", cid)
+		if player:getStorageValue(12454) == 1 then
+			npcHandler:say("You have a present for me?? Really?", cid)
 			npcHandler.topic[cid] = 1
+		else
+			npcHandler:say("I don't understand what you are talking about.", cid)
 		end
 	elseif msgcontains(msg, "yes") then
 		if npcHandler.topic[cid] == 1 then

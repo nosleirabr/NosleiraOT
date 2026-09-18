@@ -13,18 +13,33 @@ shopModule:addBuyableItem({'parcel'}, 2595, 15, 'parcel')
 shopModule:addBuyableItem({'letter'}, 2597, 8, 'letter')
 shopModule:addBuyableItem({'label'}, 2599, 1, 'label')
 
+local officerStorages = {
+    ["ben"] = 12462,
+    ["lokur"] = 12463,
+    ["dove"] = 12464,
+    ["liane"] = 12465,
+    ["chrystal"] = 12466,
+    ["olrik"] = 12467
+}
+
 local function creatureSayCallback(cid, type, msg)
     if not npcHandler:isFocused(cid) then return false end
     local player = Player(cid)
     
     if msgcontains(msg, "measurements") then
-        local mission = player:getStorageValue(40003)
-        if mission == 8 then
-            npcHandler:say("Oh, I don't know my measurements. You should just guess them.", cid)
-            -- A simplificação: o npc já deu a "measurement". 
-            -- Na quest original usava storage separada para cada um, mas para o M2 a key já indica progresso
-            -- Podemos apenas avançar o storage da mission principal para quem já pegou todos ou não, mas
-            -- a quest "Kevin" assume que pegou e avança para 9 na conversa dele, então aqui é só lore.
+        local missionProgress = player:getStorageValue(12456)
+        if missionProgress >= 1 and missionProgress < 7 then
+            local npcName = string.lower(Npc():getName())
+            local storageKey = officerStorages[npcName] or 12468
+            
+            if player:getStorageValue(storageKey) < 1 then
+                -- Registra medição individual do oficial e avança o progresso global da missão
+                player:setStorageValue(storageKey, 1)
+                player:setStorageValue(12456, missionProgress + 1)
+                npcHandler:say("Oh, I don't know my measurements. You should just guess them.", cid)
+            else
+                npcHandler:say("I already gave you my measurements!", cid)
+            end
         else
             npcHandler:say("I have nothing to measure.", cid)
         end
