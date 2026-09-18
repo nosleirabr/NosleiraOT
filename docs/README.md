@@ -10,6 +10,7 @@
 | [`MAP_AS_CODE_FLOW.md`](MAP_AS_CODE_FLOW.md) | YAML → bake → TFS (fluxo canônico) |
 | [`TESTING.md`](TESTING.md) | L1–L4, comandos no workspace |
 | [`GIT_WORKFLOW.md`](GIT_WORKFLOW.md) | Branch, MR, CI no GitLab |
+| [`guides/fork-and-variants.md`](guides/fork-and-variants.md) | Como forkar e criar variantes customizadas |
 
 ## Engenharia
 
