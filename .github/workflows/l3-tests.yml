@@ -1,0 +1,22 @@
+name: L3 Gameplay Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Run L3 Contract Tests
+      run: dotnet test server/tests/Ot74.Gameplay.Tests/Ot74.Gameplay.Tests.csproj --verbosity normal
