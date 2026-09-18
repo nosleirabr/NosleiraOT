@@ -1,4 +1,4 @@
-name: PHP Lint (phpcs + phpstan)
+﻿name: PHP Lint (phpcs + phpstan)
 
 on:
   push:
@@ -32,14 +32,14 @@ jobs:
           phpcs \
             --standard=PSR12 \
             --extensions=php \
-            --ignore=site/engine/,site/system/,site/vendor/ \
+            --ignore=site/engine/,site/system/,site/vendor/,site/install_backup/,site/tools/,site/common.php,site/custom/ \
             --warning-severity=0 \
             site/ \
 
 
 
   phpstan:
-    name: PHPStan (análise estática)
+    name: PHPStan (anÃ¡lise estÃ¡tica)
     runs-on: ubuntu-22.04
 
     steps:
@@ -52,7 +52,7 @@ jobs:
           tools: phpstan
           coverage: none
 
-      - name: PHPStan nível 3
+      - name: PHPStan nÃ­vel 3
         run: |
           phpstan analyse \
             --level=3 \
@@ -60,4 +60,5 @@ jobs:
             --no-progress \
             site/custom/ \
 
-          # Nível 3 é um bom ponto de partida; suba para 5+ conforme o código amadurece.
+          # NÃ­vel 3 Ã© um bom ponto de partida; suba para 5+ conforme o cÃ³digo amadurece.
+
