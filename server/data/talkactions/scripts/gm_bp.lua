@@ -1,3 +1,24 @@
+-- IDs das mochilas e itens de teste
+local ITEM_GAMEMASTER_BACKPACK = 2004 -- gamemaster backpack
+local ITEM_PURPLE_BACKPACK = 2001 -- purple backpack
+local ITEM_BLUE_BACKPACK = 2002 -- blue backpack
+local ITEM_GREEN_BACKPACK = 1998 -- green backpack
+local ITEM_GREY_BACKPACK = 2003 -- grey backpack
+local ITEM_RED_BACKPACK = 2000 -- red backpack
+local ITEM_YELLOW_BACKPACK = 1999 -- yellow backpack
+local ITEM_BACKPACK = 1988 -- backpack
+
+local ITEM_SD = 2268 -- sudden death rune
+local ITEM_UH = 2273 -- ultimate healing rune
+local ITEM_MW = 2293 -- magic wall rune
+local ITEM_DISINTEGRATE = 2310 -- disintegrate rune
+local ITEM_GFB = 2304 -- great fireball rune
+local ITEM_EXPLOSION = 2313 -- explosion rune
+
+local ITEM_VIAL = 2006 -- frasco (vial)
+local FLUID_MANA = 7 -- mana fluid (subtipo 7)
+local FLUID_LIFE = 10 -- life fluid (subtipo 10)
+
 -- Helper em portugues para adicionar mochila preenchida com runas
 local function addRuneBackpack(mainBp, bpId, runeId, chargesCount, amount)
 	local container = mainBp:addItem(bpId, 1)
@@ -21,9 +42,8 @@ local function addFluidBackpack(mainBp, bpId, fluidType, amount)
 		return nil
 	end
 
-	local vialId = ItemIds.CONTAINERS.VIAL -- 2006 (frasco de fluido)
 	for _ = 1, amount do
-		container:addItem(vialId, fluidType)
+		container:addItem(ITEM_VIAL, fluidType)
 	end
 	return container
 end
@@ -33,8 +53,14 @@ function onSay(player, words, param)
 		return true
 	end
 
-	-- Criar Mochila Principal do Game Master em memoria (ID 2004 - Gamemaster Backpack)
-	local mainBp = Game.createItem(ItemIds.CONTAINERS.GAMEMASTER_BACKPACK, 1)
+	-- Tenta colocar no inventario do jogador; se estiver cheio, cria direto no chao aos pes
+	local mainBp = player:addItem(ITEM_GAMEMASTER_BACKPACK, 1)
+	local isFloor = false
+	if not mainBp then
+		mainBp = Game.createItem(ITEM_GAMEMASTER_BACKPACK, 1, player:getPosition())
+		isFloor = true
+	end
+
 	if not mainBp then
 		player:sendCancelMessage("Erro ao criar a Gamemaster Backpack.")
 		return false
@@ -61,32 +87,30 @@ function onSay(player, words, param)
 	mainBp:addItem(2160, 100)
 
 	-- Mochila de SD (20x Sudden Death com 100 cargas cada)
-	addRuneBackpack(mainBp, ItemIds.CONTAINERS.PURPLE_BACKPACK, ItemIds.RUNES.SUDDEN_DEATH, 100, 20)
+	addRuneBackpack(mainBp, ITEM_PURPLE_BACKPACK, ITEM_SD, 100, 20)
 
 	-- Mochila de UH (20x Ultimate Healing com 100 cargas cada)
-	addRuneBackpack(mainBp, ItemIds.CONTAINERS.BLUE_BACKPACK, ItemIds.RUNES.ULTIMATE_HEALING, 100, 20)
+	addRuneBackpack(mainBp, ITEM_BLUE_BACKPACK, ITEM_UH, 100, 20)
 
 	-- Mochila de MW (20x Magic Wall com 100 cargas cada)
-	addRuneBackpack(mainBp, ItemIds.CONTAINERS.GREEN_BACKPACK, ItemIds.RUNES.MAGIC_WALL, 100, 20)
+	addRuneBackpack(mainBp, ITEM_GREEN_BACKPACK, ITEM_MW, 100, 20)
 
 	-- Mochila de Disintegrate (20x Disintegrate com 100 cargas cada)
-	addRuneBackpack(mainBp, ItemIds.CONTAINERS.GREY_BACKPACK, ItemIds.RUNES.DISINTEGRATE, 100, 20)
+	addRuneBackpack(mainBp, ITEM_GREY_BACKPACK, ITEM_DISINTEGRATE, 100, 20)
 
 	-- Mochila de GFB (20x Great Fireball com 100 cargas cada)
-	addRuneBackpack(mainBp, ItemIds.CONTAINERS.RED_BACKPACK, ItemIds.RUNES.GREAT_FIREBALL, 100, 20)
+	addRuneBackpack(mainBp, ITEM_RED_BACKPACK, ITEM_GFB, 100, 20)
 
 	-- Mochila de Explosion (20x Explosion com 100 cargas cada)
-	addRuneBackpack(mainBp, ItemIds.CONTAINERS.YELLOW_BACKPACK, ItemIds.RUNES.EXPLOSION, 100, 20)
+	addRuneBackpack(mainBp, ITEM_YELLOW_BACKPACK, ITEM_EXPLOSION, 100, 20)
 
 	-- Mochila de Mana Potion / Mana Fluid (20x Mana Fluids)
-	addFluidBackpack(mainBp, ItemIds.CONTAINERS.PURPLE_BACKPACK, ItemIds.FLUIDS.MANA, 20)
+	addFluidBackpack(mainBp, ITEM_PURPLE_BACKPACK, FLUID_MANA, 20)
 
 	-- Mochila de HP / Life Fluid (20x Life Fluids)
-	addFluidBackpack(mainBp, ItemIds.CONTAINERS.BACKPACK, ItemIds.FLUIDS.LIFE, 20)
+	addFluidBackpack(mainBp, ITEM_BACKPACK, FLUID_LIFE, 20)
 
-	-- Tentar adicionar ao inventario do jogador; se nao houver espaco/cap, cai no chao aos pes do jogador
-	if player:addItemEx(mainBp) ~= RETURNVALUE_NOERROR then
-		mainBp:moveTo(player:getPosition())
+	if isFloor then
 		player:sendTextMessage(MESSAGE_INFO_DESCR, "Kit GM criado no chao aos seus pes (inventario cheio)!")
 	else
 		player:sendTextMessage(MESSAGE_INFO_DESCR, "Kit completo de GM recebido no inventario com sucesso!")
