@@ -5,7 +5,7 @@ internal static class RepoPaths
 	public static string Root { get; } = FindRoot();
 
 	public static string Maps => Path.Combine(Root, "maps");
-	public static string Data => Path.Combine(Root, "server", "server", "data");
+	public static string Data => Path.Combine(Root, "server", "data");
 	public static string Otbm => Path.Combine(Maps, "world.otbm");
 	public static string BakedOtbm => Path.Combine(Maps, "build", "world.otbm");
 

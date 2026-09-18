@@ -1,4 +1,4 @@
-services:
+﻿services:
   mysql:
     image: mariadb:10.11
     command: ["--skip-name-resolve", "--innodb-buffer-pool-size=256M", "--innodb-flush-log-at-trx-commit=2"]
@@ -9,7 +9,7 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-ot74}
       MYSQL_USER: ${MYSQL_USER:-ot74}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:?MYSQL_PASSWORD must be set in .env}
-    # Banco de dados apenas acessível internamente; MYSQL_PUBLISH_ADDR=127.0.0.1 no .env para acesso local via ferramentas
+    # Banco de dados apenas acessÃ­vel internamente; MYSQL_PUBLISH_ADDR=127.0.0.1 no .env para acesso local via ferramentas
     ports:
       - "${MYSQL_PUBLISH_ADDR:-127.0.0.1}:${MYSQL_PUBLISH_PORT:-3306}:3306"
     volumes:
@@ -100,9 +100,43 @@ services:
     networks:
       - ot-network
 
+
+  loki:
+    image: grafana/loki:latest
+    container_name: ot74-loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./docker/loki-config.yml:/etc/loki/local-config.yaml
+    networks:
+      - ot-network
+
+  promtail:
+    image: grafana/promtail:latest
+    container_name: ot74-promtail
+    volumes:
+      - ./docker/promtail-config.yml:/etc/promtail/config.yml
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - ot-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: ot74-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./docker/grafana/provisioning:/etc/grafana/provisioning
+    networks:
+      - ot-network
+
 networks:
   ot-network:
     driver: bridge
 
 volumes:
   mysql_data:
+

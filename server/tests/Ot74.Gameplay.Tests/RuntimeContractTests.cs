@@ -31,6 +31,28 @@ public sealed class RuntimeContractTests
 		Assert.NotNull(session);
 	}
 
+		[L4Fact]
+	public async Task God_can_move_and_cast_spell()
+	{
+		await L4Host.EnsureReadyAsync();
+		using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(2));
+		using var god = await GameSession.EnterAsync(
+			L4Host.LoginHost, L4Host.GamePort, TestAccounts.GodAccount, TestAccounts.Password, TestAccounts.GodName, cts.Token);
+		
+		await god.DrainAsync(TimeSpan.FromMilliseconds(500), cts.Token);
+		
+		// Move North
+		await god.WalkAsync(0, cts.Token);
+		await Task.Delay(200, cts.Token);
+		
+		// Cast spell (Combat)
+		await god.SayAsync("exura", cts.Token);
+		
+		// Drain and ensure still connected
+		await god.DrainAsync(TimeSpan.FromMilliseconds(500), cts.Token);
+		Assert.NotNull(god);
+	}
+
 	[L4Fact]
 	public async Task God_can_gotopos_a_harbour()
 	{
@@ -219,3 +241,4 @@ public sealed class RuntimeContractTests
 			+ string.Join("\n", notes));
 	}
 }
+

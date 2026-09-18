@@ -35,7 +35,10 @@ internal static class RepoPaths
 
 		return path;
 	}
-	public static string SpawnXml => File.Exists(Path.Combine(Maps, "build", "world-spawn.xml")) ? Path.Combine(Maps, "build", "world-spawn.xml") : Path.Combine(Maps, "world-spawn.xml");
+	public static string SpawnXml =>
+		File.Exists(Path.Combine(Maps, "build", "world-spawn.xml"))
+			? Path.Combine(Maps, "build", "world-spawn.xml")
+			: Path.Combine(Maps, "world-spawn.xml");
 	public static string HouseXml => Path.Combine(Maps, "world-house.xml");
 	public static string ItemsXml => Path.Combine(Data, "items", "items.xml");
 	public static string OutfitsXml => Path.Combine(Data, "XML", "outfits.xml");

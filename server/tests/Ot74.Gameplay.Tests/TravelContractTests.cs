@@ -59,4 +59,28 @@ public sealed class TravelContractTests
 
 		Assert.True(free.Count == 0, Failures.Format("StdModule.travel without premium = true (free accounts would sail)", free));
 	}
+
+	/// <summary>
+	/// Todas as cidades principais do 7.4 devem ter rotas de barco.
+	/// </summary>
+	[Fact]
+	public void Major_74_cities_have_travel_routes()
+	{
+		var connectedHarbours = _catalog.TravelRoutes
+			.Select(r => r.HarbourName)
+			.ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+		// Harbours obrigatórios no 7.4
+		var requiredHarbours = new[]
+		{
+			"Thais", "Carlin", "Venore", "Edron",
+			"abdendriel", "Darashia"
+		};
+
+		var missing = requiredHarbours
+			.Where(h => !connectedHarbours.Contains(h))
+			.ToList();
+
+		Assert.True(missing.Count == 0, Failures.Format("Major 7.4 cities missing travel routes", missing));
+	}
 }

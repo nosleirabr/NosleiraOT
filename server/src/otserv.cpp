@@ -1,4 +1,4 @@
-/**
+﻿/**
  * The Forgotten Server - a free and open-source MMORPG server emulator
  * Copyright (C) 2016  Mark Samman <mark.samman@gmail.com>
  *
@@ -20,6 +20,7 @@
 #include "otpch.h"
 
 #include "server.h"
+#include "logger.h"
 
 #include "game.h"
 
@@ -92,7 +93,8 @@ int main(int argc, char* argv[])
 	g_loaderSignal.wait(g_loaderUniqueLock);
 
 	if (serviceManager.is_running()) {
-		std::cout << ">> " << g_config.getString(ConfigManager::SERVER_NAME) << " Server Online!" << std::endl << std::endl;
+		std::cout << " >> " << g_config.getString(ConfigManager::SERVER_NAME) << " Server Online!" << std::endl << std::endl;
+		Logger::logServerStart();
 #ifdef _WIN32
 		SetConsoleCtrlHandler([](DWORD) -> BOOL {
 			g_dispatcher.addTask(createTask([]() {
@@ -107,6 +109,7 @@ int main(int argc, char* argv[])
 		}, 1);
 #endif
 		serviceManager.run();
+		Logger::logServerStop();
 	} else {
 		std::cout << ">> No services running. The server is NOT online." << std::endl;
 		g_scheduler.shutdown();
@@ -319,3 +322,6 @@ void mainLoader(int, char*[], ServiceManager* services)
 	g_game.setGameState(GAME_STATE_NORMAL);
 	g_loaderSignal.notify_all();
 }
+
+
+

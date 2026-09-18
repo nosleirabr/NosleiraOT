@@ -1,0 +1,40 @@
+name: L4 Protocol E2E (Nightly / Opt-in)
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # 3 AM UTC every day
+  workflow_dispatch: # Opt-in manual trigger
+
+jobs:
+  test-l4:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Build tests
+      run: dotnet build server/tests/Ot74.Gameplay.Tests/Ot74.Gameplay.Tests.csproj
+
+    - name: Start Docker Stack
+      run: docker compose up -d
+
+    - name: Wait for Server Ready
+      run: |
+        echo "Waiting for TFS to be ready..."
+        # L4 tests connect to 7172 (login) and 7171 (game). The tests themselves have a retry loop in L4Host.EnsureReadyAsync
+        # but we can give it a little time here to make sure container is up.
+        sleep 10
+
+    - name: Run L4 Protocol Tests
+      env:
+        OT74_L4: "1"
+      run: dotnet test server/tests/Ot74.Gameplay.Tests/Ot74.Gameplay.Tests.csproj --no-build --verbosity normal
+
+    - name: Docker Logs on Failure
+      if: failure()
+      run: docker compose logs
