@@ -129,6 +129,10 @@ public sealed class QuestContractTests
 		int[] requiredActionIds = new[]
 		{
 			30016, // Annihilator Lever
+
+
+			30017, // Desert Quest Lever
+
 			50666, // Demon Helmet Quest Lever
 			30047, // Bright Sword Quest Lever
 			30030, // Paradox Tower Stairs Lever
@@ -151,4 +155,8 @@ public sealed class QuestContractTests
 
 		Assert.True(missing.Count == 0, Failures.Format("Missing major quest lever handlers", missing));
 	}
+
+
+
+
 }
