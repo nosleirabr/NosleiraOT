@@ -74,7 +74,7 @@
 				<thead>
 				<th>Name</th>
 				<th>Words</th>
-				<th>Level</th>
+				<th>Magic Level</th>
 				<th>Mana</th>
 				<th>Vocations</th>
 				</thead>
@@ -88,7 +88,7 @@
 						<tr>
 							<td>{{ spell.name }}</td>
 							<td>{{ spell.words }}</td>
-							<td>{{ spell.level }}</td>
+							<td>{{ spell.maglevel }}</td>
 							<td>{{ spell.mana }}</td>
 							<td>
 								{% if spell.vocations|length > 0 %}
@@ -108,9 +108,8 @@
 				<thead>
 				<th>Name</th>
 				<th>Words</th>
-				<th>Level</th>
+				<th>Magic Level</th>
 				<th>Mana</th>
-				<th>Soul</th>
 				<th>Item</th>
 				<th>Reagent</th>
 				<th>Vocations</th>
@@ -125,9 +124,8 @@
 						<tr>
 							<td>{{ spell.name }}</td>
 							<td>{{ spell.words }}</td>
-							<td>{{ spell.level }}</td>
+							<td>{{ spell.maglevel }}</td>
 							<td>{{ spell.mana }}</td>
-							<td>{{ spell.soul }}</td>
 							<td>
 								<small>
 									{% if (spell.conjure_count < 150) and ( spell.conjure_count > 0) %} {{ spell.conjure_count }}x
@@ -157,7 +155,6 @@
 			<table id="tb_runeSpells">
 				<thead>
 				<th>Name</th>
-				<th>Level</th>
 				<th>Magic Level</th>
 				<th>Item</th>
 				<th>Vocations</th>
@@ -171,7 +168,6 @@
 						{% set y = y + 1 %}
 						<tr>
 							<td>{{ spell.name }}</td>
-							<td>{{ spell.level }}</td>
 							<td>{{ spell.maglevel }}</td>
 							<td><img src="{{ item_path }}/{{ spell.item_id }}.gif"
 									 width="32" height="32" border="0"
