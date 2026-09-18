@@ -1,4 +1,4 @@
-/**
+﻿/**
  * The Forgotten Server - a free and open-source MMORPG server emulator
  * Copyright (C) 2016  Mark Samman <mark.samman@gmail.com>
  *
@@ -20,6 +20,8 @@
 #include "otpch.h"
 
 #include "protocollogin.h"
+#include "logger.h"
+#include "tools.h"
 
 #include "outputmessage.h"
 #include "tasks.h"
@@ -57,6 +59,11 @@ void ProtocolLogin::getCharacterList(uint32_t accountName, const std::string& pa
 
 	Account account;
 	if (!IOLoginData::loginserverAuthentication(accountName, password, account)) {
+		std::string ipStr = "unknown";
+		if (auto connection = getConnection()) {
+			ipStr = convertIPToString(connection->getIP());
+		}
+		Logger::logLogin(std::to_string(accountName), ipStr, false, "Account name or password is not correct");
 		disconnectClient("Account name or password is not correct.");
 		return;
 	}
@@ -64,6 +71,12 @@ void ProtocolLogin::getCharacterList(uint32_t accountName, const std::string& pa
 	auto output = OutputMessagePool::getOutputMessage();
 	//Update premium days
 	Game::updatePremium(account);
+
+	std::string ipStr = "unknown";
+	if (auto connection = getConnection()) {
+		ipStr = convertIPToString(connection->getIP());
+	}
+	Logger::logLogin(std::to_string(accountName), ipStr, true, "Login successful");
 
 	const std::string& motd = g_config.getString(ConfigManager::MOTD);
 	if (!motd.empty()) {
@@ -179,3 +192,4 @@ void ProtocolLogin::onRecvFirstMessage(NetworkMessage& msg)
 	auto thisPtr = std::dynamic_pointer_cast<ProtocolLogin>(shared_from_this());
 	g_dispatcher.addTask(createTask(std::bind(&ProtocolLogin::getCharacterList, thisPtr, accountName, password)));
 }
+
