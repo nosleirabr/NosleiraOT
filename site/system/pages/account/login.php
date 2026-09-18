@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Login
  *
@@ -74,6 +74,7 @@ if(!empty($login_account) && !empty($login_password))
 			}
 
 			$hooks->trigger(HOOK_LOGIN, array('account' => $account_logged, 'password' => $login_password, 'remember_me' => $remember_me));
+				file_put_contents('php://stderr', json_encode(['time' => date('Y-m-d\TH:i:s\Z'), 'event' => 'login_attempt', 'account' => $account_logged->getName(), 'ip' => $ip, 'status' => 'success']) . "\n");
 		}
 
 		$limiter->reset($ip);
@@ -81,6 +82,7 @@ if(!empty($login_account) && !empty($login_password))
 	else
 	{
 		$hooks->trigger(HOOK_LOGIN_ATTEMPT, array('account' => $login_account, 'password' => $login_password, 'remember_me' => $remember_me));
+				file_put_contents('php://stderr', json_encode(['time' => date('Y-m-d\TH:i:s\Z'), 'event' => 'login_attempt', 'account' => $login_account, 'ip' => $ip, 'status' => 'failed']) . "\n");
 
 		$errorMessage = getAccountLoginByLabel() . ' or password is not correct.';
 		$limiter->increment($ip);
@@ -96,6 +98,7 @@ else {
 	$errors[] = 'Please enter your ' . getAccountLoginByLabel() . ' and password.';
 
 	$hooks->trigger(HOOK_LOGIN_ATTEMPT, array('account' => $login_account, 'password' => $login_password, 'remember_me' => $remember_me));
+				file_put_contents('php://stderr', json_encode(['time' => date('Y-m-d\TH:i:s\Z'), 'event' => 'login_attempt', 'account' => $login_account, 'ip' => $ip, 'status' => 'failed']) . "\n");
 }
 
 $hooks->trigger(HOOK_ACCOUNT_LOGIN_POST);
@@ -104,3 +107,5 @@ if($logged) {
 	$twig->addGlobal('logged', true);
 	$twig->addGlobal('account_logged', $account_logged);
 }
+
+
