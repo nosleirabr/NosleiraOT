@@ -63,10 +63,10 @@ Acompanhe nossa jornada de desenvolvimento até o lançamento da base estável.
 | **M0** - Fundação do stack | Concluído (100%) ✅ |
 | **M1** - Jogabilidade núcleo | Concluído (100%) ✅ |
 | **M2** - Paridade de conteúdo 7.4 | Concluído (100%) ✅ |
-| **M3** - Server testável CI | Planejado (0%) ⏳ |
-| **M4** - Client com código-fonte | Planejado (0%) ⏳ |
-| **M5** - Infra nuvem e segurança | Planejado (0%) ⏳ |
-| **M6** - Release base estável | Planejado (0%) ⏳ |
+| **M3** - Server testável CI | Em andamento (50%) 🔧 |
+| **M4** - Client com código-fonte | Concluído (100%) ✅ |
+| **M5** - Infra nuvem e segurança | Planejado (17%) ⏳ |
+| **M6** - Release base estável | Planejado (40%) ⏳ |
 
 ---
 
