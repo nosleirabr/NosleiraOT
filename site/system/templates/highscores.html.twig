@@ -57,12 +57,12 @@
 						{% endif %}
 
 						<td>
-							{% if setting('core.account_country') %}
-								{{ player.flag|raw }}
-							{% endif %}
 							<a href="{{ player.link }}">
 								<span {% if setting('core.highscores_online_status') %}style="color: {% if player.online > 0 %}green{% else %}red{% endif %}"{% endif %}>{{ player.name }}</span>
 							</a>
+							{% if setting('core.account_country') %}
+								{{ player.flag|raw }}
+							{% endif %}
 							{% if setting('core.highscores_vocation') %}
 							<br/><small>{{ player.vocation }}</small>
 							{% endif %}
