@@ -442,11 +442,11 @@ foreach($config['menu_categories'] as $id => $cat) {
           <div id="PlayersOnline" onClick="window.location = '<?php echo getLink('online'); ?>'">
 		  <?php
 			if(isset($config['server_maintenance']) && $config['server_maintenance']) {
-				echo '<span style="color: orange; font-size: 11px;"><b>SERVER<br />EM MANUTENÇÃO</b></span>';
+				echo '<span style="color: orange; font-size: 12px;"><b>Server<br />em Manutenção</b></span>';
 			} elseif($status['online']) {
 				echo '<div style="display: inline-block; width: 8px; height: 8px; background-color: #00ff00; border-radius: 50%; box-shadow: 0 0 5px #00ff00; animation: blinker 1s linear infinite; margin-right: 4px;"></div><div id="players" style="display: inline;">' . $status['players'] . '</div><br>Players Online';
 			} else {
-				echo '<span style="color: red"><b>SERVER<br />OFFLINE</b></span>';
+				echo '<span style="color: red"><b>Server<br />Offline</b></span>';
 			}
 			?></div>
         </div>
