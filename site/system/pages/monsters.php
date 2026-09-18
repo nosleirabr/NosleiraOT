@@ -102,6 +102,11 @@ function getMonsterImage($monster): string
 		return setting('core.item_images_url') . $outfit['typeEx'] . setting('core.item_images_extension');
 	}
 
+	$localPath = getMonsterImgPath($monster['name']);
+	if (strpos($localPath, 'nophoto.png') === false) {
+		return $localPath;
+	}
+
 	if (isset($outfit['type'])) {
 		$getValue = function ($val) use ($outfit) {
 			return (!empty($outfit[$val])
@@ -111,7 +116,7 @@ function getMonsterImage($monster): string
 		return setting('core.outfit_images_url') . '?id=' . $outfit['type'] . $getValue('addons') . $getValue('head') . $getValue('body') . $getValue('legs') . $getValue('feet');
 	}
 
-	return getMonsterImgPath($monster['name']);
+	return $localPath;
 }
 
 function getMonsterImgPath($name): string
