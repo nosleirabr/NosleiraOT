@@ -30,6 +30,38 @@ if(setting('core.account_create_character_create')) {
 	$createCharacter = new CreateCharacter();
 }
 
+if(!function_exists('verifyCloudflareTurnstile')) {
+	function verifyCloudflareTurnstile($secret, $response, $ip = null) {
+		if(empty($secret) || empty($response)) {
+			return false;
+		}
+		$url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+		$data = [
+			'secret' => $secret,
+			'response' => $response,
+		];
+		if(!empty($ip)) {
+			$data['remoteip'] = $ip;
+		}
+
+		$options = [
+			'http' => [
+				'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+				'method'  => 'POST',
+				'content' => http_build_query($data),
+				'timeout' => 5
+			]
+		];
+		$context  = stream_context_create($options);
+		$result = @file_get_contents($url, false, $context);
+		if($result === false) {
+			return false;
+		}
+		$json = json_decode($result, true);
+		return isset($json['success']) && $json['success'] === true;
+	}
+}
+
 $account_type = 'number';
 if (config('account_login_by_email')) {
 	$account_type = 'Email Address';
@@ -44,12 +76,30 @@ $errors = array();
 $save = isset($_POST['save']) && $_POST['save'] == 1;
 if($save)
 {
+	$turnstileSecret = config('cloudflare_turnstile_secret');
+	if(!empty($turnstileSecret)) {
+		$turnstileResponse = $_POST['cf-turnstile-response'] ?? '';
+		if(!verifyCloudflareTurnstile($turnstileSecret, $turnstileResponse, get_browser_real_ip())) {
+			$errors['captcha'] = 'Validação de Captcha incorreta. Por favor, tente novamente.';
+		}
+	}
+
 	if(!config('account_login_by_email')) {
+		$account_db_check = new OTS_Account();
 		if(USE_ACCOUNT_NAME) {
-			$account_name = $_POST['account'];
+			$account_id = mt_rand(100000, 999999);
+			while($account_db_check->find((string)$account_id)->isLoaded()) {
+				$account_id = mt_rand(100000, 999999);
+			}
+			$account_name = (string)$account_id;
+			$_POST['account'] = $account_name;
 		}
 		else {
-			$account_id = $_POST['account'];
+			$account_id = mt_rand(100000, 999999);
+			while($account_db_check->load($account_id)->isLoaded()) {
+				$account_id = mt_rand(100000, 999999);
+			}
+			$_POST['account'] = $account_id;
 		}
 	}
 
@@ -58,19 +108,7 @@ if($save)
 	$password_confirm = $_POST['password_confirm'];
 
 	// account
-	if(!config('account_login_by_email')) {
-		if(USE_ACCOUNT_NAME) {
-			if (!ctype_digit($account_name)) {
-				$errors['account'] = 'Para jogar no client 7.4, o Account Name deve conter apenas NUMEROS!';
-			} else if (!Validator::accountName($account_name)) {
-				$errors['account'] = Validator::getLastError();
-			}
-		} else {
-			if (!Validator::accountId($account_id)) {
-				$errors['account'] = Validator::getLastError();
-			}
-		}
-	}
+	// Account Number is auto-generated as a 6-digit integer for Tibia 7.4 fidelity.
 
 	// email
 	if(!Validator::email($email))
@@ -213,9 +251,8 @@ if($save)
 		$new_account->setCustomField('created', time());
 		$new_account->logAction('Account created.');
 
-		if(setting('core.account_country')) {
-			$new_account->setCustomField('country', $country);
-		}
+		$accountCountry = (!empty($country) ? $country : 'br');
+		$new_account->setCustomField('country', strtolower($accountCountry));
 
 		$accountDefaultPremiumPoints = setting('core.account_premium_points');
 		if($accountDefaultPremiumPoints > 0) {
@@ -261,9 +298,7 @@ if($save)
 
 				$twig->display('success.html.twig', array(
 					'title' => 'Account Created',
-					'description' => 'Your account ' . $account_type . ' is <b>' . $tmp_account . '</b><br/>You will need the account ' . $account_type . ' and your password to play on ' . configLua('serverName') . '.
-						Please keep your account ' . $account_type . ' and password in a safe place and
-						never give your account ' . $account_type . ' or password to anybody.',
+					'description' => 'Your account has been created successfully.<br/><br/><strong>Your Account Number is: <span style="font-size: 18px; color: #00aa00;">' . $tmp_account . '</span></strong><br/><br/>You will need this Account Number and your password to play on ' . configLua('serverName') . '.<br/>Please keep your Account Number and password in a safe place!',
 					'custom_buttons' => setting('core.account_create_character_create') ? '' : null
 				));
 			}
@@ -307,9 +342,7 @@ if($save)
 			echo ' See you in Tibia!<br/><br/>';
 			$twig->display('success.html.twig', array(
 				'title' => 'Account Created',
-				'description' => 'Your account ' . $account_type . ' is <b>' . $tmp_account . '</b><br/>You will need the account ' . $account_type . ' and your password to play on ' . configLua('serverName') . '.
-						Please keep your account ' . $account_type . ' and password in a safe place and
-						never give your account ' . $account_type . ' or password to anybody.',
+				'description' => 'Your account has been created successfully.<br/><br/><strong>Your Account Number is: <span style="font-size: 18px; color: #00aa00;">' . $tmp_account . '</span></strong><br/><br/>You will need this Account Number and your password to play on ' . configLua('serverName') . '.<br/>Please keep your Account Number and password in a safe place!',
 				'custom_buttons' => setting('core.account_create_character_create') ? '' : null
 			));
 

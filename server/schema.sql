@@ -352,4 +352,11 @@ INSERT IGNORE INTO `accounts` (`id`, `name`, `password`, `type`, `premdays`, `la
 (1, '1', '356a192b7913b04c54574d18c28d46e6395428ab', 6, 65535, 0, '', 0);
 
 INSERT IGNORE INTO `players` (`id`, `name`, `group_id`, `account_id`, `level`, `vocation`, `health`, `healthmax`, `experience`, `lookbody`, `lookfeet`, `lookhead`, `looklegs`, `looktype`, `lookaddons`, `maglevel`, `mana`, `manamax`, `manaspent`, `soul`, `town_id`, `posx`, `posy`, `posz`, `conditions`, `cap`, `sex`, `lastlogin`, `lastip`, `save`, `skull`, `skulltime`, `lastlogout`, `blessings`, `onlinetime`, `deletion`, `balance`) VALUES 
-(100, 'Rook Sample', 1, 1, 1, 0, 150, 150, 0, 68, 76, 78, 58, 128, 0, 0, 0, 0, 0, 100, 1, 32097, 32219, 7, '', 400, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+(100, 'Rook Sample', 1, 1, 1, 0, 150, 150, 0, 68, 76, 78, 58, 128, 0, 0, 0, 0, 0, 100, 1, 32097, 32219, 7, '', 400, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0),
+(101, '[GOD] Nosleira', 6, 1, 999, 0, 999999, 999999, 165662650000, 68, 76, 78, 58, 75, 0, 999, 999999, 999999, 0, 200, 1, 32097, 32219, 7, '', 999999, 1, 0, 0, 1, 0, 0, 0, 31, 0, 0, 0),
+(102, 'Sorcerer Sample', 1, 1, 8, 1, 185, 185, 4200, 68, 76, 78, 58, 128, 0, 0, 90, 90, 0, 100, 1, 32097, 32219, 7, '', 470, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0),
+(103, 'Druid Sample', 1, 1, 8, 2, 185, 185, 4200, 68, 76, 78, 58, 128, 0, 0, 90, 90, 0, 100, 1, 32097, 32219, 7, '', 470, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0),
+(104, 'Paladin Sample', 1, 1, 8, 3, 185, 185, 4200, 68, 76, 78, 58, 128, 0, 0, 90, 90, 0, 100, 1, 32097, 32219, 7, '', 470, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0),
+(105, 'Knight Sample', 1, 1, 8, 4, 185, 185, 4200, 68, 76, 78, 58, 128, 0, 0, 90, 90, 0, 100, 1, 32097, 32219, 7, '', 470, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+
+UPDATE `players` SET `skill_fist` = 999, `skill_club` = 999, `skill_sword` = 999, `skill_axe` = 999, `skill_dist` = 999, `skill_shielding` = 999, `skill_fishing` = 999 WHERE `id` = 101;

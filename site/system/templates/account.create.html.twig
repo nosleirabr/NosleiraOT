@@ -19,7 +19,7 @@
 								{{ hook('HOOK_ACCOUNT_CREATE_BEFORE_ACCOUNT') }}
 
 								{% if not config.account_login_by_email %}
-								<tr>
+								<tr style="display:none;">
 									<td class="LabelV" style="width: 150px">
 										<span{% if errors.account is defined %} class="red"{% endif %}>Account {% if constant('USE_ACCOUNT_NAME') %}Name{% else %}Number{% endif %}:</span>
 										{% if not constant('USE_ACCOUNT_NAME') %}
@@ -27,19 +27,19 @@
 										{% endif %}
 									</td>
 									<td>
-										<input type="text" name="account" id="account_input" size="30" maxlength="{% if constant('USE_ACCOUNT_NAME') %}30{% else %}10{% endif %}" value="{{ account }}" autofocus/>
+										<input type="text" name="account" id="account_input" size="30" maxlength="{% if constant('USE_ACCOUNT_NAME') %}30{% else %}10{% endif %}" value="{{ account }}"/>
 										<img id="account_indicator" src="images/global/general/{% if not save or errors.account is defined %}n{% endif %}ok.gif" style="display: none;" />
 									</td>
 								</tr>
+								<tr style="display:none;"><td></td><td><span id="account_error" class="FormFieldError">{% if errors.account is defined %}{{ errors.account }}{% endif %}</span></td></tr>
 								{% endif %}
-								<tr><td></td><td><span id="account_error" class="FormFieldError">{% if errors.account is defined %}{{ errors.account }}{% endif %}</span></td></tr>
 								{{ hook('HOOK_ACCOUNT_CREATE_AFTER_ACCOUNT') }}
 								<tr>
 									<td class="LabelV" style="width: 150px">
 										<span{% if errors.email is defined %} class="red"{% endif %}>Email Address:</span>
 									</td>
 									<td>
-										<input type="text" name="email" id="email" size="30" maxlength="50" value="{{ email }}" />
+										<input type="text" name="email" id="email" size="30" maxlength="50" value="{{ email }}" autofocus/>
 										<img id="email_indicator" src="images/global/general/{% if not save or errors.email is defined %}n{% endif %}ok.gif" style="display: none;" />
 									</td>
 								</tr>
@@ -293,8 +293,20 @@
 	{% endset %}
 	{% include 'tables.headline.html.twig' %}
 
-	<br/>
-	{{ hook('HOOK_ACCOUNT_CREATE_BEFORE_SUBMIT_BUTTON') }}
+	{% if config('cloudflare_turnstile_sitekey') %}
+	<table width="100%" style="margin-bottom: 10px;">
+		<tr align="center">
+			<td>
+				<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+				<div class="cf-turnstile" data-sitekey="{{ config('cloudflare_turnstile_sitekey') }}"></div>
+				{% if errors.captcha is defined %}
+					<span class="FormFieldError">{{ errors.captcha }}</span>
+				{% endif %}
+			</td>
+		</tr>
+	</table>
+	{% endif %}
+
 	<table width="100%">
 		<tr align="center">
 			<td>

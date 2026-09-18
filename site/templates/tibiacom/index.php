@@ -7,9 +7,10 @@ if(isset($config['boxes']))
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<?php echo template_place_holder('head_start'); ?>
-	<link rel="shortcut icon" href="<?php echo $template_path; ?>/images/favicon.ico" type="image/x-icon" />
-	<link rel="icon" href="<?php echo $template_path; ?>/images/favicon.ico" type="image/x-icon" />
-	<link href="<?php echo $template_path; ?>/basic.css" rel="stylesheet" type="text/css" />
+	<link rel="shortcut icon" href="<?php echo $template_path; ?>/images/favicon.ico?v=noslerat4" type="image/x-icon" />
+	<link rel="icon" type="image/png" href="<?php echo $template_path; ?>/images/favicon.png?v=noslerat4" />
+	<link rel="icon" href="<?php echo $template_path; ?>/images/favicon.ico?v=noslerat4" type="image/x-icon" />
+	<link href="<?php echo $template_path; ?>/basic.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="tools/basic.js"></script>
 	<script type="text/javascript" src="<?php echo $template_path; ?>/ticker.js"></script>
 
@@ -432,19 +433,18 @@ foreach($config['menu_categories'] as $id => $cat) {
   </div>
            </div>
           </div>
-          <div id="Footer"><?php echo template_footer(); ?><br/>Layout by CipSoft GmbH.</div>
+          <div id="Footer"><?php echo template_footer(); ?></div>
         </div>
         <div id="ThemeboxesColumn">
           <div id="RightArtwork">
-            <img id="Monster" src="images/monsters/<?php echo logo_monster() ?>.gif" onClick="window.location = '?subtopic=creatures&creature=<?php echo $config['logo_monster'] ?>';" alt="Monster of the Week" />
+            <img id="Monster" style="max-width: 56px !important; max-height: 56px !important; width: auto !important; height: auto !important; top: -126px !important; left: 12px !important; position: absolute; z-index: 15; cursor: pointer;" src="images/monsters/<?php echo logo_monster() ?>.gif?v=<?php echo time(); ?>" onClick="window.location = '?subtopic=creatures&creature=<?php echo $config['logo_monster'] ?>';" alt="Monster of the Week" />
             <img id="PedestalAndOnline" src="<?php echo $template_path; ?>/images/header/pedestal-and-online.gif" alt="Monster Pedestal and Players Online Box"/>
-          <style>@keyframes blinker { 50% { opacity: 0; } }</style>
           <div id="PlayersOnline" onClick="window.location = '<?php echo getLink('online'); ?>'">
 		  <?php
 			if(isset($config['server_maintenance']) && $config['server_maintenance']) {
-				echo '<span style="color: orange; font-size: 12px;"><b>Server<br />em Manutenção</b></span>';
+				echo '<span style="color: orange; font-size: 11px;"><b>Server<br />em Manutenção</b></span>';
 			} elseif($status['online']) {
-				echo '<div style="display: inline-block; width: 8px; height: 8px; background-color: #00ff00; border-radius: 50%; box-shadow: 0 0 5px #00ff00; animation: blinker 1s linear infinite; margin-right: 4px;"></div><div id="players" style="display: inline;">' . $status['players'] . '</div><br>Players Online';
+				echo '<span style="font-size: 11px; font-weight: bold; color: #00ff66; text-shadow: 0 0 3px rgba(0, 255, 102, 0.4);">' . $status['players'] . '</span><br/><span style="color: #cfa600; font-size: 9px; font-weight: bold;">Players Online</span>';
 			} else {
 				echo '<span style="color: red"><b>Server<br />Offline</b></span>';
 			}

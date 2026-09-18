@@ -572,28 +572,7 @@ function template_footer(): string
 		$footer[] = generateLink(ADMIN_URL, 'Admin Panel', true);
 	}
 
-	if(setting('core.visitors_counter')) {
-		global $visitors;
-		$amount = $visitors->getAmountVisitors();
-		$footer[] = 'Currently there ' . ($amount > 1 ? 'are' : 'is') . ' ' . $amount . ' visitor' . ($amount > 1 ? 's' : '') . '.';
-	}
-
-	if(setting('core.views_counter')) {
-		global $views_counter;
-		$footer[] = 'Page has been viewed ' . $views_counter . ' times.';
-	}
-
-	if(setting('core.footer_load_time')) {
-		$footer[] = 'Load time: ' . round(microtime(true) - START_TIME, 4) . ' seconds.';
-	}
-
-	$settingFooter = setting('core.footer');
-	if(isset($settingFooter[0])) {
-		$footer[] = '' . $settingFooter;
-	}
-
-	// please respect my work and help spreading the word, thanks!
-	$footer[] = base64_decode('UG93ZXJlZCBieSA8YSBocmVmPSJodHRwOi8vbXktYWFjLm9yZyIgdGFyZ2V0PSJfYmxhbmsiPk15QUFDLjwvYT4=');
+	$footer[] = 'Copyright by NosleiraOT All Rights Reserved.';
 
 	global $hooks;
 	$hooks->triggerFilter(HOOK_FILTER_THEME_FOOTER, $footer);
