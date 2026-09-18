@@ -65,6 +65,28 @@ internal sealed class GameSession : IDisposable
 		throw new TimeoutException("Timed out waiting for gameworld login (0x0A).");
 	}
 
+		public Task WalkAsync(int direction, CancellationToken ct)
+	{
+		var packet = new PacketWriter();
+		packet.AddByte((byte)(0x65 + direction));
+		return _conn.SendAsync(packet.ToArray(), ct);
+	}
+
+	public Task AttackAsync(uint creatureId, CancellationToken ct)
+	{
+		var packet = new PacketWriter();
+		packet.AddByte(0xA1);
+		packet.AddU32(creatureId);
+		return _conn.SendAsync(packet.ToArray(), ct);
+	}
+
+	public Task StopAttackAsync(CancellationToken ct)
+	{
+		var packet = new PacketWriter();
+		packet.AddByte(0xBE);
+		return _conn.SendAsync(packet.ToArray(), ct);
+	}
+
 	public Task SayAsync(string text, CancellationToken ct)
 	{
 		var packet = new PacketWriter();
@@ -149,3 +171,4 @@ internal sealed class GameSession : IDisposable
 
 	public void Dispose() => _conn.Dispose();
 }
+
