@@ -14,6 +14,7 @@ Dockerfile + docker/entrypoint.sh live in this repo. Do not put Terraform here.
 - Para cada nova tarefa, crie uma branch separada (ex: 'feature/quests-chests').
 - Sempre converse com o usuario e peca autorizacao ANTES de fazer merge ou subir as paradas para a main. Explique o que foi feito e pergunte se 'esta bom para mesclar'. Tudo deve ser feito atraves de conversa e aprovacao.
 
-- ABSOLUTAMENTE NUNCA rode 'git push' para enviar nada para o GitHub. Sincronizacoes para o Github so podem ser feitas quando o usuario EXPLICITAMENTE solicitar. Todas as edicoes, commits e criacoes de branches devem ficar restritas ao ambiente LOCAL (no disco D) ate que o usuario autorize o push.
+- SEMPRE rode 'git push' para enviar a branch para o GitHub assim que o trabalho for concluído e abra um Pull Request para revisão. As branches nunca devem ficar esquecidas apenas localmente.
+- NUNCA faça o merge do Pull Request para a 'main' sem que o usuário revise e autorize. O código sobe para aprovação.
 
 - DIRETÓRIO PRINCIPAL OBRIGATÓRIO: Absolutamente TUDO (instalações, ferramentas, scripts de teste, rascunhos e operações de terminal) DEVE ser feito única e exclusivamente dentro do disco D (em `D:\Server`). NUNCA crie arquivos ou instale coisas no disco C: ou no Desktop do usuário para não lotar o computador.
