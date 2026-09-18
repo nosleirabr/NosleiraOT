@@ -374,33 +374,19 @@ if($save)
 }
 
 $country_recognized = 'br';
-if(setting('core.account_country_recognize')) {
-	$country_session = getSession('country');
-	if($country_session !== false) { // get from session
-		$country_recognized = $country_session;
-	}
-	else {
-		ini_set('default_socket_timeout', 5);
-
-		$info = json_decode(@file_get_contents('https://ipinfo.io/' . get_browser_real_ip() . '/geo'), true);
-		if(isset($info['country'])) {
-			$country_recognized = strtolower($info['country']);
-			setSession('country', $country_recognized);
-		}
-	}
-}
-
-if(!empty($errors))
-	$twig->display('error_box.html.twig', array('errors' => $errors));
-
-if (setting('core.account_country')) {
+if(setting('core.account_country')) {
 	$countries = array();
-	foreach (setting('core.account_countries_most_popular') ?? [] as $c)
-		$countries[$c] = $config['countries'][$c];
+	$countries['br'] = $config['countries']['br'];
+	foreach (setting('core.account_countries_most_popular') ?? [] as $c) {
+		if($c !== 'br' && isset($config['countries'][$c]))
+			$countries[$c] = $config['countries'][$c];
+	}
 
 	$countries['--'] = '----------';
-	foreach ($config['countries'] as $code => $c)
-		$countries[$code] = $c;
+	foreach ($config['countries'] as $code => $c) {
+		if(!isset($countries[$code]))
+			$countries[$code] = $c;
+	}
 }
 
 $twig->display('account.create.js.html.twig');
