@@ -12,7 +12,7 @@ patches:
     uid: 10017 # Crown Shield
   - at: [32781, 32327, 7]
     aid: 2000
-    uid: 10016 # Key 5010
+    uid: 10065 # Key 5010
   - at: [32980, 31727, 9]
     aid: 2000
     uid: 10011 # Fire Sword

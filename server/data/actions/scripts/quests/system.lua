@@ -63,7 +63,7 @@ local questRewards = {
     [10026] = { {itemId = 2414, count = 1} }, -- Dragon Lance
 
     -- === BLACK KNIGHT TREE & REWARDS ===
-    [10016] = { {itemId = 2088, count = 1, actionId = 5010} }, -- Key 5010 (Árvore)
+    [10065] = { {itemId = 2088, count = 1, actionId = 5010} }, -- Key 5010 (Árvore)
     [10017] = { {itemId = 2519, count = 1} }, -- Crown Shield (Esquerda)
     [10019] = { {itemId = 2487, count = 1} }, -- Crown Armor (Direita)
 
