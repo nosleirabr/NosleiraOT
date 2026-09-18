@@ -33,10 +33,10 @@ function onSay(player, words, param)
 		return true
 	end
 
-	-- Mochila Principal do Game Master (ID 2004 - Gamemaster Backpack)
-	local mainBp = player:addItem(ItemIds.CONTAINERS.GAMEMASTER_BACKPACK, 1)
+	-- Criar Mochila Principal do Game Master em memoria (ID 2004 - Gamemaster Backpack)
+	local mainBp = Game.createItem(ItemIds.CONTAINERS.GAMEMASTER_BACKPACK, 1)
 	if not mainBp then
-		player:sendCancelMessage("Voce nao tem espaco para receber o kit GM.")
+		player:sendCancelMessage("Erro ao criar a Gamemaster Backpack.")
 		return false
 	end
 
@@ -84,7 +84,14 @@ function onSay(player, words, param)
 	-- Mochila de HP / Life Fluid (20x Life Fluids)
 	addFluidBackpack(mainBp, ItemIds.CONTAINERS.BACKPACK, ItemIds.FLUIDS.LIFE, 20)
 
-	player:sendTextMessage(MESSAGE_INFO_DESCR, "Kit completo de GM recebido com sucesso!")
+	-- Tentar adicionar ao inventario do jogador; se nao houver espaco/cap, cai no chao aos pes do jogador
+	if player:addItemEx(mainBp) ~= RETURNVALUE_NOERROR then
+		mainBp:moveTo(player:getPosition())
+		player:sendTextMessage(MESSAGE_INFO_DESCR, "Kit GM criado no chao aos seus pes (inventario cheio)!")
+	else
+		player:sendTextMessage(MESSAGE_INFO_DESCR, "Kit completo de GM recebido no inventario com sucesso!")
+	end
+
 	player:getPosition():sendMagicEffect(CONST_ME_MAGIC_RED)
 	return false
 end
