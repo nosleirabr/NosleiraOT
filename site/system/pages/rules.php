@@ -371,14 +371,10 @@ $title = 'Rules';
     gap: 6px;
     z-index: 50;
 }
-.rules-green-bar-flags a {
-    display: inline-block;
-    line-height: 0;
-    text-decoration: none;
+.flag-icon {
     transition: transform 0.15s ease-in-out;
-    cursor: pointer !important;
 }
-.rules-green-bar-flags a:hover {
+.flag-icon:hover {
     transform: scale(1.2);
 }
 .flag-icon {
@@ -403,18 +399,10 @@ $title = 'Rules';
     <div class="CaptionContainer">
         <div class="CaptionInnerContainer rules-caption-inner">
             <div class="rules-green-bar-flags">
-                <a href="javascript:void(0);" onclick="changeLanguage('pt');" title="PortuguÃªs (BR)">
-                    <img src="<?php echo BASE_URL; ?>images/flags/br.gif" alt="PortuguÃªs" class="flag-icon" />
-                </a>
-                <a href="javascript:void(0);" onclick="changeLanguage('en');" title="English (US)">
-                    <img src="<?php echo BASE_URL; ?>images/flags/us.gif" alt="English" class="flag-icon" />
-                </a>
-                <a href="javascript:void(0);" onclick="changeLanguage('es');" title="EspaÃ±ol (ES)">
-                    <img src="<?php echo BASE_URL; ?>images/flags/es.gif" alt="EspaÃ±ol" class="flag-icon" />
-                </a>
-                <a href="javascript:void(0);" onclick="changeLanguage('pl');" title="Polski (PL)">
-                    <img src="<?php echo BASE_URL; ?>images/flags/pl.gif" alt="Polski" class="flag-icon" />
-                </a>
+                <img src="<?php echo BASE_URL; ?>images/flags/br.gif" alt="Português" title="Português (BR)" class="flag-icon" onclick="changeLanguage('pt');" />
+                <img src="<?php echo BASE_URL; ?>images/flags/us.gif" alt="English" title="English (US)" class="flag-icon" onclick="changeLanguage('en');" />
+                <img src="<?php echo BASE_URL; ?>images/flags/es.gif" alt="Español" title="Español (ES)" class="flag-icon" onclick="changeLanguage('es');" />
+                <img src="<?php echo BASE_URL; ?>images/flags/pl.gif" alt="Polski" title="Polski (PL)" class="flag-icon" onclick="changeLanguage('pl');" />
             </div>
             <span class="CaptionEdgeLeftTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
