@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 defined('MYAAC') or die('Direct access not allowed!');
 $title = 'Rules';
 ?>
@@ -853,8 +853,8 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">20) Manipulação de Level (Power Leveling Forçado)</span>
-                                                                                <span class="rule-accordion-brief">[Enforced] Proibida a manipulação forçada de UP LV.</span>
+                                                                                <span class="rule-accordion-title">20) Luring Massivo & Trap com Monstros (Luring)</span>
+                                                                                <span class="rule-accordion-brief">Proibido atrair monstros de alto risco para cidades, templos ou entradas de quests.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
@@ -863,7 +863,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        <b>[Enforced]</b> Jogadores que forem constatados manipulando o avanço de nível forçado através de personagens próprios ou de terceiros serão deletados. Em casos abusivos, todas as contas vinculadas poderão ser excluídas.
+                                                                        É estritamente proibido atrair (lurar) monstros de alto risco ou hordas massivas de seus respawns originais para barcos, saídas de templos, vilas, pontes ou entradas de quests com a intenção de matar jogadores involuntários ou prejudicar o servidor. Infrações resultarão em banimento da conta.
                                                                     </div>
                                                                 </details>
 
@@ -1013,25 +1013,8 @@ $title = 'Rules';
 
                                                                 <!-- NOTA FINAL DE DESTAQUE -->
                                                                 <div class="report-footer-note">
-                                                                    ✨ O cumprimento destas diretrizes garante um atendimento eficiente e mantém o NosleiraOT justo e organizado para todos! ✨
+                                                                    🔰 O cumprimento destas diretrizes garante um atendimento eficiente e mantém o NosleiraOT justo e organizado para todos! 🔰
                                                                 </div>
-
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
                 </td>
             </tr>
         </tbody>
