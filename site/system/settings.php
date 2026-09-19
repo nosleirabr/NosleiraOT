@@ -17,7 +17,7 @@ use MyAAC\Settings;
 $templates = Cache::remember('templates', 5 * 60, function () {
 	return get_templates();
 });
-$defaultTemplate = in_array('kathrine', $templates) ? 'kathrine' : $templates[0];
+$defaultTemplate = 'tibiacom';
 
 global $db;
 
