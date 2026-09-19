@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Login
  *
@@ -47,7 +47,12 @@ if(!empty($login_account) && !empty($login_password))
 	if($account_logged->isLoaded() && encrypt((USE_ACCOUNT_SALT ? $account_logged->getCustomField('salt') : '') . $login_password) == $account_logged->getPassword() && (!$limiter->enabled || !$limiter->exceeded($ip))
 	)
 	{
-		if (setting('core.account_mail_verify') && (int)$account_logged->getCustomField('email_verified') !== 1) {
+		$is_staff = false;
+		if ($account_logged->getAccGroupId() > 1 || $account_logged->isAdmin()) {
+			$is_staff = true;
+		}
+
+		if (!$is_staff && setting('core.account_mail_verify') && (int)$account_logged->getCustomField('email_verified') !== 1) {
 			$link = getLink('account/resend-email-verify');
 			$errors[] = 'Your account is not verified. Please verify your email address. If the message is not coming check the SPAM folder in your E-Mail client.<br/>' .
 				'You can resend the Email here: <a href="' . $link . '">' . $link . '</a>';

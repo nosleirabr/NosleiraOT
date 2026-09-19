@@ -15,7 +15,7 @@ use MyAAC\Plugins;
 defined('MYAAC') or die('Direct access not allowed!');
 
 // template
-$template_name = setting('core.template');
+$template_name = setting('core.template') ?: 'tibiacom';
 if(setting('core.template_allow_change'))
 {
 	if(isset($_GET['template']))
@@ -62,9 +62,9 @@ elseif(setting('core.backward_support') && file_exists(BASE . $template_path . '
 	$template_index = 'layout.php';
 }
 else {
-	$template_name = 'kathrine';
+	$template_name = 'tibiacom';
 	$template_path = 'templates/' . $template_name;
-	$template_index = 'template.php';
+	$template_index = 'index.php';
 	if(!file_exists(BASE . $template_path . '/' . $template_index)) {
 		throw new RuntimeException('Cannot load any template. Please ensure your templates directory is not empty, and you set correct name for template in configuration.');
 	}
