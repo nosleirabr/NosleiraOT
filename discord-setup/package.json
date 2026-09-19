@@ -1,0 +1,12 @@
+{
+  "name": "discord-server-setup",
+  "version": "1.0.0",
+  "description": "Setup automático do servidor Discord",
+  "main": "setup.js",
+  "scripts": {
+    "start": "node setup.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.16.3"
+  }
+}

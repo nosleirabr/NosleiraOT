@@ -48,7 +48,8 @@ switch($page)
 		break;
 
 	case 'buypoints':
-		$page = 'points';
+		// Legacy route – redirect to donate page
+		$page = 'donate';
 		break;
 
 	case 'shopsystem':

@@ -20,8 +20,12 @@ if(isset($config['boxes']))
 			100% { opacity: 1; text-shadow: 0 0 5px lime; }
 		}
 		@keyframes bounceLeft {
-			0% { transform: translateX(40px); }
-			100% { transform: translateX(0); }
+			0%   { transform: translateX(60px);  }
+			100% { transform: translateX(-18px); }
+		}
+		@keyframes bounceRight {
+			0% { transform: translateX(0); }
+			100% { transform: translateX(200px); }
 		}
 	</style>
 
@@ -473,7 +477,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 								<hr style="border: 0; border-bottom: 1px dashed #5a2800; margin: 10px -5px;">
 								
 								<div style="float: right; margin-left: 15px; margin-bottom: 5px;">
-									<img src="<?php echo $template_path; ?>/images/custom/featured_game.png" alt="Featured Game" style="border: 2px solid #5a4430; width: 265px; height: auto; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" onclick="document.getElementById('featuredModal').style.display='flex'" title="Clique para ampliar">
+									<img src="<?php echo $template_path; ?>/images/custom/featured_game.png" alt="Featured Game" style="border: 2px solid #5a4430; width: 210px; height: auto; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" onclick="document.getElementById('featuredModal').style.display='flex'" title="Clique para ampliar">
 								</div>
 								
 								<!-- Modal Tela Cheia -->
@@ -486,7 +490,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 									<b style="color: #7f0000;">VERSION:</b> <b>7.4</b> &nbsp;&nbsp;&bull;&nbsp;&nbsp; 
 									<b style="color: #7f0000;">PORT:</b> <b>7171</b>
 								</div><br>
-								A verdadeira experi&ecirc;ncia do Tibia est&aacute; aqui! Fa&ccedil;a sua <b>[<a href="?subtopic=donate">Doa&ccedil;&atilde;o</a>]</b> <img src="<?php echo $template_path; ?>/images/custom/setas.webp" style="height: 14px; vertical-align: middle; margin-left: 3px; animation: bounceLeft 1.5s infinite alternate;"><br>
+								A verdadeira experi&ecirc;ncia do Tibia est&aacute; aqui! Fa&ccedil;a sua <b>[<a href="?subtopic=donate">Doa&ccedil;&atilde;o</a>]</b> <img src="<?php echo $template_path; ?>/images/custom/setas.webp" style="height: 14px; vertical-align: middle; margin-left: 3px; animation: bounceLeft 0.5s infinite alternate;"><br>
 								<b>NosleiraOT</b> private OTServer, <b>[<a href="?subtopic=serverinfo">Server Info</a>]</b>.<br>
 								Servidor privado <b>100% fiel ao original</b>, com mapa completo, todas as miss&otilde;es, &aacute;reas de ca&ccedil;a, respawns e NPCs configurados.<br>
 								Todas as cidades, &aacute;reas de ca&ccedil;a e sistemas cl&aacute;ssicos dispon&iacute;veis em um <b>servidor dedicado</b>, com <b>jogabilidade cl&aacute;ssica</b> e foco total na experi&ecirc;ncia que voc&ecirc; viveu<br>
