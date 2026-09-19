@@ -1689,6 +1689,7 @@ body {
 }
 
 .Content #FeaturedArticle .NewsHeadlineIcon {
+  z-index: 10;
   position: absolute;
   top: -1px;
   left: 0px;
@@ -1733,6 +1734,7 @@ body {
 }
 
 .Content #News .NewsHeadlineIcon {
+  z-index: 10;
   position: absolute;
   top: -1px;
   left: 0px;
@@ -1770,6 +1772,7 @@ body {
 }
 
 .Content #NewsArchive .NewsHeadlineIcon {
+  z-index: 10;
   position: absolute;
   top: -1px;
   left: 0px;

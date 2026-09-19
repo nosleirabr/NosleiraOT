@@ -327,7 +327,7 @@ return [
 			'name' => 'Account Types',
 			'type' => 'textarea',
 			'desc' => 'Separated with comma, you may need to adjust this for older tfs versions by removing Community Manager',
-			'default' => 'None, Normal, Tutor, Senior Tutor, Gamemaster, Community Manager, God',
+			'default' => 'None, Normal, Tutor, Senior Tutor, Gamemaster, Community Manager, Administrador',
 			'callbacks' => [
 				'get' => function ($value) {
 					return array_map('trim', explode(',', $value));

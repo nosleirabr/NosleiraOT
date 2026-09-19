@@ -510,11 +510,15 @@ foreach($config['menu_categories'] as $id => $cat) {
 				<table width="100%" border="0" cellpadding="2" cellspacing="0">
 					<tr>
 <?php
-$guilds = $db->query("SELECT id, name FROM guilds ORDER BY id DESC LIMIT 4")->fetchAll();
+$guilds = $db->query("SELECT id, name, logo_name FROM guilds ORDER BY id DESC LIMIT 4")->fetchAll();
 if (count($guilds) > 0) {
 	foreach($guilds as $g) {
+		$logo = isset($g['logo_name']) ? $g['logo_name'] : '';
+		if (empty($logo) || !file_exists('images/guilds/' . $logo)) {
+			$logo = 'default.gif';
+		}
 		echo '		<td align="center" width="25%">
-			<img src="' . $template_path . '/images/custom/guild1.png" width="64" height="64" style="border: 1px solid #000; background-color: #111;"><br>
+			<img src="images/guilds/' . $logo . '" width="64" height="64" style="border: 1px solid #000; background-color: #111;"><br>
 			<b><a href="?subtopic=guilds&action=show&guild=' . urlencode($g['name']) . '" style="color: #004294;">' . htmlspecialchars($g['name']) . '</a></b>
 		</td>';
 	}
