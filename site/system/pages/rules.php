@@ -3,6 +3,26 @@ defined('MYAAC') or die('Direct access not allowed!');
 $title = 'Rules';
 ?>
 
+<style>
+.tibia-paragraph {
+    font-family: 'Martel', 'Georgia', 'Times New Roman', serif;
+    font-size: 13px;
+    color: #4a2505;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+.tibia-dropcap {
+    font-size: 26px;
+    font-weight: bold;
+    color: #7f0000;
+    font-family: 'Martel', 'Georgia', 'Times New Roman', serif;
+    float: left;
+    line-height: 22px;
+    padding-right: 4px;
+    padding-top: 1px;
+}
+</style>
+
 <!-- ================================================================= -->
 <!-- BOX 1: REGULAMENTO GERAL DO NOSLEIRAOT                            -->
 <!-- ================================================================= -->
@@ -34,17 +54,23 @@ $title = 'Rules';
                                             <div class="TableContentContainer">
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
                                                     <tbody>
-                                                        <!-- INTRODUÇÃO -->
+                                                        <!-- INTRODUÇÃO COM LETRA CAPITULAR MEDIEVAL -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
                                                             <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
                                                                 📜 Apresentação & Propósito
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
-                                                            <td style="padding: 14px; line-height: 1.6; font-size: 13px;">
-                                                                O <b>NosleiraOT</b> busca oferecer um ambiente online equilibrado, divertido e respeitoso, onde todos os jogadores possam aproveitar o servidor em condições justas.<br><br>
-                                                                Para manter a organização da comunidade e preservar uma boa experiência de jogo, todos os jogadores devem conhecer e respeitar as normas estabelecidas neste regulamento.<br><br>
-                                                                A equipe do <b>NosleiraOT</b> poderá agir sempre que identificar atitudes que prejudiquem outros jogadores, comprometam o funcionamento do servidor ou afetem negativamente a comunidade. Essas medidas podem ser aplicadas tanto dentro do jogo quanto no site, Discord e demais canais oficiais relacionados ao servidor.
+                                                            <td style="padding: 16px;">
+                                                                <div class="tibia-paragraph">
+                                                                    <span class="tibia-dropcap">O</span> <b>NosleiraOT</b> busca oferecer um ambiente online equilibrado, divertido e respeitoso, onde todos os jogadores possam aproveitar o servidor em condições justas.
+                                                                </div>
+                                                                <div class="tibia-paragraph">
+                                                                    <span class="tibia-dropcap">P</span>ara manter a organização da comunidade e preservar uma boa experiência de jogo, todos os jogadores devem conhecer e respeitar as normas estabelecidas neste regulamento.
+                                                                </div>
+                                                                <div class="tibia-paragraph" style="margin-bottom: 0;">
+                                                                    <span class="tibia-dropcap">A</span> equipe do <b>NosleiraOT</b> poderá agir sempre que identificar atitudes que prejudiquem outros jogadores, comprometam o funcionamento do servidor ou afetem negativamente a comunidade. Essas medidas podem ser aplicadas tanto dentro do jogo quanto no site, Discord e demais canais oficiais relacionados ao servidor.
+                                                                </div>
                                                             </td>
                                                         </tr>
 
