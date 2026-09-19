@@ -372,12 +372,33 @@ foreach($config['menu_categories'] as $id => $cat) {
 	<div id='<?php echo $cat['id']; ?>_Submenu' class='Submenu'>
 	<?php
 		foreach($menus[$id] as $category => $menu) {
+			$m_name = $menu['name'];
+			$m_style = $menu['style_color'];
+
+			if ($menu['link'] === 'points') {
+				$m_style = 'style="color: lime; animation: blinkDonate 1s linear infinite;"';
+				$m_name = $m_name . ' <span style="font-family: Arial, sans-serif;">💳</span>';
+			} elseif ($menu['link'] === 'whatsapp' || $menu['link'] === 'telegram') {
+				$m_name .= ' <img src="' . $template_path . '/images/menu/hot.gif" style="vertical-align: middle; margin-left: 2px;" alt="HOT!" />';
+			} elseif ($menu['link'] === 'forum') {
+				$m_style = 'style="color: yellow;"';
+			} elseif ($menu['link'] === 'online') {
+				$m_name = 'Who is <span style="color: lime;">Online</span>?';
+			} elseif ($menu['link'] === 'account/lost') {
+				$m_style = 'style="color: red;"';
+			} elseif ($menu['link'] === 'downloads') {
+				$m_style = 'style="color: red;"';
+			} elseif ($menu['link'] === 'account/logout') {
+				$m_style = 'style="color: red;"';
+			} elseif ($menu['link'] === 'ots-info') {
+				$m_style = 'style="color: yellow;"';
+			}
 			?>
 			<a href='<?php echo $menu['link_full']; ?>'<?= $menu['target_blank']?>>
 				<div id='submenu_<?php echo str_replace('/', '_', $menu['link']); ?>' class='Submenuitem' onMouseOver='MouseOverSubmenuItem(this)' onMouseOut='MouseOutSubmenuItem(this)' >
 					<div class='LeftChain' style='background-image:url(<?php echo $template_path; ?>/images/general/chain.gif);'></div>
 					<div id='ActiveSubmenuItemIcon_<?php echo str_replace('/', '_', $menu['link']); ?>' class='ActiveSubmenuItemIcon' style='background-image:url(<?php echo $template_path; ?>/images/menu/icon-activesubmenu.gif);'></div>
-					<div class='SubmenuitemLabel' <?php echo $menu['style_color']; ?>><?php echo $menu['name']; ?></div>
+					<div class='SubmenuitemLabel' <?php echo $m_style; ?>><?php echo $m_name; ?></div>
 					<div class='RightChain' style='background-image:url(<?php echo $template_path; ?>/images/general/chain.gif);'></div>
 				</div>
 			</a>

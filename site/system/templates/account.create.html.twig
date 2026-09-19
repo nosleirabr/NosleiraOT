@@ -63,8 +63,9 @@
 										<span{% if errors.password is defined %} class="red"{% endif %}>Password:</span>
 									</td>
 									<td>
-										<input type="password" name="password" id="password" value="" size="30" maxlength="29" />
-										<img id="password_indicator" src="images/global/general/{% if not save or errors.password is defined %}n{% endif %}ok.gif" style="display: none;" />
+										<input type="password" name="password" id="password" value="" size="30" maxlength="29" style="vertical-align: middle;"/>
+										<span style="cursor: pointer; vertical-align: middle; font-size: 14px;" onclick="var p = document.getElementById('password'); p.type = p.type === 'password' ? 'text' : 'password';">👁️</span>
+										<img id="password_indicator" src="images/global/general/{% if not save or errors.password is defined %}n{% endif %}ok.gif" style="display: none; vertical-align: middle;" />
 									</td>
 								</tr>
 								<tr><td></td><td><span id="password_error" class="FormFieldError">{% if errors.password is defined %}{{ errors.password }}{% endif %}</span></td></tr>
@@ -76,8 +77,13 @@
 										<span{% if errors.password is defined %} class="red"{% endif %}>Repeat password:</span>
 									</td>
 									<td>
-										<input type="password" name="password_confirm" id="password_confirm" value="" size="30" maxlength="29" onpaste="return false;" oncopy="return false;" oncut="return false;" oncontextmenu="return false;" autocomplete="off" />
-										<img id="password_confirm_indicator" src="images/global/general/{% if not save or errors.password is defined %}n{% endif %}ok.gif" style="display: none;" />
+										<input type="password" name="password_confirm" id="password_confirm" value="" size="30" maxlength="29" onpaste="return false;" oncopy="return false;" oncut="return false;" oncontextmenu="return false;" autocomplete="off" style="vertical-align: middle;"/>
+										<span style="cursor: pointer; vertical-align: middle; font-size: 14px;" onclick="var p = document.getElementById('password_confirm'); p.type = p.type === 'password' ? 'text' : 'password';">👁️</span>
+										<img id="password_confirm_indicator" src="images/global/general/{% if not save or errors.password is defined %}n{% endif %}ok.gif" style="display: none; vertical-align: middle;" />
+										<div style="font-size: 11px; font-weight: bold; color: #5a2800; margin-top: 5px;">
+											Your password needs 8 digits or more, letters uppercase, lowercase and numbers.<br>
+											A senha precisa de 8 digitos ou mais, letras maiúsculas, minúsculas e números.
+										</div>
 									</td>
 								</tr>
 								<tr><td></td><td><span id="password_confirm_error" class="FormFieldError">{% if errors.password is defined %}{{ errors.password }}{% endif %}</span></td></tr>
@@ -262,7 +268,7 @@
 								{% endif %}
 								<tr>
 									<td colspan="2" >
-										<span><input type="checkbox" id="accept_age" name="accept_age" value="true"{% if accept_age %}checked{% endif %}/> <label for="accept_age">Confirmo que tenho <span style="color: red;">18 anos</span> ou mais.</label></span>
+										<span><input type="checkbox" id="accept_age" name="accept_age" value="true"{% if accept_age %}checked{% endif %}/> <label for="accept_age">Confirmo que tenho <b style="color: red;">18 Anos +</b></label></span>
 									</td>
 								</tr>
 								{% if errors.accept_age is defined %}
