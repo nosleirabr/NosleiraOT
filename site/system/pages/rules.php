@@ -970,8 +970,8 @@ body {
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">20) Luring Massivo & Trap com Monstros (Luring)</span>
-                                                                                <span class="rule-accordion-brief">Proibido atrair monstros de alto risco para cidades, templos ou entradas de quests.</span>
+                                                                                <span class="rule-accordion-title">20) Tentativa de Phishing & Roubo de Contas</span>
+                                                                                <span class="rule-accordion-brief">Proibido enviar links falsos, arquivos maliciosos ou tentar obter senhas de outros jogadores.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
@@ -980,7 +980,7 @@ body {
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É estritamente proibido atrair (lurar) monstros de alto risco ou hordas massivas de seus respawns originais para barcos, saídas de templos, vilas, pontes ou entradas de quests com a intenção de matar jogadores involuntários ou prejudicar o servidor. Infrações resultarão em banimento da conta.
+                                                                        É estritamente proibido divulgar links falsos (phishing), softwares maliciosos (keyloggers/trojans) ou utilizar qualquer meio para tentar obter senhas, chaves de recuperação ou dados de acesso de outros jogadores. Infracionar esta regra resultará no banimento permanente e exclusão (Delete) de todas as contas vinculadas.
                                                                     </div>
                                                                 </details>
 
@@ -1130,7 +1130,7 @@ body {
 
                                                                 <!-- NOTA FINAL DE DESTAQUE -->
                                                                 <div class="report-footer-note">
-                                                                    🔰 O cumprimento destas diretrizes garante um atendimento eficiente e mantém o NosleiraOT justo e organizado para todos! 🔰
+                                                                    O cumprimento destas diretrizes garante um atendimento eficiente e mantém o NosleiraOT justo e organizado para todos!
                                                                 </div>
                 </td>
             </tr>
