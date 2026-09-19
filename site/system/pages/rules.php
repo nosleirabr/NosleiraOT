@@ -159,6 +159,136 @@ $title = 'Rules';
     line-height: 1.65;
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.03), 0 2px 4px rgba(0,0,0,0.05);
 }
+
+/* Estilos para o Painel de Report (CTRL + R) */
+.tibia-key {
+    background: linear-gradient(180deg, #4a4a4a 0%, #2b2b2b 100%);
+    color: #fff8e7;
+    border: 1px solid #1a1a1a;
+    border-bottom: 2px solid #000;
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-family: 'Inter', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    display: inline-block;
+}
+
+.report-banner {
+    background: linear-gradient(180deg, #7f0000 0%, #520000 100%);
+    color: #fff3db;
+    border: 1px solid #3d0000;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.report-banner-title {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.report-banner-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: #e6c594;
+    margin-top: 2px;
+}
+
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: 14px;
+}
+
+.report-card {
+    background: linear-gradient(180deg, #fdf9f2 0%, #f4e8d6 100%);
+    border: 1px solid #d4c3ab;
+    border-radius: 6px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+}
+.report-card-title {
+    font-family: 'Cinzel', serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #4a1c00;
+    border-bottom: 2px solid #d0b898;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.report-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.report-list-item {
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    color: #2c1704;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    padding-left: 18px;
+    position: relative;
+}
+.report-list-item:last-child {
+    margin-bottom: 0;
+}
+.report-list-item::before {
+    content: "•";
+    color: #8b0000;
+    font-weight: bold;
+    font-size: 16px;
+    position: absolute;
+    left: 2px;
+    top: -2px;
+}
+
+.report-badge-do {
+    background: #e2f0d9;
+    color: #276a10;
+    border: 1px solid #b5d8a0;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-right: 4px;
+}
+.report-badge-dont {
+    background: #fce4d6;
+    color: #a61c1c;
+    border: 1px solid #f4b08a;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-right: 4px;
+}
+.report-footer-note {
+    background: linear-gradient(180deg, #f8efe0 0%, #ebdbbe 100%);
+    border: 1px solid #c8b496;
+    border-left: 4px solid #7f0000;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-top: 14px;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #4a1c00;
+}
+
 </style>
 
 <!-- ================================================================= -->
@@ -766,7 +896,7 @@ $title = 'Rules';
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">REPORT (CTRL + R)</div>
+            <div class="Text">Guia de Atendimento & Denúncias In-Game</div>
             <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
@@ -788,37 +918,104 @@ $title = 'Rules';
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
                                                     <tbody>
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
-                                                                🚨 Diretrizes para Atendimento & Denúncias
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
+                                                                🚨 Diretrizes para Atendimento & Suporte via CTRL + R
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
-                                                            <td style="padding: 14px; line-height: 1.6; font-size: 13px;">
-                                                                <ul style="margin: 0; padding-left: 20px;">
-                                                                    <li style="margin-bottom: 8px;">Quando for reportar somente escreva a "situação/dúvida/problema + nickname(s) se houver algum". Nada mais ou menos do que isso. Qualquer report que extrapole essa orientação poderá ficar sem atendimento.</li>
-                                                                    <li style="margin-bottom: 8px;">Os GMS não precisam responder o seu report para efetuar o atendimento. Somente com a descrição do seu report já é possível atendê-lo, por isso é imprescindível reportar de forma adequada. Reports do tipo "gm on?", "alguém aí?", "mc aqui", não costumam serem atendidos e muito menos respondidos.</li>
-                                                                    <li style="margin-bottom: 8px;">Reports realizados em canais impróprios (help channel, PM, Telegram, por exemplo) não serão atendidos. Se o player vier a reportar adequadamente após ter escrito em canal impróprio também poderá ficar sem atendimento.</li>
-                                                                    <li style="margin-bottom: 8px;">Os GMS atendem exclusivamente pelo <b>CTRL + R</b> (report).</li>
-                                                                    <li style="margin-bottom: 8px;">GMS não precisam prover explicação para quem reportou sobre atos realizados ou não realizados. Por exemplo, João reportou Maria por uso de MC em PvP. Se eventualmente Maria for notificada ou banida os GMS não se obrigam a avisar João o que aconteceu ou não.</li>
-                                                                    <li style="margin-bottom: 8px;">Reports realizados por players que não fazem/fizeram parte ou que estão longe da situação reportada poderão ficar sem atendimento.</li>
-                                                                    <li style="margin-bottom: 8px;">Reports realizados por players que usam mais de um char para reportar a mesma situação ou problema ficarão sem atendimento. Não adianta reportar com dois ou mais chares a mesma coisa, você só estará se prejudicando. Não atendemos assim. Um report basta.</li>
-                                                                    <li style="margin-bottom: 8px;">O player que ficar abrindo e fechando o mesmo report com a intenção de spamar não será atendido e poderá ser banido (Spam Report).</li>
-                                                                    <li style="margin-bottom: 8px;">Associação de players que fazem o mesmo report poderão ficar sem atendimento se constatado que:
-                                                                        <ol style="margin-top: 5px; margin-bottom: 5px;">
-                                                                            <li>Há players que não fazem/fizeram parte da situação;</li>
-                                                                            <li>Todos colaram o mesmo report;</li>
-                                                                            <li>Que há informações incompletas;</li>
-                                                                            <li>Há falsidade no conteúdo do report. Vários reportar a mesma situação não significa que isso será verdade.</li>
-                                                                        </ol>
-                                                                    </li>
-                                                                    <li style="margin-bottom: 8px;">Reports (ctrl+r) são atendidos por GMS. Tickets (site) é atendido pelo ADM. Se você abrir report perguntando sobre ADM provavelmente não será respondido nem atendido.</li>
-                                                                    <li style="margin-bottom: 8px;">Caso decida abrir report para perguntar algo que não seja relacionado as regras, tente antes perguntar no help channel. Muitas dúvidas podem ser respondidas tranquilamente por um tutor ou até mesmo outro player.</li>
-                                                                    <li style="margin-bottom: 8px;">Realizar vários reports erroneamente faz com que você perca credibilidade com GMS. Caso tenha dúvidas não acuse ninguém, peça para o GM averiguar a situação.</li>
-                                                                    <li style="margin-bottom: 8px;">Reports mal intencionados poderá resultar em banimento (False Report).</li>
-                                                                    <li style="margin-bottom: 8px;">Não combata uma injustiça com outra. Você poderá ser banido por isso.</li>
-                                                                    <li style="margin-bottom: 8px;">Tenha paciência ao reportar. A justiça pode tardar, mas não falha.</li>
-                                                                    <li style="margin-bottom: 8px;"><b>Todas orientações supracitadas são vitais para um bom funcionamento das regras.</b></li>
-                                                                </ul>
+                                                            <td style="padding: 16px;">
+                                                                
+                                                                <!-- BANNER PRINCIPAL -->
+                                                                <div class="report-banner">
+                                                                    <div>
+                                                                        <div class="report-banner-title">📢 Atendimento Oficial In-Game por Gamemasters</div>
+                                                                        <div class="report-banner-sub">Siga atentamente as orientações abaixo para garantir o suporte rápido da equipe.</div>
+                                                                    </div>
+                                                                    <div style="text-align: right;">
+                                                                        <span class="tibia-key">CTRL</span> <span style="color:#fff3db; font-weight:bold;">+</span> <span class="tibia-key">R</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- GRID DE CARDS COM REGRAS E DIRETRIZES -->
+                                                                <div class="report-grid">
+                                                                    
+                                                                    <!-- CARD 1: FORMATAÇÃO DO REPORT -->
+                                                                    <div class="report-card">
+                                                                        <div class="report-card-title">✍️ 1. Como Enviar o Report</div>
+                                                                        <ul class="report-list">
+                                                                            <li class="report-list-item">
+                                                                                <span class="report-badge-do">CORRETO</span> Escreva objetivamente: <b>"Situação/Dúvida/Problema + Nickname(s)"</b> (se houver).
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                <span class="report-badge-dont">ERRADO</span> Reports genéricos como <i>"gm on?"</i>, <i>"alguém aí?"</i> ou <i>"mc aqui"</i> <b>não serão respondidos nem atendidos</b>.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                <span class="tibia-key">CTRL</span> + <span class="tibia-key">R</span> é o canal exclusivo para suporte in-game. Mensagens em canais impróprios (Help, PM, Telegram, Discord) não serão processadas.
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                                    <!-- CARD 2: CONDUTA DOS GMs -->
+                                                                    <div class="report-card">
+                                                                        <div class="report-card-title">🛡️ 2. Atendimento & Privacidade dos GMs</div>
+                                                                        <ul class="report-list">
+                                                                            <li class="report-list-item">
+                                                                                GMs atuam com base na descrição fornecida e <b>não necessitam responder o chat</b> para efetuar a verificação ou aplicação da sanção.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                A equipe preserva o sigilo e <b>não se obriga a prestar contas</b> do resultado das investigações ou punições aplicadas ao denunciado.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                Denúncias realizadas por jogadores não envolvidos ou distantes da situação ocorrida poderão ficar sem atendimento.
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                                    <!-- CARD 3: PREVENÇÃO DE SPAM E ABUSOS -->
+                                                                    <div class="report-card">
+                                                                        <div class="report-card-title">🚫 3. Proibições & Uso Indevido</div>
+                                                                        <ul class="report-list">
+                                                                            <li class="report-list-item">
+                                                                                <b>Um report basta:</b> Não envie a mesma denúncia com múltiplos personagens. Isso não acelera a análise e prejudica o atendimento.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                <b>Spam Report:</b> Abrir e fechar repetidamente o chamado para chamar atenção resultará em banimento imediato.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                <b>False Report:</b> Denúncias falsas, forjadas ou mal-intencionadas acarretam banimento severo da conta.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                Diferencie os canais: <span class="tibia-key">CTRL</span> + <span class="tibia-key">R</span> é atendido por GMs; <b>Tickets no Site</b> tratam de assuntos administrativos/financeiros com a Administração.
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                                    <!-- CARD 4: RECOMENDAÇÕES E ÉTICA -->
+                                                                    <div class="report-card">
+                                                                        <div class="report-card-title">⚖️ 4. Recomendações & Conduta Ética</div>
+                                                                        <ul class="report-list">
+                                                                            <li class="report-list-item">
+                                                                                Para dúvidas gerais sobre o jogo, utilize primeiramente o <b>Help Channel</b> para suporte rápido de tutores e jogadores.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                Evite acusações infundadas sem provas. Em caso de dúvidas, solicite educadamente que a equipe averigúe o ocorrido.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                <b>Jamais retribua uma infração:</b> Não combata uma injustiça cometendo outra infração, sob pena de também ser punido.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                Mantenha a paciência ao reportar. Todas as verificações são feitas de forma criteriosa e responsável.
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <!-- NOTA FINAL DE DESTAQUE -->
+                                                                <div class="report-footer-note">
+                                                                    ✨ O cumprimento destas diretrizes garante um atendimento eficiente e mantém o NosleiraOT justo e organizado para todos! ✨
+                                                                </div>
+
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -830,6 +1027,11 @@ $title = 'Rules';
                             </tbody>
                         </table>
                     </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
                 </td>
             </tr>
         </tbody>
