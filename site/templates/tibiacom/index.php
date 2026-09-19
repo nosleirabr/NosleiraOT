@@ -13,13 +13,6 @@ if(isset($config['boxes']))
 	<link href="<?php echo $template_path; ?>/basic.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="tools/basic.js"></script>
 	<script type="text/javascript" src="<?php echo $template_path; ?>/ticker.js"></script>
-	<style>
-		@keyframes blinkDonate {
-			0% { opacity: 1; text-shadow: 0 0 5px lime; }
-			50% { opacity: 0.6; text-shadow: none; color: #008000; }
-			100% { opacity: 1; text-shadow: 0 0 5px lime; }
-		}
-	</style>
 
 	<?php if(!empty($config['network_twitter'])): ?>
 	<script id="twitter-wjs" src="<?php echo $template_path; ?>/js/twitter.js"></script>
@@ -124,7 +117,7 @@ if(isset($config['boxes']))
 			$menuInitStr = '';
 			foreach ($config['menu_categories'] as $item) {
 				if ($item['id'] !== 'shops' || setting('core.gifts_system')) {
-					$menuInitStr .= $item['id'] . '=' . (in_array($item['id'], ['news', 'shops']) ? '1' : '0') . '&';
+					$menuInitStr .= $item['id'] . '=' . ($item['id'] === 'news' ? '1' : '0') . '&';
 				}
 			}
 		?>
@@ -205,11 +198,6 @@ if(isset($config['boxes']))
 			CloseMenuItem(sourceId);
 		  }
 		  else {
-			for(menuItemName in menu[0]) {
-				if(menuItemName != sourceId && menuItemName != 'news' && menuItemName != 'shops') {
-					CloseMenuItem(menuItemName);
-				}
-			}
 			OpenMenuItem(sourceId);
 		  }
 		}
@@ -384,29 +372,12 @@ foreach($config['menu_categories'] as $id => $cat) {
 	<div id='<?php echo $cat['id']; ?>_Submenu' class='Submenu'>
 	<?php
 		foreach($menus[$id] as $category => $menu) {
-			$m_name = $menu['name'];
-			$m_style = $menu['style_color'];
-
-			if ($menu['link'] === 'points') {
-				$m_style = 'style="color: lime; animation: blinkDonate 1s linear infinite;"';
-				$m_name = $m_name . ' <span style="font-family: Arial, sans-serif;">💳</span>';
-			} elseif ($menu['link'] === 'forum') {
-				$m_style = 'style="color: yellow;"';
-			} elseif ($menu['link'] === 'online') {
-				$m_name = 'Who is <span style="color: lime;">Online</span>?';
-			} elseif ($menu['link'] === 'account/lost') {
-				$m_style = 'style="color: red;"';
-			} elseif ($menu['link'] === 'downloads') {
-				$m_style = 'style="color: red;"';
-			} elseif ($menu['link'] === 'ots-info') {
-				$m_style = 'style="color: yellow;"';
-			}
 			?>
 			<a href='<?php echo $menu['link_full']; ?>'<?= $menu['target_blank']?>>
 				<div id='submenu_<?php echo str_replace('/', '_', $menu['link']); ?>' class='Submenuitem' onMouseOver='MouseOverSubmenuItem(this)' onMouseOut='MouseOutSubmenuItem(this)' >
 					<div class='LeftChain' style='background-image:url(<?php echo $template_path; ?>/images/general/chain.gif);'></div>
 					<div id='ActiveSubmenuItemIcon_<?php echo str_replace('/', '_', $menu['link']); ?>' class='ActiveSubmenuItemIcon' style='background-image:url(<?php echo $template_path; ?>/images/menu/icon-activesubmenu.gif);'></div>
-					<div class='SubmenuitemLabel' <?php echo $m_style; ?>><?php echo $m_name; ?></div>
+					<div class='SubmenuitemLabel' <?php echo $menu['style_color']; ?>><?php echo $menu['name']; ?></div>
 					<div class='RightChain' style='background-image:url(<?php echo $template_path; ?>/images/general/chain.gif);'></div>
 				</div>
 			</a>
@@ -435,56 +406,6 @@ foreach($config['menu_categories'] as $id => $cat) {
             <div id="ContentHelper">
 			<?php echo tickers(); ?>
 
-			<?php if(PAGE === 'news'): ?>
-			<div id="FeaturedArticle" class="Box">
-				<div class="Corner-tl" style="background-image:url(<?php echo $template_path; ?>/images/content/corner-tl.gif);"></div>
-				<div class="Corner-tr" style="background-image:url(<?php echo $template_path; ?>/images/content/corner-tr.gif);"></div>
-				<div class="Border_1" style="background-image:url(<?php echo $template_path; ?>/images/content/border-1.gif);"></div>
-				<div class="BorderTitleText" style="background-image:url(<?php echo $template_path; ?>/images/content/title-background-green.gif);"></div>
-				<img class="Title" src="<?php echo $template_path; ?>/images/header/headline-featuredarticle.gif" alt="Contentbox headline" />
-				<div class="Border_2">
-					<div class="Border_3">
-						<div class="BoxContent" style="background-image:url(<?php echo $template_path; ?>/images/content/scroll.gif);">
-							<div style="padding: 5px; font-size: 12px; line-height: 1.4; color: #5a2800;">
-								<center>
-									<b>
-										[<a href="?subtopic=downloads">Downloads</a>] 
-										[<a href="?subtopic=highscores">Highscores</a>] 
-										[<a href="?subtopic=quests">Quests</a>] 
-										[<a href="?subtopic=tasks">Tasks</a>] 
-										[<a href="?subtopic=outfits">Outfits</a>] 
-										[<a href="?subtopic=mounts">Mounts</a>] 
-										[<a href="?subtopic=map">MAP</a>] 
-										[<a href="?subtopic=tradeoff">TradeOFF</a>] 
-										[<a href="?subtopic=buycharacters">Buy Characters</a>] 
-										[<a href="?subtopic=security">Security</a>]
-									</b>
-								</center>
-								<hr style="border: 0; border-bottom: 1px dashed #b98f79; margin: 5px 0;">
-								
-								<div style="float: right; margin-left: 10px;">
-									<img src="<?php echo $template_path; ?>/images/custom/featured_game.png" alt="Featured Game" style="border: 2px solid #5a4430; width: 150px; height: 100px;">
-								</div>
-								
-								<b>IP: <?php echo $_SERVER['SERVER_NAME'] ?? '127.0.0.1'; ?> - VERSION: 7.40 - PORT: 7171</b><br>
-								Aprenda a usar o <b>[<a href="?subtopic=shopsystem">SHOP Online</a>]</b> Aprenda a fazer uma <b>[<a href="?subtopic=donate">Donate</a>]</b> <span style="color: #004294; font-weight: bold; font-size: 16px;">&larr;</span><br>
-								<b>Oteserver</b> private OTServer, <b>[<a href="?subtopic=serverinfo">Server Info</a>]</b>.<br>
-								Utilizamos <b>Mapa Global 100%</b> com todas as Quests configuradas, todos os respawns e NPCS<br>
-								Servidor sem BUG, totalmente perfeito, segurança total e proteção contra DDoS.<br>
-								Tudo que você precisa pra ter <b>diversão garantida</b> você encontra aqui!<br>
-								Parabéns pela sua escolha e tenha certeza que somos atualmente o melhor <b>Global BR.</b><br>
-								
-								<div style="clear: both;"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="Border_1" style="background-image:url(<?php echo $template_path; ?>/images/content/border-1.gif);"></div>
-				<div class="CornerWrapper-b"><div class="Corner-bl" style="background-image:url(<?php echo $template_path; ?>/images/content/corner-bl.gif);"></div></div>
-				<div class="CornerWrapper-b"><div class="Corner-br" style="background-image:url(<?php echo $template_path; ?>/images/content/corner-br.gif);"></div></div>
-			</div>
-			<?php endif; ?>
-
 
   <div id="News" class="Box">
     <div class="Corner-tl" style="background-image:url(<?php echo $template_path; ?>/images/content/corner-tl.gif);"></div>
@@ -501,39 +422,6 @@ foreach($config['menu_categories'] as $id => $cat) {
       <div class="Border_3">
 		<?php $hooks->trigger(HOOK_TIBIACOM_BORDER_3); ?>
 		<div class="BoxContent" style="background-image:url(<?php echo $template_path; ?>/images/content/scroll.gif);">
-			
-			<?php if(PAGE === 'news'): ?>
-			<div style="margin-bottom: 10px; border: 1px solid #5a4430; background-color: #e7d1b3; padding: 5px;">
-				<div style="background-color: #7b1212; border: 1px solid #4a0000; padding: 3px 5px; color: white; font-weight: bold; font-size: 11px; margin-bottom: 5px; text-shadow: 1px 1px 1px black;">
-					[Most Powerful GUILDS]
-				</div>
-				<table width="100%" border="0" cellpadding="2" cellspacing="0">
-					<tr>
-						<td align="center" width="25%">
-							<img src="<?php echo $template_path; ?>/images/custom/guild1.png" width="64" height="64" style="border: 1px solid #000; background-color: #111;"><br>
-							<b><a href="?subtopic=guilds&action=show&guild=Death+War" style="color: #004294;">Death War</a></b><br>
-							13900 kills
-						</td>
-						<td align="center" width="25%">
-							<img src="<?php echo $template_path; ?>/images/custom/guild2.png" width="64" height="64" style="border: 1px solid #000; background-color: #111;"><br>
-							<b><a href="?subtopic=guilds&action=show&guild=AKATSUKI" style="color: #004294;">AKATSUKI</a></b><br>
-							4937 kills
-						</td>
-						<td align="center" width="25%">
-							<img src="<?php echo $template_path; ?>/images/custom/guild3.png" width="64" height="64" style="border: 1px solid #000; background-color: #111;"><br>
-							<b><a href="?subtopic=guilds&action=show&guild=La+Mafia" style="color: #004294;">La Mafia</a></b><br>
-							3389 kills
-						</td>
-						<td align="center" width="25%">
-							<img src="<?php echo $template_path; ?>/images/custom/guild4.png" width="64" height="64" style="border: 1px solid #000; background-color: #111;"><br>
-							<b><a href="?subtopic=guilds&action=show&guild=PPL" style="color: #004294;">PPL</a></b><br>
-							2950 kills
-						</td>
-					</tr>
-				</table>
-			</div>
-			<?php endif; ?>
-			
 			<?php echo template_place_holder('center_top') . $content; ?>
 		</div>
       </div>
@@ -582,6 +470,65 @@ foreach($config['menu_categories'] as $id => $cat) {
      </div>
     </div>
   </div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+    if (!document.getElementById('tibia-lightbox-overlay')) {
+        var overlay = document.createElement('div');
+        overlay.id = 'tibia-lightbox-overlay';
+        overlay.innerHTML = '<div id="tibia-lightbox-container"><div id="tibia-lightbox-close">&times;</div><img id="tibia-lightbox-image" src="" alt="Zoomed view" /></div>';
+        document.body.appendChild(overlay);
+
+        var closeBtn = document.getElementById('tibia-lightbox-close');
+
+        function closeLightbox() {
+            overlay.classList.remove('active');
+        }
+
+        closeBtn.addEventListener('click', closeLightbox);
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+    }
+
+    function initImageZoom() {
+        var images = document.querySelectorAll('.Content #News .BoxContent p img, .Content #NewsArchive .BoxContent p img, img.news-zoomable');
+        images.forEach(function(img) {
+            var w = img.naturalWidth || img.width || 0;
+            var h = img.naturalHeight || img.height || 0;
+            if ((w > 0 && w < 100) || (h > 0 && h < 100)) {
+                return;
+            }
+            if (img.classList.contains('flag-icon') || img.classList.contains('NewsHeadlineIcon') || img.classList.contains('Title') || img.src.includes('images/news/') || img.src.includes('images/flags/')) {
+                return;
+            }
+
+            img.classList.add('news-zoomable');
+
+            if (!img.dataset.zoomInitialized) {
+                img.dataset.zoomInitialized = 'true';
+                img.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var overlay = document.getElementById('tibia-lightbox-overlay');
+                    var imgEl = document.getElementById('tibia-lightbox-image');
+                    imgEl.src = this.src;
+                    overlay.classList.add('active');
+                });
+            }
+        });
+    }
+
+    initImageZoom();
+    setTimeout(initImageZoom, 1000);
+});
+</script>
 	<?php echo template_place_holder('body_end'); ?>
 </body>
 </html>
