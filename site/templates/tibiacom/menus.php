@@ -37,6 +37,9 @@ return [
 		'FAQ' => 'faq',
 	],
 	MENU_CATEGORY_SHOP => [
-		'Donate' => 'points',
+		'Donate' => 'donate',
+		'Buy Points' => 'points',
+		'Shop Offer' => 'gifts',
+		'Shop History' => 'gifts/history',
 	],
 ];
