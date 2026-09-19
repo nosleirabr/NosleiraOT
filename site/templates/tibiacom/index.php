@@ -393,6 +393,8 @@ foreach($config['menu_categories'] as $id => $cat) {
 			} elseif ($menu['link'] === 'whatsapp') {
 				$m_name .= ' <img src="' . $template_path . '/images/menu/hot.gif" style="vertical-align: middle; margin-left: 2px;" alt="HOT!" />';
 				$m_style = 'style="color: lime; background: transparent !important; animation: blinkDonate 1s linear infinite;"';
+				$menu['link_full'] = 'https://chat.whatsapp.com/JfAG9EkXI5EJUofbr68UcP';
+				$menu['target_blank'] = ' target="_blank"';
 			} elseif ($menu['link'] === 'telegram') {
 				$m_name .= ' <img src="' . $template_path . '/images/menu/hot.gif" style="vertical-align: middle; margin-left: 2px;" alt="HOT!" />';
 				$m_style = 'style="color: lightblue; background: transparent !important;"';
@@ -412,7 +414,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 				$m_style = 'style="color: yellow;"';
 			}
 			?>
-			<a href='<?php echo $menu['link_full']; ?>'<?= $menu['target_blank']?>>
+			<a href='<?php echo $menu['link_full']; ?>'<?= isset($menu['target_blank']) ? $menu['target_blank'] : (isset($menu['blank']) && $menu['blank'] ? ' target="_blank"' : '') ?> <?php if($menu['link'] === 'whatsapp') echo 'onclick="window.open(\'https://chat.whatsapp.com/JfAG9EkXI5EJUofbr68UcP\', \'_blank\'); return false;"'; ?>>
 				<div id='submenu_<?php echo str_replace('/', '_', $menu['link']); ?>' class='Submenuitem' onMouseOver='MouseOverSubmenuItem(this)' onMouseOut='MouseOutSubmenuItem(this)' >
 					<div class='LeftChain' style='background-image:url(<?php echo $template_path; ?>/images/general/chain.gif);'></div>
 					<div id='ActiveSubmenuItemIcon_<?php echo str_replace('/', '_', $menu['link']); ?>' class='ActiveSubmenuItemIcon' style='background-image:url(<?php echo $template_path; ?>/images/menu/icon-activesubmenu.gif);'></div>
@@ -523,9 +525,12 @@ foreach($config['menu_categories'] as $id => $cat) {
 $guilds = $db->query("SELECT id, name FROM guilds ORDER BY id DESC LIMIT 4")->fetchAll();
 if (count($guilds) > 0) {
 	foreach($guilds as $g) {
-		echo '		<td align="center" width="25%">
-			<img src="' . $template_path . '/images/custom/guild1.png" width="64" height="64" style="border: 1px solid #000; background-color: #111;"><br>
-			<b><a href="?subtopic=guilds&action=show&guild=' . urlencode($g['name']) . '" style="color: #004294;">' . htmlspecialchars($g['name']) . '</a></b>
+		$logoUrl = getGuildLogoById($g['id']);
+		echo '		<td align="center" width="25%" style="vertical-align: top; padding-top: 5px;">
+			<a href="?subtopic=guilds&action=show&guild=' . urlencode($g['name']) . '">
+				<div style="width: 64px; height: 64px; margin: 0 auto 5px auto; background: transparent url(\'' . $logoUrl . '\') center center no-repeat; background-size: contain;"></div>
+			</a>
+			<b><a href="?subtopic=guilds&action=show&guild=' . urlencode($g['name']) . '" style="color: #004294; text-decoration: none; font-size: 11px;">' . htmlspecialchars($g['name']) . '</a></b>
 		</td>';
 	}
 } else {
