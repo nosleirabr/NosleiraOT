@@ -460,10 +460,10 @@ foreach($config['menu_categories'] as $id => $cat) {
 								<hr style="border: 0; border-bottom: 1px dashed #b98f79; margin: 5px 0;">
 								
 								<div style="float: right; margin-left: 10px;">
-									<img src="<?php echo $template_path; ?>/images/custom/featured_game.png" alt="Featured Game" style="border: 2px solid #5a4430; width: 150px; height: 100px;">
+									<img src="<?php echo $template_path; ?>/images/custom/featured_game.png" alt="Featured Game" style="border: 2px solid #5a4430; width: 130px; height: 100px; max-width: 130px; max-height: 100px; object-fit: cover; display: inline-block; cursor: default;">
 								</div>
 								<b>IP: <?php echo $_SERVER['SERVER_NAME'] ?? '127.0.0.1'; ?> - VERSION: 7.40 - PORT: 7171</b><br>
-								Aprenda a usar o <b>[<a href="?subtopic=shopsystem">SHOP Online</a>]</b> Aprenda a fazer uma <b>[<a href="?subtopic=donate">Donate</a>]</b> <span style="color: #004294; font-weight: bold; font-size: 16px;">&larr;</span><br>
+								Aprenda a usar o <b>[<a href="?subtopic=shopsystem">SHOP Online</a>]</b> Aprenda a fazer uma <b>[<a href="?subtopic=donate">Donate</a>]</b> <img src="<?php echo $template_path; ?>/images/custom/setas.gif" alt="&larr;" style="width: 60px; vertical-align: middle; margin-left: 5px;"><br>
 								<b>Oteserver</b> private OTServer, <b>[<a href="?subtopic=serverinfo">Server Info</a>]</b>.<br>
 								Utilizamos <b>Mapa Global 100%</b> com todas as Quests configuradas, todos os respawns e NPCS<br>
 								Servidor sem BUG, totalmente perfeito, segurança total e proteção contra DDoS.<br>
@@ -514,7 +514,7 @@ if (count($guilds) > 0) {
 			$logo = 'default.gif';
 		}
 		echo '		<td align="center" width="25%">
-			<img src="images/guilds/' . $logo . '" width="64" height="64" style="border: 1px solid #000; background-color: #111;"><br>
+			<a href="?subtopic=guilds&action=show&guild=' . urlencode($g['name']) . '"><img src="images/guilds/' . $logo . '" width="64" height="64" style="border: 1px solid #000;"></a><br>
 			<b><a href="?subtopic=guilds&action=show&guild=' . urlencode($g['name']) . '" style="color: #004294;">' . htmlspecialchars($g['name']) . '</a></b>
 		</td>';
 	}
@@ -576,6 +576,32 @@ if (count($guilds) > 0) {
     </div>
   </div>
 	<?php echo template_place_holder('body_end'); ?>
+
+<!-- Lightbox para ampliar imagens ao clicar -->
+<div id="tibia-lightbox-overlay" onclick="closeTibiaLightbox()">
+	<div id="tibia-lightbox-container">
+		<div id="tibia-lightbox-close" onclick="closeTibiaLightbox()">&times;</div>
+		<img id="tibia-lightbox-image" src="" alt="">
+	</div>
+</div>
+<script>
+function openTibiaLightbox(src) {
+	document.getElementById('tibia-lightbox-image').src = src;
+	document.getElementById('tibia-lightbox-overlay').classList.add('active');
+}
+function closeTibiaLightbox() {
+	document.getElementById('tibia-lightbox-overlay').classList.remove('active');
+}
+document.addEventListener('DOMContentLoaded', function() {
+	var imgs = document.querySelectorAll('.tibia-zoomable');
+	for (var i = 0; i < imgs.length; i++) {
+		imgs[i].style.cursor = 'pointer';
+		imgs[i].addEventListener('click', function() {
+			openTibiaLightbox(this.src);
+		});
+	}
+});
+</script>
 </body>
 </html>
 <?php

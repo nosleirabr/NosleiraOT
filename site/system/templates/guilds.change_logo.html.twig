@@ -4,7 +4,7 @@
 <table style="width:100%;" >
 	<tr>
 		<td>
-			Here you can change logo of your guild.<br/>Current logo: <img src="{{ constant('GUILD_IMAGES_DIR') }}{{ guild_logo }}" height="64" width="64"><br/><br/>
+			Here you can change logo of your guild.<br/>Current logo: <img src="{{ constant('BASE_URL') }}{{ constant('GUILD_IMAGES_DIR') }}{{ guild_logo }}" height="64" width="64"><br/><br/>
 			<form enctype="multipart/form-data" action="{{ getLink('guilds') }}?guild={{ guild.getName() }}&action=change_logo" method="post" id="upload_form">
 
 				{{ csrf() }}

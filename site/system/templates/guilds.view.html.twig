@@ -1,18 +1,15 @@
-<div class="Border_2">
-	<div class="Border_3">
-		<div class="BoxContent">
-			{{ hook('HOOK_GUILDS_BEFORE_GUILD_HEADER') }}
+{{ hook('HOOK_GUILDS_BEFORE_GUILD_HEADER') }}
 			<table border="0" width="100%">
 				<tbody>
 				<tr>
 					<td width="64">
-						<img src="{{ constant('GUILD_IMAGES_DIR') }}{{ logo }}" width="64" height="64">
+						<img src="{{ constant('BASE_URL') }}{{ constant('GUILD_IMAGES_DIR') }}{{ logo }}" width="64" height="64">
 					</td>
 
 					<td align="center" width="100%"><h1>{{ guild_name }}</h1></td>
 
 					<td width="64">
-						<img src="{{ constant('GUILD_IMAGES_DIR') }}{{ logo }}" width="64" height="64">
+						<img src="{{ constant('BASE_URL') }}{{ constant('GUILD_IMAGES_DIR') }}{{ logo }}" width="64" height="64">
 					</td>
 				</tr>
 				</tbody>
@@ -94,7 +91,7 @@
 
 													<td>
 														{% set playerName = player.getName() %}
-														<form action="{{ getLink('guilds') }}?action=change_nick&name={{ playerName }}&guild={{ guild_name }}" method="post">
+														<form action="{{ getLink('guilds') }}?action=change_nick&name={{ playerName }}&guild={{ guild_name }}" method="post" style="margin: 0;">
 															{{ csrf() }}
 															{{ getPlayerLink(playerName, true)|raw }}
 
@@ -288,6 +285,3 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
-	</div>
-</div>
