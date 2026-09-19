@@ -36,7 +36,7 @@ $title = 'Rules';
                                                     <tbody>
                                                         <!-- INTRODUÇÃO -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #ffebad;">
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
                                                                 📜 Apresentação & Propósito
                                                             </td>
                                                         </tr>
@@ -50,7 +50,7 @@ $title = 'Rules';
 
                                                         <!-- PENALIDADES -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #ffebad;">
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
                                                                 ⚖️ Penalidades
                                                             </td>
                                                         </tr>
@@ -74,7 +74,7 @@ $title = 'Rules';
 
                                                         <!-- MEDIDAS ADMINISTRATIVAS -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #ffebad;">
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
                                                                 🛠️ Medidas Administrativas
                                                             </td>
                                                         </tr>
@@ -96,7 +96,7 @@ $title = 'Rules';
 
                                                         <!-- RESPONSABILIDADE DO JOGADOR & CONDUTAS PROIBIDAS -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #ffebad;">
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
                                                                 📌 Responsabilidade do Jogador & Condutas Proibidas
                                                             </td>
                                                         </tr>
@@ -161,7 +161,7 @@ $title = 'Rules';
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
                                                     <tbody>
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #ffebad;">
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
                                                                 Normas de Jogo & Convivência
                                                             </td>
                                                         </tr>
@@ -242,7 +242,7 @@ $title = 'Rules';
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
                                                     <tbody>
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #ffebad;">
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
                                                                 🚨 Diretrizes para Atendimento & Denúncias
                                                             </td>
                                                         </tr>
