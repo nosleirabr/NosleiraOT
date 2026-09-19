@@ -64,10 +64,16 @@
 									</td>
 									<td>
 										<input type="password" name="password" id="password" value="" size="30" maxlength="29" />
+										<span style="cursor: pointer; margin-left: 3px;" onclick="togglePasswordVisibility('password', this);" title="Mostrar senha">👁️</span>
 										<img id="password_indicator" src="images/global/general/{% if not save or errors.password is defined %}n{% endif %}ok.gif" style="display: none;" />
 									</td>
 								</tr>
-								<tr><td></td><td><span id="password_error" class="FormFieldError">{% if errors.password is defined %}{{ errors.password }}{% endif %}</span></td></tr>
+								<tr>
+									<td></td>
+									<td>
+										<span id="password_error" class="FormFieldError">{% if errors.password is defined %}{{ errors.password }}{% endif %}</span>
+									</td>
+								</tr>
 
 								{{ hook('HOOK_ACCOUNT_CREATE_AFTER_PASSWORD') }}
 
@@ -76,11 +82,21 @@
 										<span{% if errors.password is defined %} class="red"{% endif %}>Repeat password:</span>
 									</td>
 									<td>
-										<input type="password" name="password_confirm" id="password_confirm" value="" size="30" maxlength="29" />
+										<input type="password" name="password_confirm" id="password_confirm" value="" size="30" maxlength="29" onpaste="return false;" oncopy="return false;" oncut="return false;" oncontextmenu="return false;" autocomplete="off" />
+										<span style="cursor: pointer; margin-left: 3px;" onclick="togglePasswordVisibility('password_confirm', this);" title="Mostrar senha">👁️</span>
 										<img id="password_confirm_indicator" src="images/global/general/{% if not save or errors.password is defined %}n{% endif %}ok.gif" style="display: none;" />
 									</td>
 								</tr>
-								<tr><td></td><td><span id="password_confirm_error" class="FormFieldError">{% if errors.password is defined %}{{ errors.password }}{% endif %}</span></td></tr>
+								<tr>
+									<td></td>
+									<td>
+										<div style="font-size: 11px; margin-top: 5px; font-weight: bold; color: #724e12;">
+											Your password needs 8 digits or more, letters uppercase, lowercase and numbers.<br>
+											A senha precisa de 8 digitos ou mais, letras maiúsculas, minúsculas e números.
+										</div>
+										<span id="password_confirm_error" class="FormFieldError">{% if errors.password is defined %}{{ errors.password }}{% endif %}</span>
+									</td>
+								</tr>
 
 								{{ hook('HOOK_ACCOUNT_CREATE_AFTER_PASSWORDS') }}
 								</tbody>
@@ -114,6 +130,7 @@
 									<td>
 										<input id="character_name" name="name" size="{{ setting('core.create_character_name_max_length') }}" maxlength="{{ setting('core.create_character_name_max_length') }}" value="{{ name }}"/>
 										<img id="character_indicator" src="images/global/general/{% if not save or errors.name is defined %}n{% endif %}ok.gif" style="display: none;" />
+										<div style="font-size: 11px; margin-top: 2px;"><a href="#" id="btn_suggest_name" onclick="generateCharacterName(event); return false;">Suggest Name</a></div>
 										<br>
 									</td>
 								</tr>
@@ -257,6 +274,18 @@
 									<tr>
 										<td colspan="2">
 											<span class="FormFieldError">{{ errors.accept_rules }}</span>
+										</td>
+									</tr>
+								{% endif %}
+								<tr>
+									<td colspan="2" >
+										<span><input type="checkbox" id="accept_age" name="accept_age" value="true"{% if accept_age %}checked{% endif %}/> <label for="accept_age">Confirmo que tenho <span style="color: red;">18 anos</span> ou mais.</label></span>
+									</td>
+								</tr>
+								{% if errors.accept_age is defined %}
+									<tr>
+										<td colspan="2">
+											<span class="FormFieldError">{{ errors.accept_age }}</span>
 										</td>
 									</tr>
 								{% endif %}

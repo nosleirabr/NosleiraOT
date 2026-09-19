@@ -147,22 +147,32 @@ class Validator
 	public static function password($password)
 	{
 		if (!isset($password[0])) {
-			self::$lastError = 'Please enter the password.';
+			self::$lastError = 'Por favor, informe a senha.';
 			return false;
 		}
 
 		if (strlen($password) < 8 || strlen($password) > 29) {
-			self::$lastError = 'The password must have at least 8 and maximum 29 letters!';
+			self::$lastError = 'A senha deve ter entre 8 e 29 caracteres!';
 			return false;
 		}
 
-		if(!preg_match('/[a-zA-Z]/', $password)) {
-			self::$lastError = 'The password must contain at least one letter A-Z or a-z!';
+		if(!preg_match('/[a-z]/', $password)) {
+			self::$lastError = 'A senha deve conter pelo menos uma letra minúscula (a-z)!';
+			return false;
+		}
+
+		if(!preg_match('/[A-Z]/', $password)) {
+			self::$lastError = 'A senha deve conter pelo menos uma letra maiúscula (A-Z)!';
 			return false;
 		}
 
 		if(!preg_match('/[0-9]/', $password)) {
-			self::$lastError = 'The password must contain at least one number!';
+			self::$lastError = 'A senha deve conter pelo menos um número (0-9)!';
+			return false;
+		}
+
+		if(!preg_match('/[\W_]/', $password)) {
+			self::$lastError = 'A senha deve conter pelo menos um caractere especial (!@#$%^&* etc)!';
 			return false;
 		}
 

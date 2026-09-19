@@ -211,4 +211,28 @@
 
 		setTimeout(checkAccount, 1000);
 	}
+
+	function generateCharacterName(event) {
+		event.preventDefault();
+		var prefixes = ["Aero", "Balth", "Cael", "Dar", "Ery", "Fael", "Gar", "Hael", "Ily", "Jor", "Kael", "Lor", "Mael", "Nor", "Ory", "Pyr", "Qur", "Rael", "Syr", "Tael", "Ury", "Vael", "Wyr", "Xyr", "Yel", "Zael"];
+		var suffixes = ["dan", "dor", "wyn", "thas", "rion", "lan", "min", "ron", "thion", "las", "vyn", "zian", "xian", "rian", "morn", "thorn", "gorn", "born"];
+		var prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+		var suffix = suffixes[Math.floor(Math.random() * suffixes.length)];
+		$('#character_name').val(prefix + suffix);
+		
+		if (typeof checkName === 'function') {
+			checkName();
+		}
+	}
+
+	function togglePasswordVisibility(fieldId, iconElement) {
+		var input = document.getElementById(fieldId);
+		if (input.type === 'password') {
+			input.type = 'text';
+			iconElement.style.opacity = '0.5';
+		} else {
+			input.type = 'password';
+			iconElement.style.opacity = '1';
+		}
+	}
 </script>
