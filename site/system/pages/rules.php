@@ -122,7 +122,7 @@ $title = 'Rules';
                                                     <tbody>
                                                         <!-- INTRODUÇÃO COM LETRA CAPITULAR MEDIEVAL -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
                                                                 📜 Apresentação & Propósito
                                                             </td>
                                                         </tr>
@@ -142,7 +142,7 @@ $title = 'Rules';
 
                                                         <!-- PENALIDADES -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
                                                                 ⚖️ Penalidades
                                                             </td>
                                                         </tr>
@@ -166,7 +166,7 @@ $title = 'Rules';
 
                                                         <!-- MEDIDAS ADMINISTRATIVAS -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
                                                                 🛠️ Medidas Administrativas
                                                             </td>
                                                         </tr>
@@ -180,15 +180,17 @@ $title = 'Rules';
                                                                     <li style="margin-bottom: 5px;">🔹 Ajustes nos atributos ou progresso do personagem;</li>
                                                                     <li style="margin-bottom: 5px;">🔹 Correção de valores ou recompensas;</li>
                                                                     <li style="margin-bottom: 5px;">🔹 Reversão de ações realizadas de maneira irregular;</li>
+                                                                    <li style="margin-bottom: 5px;">🔹 Exclusão do personagem, quando necessário.</li>
+                                                                </ul>
                                                                 <div align="center" style="font-family: 'Martel', Georgia, 'Times New Roman', serif; font-size: 13px; font-weight: bold; color: #4a2505; padding: 12px 18px; background: linear-gradient(180deg, #f8f1e5 0%, #ebdcc7 100%); border: 1px solid #c4ab84; border-left: 4px solid #7f0000; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); margin-top: 12px;">
-                                                                    ✨ A aplicação de uma penalidade não impede a adoção de outras medidas administrativas para corrigir ou reparar os efeitos causados pela infração. ✨
+                                                                    ✨ A aplicação de uma penalidade não impede a adoção de outras medidas administrativas para corrigir ou reparar os efeitos causados pela infração.
                                                                 </div>
                                                             </td>
                                                         </tr>
 
                                                         <!-- RESPONSABILIDADE DO JOGADOR & CONDUTAS PROIBIDAS -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
                                                                 📌 Responsabilidade do Jogador & Condutas Proibidas
                                                             </td>
                                                         </tr>
@@ -200,7 +202,7 @@ $title = 'Rules';
                                                                 <b>Condutas Proibidas:</b><br>
                                                                 As situações apresentadas neste regulamento representam as principais condutas que podem gerar punições, porém <b>não constituem uma lista limitada</b>. Comportamentos que, mesmo não estando descritos especificamente, prejudiquem a comunidade, explorem falhas do servidor ou comprometam a integridade do jogo também poderão ser analisados e punidos pela administração.<br><br>
                                                                 <div align="center" style="font-family: 'Martel', Georgia, 'Times New Roman', serif; font-size: 14px; font-weight: bold; color: #4a2505; padding: 14px 20px; background: linear-gradient(180deg, #f8f1e5 0%, #ebdcc7 100%); border: 1px solid #c4ab84; border-left: 4px solid #7f0000; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); margin-top: 10px;">
-                                                                    ✨ O objetivo das regras é garantir que o <span style="color: #7f0000;">NosleiraOT</span> permaneça um ambiente competitivo, organizado e agradável para todos. ✨
+                                                                    ✨ O objetivo das regras é garantir que o <span style="color: #7f0000;">NosleiraOT</span> permaneça um ambiente competitivo, organizado e agradável para todos.
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -253,7 +255,7 @@ $title = 'Rules';
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
                                                     <tbody>
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
                                                                 Normas de Jogo & Convivência (Clique para expandir o detalhamento)
                                                             </td>
                                                         </tr>
@@ -349,12 +351,12 @@ $title = 'Rules';
                                                                     <summary>
                                                                         <span class="rule-accordion-arrow">❯</span>
                                                                         <div>
-                                                                            <span class="rule-accordion-title">7) Sistema de Trade OFF</span>
-                                                                            <span class="rule-accordion-brief">Não gerar ofertas fraudulentas no sistema de Trade OFF.</span>
+                                                                            <span class="rule-accordion-title">7) Exploits, Bug Abuse & Duplicação (Dupes)</span>
+                                                                            <span class="rule-accordion-brief">Proibido explorar falhas, bugs ou provocar rollbacks para duplicar itens ou obter vantagens.</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É proibido tentar enganar outros jogadores através de ofertas falsas, trocas iludidoras ou fraudes utilizando o sistema de Trade OFF.
+                                                                        É estritamente proibido utilizar qualquer bug, falha de mapa, erro de script ou instabilidade do servidor para obter itens, experiência ou qualquer vantagem indevida. Provocar ativamente crashes no servidor para forçar rollback e duplicar itens resultará em banimento permanente (Delete) de todas as contas associadas.
                                                                     </div>
                                                                 </details>
 
