@@ -473,7 +473,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 								<hr style="border: 0; border-bottom: 1px dashed #5a2800; margin: 10px -5px;">
 								
 								<div style="float: right; margin-left: 15px; margin-bottom: 5px;">
-									<img src="<?php echo $template_path; ?>/images/custom/featured_game.png" alt="Featured Game" style="border: 2px solid #5a4430; width: 210px; height: auto; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" onclick="document.getElementById('featuredModal').style.display='flex'" title="Clique para ampliar">
+									<img src="<?php echo $template_path; ?>/images/custom/featured_game.png" alt="Featured Game" style="border: 2px solid #5a4430; width: 265px; height: auto; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" onclick="document.getElementById('featuredModal').style.display='flex'" title="Clique para ampliar">
 								</div>
 								
 								<!-- Modal Tela Cheia -->
