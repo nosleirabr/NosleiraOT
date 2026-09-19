@@ -18,3 +18,5 @@ Dockerfile + docker/entrypoint.sh live in this repo. Do not put Terraform here.
 - NUNCA faça o merge do Pull Request para a 'main' sem que o usuário revise e autorize. O código sobe para aprovação.
 
 - DIRETÓRIO PRINCIPAL OBRIGATÓRIO: Absolutamente TUDO (instalações, ferramentas, scripts de teste, rascunhos e operações de terminal) DEVE ser feito única e exclusivamente dentro do disco D (em `D:\Server`). NUNCA crie arquivos ou instale coisas no disco C: ou no Desktop do usuário para não lotar o computador.
+
+- CACHE DO SITE: SEMPRE que você fizer qualquer alteração nos arquivos do site (PHP, HTML, CSS, layouts, menus, etc), você DEVE obrigatoriamente e automaticamente limpar o cache do MyAAC. Para limpar o cache, rode o seguinte comando no PowerShell: `Remove-Item -Path "d:\Server\site\system\cache\myaac_*" -Force; Remove-Item -Path "d:\Server\site\system\cache\route.cache" -Force; Remove-Item -Path "d:\Server\site\system\cache\twig\*" -Recurse -Force`. Nunca esqueça de fazer isso para o usuário ver as alterações imediatamente.
