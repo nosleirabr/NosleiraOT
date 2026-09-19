@@ -91,34 +91,34 @@
 
 													<td>
 														{% set playerName = player.getName() %}
-														<form action="{{ getLink('guilds') }}?action=change_nick&name={{ playerName }}&guild={{ guild_name }}" method="post" style="margin: 0;">
-															{{ csrf() }}
-															{{ getPlayerLink(playerName, true)|raw }}
+														{{ getPlayerLink(playerName, true)|raw }}
 
-															{% set showGuildNick = false %}
-															{% if player.getGuildNick() is not empty %}
-																{% set showGuildNick = true %}
-																{% set guildNickRaw = player.getGuildNick()|raw %}
-															{% endif %}
+														{% set showGuildNick = false %}
+														{% if player.getGuildNick() is not empty %}
+															{% set showGuildNick = true %}
+															{% set guildNickRaw = player.getGuildNick()|raw %}
+														{% endif %}
 
-															{% if logged %}
-																{% if player.getId() in players_from_account_ids %}
+														{% if logged %}
+															{% if player.getId() in players_from_account_ids %}
+																<form action="{{ getLink('guilds') }}?action=change_nick&name={{ playerName }}&guild={{ guild_name }}" method="post" style="display: inline; margin: 0; padding: 0;">
+																	{{ csrf() }}
 																	(<input type="text" name="nick" value="{{ guildNickRaw }}"><input type="submit" value="Change">)
-																{% else %}
-																	{% if showGuildNick %} ({{ guildNickRaw }}){% endif %}
-																{% endif %}
-
-																{% if level_in_guild > rank.rank_level or isLeader %}
-																	{% if guildOwnerName != playerName %}
-																		<span style="font-size: 10px; float: right">
-																			{<a href="{{ getLink('guilds') }}?action=kick_player&guild={{ guild_name|url_encode }}&name={{ playerName|url_encode }}">KICK</a>}
-																		</span>
-																	{% endif %}
-																{% endif %}
+																</form>
 															{% else %}
 																{% if showGuildNick %} ({{ guildNickRaw }}){% endif %}
 															{% endif %}
-														</form>
+
+															{% if level_in_guild > rank.rank_level or isLeader %}
+																{% if guildOwnerName != playerName %}
+																	<span style="font-size: 10px; float: right">
+																		{<a href="{{ getLink('guilds') }}?action=kick_player&guild={{ guild_name|url_encode }}&name={{ playerName|url_encode }}">KICK</a>}
+																	</span>
+																{% endif %}
+															{% endif %}
+														{% else %}
+															{% if showGuildNick %} ({{ guildNickRaw }}){% endif %}
+														{% endif %}
 													</td>
 
 													<td>{{ player.getVocationName() }}</td>
