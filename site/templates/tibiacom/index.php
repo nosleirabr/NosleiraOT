@@ -405,6 +405,7 @@ foreach($config['menu_categories'] as $id => $cat) {
           <div class="Content">
             <div id="ContentHelper">
 
+
 <!-- Google Translate Widget (Oculto) -->
 <div id="google_translate_element" style="display:none !important;"></div>
 
@@ -452,7 +453,7 @@ function changeLanguage(lang) {
 </script>
 
 <style>
-/* Ocultar barra superior do Google Translate */
+/* Ocultar elementos do Google Translate */
 .goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate,
 #goog-gt-tt,
@@ -473,60 +474,57 @@ body {
     display: none !important;
 }
 
-/* Barra de Tradutor com Bandeiras */
-.lang-selector-bar {
-    background: #f1e0c6;
-    border: 1px solid #bba382;
-    border-bottom: 2px solid #5a2800;
-    border-radius: 4px;
-    padding: 6px 12px;
-    margin-bottom: 10px;
+/* Container de Bandeiras no Canto Superior Direito */
+.top-lang-flags {
+    float: right;
     display: flex;
     align-items: center;
-    justify-content: center;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
+    gap: 5px;
+    margin-top: 6px;
+    margin-right: 14px;
+    margin-bottom: 6px;
+    z-index: 100;
 }
-.lang-selector-flags {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-.lang-selector-flags a {
+.top-lang-flags a {
     display: inline-block;
     line-height: 0;
     text-decoration: none;
-    transition: transform 0.15s ease;
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-.lang-selector-flags a:hover {
-    transform: scale(1.2);
+.top-lang-flags a:hover {
+    transform: scale(1.15);
 }
 .flag-icon {
     width: 18px;
     height: 12px;
-    border: 1px solid #0f4977 !important;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    border: 1px solid #0b3c6f !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
     display: block;
     cursor: pointer;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
 }
 </style>
 
-<!-- Barra de Tradução com Bandeiras -->
-<div class="lang-selector-bar">
-    <div class="lang-selector-flags">
-        <a href="javascript:void(0);" onclick="changeLanguage('pt');" title="Português (BR)">
-            <img src="<?php echo BASE_URL; ?>images/flags/br.gif" alt="Português" class="flag-icon" />
-        </a>
-        <a href="javascript:void(0);" onclick="changeLanguage('en');" title="English (US)">
-            <img src="<?php echo BASE_URL; ?>images/flags/us.gif" alt="English" class="flag-icon" />
-        </a>
-        <a href="javascript:void(0);" onclick="changeLanguage('es');" title="Español (ES)">
-            <img src="<?php echo BASE_URL; ?>images/flags/es.gif" alt="Español" class="flag-icon" />
-        </a>
-        <a href="javascript:void(0);" onclick="changeLanguage('pl');" title="Polski (PL)">
-            <img src="<?php echo BASE_URL; ?>images/flags/pl.gif" alt="Polski" class="flag-icon" />
-        </a>
-    </div>
+<!-- Bandeiras de Idioma no Canto Direito (Exemplo Tibia Oficial) -->
+<div class="top-lang-flags">
+    <a href="javascript:void(0);" onclick="changeLanguage('pt');" title="Português (BR)">
+        <img src="<?php echo BASE_URL; ?>images/flags/br.gif" alt="Português" class="flag-icon" />
+    </a>
+    <a href="javascript:void(0);" onclick="changeLanguage('en');" title="English (US)">
+        <img src="<?php echo BASE_URL; ?>images/flags/us.gif" alt="English" class="flag-icon" />
+    </a>
+    <a href="javascript:void(0);" onclick="changeLanguage('es');" title="Español (ES)">
+        <img src="<?php echo BASE_URL; ?>images/flags/es.gif" alt="Español" class="flag-icon" />
+    </a>
+    <a href="javascript:void(0);" onclick="changeLanguage('pl');" title="Polski (PL)">
+        <img src="<?php echo BASE_URL; ?>images/flags/pl.gif" alt="Polski" class="flag-icon" />
+    </a>
 </div>
+<div style="clear: right;"></div>
+
 
 			<?php echo tickers(); ?>
 
