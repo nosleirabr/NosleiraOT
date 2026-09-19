@@ -25,67 +25,97 @@ $title = 'Rules';
 /* Accordion estilisado estilo Tibia oficial */
 .rule-accordion {
     margin-bottom: 8px;
-    border-bottom: 1px dashed #d6c8b0;
-    padding-bottom: 8px;
+    background: #fdfaf4;
+    border: 1px solid #e3d3ba;
+    border-radius: 4px;
+    font-family: 'Verdana', sans-serif;
 }
 .rule-accordion:last-child {
-    border-bottom: none;
     margin-bottom: 0;
-    padding-bottom: 0;
+}
+.rule-accordion[open] {
+    border: 1px solid #a83c3c;
+    background: #faf6ef;
 }
 .rule-accordion summary {
     cursor: pointer;
-    outline: none;
     list-style: none;
-    display: block;
-    user-select: none;
-    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    outline: none;
+    background: #fdfaf4;
     border-radius: 4px;
     transition: background-color 0.2s ease;
+    position: relative;
+}
+.rule-accordion[open] summary {
+    background: #f6e3df;
+    border-bottom: 1px solid #d2b3ad;
+    border-radius: 4px 4px 0 0;
 }
 .rule-accordion summary::-webkit-details-marker {
     display: none;
 }
-.rule-accordion summary:hover {
-    background-color: rgba(90, 40, 0, 0.05);
-}
-.rule-accordion-header {
-    display: flex;
-    align-items: flex-start;
-}
 .rule-accordion-arrow {
-    font-size: 12px;
-    color: #7f0000;
-    margin-right: 8px;
-    margin-top: 2px;
-    transition: transform 0.2s ease;
-    display: inline-block;
-    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    background: #8b1c1c;
+    color: #fff;
+    border-radius: 3px;
+    font-size: 10px;
+    flex-shrink: 0;
+    margin-right: 12px;
+    transform: rotate(90deg);
 }
 .rule-accordion[open] .rule-accordion-arrow {
-    transform: rotate(90deg);
+    transform: rotate(-90deg);
+}
+.rule-accordion summary > div {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding-right: 110px;
 }
 .rule-accordion-title {
     font-weight: bold;
-    font-size: 13px;
+    font-size: 11px;
     color: #4a2505;
+    text-transform: uppercase;
 }
 .rule-accordion-brief {
-    font-size: 12px;
-    color: #665544;
+    font-size: 11px;
+    color: #6d5b4a;
     margin-top: 2px;
 }
-.rule-accordion-body {
-    background: #e6dac8;
+.rule-accordion summary::after {
+    content: "Click to read";
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
     border: 1px solid #c8b9a2;
-    border-radius: 6px;
+    border-radius: 12px;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: bold;
+    color: #8b1c1c;
+    background: transparent;
+}
+.rule-accordion[open] summary::after {
+    content: "Close";
+    border-color: #a83c3c;
+}
+.rule-accordion-body {
     padding: 12px 16px;
-    margin-top: 8px;
-    margin-left: 20px;
+    font-size: 12px;
     color: #3b1e04;
-    font-size: 13px;
     line-height: 1.6;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+    background: #fdfaf4;
+    border-radius: 0 0 4px 4px;
 }
 </style>
 
@@ -254,11 +284,11 @@ $title = 'Rules';
                                                     <tbody>
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
                                                             <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
-                                                                Normas de Jogo & Convivência (Clique para expandir o detalhamento)
+                                                                📜 Rules of Play & Coexistence (Click to expand the details)
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
-                                                            <td style="padding: 14px;">
+                                                            <td style="padding: 14px; border-left: 4px solid #8b1c1c;">
 
                                                                 <!-- REGRA 1 -->
                                                                 <details class="rule-accordion">
@@ -595,35 +625,35 @@ $title = 'Rules';
                                                     <tbody>
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
                                                             <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
-                                                                🚨 Diretrizes para Atendimento & Denúncias
+                                                                ⚔️ Diretrizes para Atendimento & Denúncias
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 14px; line-height: 1.6; font-size: 13px;">
                                                                 <ul style="margin: 0; padding-left: 20px;">
                                                                     <li style="margin-bottom: 8px;">Quando for reportar somente escreva a "situação/dúvida/problema + nickname(s) se houver algum". Nada mais ou menos do que isso. Qualquer report que extrapole essa orientação poderá ficar sem atendimento.</li>
-                                                                    <li style="margin-bottom: 8px;">Os GMS não precisam responder o seu report para efetuar o atendimento. Somente com a descrição do seu report já é possível atendê-lo, por isso é imprescindível reportar de forma adequada. Reports do tipo "gm on?", "alguém aí?", "mc aqui", não costumam serem atendidos e muito menos respondidos.</li>
+                                                                    <li style="margin-bottom: 8px;">Os GMs não precisam responder o seu report para efetuar o atendimento. Somente com a descrição do seu report já é possível atendê-lo, por isso é imprescindível reportar de forma adequada. Reports do tipo "gm on?", "alguém aí?", "mc aqui", não costumam ser atendidos e muito menos respondidos.</li>
                                                                     <li style="margin-bottom: 8px;">Reports realizados em canais impróprios (help channel, PM, Telegram, por exemplo) não serão atendidos. Se o player vier a reportar adequadamente após ter escrito em canal impróprio também poderá ficar sem atendimento.</li>
-                                                                    <li style="margin-bottom: 8px;">Os GMS atendem exclusivamente pelo <b>CTRL + R</b> (report).</li>
-                                                                    <li style="margin-bottom: 8px;">GMS não precisam prover explicação para quem reportou sobre atos realizados ou não realizados. Por exemplo, João reportou Maria por uso de MC em PvP. Se eventualmente Maria for notificada ou banida os GMS não se obrigam a avisar João o que aconteceu ou não.</li>
+                                                                    <li style="margin-bottom: 8px;">Os GMs atendem exclusivamente pelo <b>CTRL + R</b> (report).</li>
+                                                                    <li style="margin-bottom: 8px;">GMs não precisam prover explicação para quem reportou sobre atos realizados ou não realizados. Por exemplo, João reportou Maria por uso de MC em PvP. Se eventualmente Maria for notificada ou banida, os GMs não se obrigam a avisar João o que aconteceu ou não.</li>
                                                                     <li style="margin-bottom: 8px;">Reports realizados por players que não fazem/fizeram parte ou que estão longe da situação reportada poderão ficar sem atendimento.</li>
-                                                                    <li style="margin-bottom: 8px;">Reports realizados por players que usam mais de um char para reportar a mesma situação ou problema ficarão sem atendimento. Não adianta reportar com dois ou mais chares a mesma coisa, você só estará se prejudicando. Não atendemos assim. Um report basta.</li>
+                                                                    <li style="margin-bottom: 8px;">Reports realizados por players que usam mais de um char para reportar a mesma situação ou problema ficarão sem atendimento. Não adianta reportar com dois ou mais chars a mesma coisa, você só estará se prejudicando. Não atendemos assim. Um report basta.</li>
                                                                     <li style="margin-bottom: 8px;">O player que ficar abrindo e fechando o mesmo report com a intenção de spamar não será atendido e poderá ser banido (Spam Report).</li>
                                                                     <li style="margin-bottom: 8px;">Associação de players que fazem o mesmo report poderão ficar sem atendimento se constatado que:
                                                                         <ol style="margin-top: 5px; margin-bottom: 5px;">
                                                                             <li>Há players que não fazem/fizeram parte da situação;</li>
                                                                             <li>Todos colaram o mesmo report;</li>
-                                                                            <li>Que há informações incompletas;</li>
-                                                                            <li>Há falsidade no conteúdo do report. Vários reportar a mesma situação não significa que isso será verdade.</li>
+                                                                            <li>Há informações incompletas;</li>
+                                                                            <li>Há falsidade no conteúdo do report. Vários reportarem a mesma situação não significa que isso será verdade.</li>
                                                                         </ol>
                                                                     </li>
-                                                                    <li style="margin-bottom: 8px;">Reports (ctrl+r) são atendidos por GMS. Tickets (site) é atendido pelo ADM. Se você abrir report perguntando sobre ADM provavelmente não será respondido nem atendido.</li>
-                                                                    <li style="margin-bottom: 8px;">Caso decida abrir report para perguntar algo que não seja relacionado as regras, tente antes perguntar no help channel. Muitas dúvidas podem ser respondidas tranquilamente por um tutor ou até mesmo outro player.</li>
-                                                                    <li style="margin-bottom: 8px;">Realizar vários reports erroneamente faz com que você perca credibilidade com GMS. Caso tenha dúvidas não acuse ninguém, peça para o GM averiguar a situação.</li>
-                                                                    <li style="margin-bottom: 8px;">Reports mal intencionados poderá resultar em banimento (False Report).</li>
+                                                                    <li style="margin-bottom: 8px;">Reports (ctrl+r) são atendidos por GMs. Tickets (site) é atendido pelo ADM. Se você abrir report perguntando sobre ADM provavelmente não será respondido nem atendido.</li>
+                                                                    <li style="margin-bottom: 8px;">Caso decida abrir report para perguntar algo que não seja relacionado às regras, tente antes perguntar no help channel. Muitas dúvidas podem ser respondidas tranquilamente por um tutor ou até mesmo outro player.</li>
+                                                                    <li style="margin-bottom: 8px;">Realizar vários reports erroneamente faz com que você perca credibilidade com GMs. Caso tenha dúvidas não acuse ninguém, peça para o GM averiguar a situação.</li>
+                                                                    <li style="margin-bottom: 8px;">Reports mal intencionados poderão resultar em banimento (False Report).</li>
                                                                     <li style="margin-bottom: 8px;">Não combata uma injustiça com outra. Você poderá ser banido por isso.</li>
                                                                     <li style="margin-bottom: 8px;">Tenha paciência ao reportar. A justiça pode tardar, mas não falha.</li>
-                                                                    <li style="margin-bottom: 8px;"><b>Todas orientações supracitadas são vitais para um bom funcionamento das regras.</b></li>
+                                                                    <li style="margin-bottom: 8px;"><b>Todas as orientações supracitadas são vitais para um bom funcionamento das regras.</b></li>
                                                                 </ul>
                                                             </td>
                                                         </tr>
