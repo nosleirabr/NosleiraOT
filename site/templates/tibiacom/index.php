@@ -447,16 +447,13 @@ foreach($config['menu_categories'] as $id => $cat) {
 						<div class="BoxContent" style="background-image:url(<?php echo $template_path; ?>/images/content/scroll.gif);">
 							<div style="padding: 5px; font-size: 12px; line-height: 1.4; color: #5a2800;">
 								<center>
-									<b>
-										[<a href="?subtopic=downloads">Downloads</a>] 
-										[<a href="?subtopic=highscores">Highscores</a>] 
-										[<a href="?subtopic=quests">Quests</a>] 
-										[<a href="?subtopic=tasks">Tasks</a>] 
-										[<a href="?subtopic=outfits">Outfits</a>] 
-										[<a href="?subtopic=mounts">Mounts</a>] 
-										[<a href="?subtopic=map">MAP</a>] 
-										[<a href="?subtopic=tradeoff">TradeOFF</a>] 
-										[<a href="?subtopic=buycharacters">Buy Characters</a>] 
+									<b style="word-spacing: 12px;">
+										[<a href="?subtopic=downloads">Downloads</a>]
+										[<a href="?subtopic=highscores">Highscores</a>]
+										[<a href="?subtopic=quests">Quests</a>]
+										[<a href="?subtopic=outfits">Outfits</a>]
+										[<a href="?subtopic=map">MAP</a>]
+										[<a href="?subtopic=buycharacters">Buy&nbsp;Characters</a>]
 										[<a href="?subtopic=security">Security</a>]
 									</b>
 								</center>
@@ -465,7 +462,6 @@ foreach($config['menu_categories'] as $id => $cat) {
 								<div style="float: right; margin-left: 10px;">
 									<img src="<?php echo $template_path; ?>/images/custom/featured_game.png" alt="Featured Game" style="border: 2px solid #5a4430; width: 150px; height: 100px;">
 								</div>
-								
 								<b>IP: <?php echo $_SERVER['SERVER_NAME'] ?? '127.0.0.1'; ?> - VERSION: 7.40 - PORT: 7171</b><br>
 								Aprenda a usar o <b>[<a href="?subtopic=shopsystem">SHOP Online</a>]</b> Aprenda a fazer uma <b>[<a href="?subtopic=donate">Donate</a>]</b> <span style="color: #004294; font-weight: bold; font-size: 16px;">&larr;</span><br>
 								<b>Oteserver</b> private OTServer, <b>[<a href="?subtopic=serverinfo">Server Info</a>]</b>.<br>
