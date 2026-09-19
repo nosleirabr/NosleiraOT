@@ -1,3 +1,7 @@
+<?php
+defined('MYAAC') or die('Direct access not allowed!');
+$title = 'Rules';
+?>
 <!-- Google Translate Widget (Oculto) -->
 <div id="google_translate_element" style="display:none !important;"></div>
 
@@ -291,7 +295,7 @@ $title = 'Rules';
     margin-bottom: 0;
 }
 .report-list-item::before {
-    content: "•";
+    content: "â€¢";
     color: #8b0000;
     font-weight: bold;
     font-size: 16px;
@@ -353,7 +357,7 @@ $title = 'Rules';
     display: none !important;
 }
 
-/* Bandeiras na Área Verde das Regras */
+/* Bandeiras na Ãrea Verde das Regras */
 .rules-caption-inner {
     position: relative !important;
 }
@@ -372,6 +376,7 @@ $title = 'Rules';
     line-height: 0;
     text-decoration: none;
     transition: transform 0.15s ease-in-out;
+    cursor: pointer !important;
 }
 .rules-green-bar-flags a:hover {
     transform: scale(1.2);
@@ -379,10 +384,10 @@ $title = 'Rules';
 .flag-icon {
     width: 18px;
     height: 12px;
-    border: 1px solid #0b3c6f !important;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    border: none !important;
+    box-shadow: none !important;
     display: block;
-    cursor: pointer;
+    cursor: pointer !important;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
     image-rendering: pixelated;
@@ -398,14 +403,14 @@ $title = 'Rules';
     <div class="CaptionContainer">
         <div class="CaptionInnerContainer rules-caption-inner">
             <div class="rules-green-bar-flags">
-                <a href="javascript:void(0);" onclick="changeLanguage('pt');" title="Português (BR)">
-                    <img src="<?php echo BASE_URL; ?>images/flags/br.gif" alt="Português" class="flag-icon" />
+                <a href="javascript:void(0);" onclick="changeLanguage('pt');" title="PortuguÃªs (BR)">
+                    <img src="<?php echo BASE_URL; ?>images/flags/br.gif" alt="PortuguÃªs" class="flag-icon" />
                 </a>
                 <a href="javascript:void(0);" onclick="changeLanguage('en');" title="English (US)">
                     <img src="<?php echo BASE_URL; ?>images/flags/us.gif" alt="English" class="flag-icon" />
                 </a>
-                <a href="javascript:void(0);" onclick="changeLanguage('es');" title="Español (ES)">
-                    <img src="<?php echo BASE_URL; ?>images/flags/es.gif" alt="Español" class="flag-icon" />
+                <a href="javascript:void(0);" onclick="changeLanguage('es');" title="EspaÃ±ol (ES)">
+                    <img src="<?php echo BASE_URL; ?>images/flags/es.gif" alt="EspaÃ±ol" class="flag-icon" />
                 </a>
                 <a href="javascript:void(0);" onclick="changeLanguage('pl');" title="Polski (PL)">
                     <img src="<?php echo BASE_URL; ?>images/flags/pl.gif" alt="Polski" class="flag-icon" />
@@ -415,7 +420,7 @@ $title = 'Rules';
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">Regulamento Geral — NosleiraOT</div>
+            <div class="Text">Regulamento Geral â€” NosleiraOT</div>
             <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
@@ -436,22 +441,22 @@ $title = 'Rules';
                                             <div class="TableContentContainer">
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
                                                     <tbody>
-                                                        <!-- INTRODUÇÃO COM LETRA CAPITULAR MEDIEVAL -->
+                                                        <!-- INTRODUÃ‡ÃƒO COM LETRA CAPITULAR MEDIEVAL -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
                                                             <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
-                                                                📜 Apresentação & Propósito
+                                                                ðŸ“œ ApresentaÃ§Ã£o & PropÃ³sito
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 16px;">
                                                                 <div class="tibia-paragraph">
-                                                                    <span class="tibia-dropcap">O</span> <b>NosleiraOT</b> busca oferecer um ambiente online equilibrado, divertido e respeitoso, onde todos os jogadores possam aproveitar o servidor em condições justas.
+                                                                    <span class="tibia-dropcap">O</span> <b>NosleiraOT</b> busca oferecer um ambiente online equilibrado, divertido e respeitoso, onde todos os jogadores possam aproveitar o servidor em condiÃ§Ãµes justas.
                                                                 </div>
                                                                 <div class="tibia-paragraph">
-                                                                    <span class="tibia-dropcap">P</span>ara manter a organização da comunidade e preservar uma boa experiência de jogo, todos os jogadores devem conhecer e respeitar as normas estabelecidas neste regulamento.
+                                                                    <span class="tibia-dropcap">P</span>ara manter a organizaÃ§Ã£o da comunidade e preservar uma boa experiÃªncia de jogo, todos os jogadores devem conhecer e respeitar as normas estabelecidas neste regulamento.
                                                                 </div>
                                                                 <div class="tibia-paragraph" style="margin-bottom: 0;">
-                                                                    <span class="tibia-dropcap">A</span> equipe do <b>NosleiraOT</b> poderá agir sempre que identificar atitudes que prejudiquem outros jogadores, comprometam o funcionamento do servidor ou afetem negativamente a comunidade. Essas medidas podem ser aplicadas tanto dentro do jogo quanto no site, Discord e demais canais oficiais relacionados ao servidor.
+                                                                    <span class="tibia-dropcap">A</span> equipe do <b>NosleiraOT</b> poderÃ¡ agir sempre que identificar atitudes que prejudiquem outros jogadores, comprometam o funcionamento do servidor ou afetem negativamente a comunidade. Essas medidas podem ser aplicadas tanto dentro do jogo quanto no site, Discord e demais canais oficiais relacionados ao servidor.
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -459,23 +464,23 @@ $title = 'Rules';
                                                         <!-- PENALIDADES -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
                                                             <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
-                                                                ⚖️ Penalidades
+                                                                âš–ï¸ Penalidades
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 14px; line-height: 1.6; font-size: 13px;">
-                                                                As punições são definidas de acordo com a gravidade da infração, suas consequências e, quando aplicável, o histórico do jogador.<br><br>
-                                                                Entre as medidas que podem ser aplicadas estão:
+                                                                As puniÃ§Ãµes sÃ£o definidas de acordo com a gravidade da infraÃ§Ã£o, suas consequÃªncias e, quando aplicÃ¡vel, o histÃ³rico do jogador.<br><br>
+                                                                Entre as medidas que podem ser aplicadas estÃ£o:
                                                                 <ul style="margin-top: 8px; margin-bottom: 12px; padding-left: 25px;">
-                                                                    <li style="margin-bottom: 5px;">⚠️ <b>Advertência</b>;</li>
-                                                                    <li style="margin-bottom: 5px;">🚫 <b>Restrição temporária</b> de determinadas funções;</li>
-                                                                    <li style="margin-bottom: 5px;">🔒 <b>Suspensão da conta</b> ou personagem;</li>
-                                                                    <li style="margin-bottom: 5px;">⏳ <b>Banimento temporário</b>;</li>
-                                                                    <li style="margin-bottom: 5px;">🔴 <b>Banimento de até 999 dias</b>;</li>
-                                                                    <li style="margin-bottom: 5px;">❌ <b>Banimento permanente</b> (Delete).</li>
+                                                                    <li style="margin-bottom: 5px;">âš ï¸ <b>AdvertÃªncia</b>;</li>
+                                                                    <li style="margin-bottom: 5px;">ðŸš« <b>RestriÃ§Ã£o temporÃ¡ria</b> de determinadas funÃ§Ãµes;</li>
+                                                                    <li style="margin-bottom: 5px;">ðŸ”’ <b>SuspensÃ£o da conta</b> ou personagem;</li>
+                                                                    <li style="margin-bottom: 5px;">â³ <b>Banimento temporÃ¡rio</b>;</li>
+                                                                    <li style="margin-bottom: 5px;">ðŸ”´ <b>Banimento de atÃ© 999 dias</b>;</li>
+                                                                    <li style="margin-bottom: 5px;">âŒ <b>Banimento permanente</b> (Delete).</li>
                                                                 </ul>
                                                                 <span style="background-color: rgba(255, 0, 0, 0.08); border-left: 3px solid #cc0000; padding: 8px 12px; display: block; margin-top: 5px;">
-                                                                    <b>Atenção:</b> Em casos de punições prolongadas, especialmente banimentos de <b>999 dias</b>, o personagem poderá ser removido definitivamente do servidor após o período determinado pela administração.
+                                                                    <b>AtenÃ§Ã£o:</b> Em casos de puniÃ§Ãµes prolongadas, especialmente banimentos de <b>999 dias</b>, o personagem poderÃ¡ ser removido definitivamente do servidor apÃ³s o perÃ­odo determinado pela administraÃ§Ã£o.
                                                                 </span>
                                                             </td>
                                                         </tr>
@@ -483,23 +488,23 @@ $title = 'Rules';
                                                         <!-- MEDIDAS ADMINISTRATIVAS -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
                                                             <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
-                                                                🛠️ Medidas Administrativas
+                                                                ðŸ› ï¸ Medidas Administrativas
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 14px; line-height: 1.6; font-size: 13px;">
-                                                                Quando uma infração resultar em ganhos indevidos, alterações na economia ou qualquer outro tipo de desequilíbrio, a equipe poderá realizar correções para restaurar a situação anterior.<br><br>
-                                                                Dependendo do caso, poderão ser realizadas ações como:
+                                                                Quando uma infraÃ§Ã£o resultar em ganhos indevidos, alteraÃ§Ãµes na economia ou qualquer outro tipo de desequilÃ­brio, a equipe poderÃ¡ realizar correÃ§Ãµes para restaurar a situaÃ§Ã£o anterior.<br><br>
+                                                                Dependendo do caso, poderÃ£o ser realizadas aÃ§Ãµes como:
                                                                 <ul style="margin-top: 8px; margin-bottom: 8px; padding-left: 25px;">
-                                                                    <li style="margin-bottom: 5px;">🔹 Remoção de itens obtidos irregularmente;</li>
-                                                                    <li style="margin-bottom: 5px;">🔹 Retirada de recursos ou benefícios adquiridos por meios proibidos;</li>
-                                                                    <li style="margin-bottom: 5px;">🔹 Ajustes nos atributos ou progresso do personagem;</li>
-                                                                    <li style="margin-bottom: 5px;">🔹 Correção de valores ou recompensas;</li>
-                                                                    <li style="margin-bottom: 5px;">🔹 Reversão de ações realizadas de maneira irregular;</li>
-                                                                    <li style="margin-bottom: 5px;">🔹 Exclusão do personagem, quando necessário.</li>
+                                                                    <li style="margin-bottom: 5px;">ðŸ”¹ RemoÃ§Ã£o de itens obtidos irregularmente;</li>
+                                                                    <li style="margin-bottom: 5px;">ðŸ”¹ Retirada de recursos ou benefÃ­cios adquiridos por meios proibidos;</li>
+                                                                    <li style="margin-bottom: 5px;">ðŸ”¹ Ajustes nos atributos ou progresso do personagem;</li>
+                                                                    <li style="margin-bottom: 5px;">ðŸ”¹ CorreÃ§Ã£o de valores ou recompensas;</li>
+                                                                    <li style="margin-bottom: 5px;">ðŸ”¹ ReversÃ£o de aÃ§Ãµes realizadas de maneira irregular;</li>
+                                                                    <li style="margin-bottom: 5px;">ðŸ”¹ ExclusÃ£o do personagem, quando necessÃ¡rio.</li>
                                                                 </ul>
                                                                 <div align="center" style="font-family: 'Martel', Georgia, 'Times New Roman', serif; font-size: 13px; font-weight: bold; color: #4a2505; padding: 12px 18px; background: linear-gradient(180deg, #f8f1e5 0%, #ebdcc7 100%); border: 1px solid #c4ab84; border-left: 4px solid #7f0000; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); margin-top: 12px;">
-                                                                    ✨ A aplicação de uma penalidade não impede a adoção de outras medidas administrativas para corrigir ou reparar os efeitos causados pela infração.
+                                                                    âœ¨ A aplicaÃ§Ã£o de uma penalidade nÃ£o impede a adoÃ§Ã£o de outras medidas administrativas para corrigir ou reparar os efeitos causados pela infraÃ§Ã£o.
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -507,18 +512,18 @@ $title = 'Rules';
                                                         <!-- RESPONSABILIDADE DO JOGADOR & CONDUTAS PROIBIDAS -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
                                                             <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
-                                                                📌 Responsabilidade do Jogador & Condutas Proibidas
+                                                                ðŸ“Œ Responsabilidade do Jogador & Condutas Proibidas
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 14px; line-height: 1.6; font-size: 13px;">
                                                                 <b>Responsabilidade do Jogador:</b><br>
-                                                                É responsabilidade de cada jogador conhecer e cumprir as regras do <b>NosleiraOT</b>. A alegação de desconhecimento das normas não será considerada justificativa para o descumprimento delas.<br>
-                                                                As regras poderão ser atualizadas sempre que necessário para acompanhar mudanças no servidor, corrigir situações não previstas ou melhorar a experiência da comunidade.<br><br>
+                                                                Ã‰ responsabilidade de cada jogador conhecer e cumprir as regras do <b>NosleiraOT</b>. A alegaÃ§Ã£o de desconhecimento das normas nÃ£o serÃ¡ considerada justificativa para o descumprimento delas.<br>
+                                                                As regras poderÃ£o ser atualizadas sempre que necessÃ¡rio para acompanhar mudanÃ§as no servidor, corrigir situaÃ§Ãµes nÃ£o previstas ou melhorar a experiÃªncia da comunidade.<br><br>
                                                                 <b>Condutas Proibidas:</b><br>
-                                                                As situações apresentadas neste regulamento representam as principais condutas que podem gerar punições, porém <b>não constituem uma lista limitada</b>. Comportamentos que, mesmo não estando descritos especificamente, prejudiquem a comunidade, explorem falhas do servidor ou comprometam a integridade do jogo também poderão ser analisados e punidos pela administração.<br><br>
+                                                                As situaÃ§Ãµes apresentadas neste regulamento representam as principais condutas que podem gerar puniÃ§Ãµes, porÃ©m <b>nÃ£o constituem uma lista limitada</b>. Comportamentos que, mesmo nÃ£o estando descritos especificamente, prejudiquem a comunidade, explorem falhas do servidor ou comprometam a integridade do jogo tambÃ©m poderÃ£o ser analisados e punidos pela administraÃ§Ã£o.<br><br>
                                                                 <div align="center" style="font-family: 'Martel', Georgia, 'Times New Roman', serif; font-size: 14px; font-weight: bold; color: #4a2505; padding: 14px 20px; background: linear-gradient(180deg, #f8f1e5 0%, #ebdcc7 100%); border: 1px solid #c4ab84; border-left: 4px solid #7f0000; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); margin-top: 10px;">
-                                                                    ✨ O objetivo das regras é garantir que o <span style="color: #7f0000;">NosleiraOT</span> permaneça um ambiente competitivo, organizado e agradável para todos.
+                                                                    âœ¨ O objetivo das regras Ã© garantir que o <span style="color: #7f0000;">NosleiraOT</span> permaneÃ§a um ambiente competitivo, organizado e agradÃ¡vel para todos.
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -540,7 +545,7 @@ $title = 'Rules';
 <br><br>
 
 <!-- ================================================================= -->
-<!-- BOX 2: REGRAS ESPECÍFICAS DO SERVIDOR (EXPANDÍVEIS COM SETINHA)    -->
+<!-- BOX 2: REGRAS ESPECÃFICAS DO SERVIDOR (EXPANDÃVEIS COM SETINHA)    -->
 <!-- ================================================================= -->
 <div class="TableContainer">
     <div class="CaptionContainer">
@@ -572,7 +577,7 @@ $title = 'Rules';
                                                     <tbody>
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
                                                             <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
-                                                                Normas de Jogo & Convivência (Clique para expandir o detalhamento)
+                                                                Normas de Jogo & ConvivÃªncia (Clique para expandir o detalhamento)
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
@@ -584,8 +589,8 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">1) Comentários sobre Resets</span>
-                                                                                <span class="rule-accordion-brief">Não comentar sobre Reset's muito menos afirmar que vai resetar.</span>
+                                                                                <span class="rule-accordion-title">1) ComentÃ¡rios sobre Resets</span>
+                                                                                <span class="rule-accordion-brief">NÃ£o comentar sobre Reset's muito menos afirmar que vai resetar.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
@@ -594,7 +599,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É estritamente proibido espalhar boatos, notícias falsas ou afirmar em qualquer canal do jogo/site/Discord que o servidor irá resetar. Esta conduta prejudica a comunidade e desestimula outros jogadores.
+                                                                        Ã‰ estritamente proibido espalhar boatos, notÃ­cias falsas ou afirmar em qualquer canal do jogo/site/Discord que o servidor irÃ¡ resetar. Esta conduta prejudica a comunidade e desestimula outros jogadores.
                                                                     </div>
                                                                 </details>
 
@@ -604,8 +609,8 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">2) Doações e Free Itens</span>
-                                                                                <span class="rule-accordion-brief">Não fazer free itens, gerar banimentos e em casos extremos deleted.</span>
+                                                                                <span class="rule-accordion-title">2) DoaÃ§Ãµes e Free Itens</span>
+                                                                                <span class="rule-accordion-brief">NÃ£o fazer free itens, gerar banimentos e em casos extremos deleted.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
@@ -614,7 +619,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        A realização massiva de "free itens" que afete a economia do servidor ou beneficie contas de forma irregular é proibida, podendo acarretar banimento temporário ou exclusão permanente (delete).
+                                                                        A realizaÃ§Ã£o massiva de "free itens" que afete a economia do servidor ou beneficie contas de forma irregular Ã© proibida, podendo acarretar banimento temporÃ¡rio ou exclusÃ£o permanente (delete).
                                                                     </div>
                                                                 </details>
 
@@ -634,7 +639,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É proibido bloquear a hunt (vias de acesso ou não) de forma a impedir que outro jogador evolua (up) ou saia do local de hunt, assim como impedir o respawn dos monstros de maneira intencional.
+                                                                        Ã‰ proibido bloquear a hunt (vias de acesso ou nÃ£o) de forma a impedir que outro jogador evolua (up) ou saia do local de hunt, assim como impedir o respawn dos monstros de maneira intencional.
                                                                     </div>
                                                                 </details>
 
@@ -645,7 +650,7 @@ $title = 'Rules';
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
                                                                                 <span class="rule-accordion-title">4) Bloqueio de Quests & Quests Custom</span>
-                                                                                <span class="rule-accordion-brief">Não bloquear acessos a Quests e proibidíssimo upar em Quests Custom.</span>
+                                                                                <span class="rule-accordion-brief">NÃ£o bloquear acessos a Quests e proibidÃ­ssimo upar em Quests Custom.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
@@ -654,7 +659,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Não bloquear acessos a Quests ou atrapalhar a realização de Quests causando danos ao time. É estritamente proibido evoluir (upar) em Quests Custons criadas pelo servidor! Infrações geram banimento.
+                                                                        NÃ£o bloquear acessos a Quests ou atrapalhar a realizaÃ§Ã£o de Quests causando danos ao time. Ã‰ estritamente proibido evoluir (upar) em Quests Custons criadas pelo servidor! InfraÃ§Ãµes geram banimento.
                                                                     </div>
                                                                 </details>
 
@@ -664,7 +669,7 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">5) Respeito à Equipe & Canal Help</span>
+                                                                                <span class="rule-accordion-title">5) Respeito Ã  Equipe & Canal Help</span>
                                                                                 <span class="rule-accordion-brief">Ofender tutores no Help ou desrespeitar a staff gera banimento.</span>
                                                                             </div>
                                                                         </div>
@@ -674,7 +679,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Ofender tutores no canal HELP gera banimento imediato por ofensas. Desrespeitar orientações ou alertas de Gamemasters (GMs) e CMs sobre irregularidades também ocasionará punições severas.
+                                                                        Ofender tutores no canal HELP gera banimento imediato por ofensas. Desrespeitar orientaÃ§Ãµes ou alertas de Gamemasters (GMs) e CMs sobre irregularidades tambÃ©m ocasionarÃ¡ puniÃ§Ãµes severas.
                                                                     </div>
                                                                 </details>
 
@@ -694,7 +699,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Ter conduta abusiva perante jogador novato matando-o, auxiliando a matar, impedindo ou atrapalhando sua progressão no jogo poderá resultar em punição. Também ficará sujeito a punição o jogador que abusar de situações que envolvam lojas de potes, templos, barcos, cidades iniciais, entradas e saídas de quests e hunts.
+                                                                        Ter conduta abusiva perante jogador novato matando-o, auxiliando a matar, impedindo ou atrapalhando sua progressÃ£o no jogo poderÃ¡ resultar em puniÃ§Ã£o. TambÃ©m ficarÃ¡ sujeito a puniÃ§Ã£o o jogador que abusar de situaÃ§Ãµes que envolvam lojas de potes, templos, barcos, cidades iniciais, entradas e saÃ­das de quests e hunts.
                                                                     </div>
                                                                 </details>
 
@@ -704,7 +709,7 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">7) Exploits, Bug Abuse & Duplicação (Dupes)</span>
+                                                                                <span class="rule-accordion-title">7) Exploits, Bug Abuse & DuplicaÃ§Ã£o (Dupes)</span>
                                                                                 <span class="rule-accordion-brief">Proibido explorar falhas, bugs ou provocar rollbacks para duplicar itens ou obter vantagens.</span>
                                                                             </div>
                                                                         </div>
@@ -714,7 +719,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É estritamente proibido utilizar qualquer bug, falha de mapa, erro de script ou instabilidade do servidor para obter itens, experiência ou qualquer vantagem indevida. Provocar ativamente crashes no servidor para forçar rollback e duplicar itens resultará em banimento permanente (Delete) de todas as contas associadas.
+                                                                        Ã‰ estritamente proibido utilizar qualquer bug, falha de mapa, erro de script ou instabilidade do servidor para obter itens, experiÃªncia ou qualquer vantagem indevida. Provocar ativamente crashes no servidor para forÃ§ar rollback e duplicar itens resultarÃ¡ em banimento permanente (Delete) de todas as contas associadas.
                                                                     </div>
                                                                 </details>
 
@@ -724,8 +729,8 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">8) Divulgação de Outros Servidores</span>
-                                                                                <span class="rule-accordion-brief">É proibido anúncios de outros servidores.</span>
+                                                                                <span class="rule-accordion-title">8) DivulgaÃ§Ã£o de Outros Servidores</span>
+                                                                                <span class="rule-accordion-brief">Ã‰ proibido anÃºncios de outros servidores.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
@@ -734,7 +739,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Anunciar, divulgar ou fazer propaganda de outros servidores de Open Tibia em qualquer canal do NosleiraOT resultará em banimento imediato.
+                                                                        Anunciar, divulgar ou fazer propaganda de outros servidores de Open Tibia em qualquer canal do NosleiraOT resultarÃ¡ em banimento imediato.
                                                                     </div>
                                                                 </details>
 
@@ -745,7 +750,7 @@ $title = 'Rules';
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
                                                                                 <span class="rule-accordion-title">9) Uso de Multicliente (MC)</span>
-                                                                                <span class="rule-accordion-brief">MC é permitido, exceto para obter vantagens no PvP ou Raids.</span>
+                                                                                <span class="rule-accordion-brief">MC Ã© permitido, exceto para obter vantagens no PvP ou Raids.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
@@ -754,7 +759,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        MC é totalmente permitido no servidor para treino e tarefas neutras, desde que não seja utilizado para obter benefícios nas battles de PvP ou durante eventos de Boss Raid.
+                                                                        MC Ã© totalmente permitido no servidor para treino e tarefas neutras, desde que nÃ£o seja utilizado para obter benefÃ­cios nas battles de PvP ou durante eventos de Boss Raid.
                                                                     </div>
                                                                 </details>
 
@@ -765,7 +770,7 @@ $title = 'Rules';
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
                                                                                 <span class="rule-accordion-title">10) Responsabilidade pelas Contas</span>
-                                                                                <span class="rule-accordion-brief">Jogadores são responsáveis por suas contas e itens.</span>
+                                                                                <span class="rule-accordion-brief">Jogadores sÃ£o responsÃ¡veis por suas contas e itens.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
@@ -774,7 +779,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Todos os jogadores são totalmente responsáveis por suas contas e itens. A administração não se responsabiliza por perdas causadas por compartilhamento de conta ou roubos de itens entre jogadores.
+                                                                        Todos os jogadores sÃ£o totalmente responsÃ¡veis por suas contas e itens. A administraÃ§Ã£o nÃ£o se responsabiliza por perdas causadas por compartilhamento de conta ou roubos de itens entre jogadores.
                                                                     </div>
                                                                 </details>
 
@@ -784,8 +789,8 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">11) Política de Doações</span>
-                                                                                <span class="rule-accordion-brief">O servidor não devolve valores de doações.</span>
+                                                                                <span class="rule-accordion-title">11) PolÃ­tica de DoaÃ§Ãµes</span>
+                                                                                <span class="rule-accordion-brief">O servidor nÃ£o devolve valores de doaÃ§Ãµes.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
@@ -794,7 +799,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Todas as doações são espontâneas para manter a infraestrutura do servidor online, não havendo reembolso ou devolução dos valores doados.
+                                                                        Todas as doaÃ§Ãµes sÃ£o espontÃ¢neas para manter a infraestrutura do servidor online, nÃ£o havendo reembolso ou devoluÃ§Ã£o dos valores doados.
                                                                     </div>
                                                                 </details>
 
@@ -805,7 +810,7 @@ $title = 'Rules';
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
                                                                                 <span class="rule-accordion-title">12) Validade de Pontos do Shop</span>
-                                                                                <span class="rule-accordion-brief">Pontos têm validade de 2 meses a contar da data de compra.</span>
+                                                                                <span class="rule-accordion-brief">Pontos tÃªm validade de 2 meses a contar da data de compra.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
@@ -824,8 +829,8 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">13) Comércio de Scripts de Bot</span>
-                                                                                <span class="rule-accordion-brief">Proibida a venda ou anúncio de scripts para BOT.</span>
+                                                                                <span class="rule-accordion-title">13) ComÃ©rcio de Scripts de Bot</span>
+                                                                                <span class="rule-accordion-brief">Proibida a venda ou anÃºncio de scripts para BOT.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
@@ -834,7 +839,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É proibido comercializar ou anunciar scripts de automação ou bots no servidor e nos seus canais oficiais.
+                                                                        Ã‰ proibido comercializar ou anunciar scripts de automaÃ§Ã£o ou bots no servidor e nos seus canais oficiais.
                                                                     </div>
                                                                 </details>
 
@@ -854,7 +859,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É proibida a venda de personagens e itens por dinheiro real ou qualquer outra moeda externa ao servidor. Enviar contatos (Whatsapp, PIX, etc.) para negociações externas poderá resultar em banimento permanente.
+                                                                        Ã‰ proibida a venda de personagens e itens por dinheiro real ou qualquer outra moeda externa ao servidor. Enviar contatos (Whatsapp, PIX, etc.) para negociaÃ§Ãµes externas poderÃ¡ resultar em banimento permanente.
                                                                     </div>
                                                                 </details>
 
@@ -874,7 +879,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É estritamente proibida a troca ou comercialização cruzada de itens e personagens entre o NosleiraOT e outros servidores.
+                                                                        Ã‰ estritamente proibida a troca ou comercializaÃ§Ã£o cruzada de itens e personagens entre o NosleiraOT e outros servidores.
                                                                     </div>
                                                                 </details>
 
@@ -884,8 +889,8 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">16) Proibição de Automações & Trapaças</span>
-                                                                                <span class="rule-accordion-brief">Proibido o uso de Navigations, Magebombs, Macros ou Bots em qualquer situação.</span>
+                                                                                <span class="rule-accordion-title">16) ProibiÃ§Ã£o de AutomaÃ§Ãµes & TrapaÃ§as</span>
+                                                                                <span class="rule-accordion-brief">Proibido o uso de Navigations, Magebombs, Macros ou Bots em qualquer situaÃ§Ã£o.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
@@ -894,9 +899,9 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Proibido o uso de NAVIGATIONS, MAGEBOMBS, MACROS ou qualquer tipo de BOT em qualquer circunstância. É extremamente proibido o uso de qualquer trapaça, automação ou recurso que infrinja as regras do servidor ou tente obter vantagem em cima de outros jogadores.<br><br>
-                                                                        • O uso de MCs para obter vantagem em DANOS contra o adversário na battle também se enquadra na regra.<br>
-                                                                        • Proibido o uso de MC para qualquer BOSS Raid.
+                                                                        Proibido o uso de NAVIGATIONS, MAGEBOMBS, MACROS ou qualquer tipo de BOT em qualquer circunstÃ¢ncia. Ã‰ extremamente proibido o uso de qualquer trapaÃ§a, automaÃ§Ã£o ou recurso que infrinja as regras do servidor ou tente obter vantagem em cima de outros jogadores.<br><br>
+                                                                        â€¢ O uso de MCs para obter vantagem em DANOS contra o adversÃ¡rio na battle tambÃ©m se enquadra na regra.<br>
+                                                                        â€¢ Proibido o uso de MC para qualquer BOSS Raid.
                                                                     </div>
                                                                 </details>
 
@@ -916,7 +921,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Utilizar de forma intencional personagens de nível muito inferior ao da batalha para obter vantagens no PvP (como remover traps ou desviar alvos) ocasionará banimento severo.
+                                                                        Utilizar de forma intencional personagens de nÃ­vel muito inferior ao da batalha para obter vantagens no PvP (como remover traps ou desviar alvos) ocasionarÃ¡ banimento severo.
                                                                     </div>
                                                                 </details>
 
@@ -927,7 +932,7 @@ $title = 'Rules';
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
                                                                                 <span class="rule-accordion-title">18) Abuso no Guild Chat (/guildbc)</span>
-                                                                                <span class="rule-accordion-brief">Proibido usar o Guild Chat para comércio ou ofensas extremadas.</span>
+                                                                                <span class="rule-accordion-brief">Proibido usar o Guild Chat para comÃ©rcio ou ofensas extremadas.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
@@ -936,7 +941,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É proibido utilizar a função de anúncio da guilda (/guildbc) para propagar mensagens de comércio e ofensas extremadas.
+                                                                        Ã‰ proibido utilizar a funÃ§Ã£o de anÃºncio da guilda (/guildbc) para propagar mensagens de comÃ©rcio e ofensas extremadas.
                                                                     </div>
                                                                 </details>
 
@@ -947,7 +952,7 @@ $title = 'Rules';
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
                                                                                 <span class="rule-accordion-title">19) Uso de Bots, Scripts e Programas Externos</span>
-                                                                                <span class="rule-accordion-brief">Proibido o uso de programas externos ou automação de ações.</span>
+                                                                                <span class="rule-accordion-brief">Proibido o uso de programas externos ou automaÃ§Ã£o de aÃ§Ãµes.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
@@ -956,8 +961,8 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É estritamente proibido o uso de bots, macros de voz, macros de teclado, scripts ou qualquer programa externo que automatize ações ou proporcione vantagem indevida no jogo.<br><br>
-                                                                        <b>Penalidade:</b> O descumprimento desta regra poderá resultar em banimento severo ou permanente da conta e/ou personagem.
+                                                                        Ã‰ estritamente proibido o uso de bots, macros de voz, macros de teclado, scripts ou qualquer programa externo que automatize aÃ§Ãµes ou proporcione vantagem indevida no jogo.<br><br>
+                                                                        <b>Penalidade:</b> O descumprimento desta regra poderÃ¡ resultar em banimento severo ou permanente da conta e/ou personagem.
                                                                     </div>
                                                                 </details>
 
@@ -977,7 +982,7 @@ $title = 'Rules';
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É estritamente proibido divulgar links falsos (phishing), softwares maliciosos (keyloggers/trojans) ou utilizar qualquer meio para tentar obter senhas, chaves de recuperação ou dados de acesso de outros jogadores. Infracionar esta regra resultará no banimento permanente e exclusão (Delete) de todas as contas vinculadas.
+                                                                        Ã‰ estritamente proibido divulgar links falsos (phishing), softwares maliciosos (keyloggers/trojans) ou utilizar qualquer meio para tentar obter senhas, chaves de recuperaÃ§Ã£o ou dados de acesso de outros jogadores. Infracionar esta regra resultarÃ¡ no banimento permanente e exclusÃ£o (Delete) de todas as contas vinculadas.
                                                                     </div>
                                                                 </details>
 
@@ -1010,7 +1015,7 @@ $title = 'Rules';
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">Guia de Atendimento & Denúncias In-Game</div>
+            <div class="Text">Guia de Atendimento & DenÃºncias In-Game</div>
             <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
@@ -1033,7 +1038,7 @@ $title = 'Rules';
                                                     <tbody>
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
                                                             <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
-                                                                🚨 Diretrizes para Atendimento & Suporte via CTRL + R
+                                                                ðŸš¨ Diretrizes para Atendimento & Suporte via CTRL + R
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
@@ -1042,8 +1047,8 @@ $title = 'Rules';
                                                                 <!-- BANNER PRINCIPAL -->
                                                                 <div class="report-banner">
                                                                     <div>
-                                                                        <div class="report-banner-title">📢 Atendimento Oficial In-Game por Gamemasters</div>
-                                                                        <div class="report-banner-sub">Siga atentamente as orientações abaixo para garantir o suporte rápido da equipe.</div>
+                                                                        <div class="report-banner-title">ðŸ“¢ Atendimento Oficial In-Game por Gamemasters</div>
+                                                                        <div class="report-banner-sub">Siga atentamente as orientaÃ§Ãµes abaixo para garantir o suporte rÃ¡pido da equipe.</div>
                                                                     </div>
                                                                     <div style="text-align: right;">
                                                                         <span class="tibia-key">CTRL</span> <span style="color:#fff3db; font-weight:bold;">+</span> <span class="tibia-key">R</span>
@@ -1053,72 +1058,72 @@ $title = 'Rules';
                                                                 <!-- GRID DE CARDS COM REGRAS E DIRETRIZES -->
                                                                 <div class="report-grid">
                                                                     
-                                                                    <!-- CARD 1: FORMATAÇÃO DO REPORT -->
+                                                                    <!-- CARD 1: FORMATAÃ‡ÃƒO DO REPORT -->
                                                                     <div class="report-card">
-                                                                        <div class="report-card-title">✍️ 1. Como Enviar o Report</div>
+                                                                        <div class="report-card-title">âœï¸ 1. Como Enviar o Report</div>
                                                                         <ul class="report-list">
                                                                             <li class="report-list-item">
-                                                                                <span class="report-badge-do">CORRETO</span> Escreva objetivamente: <b>"Situação/Dúvida/Problema + Nickname(s)"</b> (se houver).
+                                                                                <span class="report-badge-do">CORRETO</span> Escreva objetivamente: <b>"SituaÃ§Ã£o/DÃºvida/Problema + Nickname(s)"</b> (se houver).
                                                                             </li>
                                                                             <li class="report-list-item">
-                                                                                <span class="report-badge-dont">ERRADO</span> Reports genéricos como <i>"gm on?"</i>, <i>"alguém aí?"</i> ou <i>"mc aqui"</i> <b>não serão respondidos nem atendidos</b>.
+                                                                                <span class="report-badge-dont">ERRADO</span> Reports genÃ©ricos como <i>"gm on?"</i>, <i>"alguÃ©m aÃ­?"</i> ou <i>"mc aqui"</i> <b>nÃ£o serÃ£o respondidos nem atendidos</b>.
                                                                             </li>
                                                                             <li class="report-list-item">
-                                                                                <span class="tibia-key">CTRL</span> + <span class="tibia-key">R</span> é o canal exclusivo para suporte in-game. Mensagens em canais impróprios (Help, PM, Telegram, Discord) não serão processadas.
+                                                                                <span class="tibia-key">CTRL</span> + <span class="tibia-key">R</span> Ã© o canal exclusivo para suporte in-game. Mensagens em canais imprÃ³prios (Help, PM, Telegram, Discord) nÃ£o serÃ£o processadas.
                                                                             </li>
                                                                         </ul>
                                                                     </div>
 
                                                                     <!-- CARD 2: CONDUTA DOS GMs -->
                                                                     <div class="report-card">
-                                                                        <div class="report-card-title">🛡️ 2. Atendimento & Privacidade dos GMs</div>
+                                                                        <div class="report-card-title">ðŸ›¡ï¸ 2. Atendimento & Privacidade dos GMs</div>
                                                                         <ul class="report-list">
                                                                             <li class="report-list-item">
-                                                                                GMs atuam com base na descrição fornecida e <b>não necessitam responder o chat</b> para efetuar a verificação ou aplicação da sanção.
+                                                                                GMs atuam com base na descriÃ§Ã£o fornecida e <b>nÃ£o necessitam responder o chat</b> para efetuar a verificaÃ§Ã£o ou aplicaÃ§Ã£o da sanÃ§Ã£o.
                                                                             </li>
                                                                             <li class="report-list-item">
-                                                                                A equipe preserva o sigilo e <b>não se obriga a prestar contas</b> do resultado das investigações ou punições aplicadas ao denunciado.
+                                                                                A equipe preserva o sigilo e <b>nÃ£o se obriga a prestar contas</b> do resultado das investigaÃ§Ãµes ou puniÃ§Ãµes aplicadas ao denunciado.
                                                                             </li>
                                                                             <li class="report-list-item">
-                                                                                Denúncias realizadas por jogadores não envolvidos ou distantes da situação ocorrida poderão ficar sem atendimento.
+                                                                                DenÃºncias realizadas por jogadores nÃ£o envolvidos ou distantes da situaÃ§Ã£o ocorrida poderÃ£o ficar sem atendimento.
                                                                             </li>
                                                                         </ul>
                                                                     </div>
 
-                                                                    <!-- CARD 3: PREVENÇÃO DE SPAM E ABUSOS -->
+                                                                    <!-- CARD 3: PREVENÃ‡ÃƒO DE SPAM E ABUSOS -->
                                                                     <div class="report-card">
-                                                                        <div class="report-card-title">🚫 3. Proibições & Uso Indevido</div>
+                                                                        <div class="report-card-title">ðŸš« 3. ProibiÃ§Ãµes & Uso Indevido</div>
                                                                         <ul class="report-list">
                                                                             <li class="report-list-item">
-                                                                                <b>Um report basta:</b> Não envie a mesma denúncia com múltiplos personagens. Isso não acelera a análise e prejudica o atendimento.
+                                                                                <b>Um report basta:</b> NÃ£o envie a mesma denÃºncia com mÃºltiplos personagens. Isso nÃ£o acelera a anÃ¡lise e prejudica o atendimento.
                                                                             </li>
                                                                             <li class="report-list-item">
-                                                                                <b>Spam Report:</b> Abrir e fechar repetidamente o chamado para chamar atenção resultará em banimento imediato.
+                                                                                <b>Spam Report:</b> Abrir e fechar repetidamente o chamado para chamar atenÃ§Ã£o resultarÃ¡ em banimento imediato.
                                                                             </li>
                                                                             <li class="report-list-item">
-                                                                                <b>False Report:</b> Denúncias falsas, forjadas ou mal-intencionadas acarretam banimento severo da conta.
+                                                                                <b>False Report:</b> DenÃºncias falsas, forjadas ou mal-intencionadas acarretam banimento severo da conta.
                                                                             </li>
                                                                             <li class="report-list-item">
-                                                                                Diferencie os canais: <span class="tibia-key">CTRL</span> + <span class="tibia-key">R</span> é atendido por GMs; <b>Tickets no Site</b> tratam de assuntos administrativos/financeiros com a Administração.
+                                                                                Diferencie os canais: <span class="tibia-key">CTRL</span> + <span class="tibia-key">R</span> Ã© atendido por GMs; <b>Tickets no Site</b> tratam de assuntos administrativos/financeiros com a AdministraÃ§Ã£o.
                                                                             </li>
                                                                         </ul>
                                                                     </div>
 
-                                                                    <!-- CARD 4: RECOMENDAÇÕES E ÉTICA -->
+                                                                    <!-- CARD 4: RECOMENDAÃ‡Ã•ES E Ã‰TICA -->
                                                                     <div class="report-card">
-                                                                        <div class="report-card-title">⚖️ 4. Recomendações & Conduta Ética</div>
+                                                                        <div class="report-card-title">âš–ï¸ 4. RecomendaÃ§Ãµes & Conduta Ã‰tica</div>
                                                                         <ul class="report-list">
                                                                             <li class="report-list-item">
-                                                                                Para dúvidas gerais sobre o jogo, utilize primeiramente o <b>Help Channel</b> para suporte rápido de tutores e jogadores.
+                                                                                Para dÃºvidas gerais sobre o jogo, utilize primeiramente o <b>Help Channel</b> para suporte rÃ¡pido de tutores e jogadores.
                                                                             </li>
                                                                             <li class="report-list-item">
-                                                                                Evite acusações infundadas sem provas. Em caso de dúvidas, solicite educadamente que a equipe averigúe o ocorrido.
+                                                                                Evite acusaÃ§Ãµes infundadas sem provas. Em caso de dÃºvidas, solicite educadamente que a equipe averigÃºe o ocorrido.
                                                                             </li>
                                                                             <li class="report-list-item">
-                                                                                <b>Jamais retribua uma infração:</b> Não combata uma injustiça cometendo outra infração, sob pena de também ser punido.
+                                                                                <b>Jamais retribua uma infraÃ§Ã£o:</b> NÃ£o combata uma injustiÃ§a cometendo outra infraÃ§Ã£o, sob pena de tambÃ©m ser punido.
                                                                             </li>
                                                                             <li class="report-list-item">
-                                                                                Mantenha a paciência ao reportar. Todas as verificações são feitas de forma criteriosa e responsável.
+                                                                                Mantenha a paciÃªncia ao reportar. Todas as verificaÃ§Ãµes sÃ£o feitas de forma criteriosa e responsÃ¡vel.
                                                                             </li>
                                                                         </ul>
                                                                     </div>
@@ -1127,7 +1132,7 @@ $title = 'Rules';
 
                                                                  <!-- NOTA FINAL DE DESTAQUE -->
                                                                 <div class="report-footer-note">
-                                                                    O cumprimento destas diretrizes garante um atendimento eficiente e mantém o NosleiraOT justo e organizado para todos!
+                                                                    O cumprimento destas diretrizes garante um atendimento eficiente e mantÃ©m o NosleiraOT justo e organizado para todos!
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -1145,3 +1150,7 @@ $title = 'Rules';
         </tbody>
     </table>
 </div>
+
+
+
+
