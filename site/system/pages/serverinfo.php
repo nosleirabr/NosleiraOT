@@ -74,9 +74,21 @@ else if(isset($config['lua']['black_skull_duration'])) {
     $blackSkull = true;
 }
 
-$clientVersion = NULL;
-if(isset($status['online']))
-    $clientVersion = isset($status['clientVersion']) ? $status['clientVersion'] : null;
+$clientVersion = '7.4';
+
+// Custom DB Stats
+$dbStats = array();
+$dbStats['accounts'] = $db->query('SELECT COUNT(*) FROM `accounts`')->fetchColumn();
+$dbStats['players'] = $db->query('SELECT COUNT(*) FROM `players`')->fetchColumn();
+$dbStats['guilds'] = $db->query('SELECT COUNT(*) FROM `guilds`')->fetchColumn();
+$dbStats['banned'] = $db->query('SELECT COUNT(*) FROM `account_bans`')->fetchColumn();
+$dbStats['houses_free'] = $db->query('SELECT COUNT(*) FROM `houses` WHERE `owner` = 0')->fetchColumn();
+
+// Last joined and Best Level
+$dbStats['last_joined'] = $db->query('SELECT `name` FROM `players` ORDER BY `id` DESC LIMIT 1')->fetchColumn();
+$best_level_query = $db->query('SELECT `name`, `level` FROM `players` WHERE `group_id` < 3 ORDER BY `level` DESC, `experience` DESC LIMIT 1')->fetch();
+$dbStats['best_level_name'] = $best_level_query ? $best_level_query['name'] : 'None';
+$dbStats['best_level'] = $best_level_query ? $best_level_query['level'] : 0;
 
 $twig->display('serverinfo.html.twig', array(
     'experienceStages' => isset($config['lua']['experienceStages']) && getBoolean($config['lua']['experienceStages']) ? $config['lua']['experienceStages'] : null,
@@ -107,4 +119,5 @@ $twig->display('serverinfo.html.twig', array(
     'banishmentLength' => isset($config['lua']['banishment_length']) ? eval('return (' . $config['lua']['banishment_length'] . ') / (24 * 60 * 60);') : null,
     'finalBanishmentLength' => isset($config['lua']['final_banishment_length']) ? eval('return (' . $config['lua']['final_banishment_length'] . ') / (24 * 60 * 60);') : null,
     'ipBanishmentLength' => isset($config['lua']['ip_banishment_length']) ? eval('return (' . $config['lua']['ip_banishment_length'] . ') / (24 * 60 * 60);') : null,
+    'dbStats' => $dbStats
 ));

@@ -1,7 +1,48 @@
-<div style="text-align:center">
-    <h1>NosleiraOT Information</h1>
+<style>
+.serverinfo-nav {
+    text-align: center;
+    font-weight: bold;
+    padding: 8px;
+    margin-bottom: 15px;
+    background-color: #e3ceb0;
+    border: 1px solid #000;
+}
+.serverinfo-nav a {
+    text-decoration: none;
+    color: #004294;
+    margin: 0 5px;
+    font-size: 12px;
+}
+.serverinfo-nav a:hover {
+    text-decoration: underline;
+}
+.Table3 th {
+    background-color: #505050;
+    color: #fff;
+    padding: 5px;
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 1px solid #000;
+}
+.row-odd { background-color: #D4C0A1; }
+.row-even { background-color: #F1E0C6; }
+.td-name { width: 40%; font-weight: normal; color: #4a1c00; }
+.ip-highlight { font-weight: bold; color: #000; font-size: 14px; text-decoration: underline; }
+.text-green { color: green; font-weight: bold; }
+</style>
+
+<div class="serverinfo-nav">
+    <a href="#status">[Status]</a>
+    <a href="#rates">[Rates]</a>
+    <a href="#infoserver">[Info Server]</a>
+    <a href="#commands">[Commands]</a>
+    <a href="#frags">[Frags]</a>
+    <a href="#other">[Other Information]</a>
+    <a href="#house">[House Infos]</a>
 </div>
 
+<!-- STATUS -->
+<a name="status"></a>
 <div class="TableContainer">
     <div class="CaptionContainer">
         <div class="CaptionInnerContainer">
@@ -9,67 +50,42 @@
             <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">Server Info & Rates</div>
+            <div class="Text">Status</div>
             <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
         </div>
     </div>
-    <table class="Table3" cellpadding="0" cellspacing="0">
+    <table class="Table3" cellpadding="4" cellspacing="0">
         <tbody>
-            <tr>
-                <td>
-                    <div class="InnerTableContainer">
-                        <table style="width:100%;">
-                            <tbody>
-                                <tr style="background-color:#D4C0A1;">
-                                    <td width="30%"><strong>IP:</strong></td>
-                                    <td>www.nosleiraot.com (Port: {{ config.lua.loginPort }})</td>
-                                </tr>
-                                {% if clientVersion %}
-                                <tr style="background-color:#F1E0C6;">
-                                    <td><strong>Client:</strong></td>
-                                    <td>{{ clientVersion }}</td>
-                                </tr>
-                                {% endif %}
-                                <tr style="background-color:#D4C0A1;">
-                                    <td><strong>Online:</strong></td>
-                                    <td>24/7</td>
-                                </tr>
-                                <tr style="background-color:#F1E0C6;">
-                                    <td><strong>World type:</strong></td>
-                                    <td>{{ config.lua.worldType|upper }} <i>(Protection level: {{ protectionLevel }})</i></td>
-                                </tr>
-                                <tr style="background-color:#D4C0A1;">
-                                    <td><strong>Guilds:</strong></td>
-                                    <td>Level {{ setting('core.guild_need_level') }} (Create via website)</td>
-                                </tr>
-                                <tr style="background-color:#F1E0C6;">
-                                    <td><strong>Exp Rate:</strong></td>
-                                    <td>x{{ rateExp|default('1') }}</td>
-                                </tr>
-                                <tr style="background-color:#D4C0A1;">
-                                    <td><strong>Magic Level:</strong></td>
-                                    <td>x{{ rateMagic|default('1') }}</td>
-                                </tr>
-                                <tr style="background-color:#F1E0C6;">
-                                    <td><strong>Skills:</strong></td>
-                                    <td>x{{ rateSkill|default('1') }}</td>
-                                </tr>
-                                <tr style="background-color:#D4C0A1;">
-                                    <td><strong>Loot:</strong></td>
-                                    <td>x{{ rateLoot|default('1') }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
+            <tr><th>Name</th><th>Value</th></tr>
+            <tr class="row-even">
+                <td class="td-name">Server</td>
+                <td class="text-green">Online</td>
+            </tr>
+            <tr class="row-odd">
+                <td class="td-name">Players Online according to the rules of Otservlist</td>
+                <td>{{ server_status.players|default('0') }}</td>
+            </tr>
+            <tr class="row-even">
+                <td class="td-name">UpTime</td>
+                <td>24/7</td>
+            </tr>
+            <tr class="row-odd">
+                <td class="td-name">Monster</td>
+                <td>154210</td>
+            </tr>
+            <tr class="row-even">
+                <td class="td-name">NPC</td>
+                <td>1213</td>
             </tr>
         </tbody>
     </table>
 </div>
 <br>
 
+<!-- RATES -->
+<a name="rates"></a>
 <div class="TableContainer">
     <div class="CaptionContainer">
         <div class="CaptionInnerContainer">
@@ -77,60 +93,61 @@
             <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">Frags & Skull System</div>
+            <div class="Text">Rates</div>
             <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
         </div>
     </div>
-    <table class="Table3" cellpadding="0" cellspacing="0">
+    <table class="Table3" cellpadding="4" cellspacing="0">
         <tbody>
-            <tr>
-                <td>
-                    <div class="InnerTableContainer">
-                        <table style="width:100%;">
-                            <tbody>
-                                <tr style="background-color:#D4C0A1;">
-                                    <td width="30%"><strong>PZ Lock:</strong></td>
-                                    <td>{{ pzLocked / (60 * 1000) }} min</td>
-                                </tr>
-                                {% if whiteSkullTime %}
-                                <tr style="background-color:#F1E0C6;">
-                                    <td><strong>White Skull Time:</strong></td>
-                                    <td>{{ whiteSkullTime / (60 * 1000) }} min</td>
-                                </tr>
-                                {% endif %}
-                                <tr style="background-color:#D4C0A1;">
-                                    <td><strong>Red Skull Length:</strong></td>
-                                    <td>{{ redSkullLength / (24 * 60 * 60) }} days</td>
-                                </tr>
-                                {% if config.lua.dailyFragsToRedSkull is defined or config.lua.kills_per_day_red_skull is defined %}
-                                <tr style="background-color:#F1E0C6;">
-                                    <td><strong>Kills for Red Skull:</strong></td>
-                                    <td>{{ dailyFragsToRedSkull }} daily / {{ weeklyFragsToRedSkull }} weekly / {{ monthlyFragsToRedSkull }} monthly</td>
-                                </tr>
-                                {% elseif config.lua.killsToRedSkull is defined %}
-                                <tr style="background-color:#F1E0C6;">
-                                    <td><strong>Kills to Red Skull:</strong></td>
-                                    <td>{{ config.lua.killsToRedSkull }}</td>
-                                </tr>
-                                {% endif %}
-                                {% if banishmentLength %}
-                                <tr style="background-color:#D4C0A1;">
-                                    <td><strong>Banishment Length:</strong></td>
-                                    <td>{{ banishmentLength }} days</td>
-                                </tr>
-                                {% endif %}
-                            </tbody>
-                        </table>
-                    </div>
+            <tr><th>Name</th><th>Value</th></tr>
+            <tr class="row-odd">
+                <td class="td-name">Experience</td>
+                <td style="padding: 0;">
+                    <table width="100%" cellpadding="3" cellspacing="1" style="margin:0; border:none; text-align:center;">
+                        <tr style="background-color:#505050; color:#fff;">
+                            <td width="33%"><b>From Level</b></td>
+                            <td width="33%"><b>To Level</b></td>
+                            <td width="33%"><b>Rate</b></td>
+                        </tr>
+                        {% if experienceStages %}
+                            {% for stage in experienceStages %}
+                            <tr class="{% if loop.index is odd %}row-even{% else %}row-odd{% endif %}">
+                                <td>{{ stage.minlevel }}</td>
+                                <td>{% if stage.maxlevel %}{{ stage.maxlevel }}{% else %}-{% endif %}</td>
+                                <td>{{ stage.multiplier }}x</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr class="row-even"><td>1</td><td>-</td><td>{{ rateExp|default('1') }}x</td></tr>
+                        {% endif %}
+                    </table>
                 </td>
+            </tr>
+            <tr class="row-even">
+                <td class="td-name">Skill</td>
+                <td>{{ rateSkill|default('1') }}x</td>
+            </tr>
+            <tr class="row-odd">
+                <td class="td-name">Magic</td>
+                <td>{{ rateMagic|default('1') }}x</td>
+            </tr>
+            <tr class="row-even">
+                <td class="td-name">Loot</td>
+                <td>{{ rateLoot|default('1') }}x</td>
+            </tr>
+            <tr class="row-odd">
+                <td class="td-name">Spawn</td>
+                <td>{{ rateSpawn|default('1') }}x</td>
             </tr>
         </tbody>
     </table>
 </div>
 <br>
 
+<!-- INFO SERVER -->
+<a name="infoserver"></a>
 <div class="TableContainer">
     <div class="CaptionContainer">
         <div class="CaptionInnerContainer">
@@ -138,76 +155,210 @@
             <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">Player Commands</div>
+            <div class="Text">Info Server</div>
             <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
         </div>
     </div>
-    <table class="Table3" cellpadding="0" cellspacing="0">
+    <table class="Table3" cellpadding="4" cellspacing="0">
         <tbody>
-            <tr>
-                <td>
-                    <div class="InnerTableContainer">
-                        <table style="width:100%;">
-                            <tbody>
-                                <tr style="background-color:#505050; color:#fff;">
-                                    <td colspan="2" style="padding: 5px;"><strong>General & Info</strong></td>
-                                </tr>
-                                <tr style="background-color:#D4C0A1;">
-                                    <td width="20%"><strong>!serverinfo</strong></td>
-                                    <td>Shows the current server rates (Exp, Magic, Skills, Loot).</td>
-                                </tr>
-                                <tr style="background-color:#F1E0C6;">
-                                    <td><strong>!kills</strong></td>
-                                    <td>Displays your current unjustified kills (frags).</td>
-                                </tr>
-                                <tr style="background-color:#D4C0A1;">
-                                    <td><strong>!deathlist</strong></td>
-                                    <td>Shows your recent death history.</td>
-                                </tr>
-                                <tr style="background-color:#F1E0C6;">
-                                    <td><strong>!pz</strong></td>
-                                    <td>Displays the remaining time for your Protection Zone lock and/or Skull.</td>
-                                </tr>
-
-                                <tr style="background-color:#505050; color:#fff;">
-                                    <td colspan="2" style="padding: 5px;"><strong>House Commands</strong></td>
-                                </tr>
-                                <tr style="background-color:#D4C0A1;">
-                                    <td><strong>!buyhouse</strong></td>
-                                    <td>Buy a house. Stand facing the door.</td>
-                                </tr>
-                                <tr style="background-color:#F1E0C6;">
-                                    <td><strong>!leavehouse</strong></td>
-                                    <td>Leave your current house. Items stay in the house.</td>
-                                </tr>
-                                <tr style="background-color:#D4C0A1;">
-                                    <td><strong>aleta sio</strong></td>
-                                    <td>Edit the house guest list.</td>
-                                </tr>
-                                <tr style="background-color:#F1E0C6;">
-                                    <td><strong>aleta som</strong></td>
-                                    <td>Edit the house sub-owner list.</td>
-                                </tr>
-                                <tr style="background-color:#D4C0A1;">
-                                    <td><strong>aleta grav</strong></td>
-                                    <td>Edit door permission list.</td>
-                                </tr>
-                                <tr style="background-color:#F1E0C6;">
-                                    <td><strong>alana sio</strong></td>
-                                    <td>Kick a player from the house, or leave the house yourself.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
+            <tr><th>Name</th><th>Value</th></tr>
+            <tr class="row-even">
+                <td class="td-name">IP</td>
+                <td><span class="ip-highlight">www.nosleiraot.com</span> (Port: {{ config.lua.loginPort }})</td>
+            </tr>
+            <tr class="row-odd">
+                <td class="td-name">World Type</td>
+                <td>{{ config.lua.worldType|title }}</td>
+            </tr>
+            <tr class="row-even">
+                <td class="td-name">Client Version</td>
+                <td>7.4</td>
+            </tr>
+            <tr class="row-odd">
+                <td class="td-name">Server Mode</td>
+                <td>Nosleira OT</td>
+            </tr>
+            <tr class="row-even">
+                <td class="td-name">Last joined</td>
+                <td>{% if dbStats.last_joined %}<a href="{{ getLink('characters/' ~ dbStats.last_joined) }}">{{ dbStats.last_joined }}</a>{% else %}None{% endif %}</td>
+            </tr>
+            <tr class="row-odd">
+                <td class="td-name">Best Level</td>
+                <td>{% if dbStats.best_level_name != 'None' %}<a href="{{ getLink('characters/' ~ dbStats.best_level_name) }}">{{ dbStats.best_level_name }}</a> ({{ dbStats.best_level }}){% else %}None{% endif %}</td>
+            </tr>
+            <tr class="row-even">
+                <td class="td-name">Free Houses</td>
+                <td>{{ dbStats.houses_free }}</td>
+            </tr>
+            <tr class="row-odd">
+                <td class="td-name">Banned accounts</td>
+                <td>{{ dbStats.banned }}</td>
+            </tr>
+            <tr class="row-even">
+                <td class="td-name">Accounts in database</td>
+                <td>{{ dbStats.accounts }}</td>
+            </tr>
+            <tr class="row-odd">
+                <td class="td-name">Players in database</td>
+                <td>{{ dbStats.players }}</td>
+            </tr>
+            <tr class="row-even">
+                <td class="td-name">Guilds in database</td>
+                <td>{{ dbStats.guilds }}</td>
             </tr>
         </tbody>
     </table>
 </div>
 <br>
 
-<div style="text-align:center;">
+<!-- COMMANDS -->
+<a name="commands"></a>
+<div class="TableContainer">
+    <div class="CaptionContainer">
+        <div class="CaptionInnerContainer">
+            <span class="CaptionEdgeLeftTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
+            <div class="Text">Commands</div>
+            <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
+            <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+        </div>
+    </div>
+    <table class="Table3" cellpadding="4" cellspacing="0">
+        <tbody>
+            <tr><th width="30%">Words</th><th>Description</th></tr>
+            <tr class="row-even"><td class="td-name">!serverinfo</td><td>Shows the current server rates.</td></tr>
+            <tr class="row-odd"><td class="td-name">!kills</td><td>Displays your current unjustified kills (frags).</td></tr>
+            <tr class="row-even"><td class="td-name">!deathlist</td><td>Shows your recent death history.</td></tr>
+            <tr class="row-odd"><td class="td-name">!pz</td><td>Displays the remaining time for your Protection Zone lock and/or Skull.</td></tr>
+            <tr class="row-even"><td class="td-name">!buyhouse</td><td>Buy a house. Stand facing the door.</td></tr>
+            <tr class="row-odd"><td class="td-name">!leavehouse</td><td>Leave your current house. Items stay in the house.</td></tr>
+            <tr class="row-even"><td class="td-name">aleta sio</td><td>Edit the house guest list.</td></tr>
+            <tr class="row-odd"><td class="td-name">aleta som</td><td>Edit the house sub-owner list.</td></tr>
+            <tr class="row-even"><td class="td-name">aleta grav</td><td>Edit door permission list.</td></tr>
+            <tr class="row-odd"><td class="td-name">alana sio</td><td>Kick a player from the house, or leave the house yourself.</td></tr>
+        </tbody>
+    </table>
+</div>
+<br>
+
+<!-- FRAGS -->
+<a name="frags"></a>
+<div class="TableContainer">
+    <div class="CaptionContainer">
+        <div class="CaptionInnerContainer">
+            <span class="CaptionEdgeLeftTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
+            <div class="Text">Frags</div>
+            <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
+            <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+        </div>
+    </div>
+    <table class="Table3" cellpadding="4" cellspacing="0">
+        <tbody>
+            <tr><th>Name</th><th>Value</th></tr>
+            <tr class="row-even">
+                <td class="td-name"><img src="images/white_skull.gif" style="vertical-align:middle; margin-right:5px;" alt="White Skull"/>White Skull Time</td>
+                <td>{{ whiteSkullTime / (60 * 1000) }} minutes</td>
+            </tr>
+            <tr class="row-odd">
+                <td class="td-name"><img src="images/red_skull.gif" style="vertical-align:middle; margin-right:5px;" alt="Red Skull"/>Red Skull Time</td>
+                <td>{{ redSkullLength / (24 * 60 * 60) }} days</td>
+            </tr>
+            {% if blackSkull %}
+            <tr class="row-even">
+                <td class="td-name"><img src="images/black_skull.gif" style="vertical-align:middle; margin-right:5px;" alt="Black Skull"/>Black Skull Time</td>
+                <td>{{ blackSkullLength / (24 * 60 * 60) }} days</td>
+            </tr>
+            {% endif %}
+            <tr class="row-odd">
+                <td class="td-name">Frags to Red Skull</td>
+                <td><b>Daily:</b> {{ dailyFragsToRedSkull }} &nbsp;<b>Weekly:</b> {{ weeklyFragsToRedSkull }} &nbsp;<b>Monthly:</b> {{ monthlyFragsToRedSkull }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+
+<!-- OTHER INFORMATION -->
+<a name="other"></a>
+<div class="TableContainer">
+    <div class="CaptionContainer">
+        <div class="CaptionInnerContainer">
+            <span class="CaptionEdgeLeftTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
+            <div class="Text">Other Information</div>
+            <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
+            <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+        </div>
+    </div>
+    <table class="Table3" cellpadding="4" cellspacing="0">
+        <tbody>
+            <tr><th>Name</th><th>Value</th></tr>
+            <tr class="row-even">
+                <td class="td-name">Premium Account</td>
+                <td>Available via Webshop</td>
+            </tr>
+            <tr class="row-odd">
+                <td class="td-name">PZ Lock</td>
+                <td>{{ pzLocked / (60 * 1000) }} minutes</td>
+            </tr>
+            <tr class="row-even">
+                <td class="td-name">Protection Level</td>
+                <td>Level {{ protectionLevel }}</td>
+            </tr>
+            <tr class="row-odd">
+                <td class="td-name">Level to Buy House</td>
+                <td>Level {{ houseLevel }}</td>
+            </tr>
+            <tr class="row-even">
+                <td class="td-name">Level to Create Guild</td>
+                <td>Level {{ setting('core.guild_need_level') }}</td>
+            </tr>
+            <tr class="row-odd">
+                <td class="td-name">Guild Houses</td>
+                <td>Disabled</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+
+<!-- HOUSE INFOS -->
+<a name="house"></a>
+<div class="TableContainer">
+    <div class="CaptionContainer">
+        <div class="CaptionInnerContainer">
+            <span class="CaptionEdgeLeftTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
+            <div class="Text">House Infos</div>
+            <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
+            <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+        </div>
+    </div>
+    <table class="Table3" cellpadding="4" cellspacing="0">
+        <tbody>
+            <tr class="row-even"><td align="center"><i>House rent will be charged {{ houseRent }} and the amount is the same amount you paid when buying the house.</i></td></tr>
+            <tr class="row-odd"><td align="center"><i>You can pay the rent by leaving the money in the depot of the city where the house is located.</i></td></tr>
+            <tr class="row-even"><td align="center"><i>If you stay 7 days without login the house is removed the next day.</i></td></tr>
+            <tr class="row-odd"><td align="center"><i>The maximum number of items per house is 5000.</i></td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div style="text-align:center; margin-top:20px;">
     <p>Respect our <a href="{{ getLink('rules') }}">rules</a>.<br/>Please report rule violations with <b>CTRL + R</b>.</p>
 </div>
