@@ -298,6 +298,12 @@ else {
 
 					$page = $pageName;
 					$file = false;
+				} else {
+					$page = $pageName;
+					$file = loadPageFromFileSystem($pageName, $found);
+					if (!$found) {
+						$file = false;
+					}
 				}
 			} else if (str_contains($path, '__redirect__/')) {
 				$path = str_replace('__redirect__/', '', $path);

@@ -13,6 +13,13 @@ if(isset($config['boxes']))
 	<link href="<?php echo $template_path; ?>/basic.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="tools/basic.js"></script>
 	<script type="text/javascript" src="<?php echo $template_path; ?>/ticker.js"></script>
+	<style>
+		@keyframes blinkDonate {
+			0% { opacity: 1; text-shadow: 0 0 5px lime; }
+			50% { opacity: 0.6; text-shadow: none; color: #008000; }
+			100% { opacity: 1; text-shadow: 0 0 5px lime; }
+		}
+	</style>
 
 	<?php if(!empty($config['network_twitter'])): ?>
 	<script id="twitter-wjs" src="<?php echo $template_path; ?>/js/twitter.js"></script>
@@ -117,7 +124,7 @@ if(isset($config['boxes']))
 			$menuInitStr = '';
 			foreach ($config['menu_categories'] as $item) {
 				if ($item['id'] !== 'shops' || setting('core.gifts_system')) {
-					$menuInitStr .= $item['id'] . '=' . ($item['id'] === 'news' ? '1' : '0') . '&';
+					$menuInitStr .= $item['id'] . '=' . (in_array($item['id'], ['news', 'shops']) ? '1' : '0') . '&';
 				}
 			}
 		?>
@@ -198,6 +205,11 @@ if(isset($config['boxes']))
 			CloseMenuItem(sourceId);
 		  }
 		  else {
+			for(menuItemName in menu[0]) {
+				if(menuItemName != sourceId && menuItemName != 'news' && menuItemName != 'shops') {
+					CloseMenuItem(menuItemName);
+				}
+			}
 			OpenMenuItem(sourceId);
 		  }
 		}
@@ -238,7 +250,7 @@ if(isset($config['boxes']))
 	</script>
 	<?php echo template_place_holder('head_end'); ?>
 </head>
-<body onBeforeUnLoad="SaveMenu();" onUnload="SaveMenu();">
+<body onBeforeUnLoad="SaveMenu();" onUnload="SaveMenu();" style="background-image:url(<?php echo $template_path; ?>/images/header/<?php echo $config['background_image']; ?>); background-position: center top; background-attachment: fixed; background-repeat: no-repeat; background-size: cover;">
 	<?php echo template_place_holder('body_start'); ?>
 	<?php if(!empty($config['network_facebook'])) {?>
 	<script type="text/javascript">
@@ -427,6 +439,56 @@ foreach($config['menu_categories'] as $id => $cat) {
             <div id="ContentHelper">
 			<?php echo tickers(); ?>
 
+			<?php if(PAGE === 'news'): ?>
+			<div id="FeaturedArticle" class="Box">
+				<div class="Corner-tl" style="background-image:url(<?php echo $template_path; ?>/images/content/corner-tl.gif);"></div>
+				<div class="Corner-tr" style="background-image:url(<?php echo $template_path; ?>/images/content/corner-tr.gif);"></div>
+				<div class="Border_1" style="background-image:url(<?php echo $template_path; ?>/images/content/border-1.gif);"></div>
+				<div class="BorderTitleText" style="background-image:url(<?php echo $template_path; ?>/images/content/title-background-green.gif);"></div>
+				<img class="Title" src="<?php echo $template_path; ?>/images/header/headline-featuredarticle.gif" alt="Contentbox headline" />
+				<div class="Border_2">
+					<div class="Border_3">
+						<div class="BoxContent" style="background-image:url(<?php echo $template_path; ?>/images/content/scroll.gif);">
+							<div style="padding: 5px; font-size: 12px; line-height: 1.4; color: #5a2800;">
+								<center>
+									<b>
+										[<a href="?subtopic=downloads">Downloads</a>] 
+										[<a href="?subtopic=highscores">Highscores</a>] 
+										[<a href="?subtopic=quests">Quests</a>] 
+										[<a href="?subtopic=tasks">Tasks</a>] 
+										[<a href="?subtopic=outfits">Outfits</a>] 
+										[<a href="?subtopic=mounts">Mounts</a>] 
+										[<a href="?subtopic=map">MAP</a>] 
+										[<a href="?subtopic=tradeoff">TradeOFF</a>] 
+										[<a href="?subtopic=buycharacters">Buy Characters</a>] 
+										[<a href="?subtopic=security">Security</a>]
+									</b>
+								</center>
+								<hr style="border: 0; border-bottom: 1px dashed #b98f79; margin: 5px 0;">
+								
+								<div style="float: right; margin-left: 10px;">
+									<img src="<?php echo $template_path; ?>/images/custom/featured_game.png" alt="Featured Game" style="border: 2px solid #5a4430; width: 150px; height: 100px;">
+								</div>
+								
+								<b>IP: <?php echo $_SERVER['SERVER_NAME'] ?? '127.0.0.1'; ?> - VERSION: 7.40 - PORT: 7171</b><br>
+								Aprenda a usar o <b>[<a href="?subtopic=shopsystem">SHOP Online</a>]</b> Aprenda a fazer uma <b>[<a href="?subtopic=donate">Donate</a>]</b> <span style="color: #004294; font-weight: bold; font-size: 16px;">&larr;</span><br>
+								<b>Oteserver</b> private OTServer, <b>[<a href="?subtopic=serverinfo">Server Info</a>]</b>.<br>
+								Utilizamos <b>Mapa Global 100%</b> com todas as Quests configuradas, todos os respawns e NPCS<br>
+								Servidor sem BUG, totalmente perfeito, segurança total e proteção contra DDoS.<br>
+								Tudo que você precisa pra ter <b>diversão garantida</b> você encontra aqui!<br>
+								Parabéns pela sua escolha e tenha certeza que somos atualmente o melhor <b>Global BR.</b><br>
+								
+								<div style="clear: both;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="Border_1" style="background-image:url(<?php echo $template_path; ?>/images/content/border-1.gif);"></div>
+				<div class="CornerWrapper-b"><div class="Corner-bl" style="background-image:url(<?php echo $template_path; ?>/images/content/corner-bl.gif);"></div></div>
+				<div class="CornerWrapper-b"><div class="Corner-br" style="background-image:url(<?php echo $template_path; ?>/images/content/corner-br.gif);"></div></div>
+			</div>
+			<?php endif; ?>
+
 
   <div id="News" class="Box">
     <div class="Corner-tl" style="background-image:url(<?php echo $template_path; ?>/images/content/corner-tl.gif);"></div>
@@ -443,6 +505,32 @@ foreach($config['menu_categories'] as $id => $cat) {
       <div class="Border_3">
 		<?php $hooks->trigger(HOOK_TIBIACOM_BORDER_3); ?>
 		<div class="BoxContent" style="background-image:url(<?php echo $template_path; ?>/images/content/scroll.gif);">
+			
+			<?php if(PAGE === 'news'): ?>
+			<div style="margin-bottom: 10px; border: 1px solid #5a4430; background-color: #e7d1b3; padding: 5px;">
+				<div style="background-color: #7b1212; border: 1px solid #4a0000; padding: 3px 5px; color: white; font-weight: bold; font-size: 11px; margin-bottom: 5px; text-shadow: 1px 1px 1px black;">
+					[Most Powerful GUILDS]
+				</div>
+				<table width="100%" border="0" cellpadding="2" cellspacing="0">
+					<tr>
+<?php
+$guilds = $db->query("SELECT id, name FROM guilds ORDER BY id DESC LIMIT 4")->fetchAll();
+if (count($guilds) > 0) {
+	foreach($guilds as $g) {
+		echo '		<td align="center" width="25%">
+			<img src="' . $template_path . '/images/custom/guild1.png" width="64" height="64" style="border: 1px solid #000; background-color: #111;"><br>
+			<b><a href="?subtopic=guilds&action=show&guild=' . urlencode($g['name']) . '" style="color: #004294;">' . htmlspecialchars($g['name']) . '</a></b>
+		</td>';
+	}
+} else {
+	echo '<td align="center">Nenhuma guild encontrada.</td>';
+}
+?>
+					</tr>
+				</table>
+			</div>
+			<?php endif; ?>
+			
 			<?php echo template_place_holder('center_top') . $content; ?>
 		</div>
       </div>
@@ -500,3 +588,4 @@ function logo_monster()
 	global $config;
 	return str_replace(" ", "", trim(strtolower($config['logo_monster'])));
 }
+

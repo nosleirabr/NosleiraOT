@@ -1,122 +1,394 @@
+<!-- Google Translate Widget (Oculto) -->
+<div id="google_translate_element" style="display:none !important;"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'pt',
+        includedLanguages: 'pt,en,es,pl',
+        autoDisplay: false
+    }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script type="text/javascript">
+function changeLanguage(lang) {
+    var domain = window.location.hostname;
+    if (lang === 'pt') {
+        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + domain + ';';
+        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + domain.replace(/^www\./, '') + ';';
+        
+        var combo = document.querySelector('.goog-te-combo');
+        if (combo) {
+            combo.value = 'pt';
+            combo.dispatchEvent(new Event('change'));
+        }
+        location.reload();
+        return;
+    }
+
+    var cookieValue = '/pt/' + lang;
+    document.cookie = 'googtrans=' + cookieValue + '; path=/;';
+    document.cookie = 'googtrans=' + cookieValue + '; path=/; domain=' + domain + ';';
+    document.cookie = 'googtrans=' + cookieValue + '; path=/; domain=.' + domain.replace(/^www\./, '') + ';';
+
+    var combo = document.querySelector('.goog-te-combo');
+    if (combo) {
+        combo.value = lang;
+        combo.dispatchEvent(new Event('change'));
+    } else {
+        location.reload();
+    }
+}
+</script>
 <?php
 defined('MYAAC') or die('Direct access not allowed!');
 $title = 'Rules';
 ?>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+/* Regras Gerais & Tipografia Elevada */
 .tibia-paragraph {
-    font-family: 'Martel', 'Georgia', 'Times New Roman', serif;
+    font-family: 'Inter', -apple-system, sans-serif;
     font-size: 13px;
-    color: #4a2505;
-    line-height: 1.6;
+    color: #3d2208;
+    line-height: 1.65;
     margin-bottom: 12px;
 }
 .tibia-dropcap {
-    font-size: 26px;
-    font-weight: bold;
+    font-size: 28px;
+    font-weight: 700;
     color: #7f0000;
-    font-family: 'Martel', 'Georgia', 'Times New Roman', serif;
+    font-family: 'Cinzel', 'Georgia', serif;
     float: left;
-    line-height: 22px;
-    padding-right: 4px;
+    line-height: 24px;
+    padding-right: 6px;
     padding-top: 1px;
 }
 
-/* Accordion estilisado estilo Tibia oficial */
+/* Accordion estilisado estilo Tibia Premium */
 .rule-accordion {
     margin-bottom: 8px;
-    background: #fdfaf4;
-    border: 1px solid #e3d3ba;
-    border-radius: 4px;
-    font-family: 'Verdana', sans-serif;
+    border-bottom: 1px solid rgba(160, 130, 90, 0.2);
+    padding-bottom: 4px;
 }
 .rule-accordion:last-child {
+    border-bottom: none;
     margin-bottom: 0;
-}
-.rule-accordion[open] {
-    border: 1px solid #a83c3c;
-    background: #faf6ef;
+    padding-bottom: 0;
 }
 .rule-accordion summary {
     cursor: pointer;
+    outline: none;
     list-style: none;
     display: flex;
     align-items: center;
-    padding: 8px 12px;
-    outline: none;
-    background: #fdfaf4;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-    position: relative;
-}
-.rule-accordion[open] summary {
-    background: #f6e3df;
-    border-bottom: 1px solid #d2b3ad;
-    border-radius: 4px 4px 0 0;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: linear-gradient(180deg, #fdf9f3 0%, #f4e8d7 100%);
+    border: 1px solid #d8c6af;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    user-select: none;
 }
 .rule-accordion summary::-webkit-details-marker {
     display: none;
 }
-.rule-accordion-arrow {
+.rule-accordion summary:hover {
+    background: linear-gradient(180deg, #fffcf7 0%, #ebd7be 100%);
+    border-color: #b89a72;
+    box-shadow: 0 3px 8px rgba(127, 0, 0, 0.12);
+    transform: translateY(-1px);
+}
+.rule-accordion[open] summary {
+    background: linear-gradient(180deg, #f0dfc8 0%, #e3ceb0 100%);
+    border-color: #8b0000;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    border-radius: 6px 6px 0 0;
+}
+
+.rule-summary-left {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 20px;
-    height: 20px;
-    background: #8b1c1c;
-    color: #fff;
-    border-radius: 3px;
+    flex: 1;
+    min-width: 0;
+}
+
+.rule-icon-box {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    background: linear-gradient(180deg, #9e1a1a 0%, #6e0000 100%);
+    color: #fff8e7;
+    border: 1px solid #520000;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 10px;
-    flex-shrink: 0;
+    font-weight: bold;
     margin-right: 12px;
-    transform: rotate(90deg);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 1px 2px rgba(0,0,0,0.2);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s ease;
 }
-.rule-accordion[open] .rule-accordion-arrow {
-    transform: rotate(-90deg);
+.rule-accordion[open] .rule-icon-box {
+    transform: rotate(180deg);
+    background: linear-gradient(180deg, #520000 0%, #8b0000 100%);
 }
-.rule-accordion summary > div {
+
+.rule-title-group {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    padding-right: 110px;
+    overflow: hidden;
 }
+
 .rule-accordion-title {
-    font-weight: bold;
-    font-size: 11px;
-    color: #4a2505;
-    text-transform: uppercase;
+    font-family: 'Cinzel', 'Martel', 'Georgia', serif;
+    font-weight: 700;
+    font-size: 13.5px;
+    color: #4a1c00;
+    letter-spacing: 0.2px;
 }
+
 .rule-accordion-brief {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 11.5px;
+    color: #6e543b;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rule-action-badge {
+    font-family: 'Inter', sans-serif;
     font-size: 11px;
-    color: #6d5b4a;
+    font-weight: 600;
+    color: #7f0000;
+    background: #f5eae0;
+    border: 1px solid #d4b5a0;
+    padding: 4px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+    margin-left: 10px;
+    transition: all 0.2s ease;
+}
+.rule-accordion summary:hover .rule-action-badge {
+    background: #7f0000;
+    color: #ffffff;
+    border-color: #5b0000;
+}
+.rule-accordion[open] .badge-text-closed {
+    display: none;
+}
+.rule-accordion:not([open]) .badge-text-open {
+    display: none;
+}
+
+.rule-accordion-body {
+    background: #faf4e8;
+    border: 1px solid #d8c6af;
+    border-top: none;
+    border-left: 4px solid #8b0000;
+    border-radius: 0 0 6px 6px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    color: #2b1704;
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 13px;
+    line-height: 1.65;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.03), 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Estilos para o Painel de Report (CTRL + R) */
+.tibia-key {
+    background: linear-gradient(180deg, #4a4a4a 0%, #2b2b2b 100%);
+    color: #fff8e7;
+    border: 1px solid #1a1a1a;
+    border-bottom: 2px solid #000;
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-family: 'Inter', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    display: inline-block;
+}
+
+.report-banner {
+    background: linear-gradient(180deg, #7f0000 0%, #520000 100%);
+    color: #fff3db;
+    border: 1px solid #3d0000;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.report-banner-title {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.report-banner-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: #e6c594;
     margin-top: 2px;
 }
-.rule-accordion summary::after {
-    content: "Click to read";
+
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: 14px;
+}
+
+.report-card {
+    background: linear-gradient(180deg, #fdf9f2 0%, #f4e8d6 100%);
+    border: 1px solid #d4c3ab;
+    border-radius: 6px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+}
+.report-card-title {
+    font-family: 'Cinzel', serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #4a1c00;
+    border-bottom: 2px solid #d0b898;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.report-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.report-list-item {
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    color: #2c1704;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    padding-left: 18px;
+    position: relative;
+}
+.report-list-item:last-child {
+    margin-bottom: 0;
+}
+.report-list-item::before {
+    content: "•";
+    color: #8b0000;
+    font-weight: bold;
+    font-size: 16px;
     position: absolute;
-    right: 12px;
+    left: 2px;
+    top: -2px;
+}
+
+.report-badge-do {
+    background: #e2f0d9;
+    color: #276a10;
+    border: 1px solid #b5d8a0;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-right: 4px;
+}
+.report-badge-dont {
+    background: #fce4d6;
+    color: #a61c1c;
+    border: 1px solid #f4b08a;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-right: 4px;
+}
+.report-footer-note {
+    background: linear-gradient(180deg, #f8efe0 0%, #ebdbbe 100%);
+    border: 1px solid #c8b496;
+    border-left: 4px solid #7f0000;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-top: 14px;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #4a1c00;
+}
+
+
+/* Ocultar elementos do Google Translate */
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.skiptranslate {
+    display: none !important;
+}
+#google_translate_element {
+    display: none !important;
+}
+
+/* Bandeiras na Área Verde das Regras */
+.rules-caption-inner {
+    position: relative !important;
+}
+.rules-green-bar-flags {
+    position: absolute;
+    right: 14px;
     top: 50%;
     transform: translateY(-50%);
-    border: 1px solid #c8b9a2;
-    border-radius: 12px;
-    padding: 4px 10px;
-    font-size: 10px;
-    font-weight: bold;
-    color: #8b1c1c;
-    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 50;
 }
-.rule-accordion[open] summary::after {
-    content: "Close";
-    border-color: #a83c3c;
+.rules-green-bar-flags a {
+    display: inline-block;
+    line-height: 0;
+    text-decoration: none;
+    transition: transform 0.15s ease-in-out;
 }
-.rule-accordion-body {
-    padding: 12px 16px;
-    font-size: 12px;
-    color: #3b1e04;
-    line-height: 1.6;
-    background: #fdfaf4;
-    border-radius: 0 0 4px 4px;
+.rules-green-bar-flags a:hover {
+    transform: scale(1.2);
 }
+.flag-icon {
+    width: 18px;
+    height: 12px;
+    border: 1px solid #0b3c6f !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    display: block;
+    cursor: pointer;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
 </style>
 
 <!-- ================================================================= -->
@@ -124,7 +396,21 @@ $title = 'Rules';
 <!-- ================================================================= -->
 <div class="TableContainer">
     <div class="CaptionContainer">
-        <div class="CaptionInnerContainer">
+        <div class="CaptionInnerContainer rules-caption-inner">
+            <div class="rules-green-bar-flags">
+                <a href="javascript:void(0);" onclick="changeLanguage('pt');" title="Português (BR)">
+                    <img src="<?php echo BASE_URL; ?>images/flags/br.gif" alt="Português" class="flag-icon" />
+                </a>
+                <a href="javascript:void(0);" onclick="changeLanguage('en');" title="English (US)">
+                    <img src="<?php echo BASE_URL; ?>images/flags/us.gif" alt="English" class="flag-icon" />
+                </a>
+                <a href="javascript:void(0);" onclick="changeLanguage('es');" title="Español (ES)">
+                    <img src="<?php echo BASE_URL; ?>images/flags/es.gif" alt="Español" class="flag-icon" />
+                </a>
+                <a href="javascript:void(0);" onclick="changeLanguage('pl');" title="Polski (PL)">
+                    <img src="<?php echo BASE_URL; ?>images/flags/pl.gif" alt="Polski" class="flag-icon" />
+                </a>
+            </div>
             <span class="CaptionEdgeLeftTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
@@ -152,7 +438,7 @@ $title = 'Rules';
                                                     <tbody>
                                                         <!-- INTRODUÇÃO COM LETRA CAPITULAR MEDIEVAL -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
                                                                 📜 Apresentação & Propósito
                                                             </td>
                                                         </tr>
@@ -172,7 +458,7 @@ $title = 'Rules';
 
                                                         <!-- PENALIDADES -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
                                                                 ⚖️ Penalidades
                                                             </td>
                                                         </tr>
@@ -196,7 +482,7 @@ $title = 'Rules';
 
                                                         <!-- MEDIDAS ADMINISTRATIVAS -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
                                                                 🛠️ Medidas Administrativas
                                                             </td>
                                                         </tr>
@@ -210,15 +496,17 @@ $title = 'Rules';
                                                                     <li style="margin-bottom: 5px;">🔹 Ajustes nos atributos ou progresso do personagem;</li>
                                                                     <li style="margin-bottom: 5px;">🔹 Correção de valores ou recompensas;</li>
                                                                     <li style="margin-bottom: 5px;">🔹 Reversão de ações realizadas de maneira irregular;</li>
+                                                                    <li style="margin-bottom: 5px;">🔹 Exclusão do personagem, quando necessário.</li>
+                                                                </ul>
                                                                 <div align="center" style="font-family: 'Martel', Georgia, 'Times New Roman', serif; font-size: 13px; font-weight: bold; color: #4a2505; padding: 12px 18px; background: linear-gradient(180deg, #f8f1e5 0%, #ebdcc7 100%); border: 1px solid #c4ab84; border-left: 4px solid #7f0000; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); margin-top: 12px;">
-                                                                    ✨ A aplicação de uma penalidade não impede a adoção de outras medidas administrativas para corrigir ou reparar os efeitos causados pela infração. ✨
+                                                                    ✨ A aplicação de uma penalidade não impede a adoção de outras medidas administrativas para corrigir ou reparar os efeitos causados pela infração.
                                                                 </div>
                                                             </td>
                                                         </tr>
 
                                                         <!-- RESPONSABILIDADE DO JOGADOR & CONDUTAS PROIBIDAS -->
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
                                                                 📌 Responsabilidade do Jogador & Condutas Proibidas
                                                             </td>
                                                         </tr>
@@ -230,7 +518,7 @@ $title = 'Rules';
                                                                 <b>Condutas Proibidas:</b><br>
                                                                 As situações apresentadas neste regulamento representam as principais condutas que podem gerar punições, porém <b>não constituem uma lista limitada</b>. Comportamentos que, mesmo não estando descritos especificamente, prejudiquem a comunidade, explorem falhas do servidor ou comprometam a integridade do jogo também poderão ser analisados e punidos pela administração.<br><br>
                                                                 <div align="center" style="font-family: 'Martel', Georgia, 'Times New Roman', serif; font-size: 14px; font-weight: bold; color: #4a2505; padding: 14px 20px; background: linear-gradient(180deg, #f8f1e5 0%, #ebdcc7 100%); border: 1px solid #c4ab84; border-left: 4px solid #7f0000; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); margin-top: 10px;">
-                                                                    ✨ O objetivo das regras é garantir que o <span style="color: #7f0000;">NosleiraOT</span> permaneça um ambiente competitivo, organizado e agradável para todos. ✨
+                                                                    ✨ O objetivo das regras é garantir que o <span style="color: #7f0000;">NosleiraOT</span> permaneça um ambiente competitivo, organizado e agradável para todos.
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -283,20 +571,26 @@ $title = 'Rules';
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
                                                     <tbody>
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
-                                                                📜 Rules of Play & Coexistence (Click to expand the details)
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
+                                                                Normas de Jogo & Convivência (Clique para expandir o detalhamento)
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
-                                                            <td style="padding: 14px; border-left: 4px solid #8b1c1c;">
+                                                            <td style="padding: 14px;">
 
                                                                 <!-- REGRA 1 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">1) Comentários sobre Resets</span>
-                                                                            <span class="rule-accordion-brief">Não comentar sobre Reset's muito menos afirmar que vai resetar.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">1) Comentários sobre Resets</span>
+                                                                                <span class="rule-accordion-brief">Não comentar sobre Reset's muito menos afirmar que vai resetar.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -307,10 +601,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 2 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">2) Doações e Free Itens</span>
-                                                                            <span class="rule-accordion-brief">Não fazer free itens, gerar banimentos e em casos extremos deleted.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">2) Doações e Free Itens</span>
+                                                                                <span class="rule-accordion-brief">Não fazer free itens, gerar banimentos e em casos extremos deleted.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -321,10 +621,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 3 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">3) Bloqueio de Hunts e Respawn</span>
-                                                                            <span class="rule-accordion-brief">Proibido bloquear vias de acesso ou o respawn de monstros.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">3) Bloqueio de Hunts e Respawn</span>
+                                                                                <span class="rule-accordion-brief">Proibido bloquear vias de acesso ou o respawn de monstros.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -335,10 +641,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 4 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">4) Bloqueio de Quests & Quests Custom</span>
-                                                                            <span class="rule-accordion-brief">Não bloquear acessos a Quests e proibidíssimo upar em Quests Custom.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">4) Bloqueio de Quests & Quests Custom</span>
+                                                                                <span class="rule-accordion-brief">Não bloquear acessos a Quests e proibidíssimo upar em Quests Custom.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -349,10 +661,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 5 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">5) Respeito à Equipe & Canal Help</span>
-                                                                            <span class="rule-accordion-brief">Ofender tutores no Help ou desrespeitar a staff gera banimento.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">5) Respeito à Equipe & Canal Help</span>
+                                                                                <span class="rule-accordion-brief">Ofender tutores no Help ou desrespeitar a staff gera banimento.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -363,10 +681,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 6 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">6) Abuse de Novatos & Zonas Neutras</span>
-                                                                            <span class="rule-accordion-brief">Conduta abusiva perante novatos ou em zonas neutras (barcos/templos).</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">6) Abuse de Novatos & Zonas Neutras</span>
+                                                                                <span class="rule-accordion-brief">Conduta abusiva perante novatos ou em zonas neutras (barcos/templos).</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -377,24 +701,36 @@ $title = 'Rules';
                                                                 <!-- REGRA 7 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">7) Sistema de Trade OFF</span>
-                                                                            <span class="rule-accordion-brief">Não gerar ofertas fraudulentas no sistema de Trade OFF.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">7) Exploits, Bug Abuse & Duplicação (Dupes)</span>
+                                                                                <span class="rule-accordion-brief">Proibido explorar falhas, bugs ou provocar rollbacks para duplicar itens ou obter vantagens.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É proibido tentar enganar outros jogadores através de ofertas falsas, trocas iludidoras ou fraudes utilizando o sistema de Trade OFF.
+                                                                        É estritamente proibido utilizar qualquer bug, falha de mapa, erro de script ou instabilidade do servidor para obter itens, experiência ou qualquer vantagem indevida. Provocar ativamente crashes no servidor para forçar rollback e duplicar itens resultará em banimento permanente (Delete) de todas as contas associadas.
                                                                     </div>
                                                                 </details>
 
                                                                 <!-- REGRA 8 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">8) Divulgação de Outros Servidores</span>
-                                                                            <span class="rule-accordion-brief">É proibido anúncios de outros servidores.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">8) Divulgação de Outros Servidores</span>
+                                                                                <span class="rule-accordion-brief">É proibido anúncios de outros servidores.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -405,10 +741,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 9 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">9) Uso de Multicliente (MC)</span>
-                                                                            <span class="rule-accordion-brief">MC é permitido, exceto para obter vantagens no PvP ou Raids.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">9) Uso de Multicliente (MC)</span>
+                                                                                <span class="rule-accordion-brief">MC é permitido, exceto para obter vantagens no PvP ou Raids.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -419,10 +761,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 10 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">10) Responsabilidade pelas Contas</span>
-                                                                            <span class="rule-accordion-brief">Jogadores são responsáveis por suas contas e itens.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">10) Responsabilidade pelas Contas</span>
+                                                                                <span class="rule-accordion-brief">Jogadores são responsáveis por suas contas e itens.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -433,10 +781,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 11 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">11) Política de Doações</span>
-                                                                            <span class="rule-accordion-brief">O servidor não devolve valores de doações.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">11) Política de Doações</span>
+                                                                                <span class="rule-accordion-brief">O servidor não devolve valores de doações.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -447,10 +801,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 12 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">12) Validade de Pontos do Shop</span>
-                                                                            <span class="rule-accordion-brief">Pontos têm validade de 2 meses a contar da data de compra.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">12) Validade de Pontos do Shop</span>
+                                                                                <span class="rule-accordion-brief">Pontos têm validade de 2 meses a contar da data de compra.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -461,10 +821,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 13 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">13) Comércio de Scripts de Bot</span>
-                                                                            <span class="rule-accordion-brief">Proibida a venda ou anúncio de scripts para BOT.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">13) Comércio de Scripts de Bot</span>
+                                                                                <span class="rule-accordion-brief">Proibida a venda ou anúncio de scripts para BOT.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -475,10 +841,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 14 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">14) Venda por Dinheiro Real (RMT)</span>
-                                                                            <span class="rule-accordion-brief">Proibida a venda de chars e itens por dinheiro real.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">14) Venda por Dinheiro Real (RMT)</span>
+                                                                                <span class="rule-accordion-brief">Proibida a venda de chars e itens por dinheiro real.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -489,10 +861,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 15 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">15) Trocas entre Servidores</span>
-                                                                            <span class="rule-accordion-brief">Proibida a venda ou troca de itens entre outros servidores.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">15) Trocas entre Servidores</span>
+                                                                                <span class="rule-accordion-brief">Proibida a venda ou troca de itens entre outros servidores.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -503,10 +881,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 16 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">16) Proibição de Automações & Trapaças</span>
-                                                                            <span class="rule-accordion-brief">Proibido o uso de Navigations, Magebombs, Macros ou Bots em qualquer situação.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">16) Proibição de Automações & Trapaças</span>
+                                                                                <span class="rule-accordion-brief">Proibido o uso de Navigations, Magebombs, Macros ou Bots em qualquer situação.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -519,10 +903,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 17 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">17) Uso Abusivo de Chars Low Level em Battle</span>
-                                                                            <span class="rule-accordion-brief">Proibido usar chars low level intencionalmente em PvP para remover trap.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">17) Uso Abusivo de Chars Low Level em Battle</span>
+                                                                                <span class="rule-accordion-brief">Proibido usar chars low level intencionalmente em PvP para remover trap.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -533,10 +923,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 18 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">18) Abuso no Guild Chat (/guildbc)</span>
-                                                                            <span class="rule-accordion-brief">Proibido usar o Guild Chat para comércio ou ofensas extremadas.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">18) Abuso no Guild Chat (/guildbc)</span>
+                                                                                <span class="rule-accordion-brief">Proibido usar o Guild Chat para comércio ou ofensas extremadas.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -547,10 +943,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 19 (ATUALIZADA) -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">19) Uso de Bots, Scripts e Programas Externos</span>
-                                                                            <span class="rule-accordion-brief">Proibido o uso de programas externos ou automação de ações.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">19) Uso de Bots, Scripts e Programas Externos</span>
+                                                                                <span class="rule-accordion-brief">Proibido o uso de programas externos ou automação de ações.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -562,14 +964,20 @@ $title = 'Rules';
                                                                 <!-- REGRA 20 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">20) Manipulação de Level (Power Leveling Forçado)</span>
-                                                                            <span class="rule-accordion-brief">[Enforced] Proibida a manipulação forçada de UP LV.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">20) Tentativa de Phishing & Roubo de Contas</span>
+                                                                                <span class="rule-accordion-brief">Proibido enviar links falsos, arquivos maliciosos ou tentar obter senhas de outros jogadores.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        <b>[Enforced]</b> Jogadores que forem constatados manipulando o avanço de nível forçado através de personagens próprios ou de terceiros serão deletados. Em casos abusivos, todas as contas vinculadas poderão ser excluídas.
+                                                                        É estritamente proibido divulgar links falsos (phishing), softwares maliciosos (keyloggers/trojans) ou utilizar qualquer meio para tentar obter senhas, chaves de recuperação ou dados de acesso de outros jogadores. Infracionar esta regra resultará no banimento permanente e exclusão (Delete) de todas as contas vinculadas.
                                                                     </div>
                                                                 </details>
 
@@ -602,7 +1010,7 @@ $title = 'Rules';
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">REPORT (CTRL + R)</div>
+            <div class="Text">Guia de Atendimento & Denúncias In-Game</div>
             <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
@@ -624,37 +1032,103 @@ $title = 'Rules';
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
                                                     <tbody>
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px; color: #4a2505;">
-                                                                ⚔️ Diretrizes para Atendimento & Denúncias
+                                                            <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
+                                                                🚨 Diretrizes para Atendimento & Suporte via CTRL + R
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
-                                                            <td style="padding: 14px; line-height: 1.6; font-size: 13px;">
-                                                                <ul style="margin: 0; padding-left: 20px;">
-                                                                    <li style="margin-bottom: 8px;">Quando for reportar somente escreva a "situação/dúvida/problema + nickname(s) se houver algum". Nada mais ou menos do que isso. Qualquer report que extrapole essa orientação poderá ficar sem atendimento.</li>
-                                                                    <li style="margin-bottom: 8px;">Os GMs não precisam responder o seu report para efetuar o atendimento. Somente com a descrição do seu report já é possível atendê-lo, por isso é imprescindível reportar de forma adequada. Reports do tipo "gm on?", "alguém aí?", "mc aqui", não costumam ser atendidos e muito menos respondidos.</li>
-                                                                    <li style="margin-bottom: 8px;">Reports realizados em canais impróprios (help channel, PM, Telegram, por exemplo) não serão atendidos. Se o player vier a reportar adequadamente após ter escrito em canal impróprio também poderá ficar sem atendimento.</li>
-                                                                    <li style="margin-bottom: 8px;">Os GMs atendem exclusivamente pelo <b>CTRL + R</b> (report).</li>
-                                                                    <li style="margin-bottom: 8px;">GMs não precisam prover explicação para quem reportou sobre atos realizados ou não realizados. Por exemplo, João reportou Maria por uso de MC em PvP. Se eventualmente Maria for notificada ou banida, os GMs não se obrigam a avisar João o que aconteceu ou não.</li>
-                                                                    <li style="margin-bottom: 8px;">Reports realizados por players que não fazem/fizeram parte ou que estão longe da situação reportada poderão ficar sem atendimento.</li>
-                                                                    <li style="margin-bottom: 8px;">Reports realizados por players que usam mais de um char para reportar a mesma situação ou problema ficarão sem atendimento. Não adianta reportar com dois ou mais chars a mesma coisa, você só estará se prejudicando. Não atendemos assim. Um report basta.</li>
-                                                                    <li style="margin-bottom: 8px;">O player que ficar abrindo e fechando o mesmo report com a intenção de spamar não será atendido e poderá ser banido (Spam Report).</li>
-                                                                    <li style="margin-bottom: 8px;">Associação de players que fazem o mesmo report poderão ficar sem atendimento se constatado que:
-                                                                        <ol style="margin-top: 5px; margin-bottom: 5px;">
-                                                                            <li>Há players que não fazem/fizeram parte da situação;</li>
-                                                                            <li>Todos colaram o mesmo report;</li>
-                                                                            <li>Há informações incompletas;</li>
-                                                                            <li>Há falsidade no conteúdo do report. Vários reportarem a mesma situação não significa que isso será verdade.</li>
-                                                                        </ol>
-                                                                    </li>
-                                                                    <li style="margin-bottom: 8px;">Reports (ctrl+r) são atendidos por GMs. Tickets (site) é atendido pelo ADM. Se você abrir report perguntando sobre ADM provavelmente não será respondido nem atendido.</li>
-                                                                    <li style="margin-bottom: 8px;">Caso decida abrir report para perguntar algo que não seja relacionado às regras, tente antes perguntar no help channel. Muitas dúvidas podem ser respondidas tranquilamente por um tutor ou até mesmo outro player.</li>
-                                                                    <li style="margin-bottom: 8px;">Realizar vários reports erroneamente faz com que você perca credibilidade com GMs. Caso tenha dúvidas não acuse ninguém, peça para o GM averiguar a situação.</li>
-                                                                    <li style="margin-bottom: 8px;">Reports mal intencionados poderão resultar em banimento (False Report).</li>
-                                                                    <li style="margin-bottom: 8px;">Não combata uma injustiça com outra. Você poderá ser banido por isso.</li>
-                                                                    <li style="margin-bottom: 8px;">Tenha paciência ao reportar. A justiça pode tardar, mas não falha.</li>
-                                                                    <li style="margin-bottom: 8px;"><b>Todas as orientações supracitadas são vitais para um bom funcionamento das regras.</b></li>
-                                                                </ul>
+                                                            <td style="padding: 16px;">
+                                                                
+                                                                <!-- BANNER PRINCIPAL -->
+                                                                <div class="report-banner">
+                                                                    <div>
+                                                                        <div class="report-banner-title">📢 Atendimento Oficial In-Game por Gamemasters</div>
+                                                                        <div class="report-banner-sub">Siga atentamente as orientações abaixo para garantir o suporte rápido da equipe.</div>
+                                                                    </div>
+                                                                    <div style="text-align: right;">
+                                                                        <span class="tibia-key">CTRL</span> <span style="color:#fff3db; font-weight:bold;">+</span> <span class="tibia-key">R</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- GRID DE CARDS COM REGRAS E DIRETRIZES -->
+                                                                <div class="report-grid">
+                                                                    
+                                                                    <!-- CARD 1: FORMATAÇÃO DO REPORT -->
+                                                                    <div class="report-card">
+                                                                        <div class="report-card-title">✍️ 1. Como Enviar o Report</div>
+                                                                        <ul class="report-list">
+                                                                            <li class="report-list-item">
+                                                                                <span class="report-badge-do">CORRETO</span> Escreva objetivamente: <b>"Situação/Dúvida/Problema + Nickname(s)"</b> (se houver).
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                <span class="report-badge-dont">ERRADO</span> Reports genéricos como <i>"gm on?"</i>, <i>"alguém aí?"</i> ou <i>"mc aqui"</i> <b>não serão respondidos nem atendidos</b>.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                <span class="tibia-key">CTRL</span> + <span class="tibia-key">R</span> é o canal exclusivo para suporte in-game. Mensagens em canais impróprios (Help, PM, Telegram, Discord) não serão processadas.
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                                    <!-- CARD 2: CONDUTA DOS GMs -->
+                                                                    <div class="report-card">
+                                                                        <div class="report-card-title">🛡️ 2. Atendimento & Privacidade dos GMs</div>
+                                                                        <ul class="report-list">
+                                                                            <li class="report-list-item">
+                                                                                GMs atuam com base na descrição fornecida e <b>não necessitam responder o chat</b> para efetuar a verificação ou aplicação da sanção.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                A equipe preserva o sigilo e <b>não se obriga a prestar contas</b> do resultado das investigações ou punições aplicadas ao denunciado.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                Denúncias realizadas por jogadores não envolvidos ou distantes da situação ocorrida poderão ficar sem atendimento.
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                                    <!-- CARD 3: PREVENÇÃO DE SPAM E ABUSOS -->
+                                                                    <div class="report-card">
+                                                                        <div class="report-card-title">🚫 3. Proibições & Uso Indevido</div>
+                                                                        <ul class="report-list">
+                                                                            <li class="report-list-item">
+                                                                                <b>Um report basta:</b> Não envie a mesma denúncia com múltiplos personagens. Isso não acelera a análise e prejudica o atendimento.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                <b>Spam Report:</b> Abrir e fechar repetidamente o chamado para chamar atenção resultará em banimento imediato.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                <b>False Report:</b> Denúncias falsas, forjadas ou mal-intencionadas acarretam banimento severo da conta.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                Diferencie os canais: <span class="tibia-key">CTRL</span> + <span class="tibia-key">R</span> é atendido por GMs; <b>Tickets no Site</b> tratam de assuntos administrativos/financeiros com a Administração.
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                                    <!-- CARD 4: RECOMENDAÇÕES E ÉTICA -->
+                                                                    <div class="report-card">
+                                                                        <div class="report-card-title">⚖️ 4. Recomendações & Conduta Ética</div>
+                                                                        <ul class="report-list">
+                                                                            <li class="report-list-item">
+                                                                                Para dúvidas gerais sobre o jogo, utilize primeiramente o <b>Help Channel</b> para suporte rápido de tutores e jogadores.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                Evite acusações infundadas sem provas. Em caso de dúvidas, solicite educadamente que a equipe averigúe o ocorrido.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                <b>Jamais retribua uma infração:</b> Não combata uma injustiça cometendo outra infração, sob pena de também ser punido.
+                                                                            </li>
+                                                                            <li class="report-list-item">
+                                                                                Mantenha a paciência ao reportar. Todas as verificações são feitas de forma criteriosa e responsável.
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                 <!-- NOTA FINAL DE DESTAQUE -->
+                                                                <div class="report-footer-note">
+                                                                    O cumprimento destas diretrizes garante um atendimento eficiente e mantém o NosleiraOT justo e organizado para todos!
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                     </tbody>
