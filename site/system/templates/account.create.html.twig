@@ -262,7 +262,7 @@
 								{% endif %}
 								<tr>
 									<td colspan="2" >
-										<span><input type="checkbox" id="accept_age" name="accept_age" value="true"{% if accept_age %}checked{% endif %}/> <label for="accept_age">Confirmo que tenho 18 anos ou mais.</label></span>
+										<span><input type="checkbox" id="accept_age" name="accept_age" value="true"{% if accept_age %}checked{% endif %}/> <label for="accept_age">Confirmo que tenho <span style="color: red;">18 anos</span> ou mais.</label></span>
 									</td>
 								</tr>
 								{% if errors.accept_age is defined %}
