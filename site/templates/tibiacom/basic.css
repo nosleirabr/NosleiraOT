@@ -1,22 +1,25 @@
-:focus {
-	outline:  -webkit-focus-ring-color dotted 1px;
+html {
+  min-height: 100%;
+  height: auto;
 }
 body {
   margin: 0px;
-  padding:  0px;
+  padding: 0px;
+  min-height: 100vh;
   background-color: #051122;
-}
-
-img {
-	border: none;
+  background-image: url('images/header/bg_user_hd.jpg');
+  background-position: center top !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
 }
 
 #ArtworkHelper {
   text-align: center;
-  background-position: top center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-position: center top !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
   width: 100%;
   min-height: 100vh;
   min-width: 1000px;

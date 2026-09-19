@@ -238,7 +238,7 @@ if(isset($config['boxes']))
 	</script>
 	<?php echo template_place_holder('head_end'); ?>
 </head>
-<body onBeforeUnLoad="SaveMenu();" onUnload="SaveMenu();">
+<body onBeforeUnLoad="SaveMenu();" onUnload="SaveMenu();" style="background-image:url(<?php echo $template_path; ?>/images/header/<?php echo $config['background_image']; ?>); background-position: center top; background-attachment: fixed; background-repeat: no-repeat; background-size: cover;">
 	<?php echo template_place_holder('body_start'); ?>
 	<?php if(!empty($config['network_facebook'])) {?>
 	<script type="text/javascript">
