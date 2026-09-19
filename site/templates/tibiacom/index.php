@@ -390,8 +390,14 @@ foreach($config['menu_categories'] as $id => $cat) {
 			if ($menu['link'] === 'points') {
 				$m_style = 'style="color: lime; animation: blinkDonate 1s linear infinite;"';
 				$m_name = $m_name . ' <span style="font-family: Arial, sans-serif;">💳</span>';
-			} elseif ($menu['link'] === 'whatsapp' || $menu['link'] === 'telegram') {
+			} elseif ($menu['link'] === 'whatsapp') {
 				$m_name .= ' <img src="' . $template_path . '/images/menu/hot.gif" style="vertical-align: middle; margin-left: 2px;" alt="HOT!" />';
+				$m_style = 'style="color: lime; background: transparent !important; animation: blinkDonate 1s linear infinite;"';
+			} elseif ($menu['link'] === 'telegram') {
+				$m_name .= ' <img src="' . $template_path . '/images/menu/hot.gif" style="vertical-align: middle; margin-left: 2px;" alt="HOT!" />';
+				$m_style = 'style="color: lightblue; background: transparent !important;"';
+			} elseif ($menu['link'] === 'discord') {
+				$m_style = 'style="color: #4169e1; background: transparent !important; font-weight: bold;"'; // Azul escuro
 			} elseif ($menu['link'] === 'forum') {
 				$m_style = 'style="color: yellow;"';
 			} elseif ($menu['link'] === 'online') {
