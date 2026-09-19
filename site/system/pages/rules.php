@@ -1,3 +1,48 @@
+<!-- Google Translate Widget (Oculto) -->
+<div id="google_translate_element" style="display:none !important;"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'pt',
+        includedLanguages: 'pt,en,es,pl',
+        autoDisplay: false
+    }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script type="text/javascript">
+function changeLanguage(lang) {
+    var domain = window.location.hostname;
+    if (lang === 'pt') {
+        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + domain + ';';
+        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + domain.replace(/^www\./, '') + ';';
+        
+        var combo = document.querySelector('.goog-te-combo');
+        if (combo) {
+            combo.value = 'pt';
+            combo.dispatchEvent(new Event('change'));
+        }
+        location.reload();
+        return;
+    }
+
+    var cookieValue = '/pt/' + lang;
+    document.cookie = 'googtrans=' + cookieValue + '; path=/;';
+    document.cookie = 'googtrans=' + cookieValue + '; path=/; domain=' + domain + ';';
+    document.cookie = 'googtrans=' + cookieValue + '; path=/; domain=.' + domain.replace(/^www\./, '') + ';';
+
+    var combo = document.querySelector('.goog-te-combo');
+    if (combo) {
+        combo.value = lang;
+        combo.dispatchEvent(new Event('change'));
+    } else {
+        location.reload();
+    }
+}
+</script>
 <?php
 defined('MYAAC') or die('Direct access not allowed!');
 $title = 'Rules';
@@ -289,6 +334,64 @@ $title = 'Rules';
     color: #4a1c00;
 }
 
+
+/* Ocultar elementos do Google Translate */
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover {
+    display: none !important;
+    visibility: hidden !important;
+}
+body {
+    top: 0px !important;
+    position: static !important;
+}
+.skiptranslate {
+    display: none !important;
+}
+#google_translate_element {
+    display: none !important;
+}
+
+/* Bandeiras na Área Verde das Regras */
+.CaptionInnerContainer {
+    position: relative !important;
+}
+.rules-green-bar-flags {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 50;
+}
+.rules-green-bar-flags a {
+    display: inline-block;
+    line-height: 0;
+    text-decoration: none;
+    transition: transform 0.15s ease-in-out;
+}
+.rules-green-bar-flags a:hover {
+    transform: scale(1.2);
+}
+.flag-icon {
+    width: 18px;
+    height: 12px;
+    border: 1px solid #0b3c6f !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    display: block;
+    cursor: pointer;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
 </style>
 
 <!-- ================================================================= -->
@@ -297,6 +400,20 @@ $title = 'Rules';
 <div class="TableContainer">
     <div class="CaptionContainer">
         <div class="CaptionInnerContainer">
+            <div class="rules-green-bar-flags">
+                <a href="javascript:void(0);" onclick="changeLanguage('pt');" title="Português (BR)">
+                    <img src="<?php echo BASE_URL; ?>images/flags/br.gif" alt="Português" class="flag-icon" />
+                </a>
+                <a href="javascript:void(0);" onclick="changeLanguage('en');" title="English (US)">
+                    <img src="<?php echo BASE_URL; ?>images/flags/us.gif" alt="English" class="flag-icon" />
+                </a>
+                <a href="javascript:void(0);" onclick="changeLanguage('es');" title="Español (ES)">
+                    <img src="<?php echo BASE_URL; ?>images/flags/es.gif" alt="Español" class="flag-icon" />
+                </a>
+                <a href="javascript:void(0);" onclick="changeLanguage('pl');" title="Polski (PL)">
+                    <img src="<?php echo BASE_URL; ?>images/flags/pl.gif" alt="Polski" class="flag-icon" />
+                </a>
+            </div>
             <span class="CaptionEdgeLeftTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
