@@ -403,10 +403,7 @@ foreach($config['menu_categories'] as $id => $cat) {
         </div>
         <div id="ContentColumn">
           <div class="Content">
-            <div id="ContentHelper">
-
-
-<!-- Google Translate Widget (Oculto) -->
+            <!-- Google Translate Widget (Oculto) -->
 <div id="google_translate_element" style="display:none !important;"></div>
 
 <script type="text/javascript">
@@ -474,22 +471,24 @@ body {
     display: none !important;
 }
 
-/* Container de Bandeiras no Canto Superior Direito */
+/* Container de Bandeiras com Posicionamento Absoluto Seguro */
+.BoxContent {
+    position: relative !important;
+}
 .top-lang-flags {
-    float: right;
+    position: absolute;
+    right: 18px;
+    top: 10px;
     display: flex;
     align-items: center;
     gap: 5px;
-    margin-top: 6px;
-    margin-right: 14px;
-    margin-bottom: 6px;
-    z-index: 100;
+    z-index: 99;
 }
 .top-lang-flags a {
     display: inline-block;
     line-height: 0;
     text-decoration: none;
-    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: transform 0.15s ease-in-out;
 }
 .top-lang-flags a:hover {
     transform: scale(1.15);
@@ -507,23 +506,10 @@ body {
     -ms-interpolation-mode: nearest-neighbor;
 }
 </style>
+<div id="ContentHelper">
 
-<!-- Bandeiras de Idioma no Canto Direito (Exemplo Tibia Oficial) -->
-<div class="top-lang-flags">
-    <a href="javascript:void(0);" onclick="changeLanguage('pt');" title="Português (BR)">
-        <img src="<?php echo BASE_URL; ?>images/flags/br.gif" alt="Português" class="flag-icon" />
-    </a>
-    <a href="javascript:void(0);" onclick="changeLanguage('en');" title="English (US)">
-        <img src="<?php echo BASE_URL; ?>images/flags/us.gif" alt="English" class="flag-icon" />
-    </a>
-    <a href="javascript:void(0);" onclick="changeLanguage('es');" title="Español (ES)">
-        <img src="<?php echo BASE_URL; ?>images/flags/es.gif" alt="Español" class="flag-icon" />
-    </a>
-    <a href="javascript:void(0);" onclick="changeLanguage('pl');" title="Polski (PL)">
-        <img src="<?php echo BASE_URL; ?>images/flags/pl.gif" alt="Polski" class="flag-icon" />
-    </a>
-</div>
-<div style="clear: right;"></div>
+
+
 
 
 			<?php echo tickers(); ?>
@@ -544,6 +530,20 @@ body {
       <div class="Border_3">
 		<?php $hooks->trigger(HOOK_TIBIACOM_BORDER_3); ?>
 		<div class="BoxContent" style="background-image:url(<?php echo $template_path; ?>/images/content/scroll.gif);">
+<div class="top-lang-flags">
+    <a href="javascript:void(0);" onclick="changeLanguage('pt');" title="Português (BR)">
+        <img src="<?php echo BASE_URL; ?>images/flags/br.gif" alt="Português" class="flag-icon" />
+    </a>
+    <a href="javascript:void(0);" onclick="changeLanguage('en');" title="English (US)">
+        <img src="<?php echo BASE_URL; ?>images/flags/us.gif" alt="English" class="flag-icon" />
+    </a>
+    <a href="javascript:void(0);" onclick="changeLanguage('es');" title="Español (ES)">
+        <img src="<?php echo BASE_URL; ?>images/flags/es.gif" alt="Español" class="flag-icon" />
+    </a>
+    <a href="javascript:void(0);" onclick="changeLanguage('pl');" title="Polski (PL)">
+        <img src="<?php echo BASE_URL; ?>images/flags/pl.gif" alt="Polski" class="flag-icon" />
+    </a>
+</div>
 			<?php echo template_place_holder('center_top') . $content; ?>
 		</div>
       </div>
