@@ -20,8 +20,8 @@ if(isset($config['boxes']))
 			100% { opacity: 1; text-shadow: 0 0 5px lime; }
 		}
 		@keyframes bounceLeft {
-			0% { transform: translateX(0); }
-			100% { transform: translateX(-5px); }
+			0% { transform: translateX(40px); }
+			100% { transform: translateX(0); }
 		}
 	</style>
 
@@ -391,7 +391,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 			$m_name = $menu['name'];
 			$m_style = $menu['style_color'];
 
-			if ($menu['link'] === 'points') {
+			if ($menu['link'] === 'donate') {
 				$m_style = 'style="color: lime; animation: blinkDonate 1s linear infinite;"';
 				$m_name = $m_name . ' <span style="font-family: Arial, sans-serif;">💳</span>';
 			} elseif ($menu['link'] === 'whatsapp') {
@@ -461,34 +461,37 @@ foreach($config['menu_categories'] as $id => $cat) {
 				<div class="Border_2">
 					<div class="Border_3">
 						<div class="BoxContent" style="background-image:url(<?php echo $template_path; ?>/images/content/scroll.gif);">
-							<div style="padding: 5px; font-size: 12px; line-height: 1.4; color: #5a2800;">
+							<div style="padding: 5px; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; line-height: 1.4; color: #5a2800;">
 								<center>
 									<b>
 										[<a href="?subtopic=downloads">Downloads</a>] 
 										[<a href="?subtopic=highscores">Highscores</a>] 
-										[<a href="?subtopic=quests">Quests</a>] 
-										[<a href="?subtopic=tasks">Tasks</a>] 
 										[<a href="?subtopic=outfits">Outfits</a>] 
-										[<a href="?subtopic=mounts">Mounts</a>] 
-										[<a href="?subtopic=map">MAP</a>] 
-										[<a href="?subtopic=tradeoff">TradeOFF</a>] 
-										[<a href="?subtopic=buycharacters">Buy Characters</a>] 
 										[<a href="?subtopic=security">Security</a>]
 									</b>
 								</center>
-								<hr style="border: 0; border-bottom: 1px dashed #b98f79; margin: 5px 0;">
+								<hr style="border: 0; border-bottom: 1px dashed #5a2800; margin: 10px -5px;">
 								
-								<div style="float: right; margin-left: 10px;">
-									<img src="<?php echo $template_path; ?>/images/custom/featured_game.png" alt="Featured Game" style="border: 2px solid #5a4430; width: 150px; height: 100px;">
+								<div style="float: right; margin-left: 15px; margin-bottom: 5px;">
+									<img src="<?php echo $template_path; ?>/images/custom/featured_game.png" alt="Featured Game" style="border: 2px solid #5a4430; width: 210px; height: auto; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" onclick="document.getElementById('featuredModal').style.display='flex'" title="Clique para ampliar">
 								</div>
 								
-								<b>IP: <?php echo $_SERVER['SERVER_NAME'] ?? '127.0.0.1'; ?> - VERSION: 7.40 - PORT: 7171</b><br>
-								Aprenda a usar o <b>[<a href="?subtopic=shopsystem">SHOP Online</a>]</b> Aprenda a fazer uma <b>[<a href="?subtopic=donate">Donate</a>]</b> <img src="<?php echo $template_path; ?>/images/custom/setas.webp" style="height: 18px; vertical-align: middle; margin-left: 3px; animation: bounceLeft 1s infinite alternate;"><br>
-								<b>Oteserver</b> private OTServer, <b>[<a href="?subtopic=serverinfo">Server Info</a>]</b>.<br>
-								Utilizamos <b>Mapa Global 100%</b> com todas as Quests configuradas, todos os respawns e NPCS<br>
-								Servidor sem BUG, totalmente perfeito, segurança total e proteção contra DDoS.<br>
-								Tudo que você precisa pra ter <b>diversão garantida</b> você encontra aqui!<br>
-								Parabéns pela sua escolha e tenha certeza que somos atualmente o melhor <b>Global BR.</b><br>
+								<!-- Modal Tela Cheia -->
+								<div id="featuredModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 99999; justify-content: center; align-items: center; cursor: pointer;" onclick="this.style.display='none'">
+									<img src="<?php echo $template_path; ?>/images/custom/featured_game.png" style="max-width: 90%; max-height: 90%; border: 3px solid #e7d1b3; box-shadow: 0 0 30px rgba(0,0,0,1);">
+								</div>
+								
+								<div style="background: linear-gradient(180deg, #f8f1e5 0%, #ebdcc7 100%); border: 1px solid #c4ab84; border-left: 3px solid #7f0000; border-radius: 3px; padding: 3px 8px; margin-bottom: 4px; display: inline-block; font-size: 12px; color: #4a2505; box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.1);">
+									<b style="color: #7f0000;">IP:</b> <b>www.nosleiraot.com</b> &nbsp;&nbsp;&bull;&nbsp;&nbsp; 
+									<b style="color: #7f0000;">VERSION:</b> <b>7.4</b> &nbsp;&nbsp;&bull;&nbsp;&nbsp; 
+									<b style="color: #7f0000;">PORT:</b> <b>7171</b>
+								</div><br>
+								A verdadeira experi&ecirc;ncia do Tibia est&aacute; aqui! Fa&ccedil;a sua <b>[<a href="?subtopic=donate">Doa&ccedil;&atilde;o</a>]</b> <img src="<?php echo $template_path; ?>/images/custom/setas.webp" style="height: 14px; vertical-align: middle; margin-left: 3px; animation: bounceLeft 1.5s infinite alternate;"><br>
+								<b>NosleiraOT</b> private OTServer, <b>[<a href="?subtopic=serverinfo">Server Info</a>]</b>.<br>
+								Servidor privado <b>100% fiel ao original</b>, com mapa completo, todas as miss&otilde;es, &aacute;reas de ca&ccedil;a, respawns e NPCs configurados.<br>
+								Todas as cidades, &aacute;reas de ca&ccedil;a e sistemas cl&aacute;ssicos dispon&iacute;veis em um <b>servidor dedicado</b>, com <b>jogabilidade cl&aacute;ssica</b> e foco total na experi&ecirc;ncia que voc&ecirc; viveu<br>
+						em 2004 na vers&atilde;o <b>7.4</b>.<br>
+								Entre, crie sua conta em <b>[<a href="?subtopic=account/create">Criar Conta</a>]</b> e reviva a era de ouro do Tibia!
 								
 								<div style="clear: both;"></div>
 							</div>

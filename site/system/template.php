@@ -158,6 +158,8 @@ function get_template_menus(): array
 
 	$menus = [];
 	foreach($result as $menu) {
+		if ($menu['link'] === 'exp-stages') continue;
+		
 		if (empty($menu['link'])) {
 			$menu['link'] = 'news';
 		}
