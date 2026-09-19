@@ -422,7 +422,7 @@ else if (isset($_REQUEST['search'])) {
 									</div>
 									<?php if ($hasPointsColumn): ?>
 										<div class="col-12 col-sm-12 col-lg-6">
-											<label for="p_points" class="control-label">Premium Points:</label>
+											<label for="p_points" class="control-label">Nosleira Coins:</label>
 											<input type="text" class="form-control" id="p_points" name="p_points" autocomplete="off" maxlength="8" value="<?php echo $account->getCustomField('premium_points') ?>"/>
 										</div>
 									<?php endif; ?>

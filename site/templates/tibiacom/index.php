@@ -390,6 +390,8 @@ foreach($config['menu_categories'] as $id => $cat) {
 			if ($menu['link'] === 'points') {
 				$m_style = 'style="color: lime; animation: blinkDonate 1s linear infinite;"';
 				$m_name = $m_name . ' <span style="font-family: Arial, sans-serif;">💳</span>';
+			} elseif ($menu['link'] === 'whatsapp' || $menu['link'] === 'telegram') {
+				$m_name .= ' <img src="' . $template_path . '/images/menu/hot.gif" style="vertical-align: middle; margin-left: 2px;" alt="HOT!" />';
 			} elseif ($menu['link'] === 'forum') {
 				$m_style = 'style="color: yellow;"';
 			} elseif ($menu['link'] === 'online') {
@@ -397,6 +399,8 @@ foreach($config['menu_categories'] as $id => $cat) {
 			} elseif ($menu['link'] === 'account/lost') {
 				$m_style = 'style="color: red;"';
 			} elseif ($menu['link'] === 'downloads') {
+				$m_style = 'style="color: red;"';
+			} elseif ($menu['link'] === 'account/logout') {
 				$m_style = 'style="color: red;"';
 			} elseif ($menu['link'] === 'ots-info') {
 				$m_style = 'style="color: yellow;"';
