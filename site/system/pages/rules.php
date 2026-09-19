@@ -133,9 +133,9 @@ $title = 'Rules';
                                                                 As regras poderão ser atualizadas sempre que necessário para acompanhar mudanças no servidor, corrigir situações não previstas ou melhorar a experiência da comunidade.<br><br>
                                                                 <b>Condutas Proibidas:</b><br>
                                                                 As situações apresentadas neste regulamento representam as principais condutas que podem gerar punições, porém <b>não constituem uma lista limitada</b>. Comportamentos que, mesmo não estando descritos especificamente, prejudiquem a comunidade, explorem falhas do servidor ou comprometam a integridade do jogo também poderão ser analisados e punidos pela administração.<br><br>
-                                                                <div align="center" style="font-weight: bold; color: #5a3e1b; padding: 8px; background: rgba(0,0,0,0.04); border-radius: 4px;">
-                                                                    O objetivo das regras é garantir que o NosleiraOT permaneça um ambiente competitivo, organizado e agradável para todos.
-                                                                </div>
+                                                                 <div align="center" style="font-family: 'Martel', Georgia, 'Times New Roman', serif; font-size: 14px; font-weight: bold; color: #4a2505; padding: 14px 20px; background: linear-gradient(180deg, #f8f1e5 0%, #ebdcc7 100%); border: 1px solid #c4ab84; border-left: 4px solid #7f0000; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); margin-top: 10px;">
+                                                                     ✨ O objetivo das regras é garantir que o <span style="color: #7f0000;">NosleiraOT</span> permaneça um ambiente competitivo, organizado e agradável para todos. ✨
+                                                                 </div>
                                                             </td>
                                                         </tr>
                                                     </tbody>
