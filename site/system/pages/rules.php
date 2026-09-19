@@ -1,32 +1,35 @@
-<?php
+﻿<?php
 defined('MYAAC') or die('Direct access not allowed!');
 $title = 'Rules';
 ?>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+/* Regras Gerais & Tipografia Elevada */
 .tibia-paragraph {
-    font-family: 'Martel', 'Georgia', 'Times New Roman', serif;
+    font-family: 'Inter', -apple-system, sans-serif;
     font-size: 13px;
-    color: #4a2505;
-    line-height: 1.6;
+    color: #3d2208;
+    line-height: 1.65;
     margin-bottom: 12px;
 }
 .tibia-dropcap {
-    font-size: 26px;
-    font-weight: bold;
+    font-size: 28px;
+    font-weight: 700;
     color: #7f0000;
-    font-family: 'Martel', 'Georgia', 'Times New Roman', serif;
+    font-family: 'Cinzel', 'Georgia', serif;
     float: left;
-    line-height: 22px;
-    padding-right: 4px;
+    line-height: 24px;
+    padding-right: 6px;
     padding-top: 1px;
 }
 
-/* Accordion estilisado estilo Tibia oficial */
+/* Accordion estilisado estilo Tibia Premium */
 .rule-accordion {
     margin-bottom: 8px;
-    border-bottom: 1px dashed #d6c8b0;
-    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(160, 130, 90, 0.2);
+    padding-bottom: 4px;
 }
 .rule-accordion:last-child {
     border-bottom: none;
@@ -37,55 +40,124 @@ $title = 'Rules';
     cursor: pointer;
     outline: none;
     list-style: none;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: linear-gradient(180deg, #fdf9f3 0%, #f4e8d7 100%);
+    border: 1px solid #d8c6af;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     user-select: none;
-    padding: 6px 8px;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
 }
 .rule-accordion summary::-webkit-details-marker {
     display: none;
 }
 .rule-accordion summary:hover {
-    background-color: rgba(90, 40, 0, 0.05);
+    background: linear-gradient(180deg, #fffcf7 0%, #ebd7be 100%);
+    border-color: #b89a72;
+    box-shadow: 0 3px 8px rgba(127, 0, 0, 0.12);
+    transform: translateY(-1px);
 }
-.rule-accordion-header {
+.rule-accordion[open] summary {
+    background: linear-gradient(180deg, #f0dfc8 0%, #e3ceb0 100%);
+    border-color: #8b0000;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    border-radius: 6px 6px 0 0;
+}
+
+.rule-summary-left {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
 }
-.rule-accordion-arrow {
-    font-size: 12px;
-    color: #7f0000;
-    margin-right: 8px;
-    margin-top: 2px;
-    transition: transform 0.2s ease;
-    display: inline-block;
+
+.rule-icon-box {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    background: linear-gradient(180deg, #9e1a1a 0%, #6e0000 100%);
+    color: #fff8e7;
+    border: 1px solid #520000;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
     font-weight: bold;
+    margin-right: 12px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 1px 2px rgba(0,0,0,0.2);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s ease;
 }
-.rule-accordion[open] .rule-accordion-arrow {
-    transform: rotate(90deg);
+.rule-accordion[open] .rule-icon-box {
+    transform: rotate(180deg);
+    background: linear-gradient(180deg, #520000 0%, #8b0000 100%);
 }
+
+.rule-title-group {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
 .rule-accordion-title {
-    font-weight: bold;
-    font-size: 13px;
-    color: #4a2505;
+    font-family: 'Cinzel', 'Martel', 'Georgia', serif;
+    font-weight: 700;
+    font-size: 13.5px;
+    color: #4a1c00;
+    letter-spacing: 0.2px;
 }
+
 .rule-accordion-brief {
-    font-size: 12px;
-    color: #665544;
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 11.5px;
+    color: #6e543b;
     margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
+.rule-action-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: #7f0000;
+    background: #f5eae0;
+    border: 1px solid #d4b5a0;
+    padding: 4px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+    margin-left: 10px;
+    transition: all 0.2s ease;
+}
+.rule-accordion summary:hover .rule-action-badge {
+    background: #7f0000;
+    color: #ffffff;
+    border-color: #5b0000;
+}
+.rule-accordion[open] .badge-text-closed {
+    display: none;
+}
+.rule-accordion:not([open]) .badge-text-open {
+    display: none;
+}
+
 .rule-accordion-body {
-    background: #e6dac8;
-    border: 1px solid #c8b9a2;
-    border-radius: 6px;
-    padding: 12px 16px;
-    margin-top: 8px;
-    margin-left: 20px;
-    color: #3b1e04;
+    background: #faf4e8;
+    border: 1px solid #d8c6af;
+    border-top: none;
+    border-left: 4px solid #8b0000;
+    border-radius: 0 0 6px 6px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    color: #2b1704;
+    font-family: 'Inter', -apple-system, sans-serif;
     font-size: 13px;
-    line-height: 1.6;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+    line-height: 1.65;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.03), 0 2px 4px rgba(0,0,0,0.05);
 }
 </style>
 
@@ -265,10 +337,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 1 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">1) Comentários sobre Resets</span>
-                                                                            <span class="rule-accordion-brief">Não comentar sobre Reset's muito menos afirmar que vai resetar.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">1) Comentários sobre Resets</span>
+                                                                                <span class="rule-accordion-brief">Não comentar sobre Reset's muito menos afirmar que vai resetar.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -279,10 +357,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 2 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">2) Doações e Free Itens</span>
-                                                                            <span class="rule-accordion-brief">Não fazer free itens, gerar banimentos e em casos extremos deleted.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">2) Doações e Free Itens</span>
+                                                                                <span class="rule-accordion-brief">Não fazer free itens, gerar banimentos e em casos extremos deleted.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -293,10 +377,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 3 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">3) Bloqueio de Hunts e Respawn</span>
-                                                                            <span class="rule-accordion-brief">Proibido bloquear vias de acesso ou o respawn de monstros.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">3) Bloqueio de Hunts e Respawn</span>
+                                                                                <span class="rule-accordion-brief">Proibido bloquear vias de acesso ou o respawn de monstros.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -307,10 +397,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 4 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">4) Bloqueio de Quests & Quests Custom</span>
-                                                                            <span class="rule-accordion-brief">Não bloquear acessos a Quests e proibidíssimo upar em Quests Custom.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">4) Bloqueio de Quests & Quests Custom</span>
+                                                                                <span class="rule-accordion-brief">Não bloquear acessos a Quests e proibidíssimo upar em Quests Custom.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -321,10 +417,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 5 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">5) Respeito à Equipe & Canal Help</span>
-                                                                            <span class="rule-accordion-brief">Ofender tutores no Help ou desrespeitar a staff gera banimento.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">5) Respeito à Equipe & Canal Help</span>
+                                                                                <span class="rule-accordion-brief">Ofender tutores no Help ou desrespeitar a staff gera banimento.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -335,10 +437,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 6 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">6) Abuse de Novatos & Zonas Neutras</span>
-                                                                            <span class="rule-accordion-brief">Conduta abusiva perante novatos ou em zonas neutras (barcos/templos).</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">6) Abuse de Novatos & Zonas Neutras</span>
+                                                                                <span class="rule-accordion-brief">Conduta abusiva perante novatos ou em zonas neutras (barcos/templos).</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -349,10 +457,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 7 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">7) Exploits, Bug Abuse & Duplicação (Dupes)</span>
-                                                                            <span class="rule-accordion-brief">Proibido explorar falhas, bugs ou provocar rollbacks para duplicar itens ou obter vantagens.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">7) Exploits, Bug Abuse & Duplicação (Dupes)</span>
+                                                                                <span class="rule-accordion-brief">Proibido explorar falhas, bugs ou provocar rollbacks para duplicar itens ou obter vantagens.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -363,10 +477,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 8 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">8) Divulgação de Outros Servidores</span>
-                                                                            <span class="rule-accordion-brief">É proibido anúncios de outros servidores.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">8) Divulgação de Outros Servidores</span>
+                                                                                <span class="rule-accordion-brief">É proibido anúncios de outros servidores.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -377,10 +497,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 9 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">9) Uso de Multicliente (MC)</span>
-                                                                            <span class="rule-accordion-brief">MC é permitido, exceto para obter vantagens no PvP ou Raids.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">9) Uso de Multicliente (MC)</span>
+                                                                                <span class="rule-accordion-brief">MC é permitido, exceto para obter vantagens no PvP ou Raids.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -391,10 +517,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 10 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">10) Responsabilidade pelas Contas</span>
-                                                                            <span class="rule-accordion-brief">Jogadores são responsáveis por suas contas e itens.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">10) Responsabilidade pelas Contas</span>
+                                                                                <span class="rule-accordion-brief">Jogadores são responsáveis por suas contas e itens.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -405,10 +537,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 11 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">11) Política de Doações</span>
-                                                                            <span class="rule-accordion-brief">O servidor não devolve valores de doações.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">11) Política de Doações</span>
+                                                                                <span class="rule-accordion-brief">O servidor não devolve valores de doações.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -419,10 +557,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 12 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">12) Validade de Pontos do Shop</span>
-                                                                            <span class="rule-accordion-brief">Pontos têm validade de 2 meses a contar da data de compra.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">12) Validade de Pontos do Shop</span>
+                                                                                <span class="rule-accordion-brief">Pontos têm validade de 2 meses a contar da data de compra.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -433,10 +577,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 13 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">13) Comércio de Scripts de Bot</span>
-                                                                            <span class="rule-accordion-brief">Proibida a venda ou anúncio de scripts para BOT.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">13) Comércio de Scripts de Bot</span>
+                                                                                <span class="rule-accordion-brief">Proibida a venda ou anúncio de scripts para BOT.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -447,10 +597,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 14 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">14) Venda por Dinheiro Real (RMT)</span>
-                                                                            <span class="rule-accordion-brief">Proibida a venda de chars e itens por dinheiro real.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">14) Venda por Dinheiro Real (RMT)</span>
+                                                                                <span class="rule-accordion-brief">Proibida a venda de chars e itens por dinheiro real.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -461,10 +617,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 15 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">15) Trocas entre Servidores</span>
-                                                                            <span class="rule-accordion-brief">Proibida a venda ou troca de itens entre outros servidores.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">15) Trocas entre Servidores</span>
+                                                                                <span class="rule-accordion-brief">Proibida a venda ou troca de itens entre outros servidores.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -475,10 +637,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 16 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">16) Proibição de Automações & Trapaças</span>
-                                                                            <span class="rule-accordion-brief">Proibido o uso de Navigations, Magebombs, Macros ou Bots em qualquer situação.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">16) Proibição de Automações & Trapaças</span>
+                                                                                <span class="rule-accordion-brief">Proibido o uso de Navigations, Magebombs, Macros ou Bots em qualquer situação.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -491,10 +659,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 17 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">17) Uso Abusivo de Chars Low Level em Battle</span>
-                                                                            <span class="rule-accordion-brief">Proibido usar chars low level intencionalmente em PvP para remover trap.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">17) Uso Abusivo de Chars Low Level em Battle</span>
+                                                                                <span class="rule-accordion-brief">Proibido usar chars low level intencionalmente em PvP para remover trap.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -505,10 +679,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 18 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">18) Abuso no Guild Chat (/guildbc)</span>
-                                                                            <span class="rule-accordion-brief">Proibido usar o Guild Chat para comércio ou ofensas extremadas.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">18) Abuso no Guild Chat (/guildbc)</span>
+                                                                                <span class="rule-accordion-brief">Proibido usar o Guild Chat para comércio ou ofensas extremadas.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -519,10 +699,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 19 (ATUALIZADA) -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">19) Uso de Bots, Scripts e Programas Externos</span>
-                                                                            <span class="rule-accordion-brief">Proibido o uso de programas externos ou automação de ações.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">19) Uso de Bots, Scripts e Programas Externos</span>
+                                                                                <span class="rule-accordion-brief">Proibido o uso de programas externos ou automação de ações.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
@@ -534,10 +720,16 @@ $title = 'Rules';
                                                                 <!-- REGRA 20 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
-                                                                        <span class="rule-accordion-arrow">❯</span>
-                                                                        <div>
-                                                                            <span class="rule-accordion-title">20) Manipulação de Level (Power Leveling Forçado)</span>
-                                                                            <span class="rule-accordion-brief">[Enforced] Proibida a manipulação forçada de UP LV.</span>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">20) Manipulação de Level (Power Leveling Forçado)</span>
+                                                                                <span class="rule-accordion-brief">[Enforced] Proibida a manipulação forçada de UP LV.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
