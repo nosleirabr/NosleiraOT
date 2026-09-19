@@ -345,10 +345,7 @@ $title = 'Rules';
     display: none !important;
     visibility: hidden !important;
 }
-body {
-    top: 0px !important;
-    position: static !important;
-}
+
 .skiptranslate {
     display: none !important;
 }
@@ -357,7 +354,7 @@ body {
 }
 
 /* Bandeiras na Área Verde das Regras */
-.CaptionInnerContainer {
+.rules-caption-inner {
     position: relative !important;
 }
 .rules-green-bar-flags {
@@ -399,7 +396,7 @@ body {
 <!-- ================================================================= -->
 <div class="TableContainer">
     <div class="CaptionContainer">
-        <div class="CaptionInnerContainer">
+        <div class="CaptionInnerContainer rules-caption-inner">
             <div class="rules-green-bar-flags">
                 <a href="javascript:void(0);" onclick="changeLanguage('pt');" title="Português (BR)">
                     <img src="<?php echo BASE_URL; ?>images/flags/br.gif" alt="Português" class="flag-icon" />
@@ -1128,10 +1125,21 @@ body {
 
                                                                 </div>
 
-                                                                <!-- NOTA FINAL DE DESTAQUE -->
+                                                                 <!-- NOTA FINAL DE DESTAQUE -->
                                                                 <div class="report-footer-note">
                                                                     O cumprimento destas diretrizes garante um atendimento eficiente e mantém o NosleiraOT justo e organizado para todos!
                                                                 </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </td>
             </tr>
         </tbody>
