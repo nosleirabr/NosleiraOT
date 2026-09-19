@@ -19,6 +19,10 @@ if(isset($config['boxes']))
 			50% { opacity: 0.6; text-shadow: none; color: #008000; }
 			100% { opacity: 1; text-shadow: 0 0 5px lime; }
 		}
+		@keyframes bounceLeft {
+			0% { transform: translateX(0); }
+			100% { transform: translateX(-5px); }
+		}
 	</style>
 
 	<?php if(!empty($config['network_twitter'])): ?>
@@ -410,7 +414,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 				$m_style = 'style="color: red;"';
 			} elseif ($menu['link'] === 'account/logout') {
 				$m_style = 'style="color: red;"';
-			} elseif ($menu['link'] === 'ots-info') {
+			} elseif ($menu['link'] === 'serverinfo') {
 				$m_style = 'style="color: yellow;"';
 			}
 			?>
@@ -479,7 +483,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 								</div>
 								
 								<b>IP: <?php echo $_SERVER['SERVER_NAME'] ?? '127.0.0.1'; ?> - VERSION: 7.40 - PORT: 7171</b><br>
-								Aprenda a usar o <b>[<a href="?subtopic=shopsystem">SHOP Online</a>]</b> Aprenda a fazer uma <b>[<a href="?subtopic=donate">Donate</a>]</b> <span style="color: #004294; font-weight: bold; font-size: 16px;">&larr;</span><br>
+								Aprenda a usar o <b>[<a href="?subtopic=shopsystem">SHOP Online</a>]</b> Aprenda a fazer uma <b>[<a href="?subtopic=donate">Donate</a>]</b> <img src="<?php echo $template_path; ?>/images/custom/setas.webp" style="height: 18px; vertical-align: middle; margin-left: 3px; animation: bounceLeft 1s infinite alternate;"><br>
 								<b>Oteserver</b> private OTServer, <b>[<a href="?subtopic=serverinfo">Server Info</a>]</b>.<br>
 								Utilizamos <b>Mapa Global 100%</b> com todas as Quests configuradas, todos os respawns e NPCS<br>
 								Servidor sem BUG, totalmente perfeito, segurança total e proteção contra DDoS.<br>

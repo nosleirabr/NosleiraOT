@@ -29,10 +29,9 @@ return [
 	MENU_CATEGORY_LIBRARY => [
 		"Monsters" => "monsters",
 		"Spells" => "spells",
-		"Commands" => "commands",
 		"Exp Stages" => "exp-stages",
 		"Gallery" => "gallery",
-		"Server Info" => "ots-info",
+		"Server Info" => "serverinfo",
 		"Exp Table" => "exp-table",
 		"FAQ" => "faq",
 	],
