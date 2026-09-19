@@ -13,6 +13,13 @@ if(isset($config['boxes']))
 	<link href="<?php echo $template_path; ?>/basic.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="tools/basic.js"></script>
 	<script type="text/javascript" src="<?php echo $template_path; ?>/ticker.js"></script>
+	<style>
+		@keyframes blinkDonate {
+			0% { opacity: 1; text-shadow: 0 0 5px lime; }
+			50% { opacity: 0.6; text-shadow: none; color: #008000; }
+			100% { opacity: 1; text-shadow: 0 0 5px lime; }
+		}
+	</style>
 
 	<?php if(!empty($config['network_twitter'])): ?>
 	<script id="twitter-wjs" src="<?php echo $template_path; ?>/js/twitter.js"></script>
@@ -117,7 +124,7 @@ if(isset($config['boxes']))
 			$menuInitStr = '';
 			foreach ($config['menu_categories'] as $item) {
 				if ($item['id'] !== 'shops' || setting('core.gifts_system')) {
-					$menuInitStr .= $item['id'] . '=' . ($item['id'] === 'news' ? '1' : '0') . '&';
+					$menuInitStr .= $item['id'] . '=' . (in_array($item['id'], ['news', 'shops']) ? '1' : '0') . '&';
 				}
 			}
 		?>
@@ -198,6 +205,11 @@ if(isset($config['boxes']))
 			CloseMenuItem(sourceId);
 		  }
 		  else {
+			for(menuItemName in menu[0]) {
+				if(menuItemName != sourceId && menuItemName != 'news' && menuItemName != 'shops') {
+					CloseMenuItem(menuItemName);
+				}
+			}
 			OpenMenuItem(sourceId);
 		  }
 		}
@@ -372,12 +384,29 @@ foreach($config['menu_categories'] as $id => $cat) {
 	<div id='<?php echo $cat['id']; ?>_Submenu' class='Submenu'>
 	<?php
 		foreach($menus[$id] as $category => $menu) {
+			$m_name = $menu['name'];
+			$m_style = $menu['style_color'];
+
+			if ($menu['link'] === 'points') {
+				$m_style = 'style="color: lime; animation: blinkDonate 1s linear infinite;"';
+				$m_name = '<span style="font-family: Arial, sans-serif;">💳</span> ' . $m_name;
+			} elseif ($menu['link'] === 'forum') {
+				$m_style = 'style="color: yellow;"';
+			} elseif ($menu['link'] === 'online') {
+				$m_name = 'Who is <span style="color: lime;">Online</span>?';
+			} elseif ($menu['link'] === 'account/lost') {
+				$m_style = 'style="color: red;"';
+			} elseif ($menu['link'] === 'downloads') {
+				$m_style = 'style="color: red;"';
+			} elseif ($menu['link'] === 'ots-info') {
+				$m_style = 'style="color: yellow;"';
+			}
 			?>
 			<a href='<?php echo $menu['link_full']; ?>'<?= $menu['target_blank']?>>
 				<div id='submenu_<?php echo str_replace('/', '_', $menu['link']); ?>' class='Submenuitem' onMouseOver='MouseOverSubmenuItem(this)' onMouseOut='MouseOutSubmenuItem(this)' >
 					<div class='LeftChain' style='background-image:url(<?php echo $template_path; ?>/images/general/chain.gif);'></div>
 					<div id='ActiveSubmenuItemIcon_<?php echo str_replace('/', '_', $menu['link']); ?>' class='ActiveSubmenuItemIcon' style='background-image:url(<?php echo $template_path; ?>/images/menu/icon-activesubmenu.gif);'></div>
-					<div class='SubmenuitemLabel' <?php echo $menu['style_color']; ?>><?php echo $menu['name']; ?></div>
+					<div class='SubmenuitemLabel' <?php echo $m_style; ?>><?php echo $m_name; ?></div>
 					<div class='RightChain' style='background-image:url(<?php echo $template_path; ?>/images/general/chain.gif);'></div>
 				</div>
 			</a>
