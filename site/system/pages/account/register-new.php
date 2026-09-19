@@ -47,8 +47,8 @@ else
 				{
 					$account_logged->setCustomField('key', $new_rec_key);
 					$account_logged->setCustomField(setting('core.donate_column'), $account_logged->getCustomField(setting('core.donate_column')) - setting('core.account_generate_new_reckey_price'));
-					$account_logged->logAction('Generated new recovery key for ' . setting('core.account_generate_new_reckey_price') . ' premium points.');
-					$message = '<br />Your recovery key was sent on email address <b>'.$account_logged->getEMail().'</b> for '.setting('core.account_generate_new_reckey_price').' premium points.';
+					$account_logged->logAction('Generated new recovery key for ' . setting('core.account_generate_new_reckey_price') . ' Nosleira Coins.');
+					$message = '<br />Your recovery key was sent on email address <b>'.$account_logged->getEMail().'</b> for '.setting('core.account_generate_new_reckey_price').' Nosleira Coins.';
 				}
 				else
 					$message = '<br /><p class="error">An error occurred while sending email ( <b>'.$account_logged->getEMail().'</b> ) with recovery key! Recovery key not changed. Try again later. For Admin: More info can be found in system/logs/mailer-error.log</p>';
@@ -59,7 +59,7 @@ else
 				));
 			}
 			else
-				$errors[] = 'You need ' . setting('core.account_generate_new_reckey_price') . ' premium points to generate new recovery key. You have <b>'.$points.'<b> premium points.';
+				$errors[] = 'You need ' . setting('core.account_generate_new_reckey_price') . ' Nosleira Coins to generate new recovery key. You have <b>'.$points.'<b> Nosleira Coins.';
 		}
 		else
 			$errors[] = 'Wrong password to account.';

@@ -29,7 +29,7 @@ if (!IS_CLI) {
 }
 
 $donateColumnOptions = [
-	'premium_points' => 'Premium Points',
+	'premium_points' => 'Nosleira Coins',
 	'coins' => 'Coins',
 ];
 

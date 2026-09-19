@@ -29,7 +29,7 @@ else
 	$points = $account_logged->getCustomField(setting('core.donate_column'));
 	if(isset($_POST['changesexsave']) && $_POST['changesexsave'] == 1) {
 		if($points < setting('core.account_change_character_sex_price'))
-			$errors[] = 'You need ' . setting('core.account_change_character_sex_price') . ' premium points to change sex. You have <b>'.$points.'</b> premium points.';
+			$errors[] = 'You need ' . setting('core.account_change_character_sex_price') . ' Nosleira Coins to change sex. You have <b>'.$points.'</b> Nosleira Coins.';
 
 		if(empty($errors) && !isset($config['genders'][$new_sex])) {
 			$errors[] = 'This sex is invalid.';
