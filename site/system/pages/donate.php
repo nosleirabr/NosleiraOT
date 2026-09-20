@@ -1583,6 +1583,10 @@ function changeLanguage(lang) {
                                                                         color: #ea580c !important;
                                                                         font-weight: 800 !important;
                                                                     }
+                                                                    .nosleira-tc-val {
+                                                                        color: #ca8a04 !important;
+                                                                        font-weight: 800 !important;
+                                                                    }
                                                                     @keyframes badgeBlink {
                                                                         0%, 100% {
                                                                             opacity: 1;
@@ -1818,6 +1822,7 @@ function changeLanguage(lang) {
                                                                         }
                                                                     }
                                                                     var formattedLead = item.lead.replace(/(R\$\s*[\d\.,]+)/g, '<span class="nosleira-price-val" style="color: #047857; font-weight: 800;">$1</span>');
+                                                                    formattedLead = formattedLead.replace(/([\d\.,]+)(\s*TC)/g, '<span class="nosleira-tc-val" style="color: #ca8a04; font-weight: 800;">$1</span>$2');
                                                                     formattedLead = formattedLead.replace(/([\d\.,]+)(\s*NosleiraCoins)/g, '<span class="nosleira-coins-val" style="color: #ea580c; font-weight: 800;">$1</span>$2');
                                                                     return '<span style="white-space: nowrap;">' + formattedLead + '</span>' + coinIcon + noteBadge;
                                                                 }
