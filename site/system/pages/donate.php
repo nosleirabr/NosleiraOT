@@ -4,8 +4,19 @@ $title = 'Donate';
 
 $action = isset($_GET['action']) ? $_GET['action'] : (isset($_POST['action']) ? $_POST['action'] : '');
 $payment_method = isset($_POST['payment_method']) ? $_POST['payment_method'] : (isset($_GET['payment_method']) ? $_GET['payment_method'] : 'pix');
-$points_package = isset($_POST['points_package']) ? $_POST['points_package'] : '55';
+$points_package = isset($_POST['points_package']) ? $_POST['points_package'] : '25';
 $tibia_char_name = isset($_POST['tibia_char_name']) ? trim($_POST['tibia_char_name']) : '';
+
+// Função auxiliar para calcular o valor cobrado em R$ (PIX recebe 5% de desconto automático)
+if (!function_exists('get_nosleira_price')) {
+    function get_nosleira_price($method, $package_coins) {
+        $coins = (int)$package_coins;
+        if ($method === 'pix') {
+            return round($coins * 0.95, 2);
+        }
+        return (float)$coins;
+    }
+}
 
 // Capturar conta logada (MyAAC)
 $acc_id = 0;
@@ -20,29 +31,33 @@ if (function_exists('ensure_donation_audit_tables')) {
     ensure_donation_audit_tables();
 }
 
-// Mapeamento de pacotes Tibia Coins (com 5% de taxa de conversão já embutida/descontada)
-// 250 TC  (mercado R$ 55,00)  - 5% = 52 NosleiraCoins
-// 500 TC  (mercado R$ 110,00) - 5% = 105 NosleiraCoins
-// 1.000 TC (mercado R$ 220,00) - 5% = 209 NosleiraCoins
-// 2.500 TC (mercado R$ 550,00) - 5% = 525 NosleiraCoins
+// Mapeamento de pacotes Tibia Coins (em múltiplos exatos de 25 com taxa inclusa)
+// 250 TC  ➔ 50 NosleiraCoins
+// 500 TC  ➔ 100 NosleiraCoins
+// 1.000 TC ➔ 200 NosleiraCoins
+// 2.500 TC ➔ 500 NosleiraCoins
 $tc_products = array(
-    '52'  => array('product' => '52 NosleiraCoins',  'price' => '250 TC'),
-    '105' => array('product' => '105 NosleiraCoins', 'price' => '500 TC'),
-    '209' => array('product' => '209 NosleiraCoins', 'price' => '1.000 TC'),
-    '525' => array('product' => '525 NosleiraCoins', 'price' => '2.500 TC'),
+    '50'   => array('product' => '50 NosleiraCoins',   'price' => '250 TC'),
+    '100'  => array('product' => '100 NosleiraCoins',  'price' => '500 TC'),
+    '200'  => array('product' => '200 NosleiraCoins',  'price' => '1.000 TC'),
+    '500'  => array('product' => '500 NosleiraCoins',  'price' => '2.500 TC'),
     // Compatibilidade com seleções legadas
-    '55'  => array('product' => '52 NosleiraCoins',  'price' => '250 TC'),
-    '110' => array('product' => '105 NosleiraCoins', 'price' => '500 TC'),
-    '220' => array('product' => '209 NosleiraCoins', 'price' => '1.000 TC'),
-    '550' => array('product' => '525 NosleiraCoins', 'price' => '2.500 TC')
+    '52'   => array('product' => '50 NosleiraCoins',   'price' => '250 TC'),
+    '105'  => array('product' => '100 NosleiraCoins',  'price' => '500 TC'),
+    '209'  => array('product' => '200 NosleiraCoins',  'price' => '1.000 TC'),
+    '525'  => array('product' => '500 NosleiraCoins',  'price' => '2.500 TC'),
+    '55'   => array('product' => '50 NosleiraCoins',   'price' => '250 TC'),
+    '110'  => array('product' => '100 NosleiraCoins',  'price' => '500 TC'),
+    '220'  => array('product' => '200 NosleiraCoins',  'price' => '1.000 TC'),
+    '550'  => array('product' => '500 NosleiraCoins',  'price' => '2.500 TC')
 );
 
 // Fallback de retrocompatibilidade para requisições de Tibia Coins
 if ($payment_method === 'tibia_coins') {
-    if ($points_package == '55') $points_package = '52';
-    if ($points_package == '110') $points_package = '105';
-    if ($points_package == '220') $points_package = '209';
-    if ($points_package == '550') $points_package = '525';
+    if ($points_package == '55' || $points_package == '52' || $points_package == '25') $points_package = '50';
+    if ($points_package == '110' || $points_package == '105') $points_package = '100';
+    if ($points_package == '220' || $points_package == '209') $points_package = '200';
+    if ($points_package == '550' || $points_package == '525') $points_package = '500';
 }
 
 if (isset($tc_products[$points_package])) {
@@ -102,7 +117,7 @@ if ($action === 'process_card' && !empty($_POST['card_token'])) {
                     'external_reference' => (string)$order_id,
                     'installments' => $installments > 0 ? $installments : 1,
                     'payment_method_id' => !empty($payment_method_id) ? strtolower($payment_method_id) : 'visa',
-                    'transaction_amount' => (float)$points_package,
+                    'transaction_amount' => get_nosleira_price($payment_method, $points_package),
                     'payer' => array(
                         'email' => $payer_email,
                         'identification' => array(
@@ -177,7 +192,8 @@ if ($action === 'confirm_tc' && !empty($tibia_char_name)) {
     }
 } elseif ($action === 'checkout' && isset($_POST['payment_method'])) {
     if ($payment_method === 'pix' || $payment_method === 'stripe') {
-        $price_str = 'R$ ' . number_format((float)$points_package, 2, ',', '.');
+        $charged_amount = get_nosleira_price($payment_method, $points_package);
+        $price_str = 'R$ ' . number_format($charged_amount, 2, ',', '.');
         $card_inst = isset($_POST['installments']) ? (int)$_POST['installments'] : 1;
         $card_b = isset($_POST['payment_method_id']) ? trim($_POST['payment_method_id']) : null;
 
@@ -199,7 +215,7 @@ if ($action === 'confirm_tc' && !empty($tibia_char_name)) {
         )");
         $order_id = $db->lastInsertId();
         if (function_exists('log_donation_event')) {
-            log_donation_event($order_id, $acc_id, 'ORDER_CREATED', 'Criado pedido ' . strtoupper($payment_method) . ' (' . $points_package . ' NosleiraCoins)');
+            log_donation_event($order_id, $acc_id, 'ORDER_CREATED', 'Criado pedido ' . strtoupper($payment_method) . ' (' . $points_package . ' NosleiraCoins - ' . $price_str . ')');
         }
 
         // GERAR COBRANÇA PIX REAL VIA MERCADO PAGO API
@@ -215,7 +231,7 @@ if ($action === 'confirm_tc' && !empty($tibia_char_name)) {
                 }
 
                 $payload = array(
-                    'transaction_amount' => (float)$points_package,
+                    'transaction_amount' => $charged_amount,
                     'description' => $points_package . ' NosleiraCoins - Account: ' . ($acc_name ? $acc_name : 'Player'),
                     'payment_method_id' => 'pix',
                     'payer' => array(
@@ -1031,7 +1047,7 @@ function changeLanguage(lang) {
                                                                 </div>
                                                                 <div style="background: linear-gradient(180deg, #fdf9f3 0%, #f5e9d6 100%); border: 1px solid #d8c6af; border-radius: 6px; padding: 20px 24px; margin-bottom: 20px; text-align: center; color: #2b1704; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
                                                                     <div style="font-size: 16px; font-weight: 800; color: #00875a; margin-bottom: 8px;">Pagamento via PIX (Mercado Pago)</div>
-                                                                    <p style="font-size: 14px; color: #2b1704; margin-bottom: 14px;">Valor: <b style="color: #00875a;">R$ <?php echo htmlspecialchars($points_package); ?>,00</b> - Pacote: <b><?php echo htmlspecialchars($points_package); ?> NosleiraCoins <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 16px; width: 16px; vertical-align: middle; margin-right: 2px;"></b> (Pedido #<?php echo $order_id; ?>)</p>
+                                                                    <p style="font-size: 14px; color: #2b1704; margin-bottom: 14px;">Valor: <b style="color: #00875a;"><?php echo htmlspecialchars($price_str); ?></b> - Pacote: <b><?php echo htmlspecialchars($points_package); ?> NosleiraCoins <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 16px; width: 16px; vertical-align: middle; margin-right: 2px;"></b> (Pedido #<?php echo $order_id; ?>)</p>
                                                                     <?php 
                                                                     $qr_img_src = '';
                                                                     if (!empty($mp_qr_code_base64)) {
@@ -1173,7 +1189,7 @@ function changeLanguage(lang) {
                                                                             </div>
                                                                             
                                                                             <p style="font-size: 13.5px; color: #4a1c00; margin-bottom: 16px;">
-                                                                                Valor a Pagar: <b style="color: #059669;">R$ <?php echo htmlspecialchars($points_package); ?>,00</b> &bull; Pacote: <b><?php echo htmlspecialchars($points_package); ?> NosleiraCoins <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 16px; width: 16px; vertical-align: middle; margin-right: 2px;"></b> (Pedido #<?php echo $order_id; ?>)
+                                                                                Valor a Pagar: <b style="color: #059669;"><?php echo htmlspecialchars($price_str); ?></b> &bull; Pacote: <b><?php echo htmlspecialchars($points_package); ?> NosleiraCoins <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 16px; width: 16px; vertical-align: middle; margin-right: 2px;"></b> (Pedido #<?php echo $order_id; ?>)
                                                                             </p>
 
                                                                             <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 16px;">
@@ -1216,9 +1232,9 @@ function changeLanguage(lang) {
                                                                                 <div>
                                                                                     <label style="font-size: 12px; font-weight: 700; color: #4a1c00; display: block; margin-bottom: 4px;">Parcelamento:</label>
                                                                                     <select name="installments" id="card_installments" style="width: 100%; padding: 8px 12px; font-size: 13.5px; border: 1px solid #a0825a; border-radius: 4px; outline: none; box-sizing: border-box; background: #fff;">
-                                                                                        <option value="1">1x de R$ <?php echo htmlspecialchars($points_package); ?>,00 à vista</option>
-                                                                                        <option value="2">2x de R$ <?php echo number_format($points_package / 2, 2, ',', '.'); ?></option>
-                                                                                        <option value="3">3x de R$ <?php echo number_format($points_package / 3, 2, ',', '.'); ?></option>
+                                                                                        <option value="1">1x de <?php echo $price_str; ?> à vista</option>
+                                                                                        <option value="2">2x de R$ <?php echo number_format($charged_amount / 2, 2, ',', '.'); ?></option>
+                                                                                        <option value="3">3x de R$ <?php echo number_format($charged_amount / 3, 2, ',', '.'); ?></option>
                                                                                     </select>
                                                                                 </div>
                                                                             </div>
@@ -1662,15 +1678,15 @@ function changeLanguage(lang) {
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 16px;">
                                                                 <!-- Banner Promocional de Bônus (Exclusivo PIX) -->
-                                                                <div id="bonus_promo_banner" style="background: linear-gradient(90deg, #fff7ed 0%, #fef3c7 100%); border: 1px solid #f59e0b; border-left: 4px solid #d97706; border-radius: 5px; padding: 10px 14px; margin-bottom: 14px; display: <?php echo ($payment_method === 'pix') ? 'flex' : 'none'; ?>; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                                                <div id="bonus_promo_banner" style="background: linear-gradient(90deg, #ecfdf5 0%, #d1fae5 100%); border: 1px solid #10b981; border-left: 4px solid #059669; border-radius: 5px; padding: 10px 14px; margin-bottom: 14px; display: <?php echo ($payment_method === 'pix') ? 'flex' : 'none'; ?>; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
                                                                     <div style="display: flex; align-items: center; gap: 8px;">
-                                                                        <span style="font-size: 20px;">🎁</span>
+                                                                        <span style="font-size: 20px;">⚡</span>
                                                                         <div>
-                                                                            <span style="font-weight: 800; font-size: 13px; color: #92400e;">BÔNUS EXCLUSIVO PIX:</span>
-                                                                            <span style="font-size: 12px; color: #78350f; margin-left: 4px;">Doações via <b>PIX</b> a partir de <b>800 NosleiraCoins <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 15px; width: 15px; vertical-align: middle;"></b> recebem <b>+20% de bônus extra</b>!</span>
+                                                                            <span style="font-weight: 800; font-size: 13px; color: #065f46;">BENEFÍCIO EXCLUSIVO PIX:</span>
+                                                                            <span style="font-size: 12px; color: #047857; margin-left: 4px;">Pagamentos via <b>PIX</b> contam com <b>5% de desconto automático</b> em todos os pacotes!</span>
                                                                         </div>
                                                                     </div>
-                                                                    <span class="bonus-badge-blink" style="font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 12px; letter-spacing: 0.5px; border: 1px solid #b45309;">+20% BÔNUS PIX</span>
+                                                                    <span style="font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 12px; letter-spacing: 0.5px; background: #059669; color: #ffffff; border: 1px solid #047857;">5% DE DESCONTO</span>
                                                                 </div>
 
                                                                 <form action="?subtopic=donate&action=checkout" method="post" style="display: flex; flex-direction: column; align-items: center; gap: 16px; width: 100%; margin: 8px 0;">
@@ -1685,31 +1701,29 @@ function changeLanguage(lang) {
                                                                         <!-- Select nativo em segundo plano para envio de formulário padrão -->
                                                                         <select id="points_package_select" name="points_package" style="display: none;">
                                                                             <?php if ($payment_method === 'tibia_coins'): ?>
-                                                                                <option value="52" <?php echo ($points_package == '52') ? 'selected' : ''; ?>>250 TC ➔ 52 NosleiraCoins (5% taxa inclusa)</option>
-                                                                                <option value="105" <?php echo ($points_package == '105') ? 'selected' : ''; ?>>500 TC ➔ 105 NosleiraCoins (5% taxa inclusa)</option>
-                                                                                <option value="209" <?php echo ($points_package == '209') ? 'selected' : ''; ?>>1.000 TC ➔ 209 NosleiraCoins (5% taxa inclusa)</option>
-                                                                                <option value="525" <?php echo ($points_package == '525') ? 'selected' : ''; ?>>2.500 TC ➔ 525 NosleiraCoins (5% taxa inclusa)</option>
+                                                                                <option value="50" <?php echo ($points_package == '50') ? 'selected' : ''; ?>>250 TC ➔ 50 NosleiraCoins (taxa de 5% inclusa)</option>
+                                                                                <option value="100" <?php echo ($points_package == '100') ? 'selected' : ''; ?>>500 TC ➔ 100 NosleiraCoins (taxa de 5% inclusa)</option>
+                                                                                <option value="200" <?php echo ($points_package == '200') ? 'selected' : ''; ?>>1.000 TC ➔ 200 NosleiraCoins (taxa de 5% inclusa)</option>
+                                                                                <option value="500" <?php echo ($points_package == '500') ? 'selected' : ''; ?>>2.500 TC ➔ 500 NosleiraCoins (taxa de 5% inclusa)</option>
                                                                             <?php elseif ($payment_method === 'pix'): ?>
-                                                                                <option value="10">R$ 10,00 - 10 NosleiraCoins</option>
-                                                                                <option value="20">R$ 20,00 - 20 NosleiraCoins</option>
-                                                                                <option value="30">R$ 30,00 - 30 NosleiraCoins</option>
-                                                                                <option value="40">R$ 40,00 - 40 NosleiraCoins</option>
-                                                                                <option value="50">R$ 50,00 - 50 NosleiraCoins</option>
-                                                                                <option value="100">R$ 100,00 - 100 NosleiraCoins</option>
-                                                                                <option value="200">R$ 200,00 - 200 NosleiraCoins</option>
-                                                                                <option value="400">R$ 400,00 - 400 NosleiraCoins</option>
-                                                                                <option value="800">R$ 800,00 - 800 + 160 Bônus = 960 NosleiraCoins 🔥 +20%</option>
-                                                                                <option value="1000">R$ 1.000,00 - 1000 + 200 Bônus = 1.200 NosleiraCoins 🔥 +20%</option>
+                                                                                <option value="25">R$ 23,75 - 25 NosleiraCoins (5% de desconto no PIX)</option>
+                                                                                <option value="50">R$ 47,50 - 50 NosleiraCoins (5% de desconto no PIX)</option>
+                                                                                <option value="75">R$ 71,25 - 75 NosleiraCoins (5% de desconto no PIX)</option>
+                                                                                <option value="100">R$ 95,00 - 100 NosleiraCoins (5% de desconto no PIX)</option>
+                                                                                <option value="150">R$ 142,50 - 150 NosleiraCoins (5% de desconto no PIX)</option>
+                                                                                <option value="200">R$ 190,00 - 200 NosleiraCoins (5% de desconto no PIX)</option>
+                                                                                <option value="250">R$ 237,50 - 250 NosleiraCoins (5% de desconto no PIX)</option>
+                                                                                <option value="500">R$ 475,00 - 500 NosleiraCoins (5% de desconto no PIX)</option>
+                                                                                <option value="1000">R$ 950,00 - 1.000 NosleiraCoins (5% de desconto no PIX)</option>
                                                                             <?php else: ?>
-                                                                                <option value="10">R$ 10,00 - 10 NosleiraCoins</option>
-                                                                                <option value="20">R$ 20,00 - 20 NosleiraCoins</option>
-                                                                                <option value="30">R$ 30,00 - 30 NosleiraCoins</option>
-                                                                                <option value="40">R$ 40,00 - 40 NosleiraCoins</option>
+                                                                                <option value="25">R$ 25,00 - 25 NosleiraCoins</option>
                                                                                 <option value="50">R$ 50,00 - 50 NosleiraCoins</option>
+                                                                                <option value="75">R$ 75,00 - 75 NosleiraCoins</option>
                                                                                 <option value="100">R$ 100,00 - 100 NosleiraCoins</option>
+                                                                                <option value="150">R$ 150,00 - 150 NosleiraCoins</option>
                                                                                 <option value="200">R$ 200,00 - 200 NosleiraCoins</option>
-                                                                                <option value="400">R$ 400,00 - 400 NosleiraCoins</option>
-                                                                                <option value="800">R$ 800,00 - 800 NosleiraCoins</option>
+                                                                                <option value="250">R$ 250,00 - 250 NosleiraCoins</option>
+                                                                                <option value="500">R$ 500,00 - 500 NosleiraCoins</option>
                                                                                 <option value="1000">R$ 1.000,00 - 1000 NosleiraCoins</option>
                                                                             <?php endif; ?>
                                                                         </select>
@@ -1742,33 +1756,31 @@ function changeLanguage(lang) {
 
                                                                 var nosleiraPackages = {
                                                                     'tibia_coins': [
-                                                                        { value: '52',  lead: '250 TC ➔ 52 NosleiraCoins',   note: 'taxa de 5% inclusa' },
-                                                                        { value: '105', lead: '500 TC ➔ 105 NosleiraCoins',  note: 'taxa de 5% inclusa' },
-                                                                        { value: '209', lead: '1.000 TC ➔ 209 NosleiraCoins', note: 'taxa de 5% inclusa' },
-                                                                        { value: '525', lead: '2.500 TC ➔ 525 NosleiraCoins', note: 'taxa de 5% inclusa' }
+                                                                        { value: '50',  lead: '250 TC ➔ 50 NosleiraCoins',   note: 'taxa de 5% inclusa' },
+                                                                        { value: '100', lead: '500 TC ➔ 100 NosleiraCoins',  note: 'taxa de 5% inclusa' },
+                                                                        { value: '200', lead: '1.000 TC ➔ 200 NosleiraCoins', note: 'taxa de 5% inclusa' },
+                                                                        { value: '500', lead: '2.500 TC ➔ 500 NosleiraCoins', note: 'taxa de 5% inclusa' }
                                                                     ],
                                                                     'pix': [
-                                                                        { value: '10',   lead: 'R$ 10,00 ➔ 10 NosleiraCoins',   note: '' },
-                                                                        { value: '20',   lead: 'R$ 20,00 ➔ 20 NosleiraCoins',   note: '' },
-                                                                        { value: '30',   lead: 'R$ 30,00 ➔ 30 NosleiraCoins',   note: '' },
-                                                                        { value: '40',   lead: 'R$ 40,00 ➔ 40 NosleiraCoins',   note: '' },
-                                                                        { value: '50',   lead: 'R$ 50,00 ➔ 50 NosleiraCoins',   note: '' },
-                                                                        { value: '100',  lead: 'R$ 100,00 ➔ 100 NosleiraCoins', note: '' },
-                                                                        { value: '200',  lead: 'R$ 200,00 ➔ 200 NosleiraCoins', note: '' },
-                                                                        { value: '400',  lead: 'R$ 400,00 ➔ 400 NosleiraCoins', note: '' },
-                                                                        { value: '800',  lead: 'R$ 800,00 ➔ 800 + 160 Bônus = 960 NosleiraCoins',   note: '🔥 +20%' },
-                                                                        { value: '1000', lead: 'R$ 1.000,00 ➔ 1000 + 200 Bônus = 1.200 NosleiraCoins', note: '🔥 +20%' }
+                                                                        { value: '25',   lead: 'R$ 23,75 ➔ 25 NosleiraCoins',   note: '5% de desconto no PIX' },
+                                                                        { value: '50',   lead: 'R$ 47,50 ➔ 50 NosleiraCoins',   note: '5% de desconto no PIX' },
+                                                                        { value: '75',   lead: 'R$ 71,25 ➔ 75 NosleiraCoins',   note: '5% de desconto no PIX' },
+                                                                        { value: '100',  lead: 'R$ 95,00 ➔ 100 NosleiraCoins',  note: '5% de desconto no PIX' },
+                                                                        { value: '150',  lead: 'R$ 142,50 ➔ 150 NosleiraCoins', note: '5% de desconto no PIX' },
+                                                                        { value: '200',  lead: 'R$ 190,00 ➔ 200 NosleiraCoins', note: '5% de desconto no PIX' },
+                                                                        { value: '250',  lead: 'R$ 237,50 ➔ 250 NosleiraCoins', note: '5% de desconto no PIX' },
+                                                                        { value: '500',  lead: 'R$ 475,00 ➔ 500 NosleiraCoins', note: '5% de desconto no PIX' },
+                                                                        { value: '1000', lead: 'R$ 950,00 ➔ 1.000 NosleiraCoins', note: '5% de desconto no PIX' }
                                                                     ],
                                                                     'stripe': [
-                                                                        { value: '10',   lead: 'R$ 10,00 ➔ 10 NosleiraCoins',   note: '' },
-                                                                        { value: '20',   lead: 'R$ 20,00 ➔ 20 NosleiraCoins',   note: '' },
-                                                                        { value: '30',   lead: 'R$ 30,00 ➔ 30 NosleiraCoins',   note: '' },
-                                                                        { value: '40',   lead: 'R$ 40,00 ➔ 40 NosleiraCoins',   note: '' },
+                                                                        { value: '25',   lead: 'R$ 25,00 ➔ 25 NosleiraCoins',   note: '' },
                                                                         { value: '50',   lead: 'R$ 50,00 ➔ 50 NosleiraCoins',   note: '' },
+                                                                        { value: '75',   lead: 'R$ 75,00 ➔ 75 NosleiraCoins',   note: '' },
                                                                         { value: '100',  lead: 'R$ 100,00 ➔ 100 NosleiraCoins', note: '' },
+                                                                        { value: '150',  lead: 'R$ 150,00 ➔ 150 NosleiraCoins', note: '' },
                                                                         { value: '200',  lead: 'R$ 200,00 ➔ 200 NosleiraCoins', note: '' },
-                                                                        { value: '400',  lead: 'R$ 400,00 ➔ 400 NosleiraCoins', note: '' },
-                                                                        { value: '800',  lead: 'R$ 800,00 ➔ 800 NosleiraCoins', note: '' },
+                                                                        { value: '250',  lead: 'R$ 250,00 ➔ 250 NosleiraCoins', note: '' },
+                                                                        { value: '500',  lead: 'R$ 500,00 ➔ 500 NosleiraCoins', note: '' },
                                                                         { value: '1000', lead: 'R$ 1.000,00 ➔ 1000 NosleiraCoins', note: '' }
                                                                     ]
                                                                 };
@@ -1833,7 +1845,8 @@ function changeLanguage(lang) {
 
                                                                     if (!list || !dropdown) return;
 
-                                                                    if (!selectedVal) {
+                                                                    var exists = list.some(function(item) { return item.value === String(selectedVal); });
+                                                                    if (!selectedVal || !exists) {
                                                                         selectedVal = list[0].value;
                                                                     }
 
