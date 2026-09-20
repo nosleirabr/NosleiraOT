@@ -1818,7 +1818,7 @@ function changeLanguage(lang) {
                                                                         }
                                                                     }
                                                                     var formattedLead = item.lead.replace(/(R\$\s*[\d\.,]+)/g, '<span class="nosleira-price-val" style="color: #047857; font-weight: 800;">$1</span>');
-                                                                    formattedLead = formattedLead.replace(/([\d\.,]+\s*NosleiraCoins)/g, '<span class="nosleira-coins-val" style="color: #ea580c; font-weight: 800;">$1</span>');
+                                                                    formattedLead = formattedLead.replace(/([\d\.,]+)(\s*NosleiraCoins)/g, '<span class="nosleira-coins-val" style="color: #ea580c; font-weight: 800;">$1</span>$2');
                                                                     return '<span style="white-space: nowrap;">' + formattedLead + '</span>' + coinIcon + noteBadge;
                                                                 }
 
