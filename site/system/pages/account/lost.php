@@ -289,6 +289,7 @@ elseif($action == 'step3')
 						if(Validator::email($new_email))
 						{
 							$account->setEMail($new_email);
+							$account->setCustomField('email_verified', 1);
 
 							$tmp_new_pass = $new_pass;
 							if(USE_ACCOUNT_SALT)
