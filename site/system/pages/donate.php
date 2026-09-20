@@ -1579,6 +1579,10 @@ function changeLanguage(lang) {
                                                                         color: #047857 !important;
                                                                         font-weight: 800 !important;
                                                                     }
+                                                                    .nosleira-coins-val {
+                                                                        color: #ea580c !important;
+                                                                        font-weight: 800 !important;
+                                                                    }
                                                                     .btn-donate-continue-action {
                                                                         min-width: 220px;
                                                                         justify-content: center;
@@ -1800,6 +1804,7 @@ function changeLanguage(lang) {
                                                                         }
                                                                     }
                                                                     var formattedLead = item.lead.replace(/(R\$\s*[\d\.,]+)/g, '<span class="nosleira-price-val" style="color: #047857; font-weight: 800;">$1</span>');
+                                                                    formattedLead = formattedLead.replace(/([\d\.,]+\s*NosleiraCoins)/g, '<span class="nosleira-coins-val" style="color: #ea580c; font-weight: 800;">$1</span>');
                                                                     return '<span style="white-space: nowrap;">' + formattedLead + '</span>' + coinIcon + noteBadge;
                                                                 }
 
