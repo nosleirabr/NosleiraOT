@@ -341,7 +341,7 @@
             <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
             <div class="Text">HISTÓRICO DE DOAÇÕES</div>
-            <span id="history_toggle_btn" onclick="toggleDonationHistoryBox()" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #ffffff; font-weight: bold; font-size: 11.5px; background: rgba(0,0,0,0.35); padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.4); user-select: none;">[ − ] Minimizar</span>
+            <span id="history_toggle_btn" onclick="toggleDonationHistoryBox()" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #ffffff; font-weight: bold; font-size: 11.5px; background: rgba(0,0,0,0.35); padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.4); user-select: none;">[ + ] Expandir</span>
             <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
@@ -349,7 +349,7 @@
         </div>
     </div>
     
-    <div id="donation_history_collapsible_content">
+    <div id="donation_history_collapsible_content" style="display: none;">
         <table class="Table3" cellpadding="0" cellspacing="0">
             <tbody>
                 <tr>
@@ -382,7 +382,7 @@
                                                                         <div class="history-table-wrapper">
                                                                             <table width="100%" style="border-collapse: collapse; font-size: 12px; font-family: 'Inter', sans-serif;">
                                                                                 <thead>
-                                                                                    <tr style="background: linear-gradient(180deg, #fdf9f3 0%, #e8d7c0 100%); color: #3d1c02; font-weight: 700; border-bottom: 2px solid #b89a72; font-family: 'Cinzel', serif;">
+                                                                                    <tr style="background: linear-gradient(180deg, #5c3d1a 0%, #3a2208 100%); color: #f5e6c8; font-weight: 700; border-bottom: 2px solid #d4a853; font-family: 'Cinzel', serif; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
                                                                                         <th style="padding: 10px 8px; text-align: center; width: 50px; white-space: nowrap;">Ref #</th>
                                                                                         <th style="padding: 10px 8px; text-align: center; width: 110px; white-space: nowrap;">Data</th>
                                                                                         <th style="padding: 10px 10px; text-align: left; width: 160px; white-space: nowrap;">Pacote</th>
@@ -422,7 +422,7 @@
                                                                         <div class="history-table-wrapper">
                                                                             <table width="100%" style="border-collapse: collapse; font-size: 12px; font-family: 'Inter', sans-serif;">
                                                                                 <thead>
-                                                                                    <tr style="background: linear-gradient(180deg, #fdf9f3 0%, #e8d7c0 100%); color: #3d1c02; font-weight: 700; border-bottom: 2px solid #b89a72; font-family: 'Cinzel', serif;">
+                                                                                    <tr style="background: linear-gradient(180deg, #5c3d1a 0%, #3a2208 100%); color: #f5e6c8; font-weight: 700; border-bottom: 2px solid #d4a853; font-family: 'Cinzel', serif; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
                                                                                         <th style="padding: 10px 8px; text-align: center; width: 50px; white-space: nowrap;">Ref #</th>
                                                                                         <th style="padding: 10px 8px; text-align: center; width: 110px; white-space: nowrap;">Data</th>
                                                                                         <th style="padding: 10px 10px; text-align: left; width: 160px; white-space: nowrap;">Pacote</th>
@@ -462,7 +462,7 @@
                                                                         <div class="history-table-wrapper">
                                                                             <table width="100%" style="border-collapse: collapse; font-size: 12px; font-family: 'Inter', sans-serif;">
                                                                                 <thead>
-                                                                                    <tr style="background: linear-gradient(180deg, #fdf9f3 0%, #e8d7c0 100%); color: #3d1c02; font-weight: 700; border-bottom: 2px solid #b89a72; font-family: 'Cinzel', serif;">
+                                                                                    <tr style="background: linear-gradient(180deg, #5c3d1a 0%, #3a2208 100%); color: #f5e6c8; font-weight: 700; border-bottom: 2px solid #d4a853; font-family: 'Cinzel', serif; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
                                                                                         <th style="padding: 10px 6px; text-align: center; width: 45px; white-space: nowrap;">Ref #</th>
                                                                                         <th style="padding: 10px 6px; text-align: center; width: 100px; white-space: nowrap;">Data</th>
                                                                                         <th style="padding: 10px 8px; text-align: left; width: 140px; white-space: nowrap;">Pacote</th>

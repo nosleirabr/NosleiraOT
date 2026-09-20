@@ -20,13 +20,30 @@ if (function_exists('ensure_donation_audit_tables')) {
     ensure_donation_audit_tables();
 }
 
-// Mapeamento de pacotes Tibia Coins
+// Mapeamento de pacotes Tibia Coins (com 5% de taxa de conversão já embutida/descontada)
+// 250 TC  (mercado R$ 55,00)  - 5% = 52 NosleiraCoins
+// 500 TC  (mercado R$ 110,00) - 5% = 105 NosleiraCoins
+// 1.000 TC (mercado R$ 220,00) - 5% = 209 NosleiraCoins
+// 2.500 TC (mercado R$ 550,00) - 5% = 525 NosleiraCoins
 $tc_products = array(
-    '55'  => array('product' => '55 NosleiraCoins',  'price' => '250 TC'),
-    '110' => array('product' => '110 NosleiraCoins', 'price' => '500 TC'),
-    '220' => array('product' => '220 NosleiraCoins', 'price' => '1.000 TC'),
-    '550' => array('product' => '550 NosleiraCoins', 'price' => '2.500 TC')
+    '52'  => array('product' => '52 NosleiraCoins',  'price' => '250 TC'),
+    '105' => array('product' => '105 NosleiraCoins', 'price' => '500 TC'),
+    '209' => array('product' => '209 NosleiraCoins', 'price' => '1.000 TC'),
+    '525' => array('product' => '525 NosleiraCoins', 'price' => '2.500 TC'),
+    // Compatibilidade com seleções legadas
+    '55'  => array('product' => '52 NosleiraCoins',  'price' => '250 TC'),
+    '110' => array('product' => '105 NosleiraCoins', 'price' => '500 TC'),
+    '220' => array('product' => '209 NosleiraCoins', 'price' => '1.000 TC'),
+    '550' => array('product' => '525 NosleiraCoins', 'price' => '2.500 TC')
 );
+
+// Fallback de retrocompatibilidade para requisições de Tibia Coins
+if ($payment_method === 'tibia_coins') {
+    if ($points_package == '55') $points_package = '52';
+    if ($points_package == '110') $points_package = '105';
+    if ($points_package == '220') $points_package = '209';
+    if ($points_package == '550') $points_package = '525';
+}
 
 if (isset($tc_products[$points_package])) {
     $product_label = $tc_products[$points_package]['product'];
@@ -845,6 +862,12 @@ function changeLanguage(lang) {
                                                                                 </td>
                                                                             </tr>
                                                                             <tr style="border-bottom: 1px solid rgba(160, 130, 90, 0.2);">
+                                                                                <td style="padding: 8px 0; font-weight: 700; color: #4a1c00;">Taxa de Conversão:</td>
+                                                                                <td style="padding: 8px 0;">
+                                                                                    <span style="font-size: 12px; font-weight: 700; color: #047857; background: #ecfdf5; border: 1px solid #10b981; padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">✓ 5% de taxa já deduzida no total entregue</span>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr style="border-bottom: 1px solid rgba(160, 130, 90, 0.2);">
                                                                                 <td style="padding: 8px 0; font-weight: 700; color: #4a1c00;">Personagem de Origem (Tibia.com):</td>
                                                                                 <td style="padding: 8px 0; color: #4a1c00; font-weight: 700; font-size: 14px;"><?php echo htmlspecialchars($tibia_char_name); ?></td>
                                                                             </tr>
@@ -965,6 +988,12 @@ function changeLanguage(lang) {
                                                                                     <td style="padding: 10px 0; font-weight: 700; color: #4a1c00;">Price:</td>
                                                                                     <td style="padding: 10px 0;">
                                                                                         <span class="badge-price-tc">⚡ <?php echo htmlspecialchars($price_label); ?></span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr style="border-bottom: 1px solid rgba(160, 130, 90, 0.25);">
+                                                                                    <td style="padding: 10px 0; font-weight: 700; color: #4a1c00;">Taxa de Conversão:</td>
+                                                                                    <td style="padding: 10px 0;">
+                                                                                        <span style="font-size: 12px; font-weight: 700; color: #047857; background: #ecfdf5; border: 1px solid #10b981; padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">✓ 5% de taxa já deduzida no total a receber</span>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr style="border-bottom: 1px solid rgba(160, 130, 90, 0.25);">
@@ -1464,6 +1493,95 @@ function changeLanguage(lang) {
                                                                     .payment-card.selected .card-check-icon {
                                                                         display: block;
                                                                     }
+                                                                    .nosleira-custom-select-wrap {
+                                                                        position: relative;
+                                                                        flex: 1;
+                                                                        min-width: 320px;
+                                                                        max-width: 480px;
+                                                                        font-family: 'Inter', Arial, sans-serif;
+                                                                    }
+                                                                    .nosleira-select-trigger {
+                                                                        padding: 8px 14px;
+                                                                        font-size: 13px;
+                                                                        font-weight: 600;
+                                                                        color: #2b1704;
+                                                                        background: linear-gradient(180deg, #ffffff 0%, #f4e8d7 100%);
+                                                                        border: 1px solid #a0825a;
+                                                                        border-radius: 4px;
+                                                                        box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
+                                                                        cursor: pointer;
+                                                                        display: flex;
+                                                                        align-items: center;
+                                                                        justify-content: space-between;
+                                                                        user-select: none;
+                                                                        transition: border-color 0.2s, box-shadow 0.2s;
+                                                                    }
+                                                                    .nosleira-select-trigger:hover, .nosleira-select-trigger.active {
+                                                                        border-color: #78350f !important;
+                                                                        box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.25) !important;
+                                                                    }
+                                                                    .nosleira-select-dropdown {
+                                                                        position: absolute;
+                                                                        top: calc(100% + 4px);
+                                                                        left: 0;
+                                                                        right: 0;
+                                                                        background: #ffffff;
+                                                                        border: 1px solid #a0825a;
+                                                                        border-radius: 4px;
+                                                                        box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+                                                                        z-index: 1000;
+                                                                        max-height: 270px;
+                                                                        overflow-y: auto;
+                                                                        display: none;
+                                                                    }
+                                                                    .nosleira-select-item {
+                                                                        padding: 8px 12px;
+                                                                        font-size: 13px;
+                                                                        font-weight: 600;
+                                                                        color: #2b1704;
+                                                                        cursor: pointer;
+                                                                        display: flex;
+                                                                        align-items: center;
+                                                                        border-bottom: 1px solid #f3ebe0;
+                                                                        transition: background 0.15s ease, color 0.15s ease;
+                                                                    }
+                                                                    .nosleira-select-item:last-child {
+                                                                        border-bottom: none;
+                                                                    }
+                                                                    .nosleira-select-item:hover {
+                                                                        background: #fef7ec !important;
+                                                                        color: #92400e !important;
+                                                                    }
+                                                                    .nosleira-select-item.selected {
+                                                                        background: #faecd8 !important;
+                                                                        font-weight: 700 !important;
+                                                                    }
+                                                                    .btn-donate-continue-action {
+                                                                        padding: 8px 26px;
+                                                                        font-weight: 800;
+                                                                        font-size: 13.5px;
+                                                                        font-family: 'Cinzel', serif;
+                                                                        cursor: pointer;
+                                                                        background: linear-gradient(180deg, #22c55e 0%, #15803d 100%);
+                                                                        color: #ffffff;
+                                                                        border: 1px solid #14532d;
+                                                                        border-radius: 4px;
+                                                                        box-shadow: 0 2px 5px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.3);
+                                                                        text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+                                                                        display: inline-flex;
+                                                                        align-items: center;
+                                                                        gap: 8px;
+                                                                        transition: all 0.2s ease;
+                                                                    }
+                                                                    .btn-donate-continue-action:hover {
+                                                                        filter: brightness(1.1);
+                                                                        transform: translateY(-1px);
+                                                                        box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
+                                                                    }
+                                                                    .btn-donate-continue-action:active {
+                                                                        filter: brightness(0.95);
+                                                                        transform: translateY(1px);
+                                                                    }
                                                                 </style>
 
                                                                 <!-- Container escuro estilo Tibia -->
@@ -1552,40 +1670,197 @@ function changeLanguage(lang) {
                                                                     <input type="hidden" name="accept_terms" value="1">
                                                                     <input type="hidden" id="payment_method_input" name="payment_method" value="<?php echo htmlspecialchars($payment_method); ?>">
                                                                     <label style="font-weight: 700; font-size: 13px; color: #4a1c00; font-family: 'Cinzel', serif;">Selecione o pacote de <span style="color: #d97706; font-weight: 800;">NosleiraCoins</span>:</label>
-                                                                    <select id="points_package_select" name="points_package" style="padding: 7px 12px; font-size: 13px; font-weight: 600; font-family: 'Inter', sans-serif; color: #2b1704; background: linear-gradient(180deg, #ffffff 0%, #f4e8d7 100%); border: 1px solid #a0825a; border-radius: 4px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.08); cursor: pointer; outline: none; flex: 1; min-width: 260px;">
+
+                                                                    <!-- Select nativo em segundo plano para envio de formulário padrão -->
+                                                                    <select id="points_package_select" name="points_package" style="display: none;">
                                                                         <?php if ($payment_method === 'tibia_coins'): ?>
-                                                                            <option value="55">250 TC ➔ 55 NosleiraCoins 🪙 (com 5% taxa de conversão)</option>
-                                                                            <option value="110">500 TC ➔ 110 NosleiraCoins 🪙 (com 5% taxa de conversão)</option>
-                                                                            <option value="220">1.000 TC ➔ 220 NosleiraCoins 🪙 (com 5% taxa de conversão)</option>
-                                                                            <option value="550">2.500 TC ➔ 550 NosleiraCoins 🪙 (com 5% taxa de conversão)</option>
+                                                                            <option value="52" <?php echo ($points_package == '52') ? 'selected' : ''; ?>>250 TC ➔ 52 NosleiraCoins (5% taxa inclusa)</option>
+                                                                            <option value="105" <?php echo ($points_package == '105') ? 'selected' : ''; ?>>500 TC ➔ 105 NosleiraCoins (5% taxa inclusa)</option>
+                                                                            <option value="209" <?php echo ($points_package == '209') ? 'selected' : ''; ?>>1.000 TC ➔ 209 NosleiraCoins (5% taxa inclusa)</option>
+                                                                            <option value="525" <?php echo ($points_package == '525') ? 'selected' : ''; ?>>2.500 TC ➔ 525 NosleiraCoins (5% taxa inclusa)</option>
                                                                         <?php elseif ($payment_method === 'pix'): ?>
-                                                                            <option value="10">R$ 10,00 - 10 NosleiraCoins 🪙</option>
-                                                                            <option value="20">R$ 20,00 - 20 NosleiraCoins 🪙</option>
-                                                                            <option value="30">R$ 30,00 - 30 NosleiraCoins 🪙</option>
-                                                                            <option value="40">R$ 40,00 - 40 NosleiraCoins 🪙</option>
-                                                                            <option value="50">R$ 50,00 - 50 NosleiraCoins 🪙</option>
-                                                                            <option value="100">R$ 100,00 - 100 NosleiraCoins 🪙</option>
-                                                                            <option value="200">R$ 200,00 - 200 NosleiraCoins 🪙</option>
-                                                                            <option value="400">R$ 400,00 - 400 NosleiraCoins 🪙</option>
-                                                                            <option value="800">R$ 800,00 - 800 + 160 Bônus = 960 NosleiraCoins 🪙 🔥 +20%</option>
-                                                                            <option value="1000">R$ 1.000,00 - 1000 + 200 Bônus = 1.200 NosleiraCoins 🪙 🔥 +20%</option>
+                                                                            <option value="10">R$ 10,00 - 10 NosleiraCoins</option>
+                                                                            <option value="20">R$ 20,00 - 20 NosleiraCoins</option>
+                                                                            <option value="30">R$ 30,00 - 30 NosleiraCoins</option>
+                                                                            <option value="40">R$ 40,00 - 40 NosleiraCoins</option>
+                                                                            <option value="50">R$ 50,00 - 50 NosleiraCoins</option>
+                                                                            <option value="100">R$ 100,00 - 100 NosleiraCoins</option>
+                                                                            <option value="200">R$ 200,00 - 200 NosleiraCoins</option>
+                                                                            <option value="400">R$ 400,00 - 400 NosleiraCoins</option>
+                                                                            <option value="800">R$ 800,00 - 800 + 160 Bônus = 960 NosleiraCoins 🔥 +20%</option>
+                                                                            <option value="1000">R$ 1.000,00 - 1000 + 200 Bônus = 1.200 NosleiraCoins 🔥 +20%</option>
                                                                         <?php else: ?>
-                                                                            <option value="10">R$ 10,00 - 10 NosleiraCoins 🪙</option>
-                                                                            <option value="20">R$ 20,00 - 20 NosleiraCoins 🪙</option>
-                                                                            <option value="30">R$ 30,00 - 30 NosleiraCoins 🪙</option>
-                                                                            <option value="40">R$ 40,00 - 40 NosleiraCoins 🪙</option>
-                                                                            <option value="50">R$ 50,00 - 50 NosleiraCoins 🪙</option>
-                                                                            <option value="100">R$ 100,00 - 100 NosleiraCoins 🪙</option>
-                                                                            <option value="200">R$ 200,00 - 200 NosleiraCoins 🪙</option>
-                                                                            <option value="400">R$ 400,00 - 400 NosleiraCoins 🪙</option>
-                                                                            <option value="800">R$ 800,00 - 800 NosleiraCoins 🪙</option>
-                                                                            <option value="1000">R$ 1.000,00 - 1000 NosleiraCoins 🪙</option>
+                                                                            <option value="10">R$ 10,00 - 10 NosleiraCoins</option>
+                                                                            <option value="20">R$ 20,00 - 20 NosleiraCoins</option>
+                                                                            <option value="30">R$ 30,00 - 30 NosleiraCoins</option>
+                                                                            <option value="40">R$ 40,00 - 40 NosleiraCoins</option>
+                                                                            <option value="50">R$ 50,00 - 50 NosleiraCoins</option>
+                                                                            <option value="100">R$ 100,00 - 100 NosleiraCoins</option>
+                                                                            <option value="200">R$ 200,00 - 200 NosleiraCoins</option>
+                                                                            <option value="400">R$ 400,00 - 400 NosleiraCoins</option>
+                                                                            <option value="800">R$ 800,00 - 800 NosleiraCoins</option>
+                                                                            <option value="1000">R$ 1.000,00 - 1000 NosleiraCoins</option>
                                                                         <?php endif; ?>
                                                                     </select>
-                                                                    <input type="submit" value="Continuar" style="padding: 7px 22px; font-weight: bold; font-size: 13px; cursor: pointer; background: linear-gradient(180deg, #5c9e38 0%, #3d6e24 100%); color: #ffffff; border: 1px solid #294c18; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); text-shadow: 0 1px 1px rgba(0,0,0,0.4);">
+
+                                                                    <!-- Dropdown Personalizado Profissional com Ícone Oficial Golden N NosleiraCoin -->
+                                                                    <div class="nosleira-custom-select-wrap" id="nosleira_select_wrap">
+                                                                        <div id="nosleira_select_trigger" class="nosleira-select-trigger" onclick="toggleNosleiraDropdown(event)">
+                                                                            <div id="nosleira_select_display" style="display: flex; align-items: center; gap: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                                                <!-- Conteúdo renderizado pelo JS -->
+                                                                            </div>
+                                                                            <span id="nosleira_select_arrow" style="font-size: 10px; color: #78350f; margin-left: 8px; transition: transform 0.2s ease;">▼</span>
+                                                                        </div>
+                                                                        <div id="nosleira_select_dropdown" class="nosleira-select-dropdown">
+                                                                            <!-- Opções renderizadas pelo JS -->
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <button type="submit" class="btn-donate-continue-action">
+                                                                        <span>Continuar</span>
+                                                                        <span style="font-size: 14px; font-weight: bold;">➔</span>
+                                                                    </button>
                                                                 </form>
 
                                                                 <script type="text/javascript">
+                                                                var nosleiraCoinSvgUrl = '<?php echo BASE_URL; ?>images/nosleira_coin.svg';
+
+                                                                var nosleiraPackages = {
+                                                                    'tibia_coins': [
+                                                                        { value: '52',  lead: '250 TC ➔ 52 NosleiraCoins',   note: 'taxa de 5% inclusa' },
+                                                                        { value: '105', lead: '500 TC ➔ 105 NosleiraCoins',  note: 'taxa de 5% inclusa' },
+                                                                        { value: '209', lead: '1.000 TC ➔ 209 NosleiraCoins', note: 'taxa de 5% inclusa' },
+                                                                        { value: '525', lead: '2.500 TC ➔ 525 NosleiraCoins', note: 'taxa de 5% inclusa' }
+                                                                    ],
+                                                                    'pix': [
+                                                                        { value: '10',   lead: 'R$ 10,00 ➔ 10 NosleiraCoins',   note: '' },
+                                                                        { value: '20',   lead: 'R$ 20,00 ➔ 20 NosleiraCoins',   note: '' },
+                                                                        { value: '30',   lead: 'R$ 30,00 ➔ 30 NosleiraCoins',   note: '' },
+                                                                        { value: '40',   lead: 'R$ 40,00 ➔ 40 NosleiraCoins',   note: '' },
+                                                                        { value: '50',   lead: 'R$ 50,00 ➔ 50 NosleiraCoins',   note: '' },
+                                                                        { value: '100',  lead: 'R$ 100,00 ➔ 100 NosleiraCoins', note: '' },
+                                                                        { value: '200',  lead: 'R$ 200,00 ➔ 200 NosleiraCoins', note: '' },
+                                                                        { value: '400',  lead: 'R$ 400,00 ➔ 400 NosleiraCoins', note: '' },
+                                                                        { value: '800',  lead: 'R$ 800,00 ➔ 800 + 160 Bônus = 960 NosleiraCoins',   note: '🔥 +20%' },
+                                                                        { value: '1000', lead: 'R$ 1.000,00 ➔ 1000 + 200 Bônus = 1.200 NosleiraCoins', note: '🔥 +20%' }
+                                                                    ],
+                                                                    'stripe': [
+                                                                        { value: '10',   lead: 'R$ 10,00 ➔ 10 NosleiraCoins',   note: '' },
+                                                                        { value: '20',   lead: 'R$ 20,00 ➔ 20 NosleiraCoins',   note: '' },
+                                                                        { value: '30',   lead: 'R$ 30,00 ➔ 30 NosleiraCoins',   note: '' },
+                                                                        { value: '40',   lead: 'R$ 40,00 ➔ 40 NosleiraCoins',   note: '' },
+                                                                        { value: '50',   lead: 'R$ 50,00 ➔ 50 NosleiraCoins',   note: '' },
+                                                                        { value: '100',  lead: 'R$ 100,00 ➔ 100 NosleiraCoins', note: '' },
+                                                                        { value: '200',  lead: 'R$ 200,00 ➔ 200 NosleiraCoins', note: '' },
+                                                                        { value: '400',  lead: 'R$ 400,00 ➔ 400 NosleiraCoins', note: '' },
+                                                                        { value: '800',  lead: 'R$ 800,00 ➔ 800 NosleiraCoins', note: '' },
+                                                                        { value: '1000', lead: 'R$ 1.000,00 ➔ 1000 NosleiraCoins', note: '' }
+                                                                    ]
+                                                                };
+
+                                                                function formatNosleiraItemHtml(item) {
+                                                                    var coinIcon = '<img src="' + nosleiraCoinSvgUrl + '" alt="N" style="height: 16px; width: 16px; vertical-align: middle; margin: 0 4px 1px 4px; display: inline-block;">';
+                                                                    var noteBadge = '';
+                                                                    if (item.note) {
+                                                                        if (item.note.indexOf('+20%') !== -1) {
+                                                                            noteBadge = ' <span style="font-size: 11px; font-weight: 800; color: #9a3412; background: #ffedd5; border: 1px solid #ea580c; padding: 1px 6px; border-radius: 4px; margin-left: 6px;">' + item.note + '</span>';
+                                                                        } else {
+                                                                            noteBadge = ' <span style="font-size: 11px; font-weight: 700; color: #047857; background: #ecfdf5; border: 1px solid #10b981; padding: 1px 6px; border-radius: 4px; margin-left: 6px;">(' + item.note + ')</span>';
+                                                                        }
+                                                                    }
+                                                                    return '<span style="white-space: nowrap;">' + item.lead + '</span>' + coinIcon + noteBadge;
+                                                                }
+
+                                                                function toggleNosleiraDropdown(e) {
+                                                                    if (e) e.stopPropagation();
+                                                                    var dropdown = document.getElementById('nosleira_select_dropdown');
+                                                                    var arrow = document.getElementById('nosleira_select_arrow');
+                                                                    var trigger = document.getElementById('nosleira_select_trigger');
+                                                                    if (!dropdown) return;
+                                                                    var isOpen = dropdown.style.display === 'block';
+                                                                    dropdown.style.display = isOpen ? 'none' : 'block';
+                                                                    if (arrow) arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+                                                                    if (trigger) {
+                                                                        if (isOpen) trigger.classList.remove('active');
+                                                                        else trigger.classList.add('active');
+                                                                    }
+                                                                }
+
+                                                                function selectNosleiraPackage(val, method, htmlContent) {
+                                                                    var nativeSelect = document.getElementById('points_package_select');
+                                                                    if (nativeSelect) {
+                                                                        nativeSelect.value = val;
+                                                                    }
+                                                                    var display = document.getElementById('nosleira_select_display');
+                                                                    if (display) {
+                                                                        display.innerHTML = htmlContent;
+                                                                    }
+                                                                    document.querySelectorAll('.nosleira-select-item').forEach(function(el) {
+                                                                        if (el.getAttribute('data-value') === String(val)) {
+                                                                            el.classList.add('selected');
+                                                                        } else {
+                                                                            el.classList.remove('selected');
+                                                                        }
+                                                                    });
+                                                                    var dropdown = document.getElementById('nosleira_select_dropdown');
+                                                                    var arrow = document.getElementById('nosleira_select_arrow');
+                                                                    var trigger = document.getElementById('nosleira_select_trigger');
+                                                                    if (dropdown) dropdown.style.display = 'none';
+                                                                    if (arrow) arrow.style.transform = 'rotate(0deg)';
+                                                                    if (trigger) trigger.classList.remove('active');
+                                                                }
+
+                                                                function renderNosleiraCustomSelect(method, selectedVal) {
+                                                                    var list = nosleiraPackages[method] || nosleiraPackages['stripe'];
+                                                                    var nativeSelect = document.getElementById('points_package_select');
+                                                                    var dropdown = document.getElementById('nosleira_select_dropdown');
+                                                                    var display = document.getElementById('nosleira_select_display');
+
+                                                                    if (!list || !dropdown) return;
+
+                                                                    if (!selectedVal) {
+                                                                        selectedVal = list[0].value;
+                                                                    }
+
+                                                                    if (nativeSelect) {
+                                                                        var optionsHtml = '';
+                                                                        list.forEach(function(item) {
+                                                                            var rawText = item.lead + (item.note ? ' (' + item.note + ')' : '');
+                                                                            optionsHtml += '<option value="' + item.value + '"' + (item.value === selectedVal ? ' selected' : '') + '>' + rawText + '</option>';
+                                                                        });
+                                                                        nativeSelect.innerHTML = optionsHtml;
+                                                                        nativeSelect.value = selectedVal;
+                                                                    }
+
+                                                                    var dropdownHtml = '';
+                                                                    var activeHtml = '';
+                                                                    list.forEach(function(item) {
+                                                                        var itemHtml = formatNosleiraItemHtml(item);
+                                                                        var isSelected = (item.value === selectedVal);
+                                                                        if (isSelected) {
+                                                                            activeHtml = itemHtml;
+                                                                        }
+                                                                        dropdownHtml += '<div class="nosleira-select-item' + (isSelected ? ' selected' : '') + '" data-value="' + item.value + '" onclick="selectNosleiraPackage(\'' + item.value + '\', \'' + method + '\', this.innerHTML)">' + itemHtml + '</div>';
+                                                                    });
+
+                                                                    dropdown.innerHTML = dropdownHtml;
+                                                                    if (display) {
+                                                                        display.innerHTML = activeHtml || formatNosleiraItemHtml(list[0]);
+                                                                    }
+                                                                }
+
+                                                                document.addEventListener('click', function(e) {
+                                                                    var wrap = document.getElementById('nosleira_select_wrap');
+                                                                    var dropdown = document.getElementById('nosleira_select_dropdown');
+                                                                    var arrow = document.getElementById('nosleira_select_arrow');
+                                                                    var trigger = document.getElementById('nosleira_select_trigger');
+                                                                    if (wrap && !wrap.contains(e.target)) {
+                                                                        if (dropdown) dropdown.style.display = 'none';
+                                                                        if (arrow) arrow.style.transform = 'rotate(0deg)';
+                                                                        if (trigger) trigger.classList.remove('active');
+                                                                    }
+                                                                });
+
                                                                 function selectPaymentMethod(method, el) {
                                                                     document.querySelectorAll('.payment-card').forEach(function(card) {
                                                                         card.classList.remove('selected');
@@ -1599,45 +1874,12 @@ function changeLanguage(lang) {
                                                                         input.value = method;
                                                                     }
 
-                                                                    var select = document.getElementById('points_package_select');
                                                                     var banner = document.getElementById('bonus_promo_banner');
-
-                                                                    if (select) {
-                                                                        if (method === 'tibia_coins') {
-                                                                            if (banner) banner.style.display = 'none';
-                                                                            select.innerHTML = 
-                                                                                '<option value="55">250 TC ➔ 55 NosleiraCoins 🪙 (com 5% taxa de conversão)</option>' +
-                                                                                '<option value="110">500 TC ➔ 110 NosleiraCoins 🪙 (com 5% taxa de conversão)</option>' +
-                                                                                '<option value="220">1.000 TC ➔ 220 NosleiraCoins 🪙 (com 5% taxa de conversão)</option>' +
-                                                                                '<option value="550">2.500 TC ➔ 550 NosleiraCoins 🪙 (com 5% taxa de conversão)</option>';
-                                                                        } else if (method === 'pix') {
-                                                                            if (banner) banner.style.display = 'flex';
-                                                                            select.innerHTML = 
-                                                                                '<option value="10">R$ 10,00 - 10 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="20">R$ 20,00 - 20 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="30">R$ 30,00 - 30 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="40">R$ 40,00 - 40 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="50">R$ 50,00 - 50 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="100">R$ 100,00 - 100 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="200">R$ 200,00 - 200 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="400">R$ 400,00 - 400 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="800">R$ 800,00 - 800 + 160 Bônus = 960 NosleiraCoins 🪙 🔥 +20%</option>' +
-                                                                                '<option value="1000">R$ 1.000,00 - 1000 + 200 Bônus = 1.200 NosleiraCoins 🪙 🔥 +20%</option>';
-                                                                        } else {
-                                                                            if (banner) banner.style.display = 'none';
-                                                                            select.innerHTML = 
-                                                                                '<option value="10">R$ 10,00 - 10 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="20">R$ 20,00 - 20 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="30">R$ 30,00 - 30 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="40">R$ 40,00 - 40 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="50">R$ 50,00 - 50 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="100">R$ 100,00 - 100 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="200">R$ 200,00 - 200 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="400">R$ 400,00 - 400 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="800">R$ 800,00 - 800 NosleiraCoins 🪙</option>' +
-                                                                                '<option value="1000">R$ 1.000,00 - 1000 NosleiraCoins 🪙</option>';
-                                                                        }
+                                                                    if (banner) {
+                                                                        banner.style.display = (method === 'pix') ? 'flex' : 'none';
                                                                     }
+
+                                                                    renderNosleiraCustomSelect(method);
 
                                                                     var tabMap = {
                                                                         'stripe': 'tab_stripe',
@@ -1645,9 +1887,22 @@ function changeLanguage(lang) {
                                                                         'tibia_coins': 'tab_tibia_coins'
                                                                     };
                                                                     var targetTab = tabMap[method];
-                                                                    if (targetTab) {
+                                                                    if (targetTab && typeof syncHistoryTabOnly === 'function') {
                                                                         syncHistoryTabOnly(targetTab);
                                                                     }
+                                                                }
+
+                                                                // Inicialização no carregamento
+                                                                if (document.readyState === 'loading') {
+                                                                    document.addEventListener('DOMContentLoaded', function() {
+                                                                        var curMethod = '<?php echo htmlspecialchars($payment_method); ?>';
+                                                                        var curPkg = '<?php echo htmlspecialchars($points_package); ?>';
+                                                                        renderNosleiraCustomSelect(curMethod, curPkg);
+                                                                    });
+                                                                } else {
+                                                                    var curMethod = '<?php echo htmlspecialchars($payment_method); ?>';
+                                                                    var curPkg = '<?php echo htmlspecialchars($points_package); ?>';
+                                                                    renderNosleiraCustomSelect(curMethod, curPkg);
                                                                 }
                                                                 </script>
                                                             </td>
@@ -1720,7 +1975,7 @@ function changeLanguage(lang) {
                                                                  <div class="history-tabs-nav">
                                                                      <button type="button" class="history-tab-btn <?php echo $active_history_tab === 'tab_stripe' ? 'active' : ''; ?>" data-tab="tab_stripe" onclick="openHistoryTab('tab_stripe', this)">💳 Cartão de Crédito</button>
                                                                      <button type="button" class="history-tab-btn <?php echo $active_history_tab === 'tab_pix' ? 'active' : ''; ?>" data-tab="tab_pix" onclick="openHistoryTab('tab_pix', this)">⚡ PIX</button>
-                                                                     <button type="button" class="history-tab-btn <?php echo $active_history_tab === 'tab_tibia_coins' ? 'active' : ''; ?>" data-tab="tab_tibia_coins" onclick="openHistoryTab('tab_tibia_coins', this)">🪙 Tibia Coins</button>
+                                                                     <button type="button" class="history-tab-btn <?php echo $active_history_tab === 'tab_tibia_coins' ? 'active' : ''; ?>" data-tab="tab_tibia_coins" onclick="openHistoryTab('tab_tibia_coins', this)"><img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="N" style="height: 15px; width: 15px; vertical-align: middle; margin-right: 4px;">Tibia Coins</button>
                                                                  </div>
 
                                                                  <!-- ABA CARTÃO DE CRÉDITO -->
@@ -1745,7 +2000,7 @@ function changeLanguage(lang) {
                                                                                  <tr style="border-bottom: 1px solid #e2d2bc; background: rgba(255,255,255,0.7); vertical-align: middle;">
                                                                                      <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #b45309; white-space: nowrap;">#<?php echo $don['id']; ?></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; color: #5a422b; white-space: nowrap; font-size: 11.5px;"><?php echo date('d/m/Y', $don['created_at']); ?><br><span style="font-size: 10.5px; color: #7a6249;"><?php echo date('H:i', $don['created_at']); ?></span></td>
-                                                                                     <td style="padding: 8px 10px; font-weight: 700; color: #2b1704; white-space: nowrap;"><?php echo htmlspecialchars($don['coins']); ?> NosleiraCoins 🪙</td>
+                                                                                     <td style="padding: 8px 10px; font-weight: 700; color: #2b1704; white-space: nowrap;"><?php echo htmlspecialchars($don['coins']); ?> NosleiraCoins <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="N" style="height: 15px; width: 15px; vertical-align: middle; margin-left: 2px;"></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #00875a; white-space: nowrap;"><?php echo htmlspecialchars($don['price']); ?></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; white-space: nowrap;">
                                                                                          <?php if ($don['status'] === 'completed'): ?>
@@ -1788,7 +2043,7 @@ function changeLanguage(lang) {
                                                                                  <tr style="border-bottom: 1px solid #e2d2bc; background: rgba(255,255,255,0.7); vertical-align: middle;">
                                                                                      <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #00875a; white-space: nowrap;">#<?php echo $don['id']; ?></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; color: #5a422b; white-space: nowrap; font-size: 11.5px;"><?php echo date('d/m/Y', $don['created_at']); ?><br><span style="font-size: 10.5px; color: #7a6249;"><?php echo date('H:i', $don['created_at']); ?></span></td>
-                                                                                     <td style="padding: 8px 10px; font-weight: 700; color: #2b1704; white-space: nowrap;"><?php echo htmlspecialchars($don['coins']); ?> NosleiraCoins 🪙</td>
+                                                                                     <td style="padding: 8px 10px; font-weight: 700; color: #2b1704; white-space: nowrap;"><?php echo htmlspecialchars($don['coins']); ?> NosleiraCoins <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="N" style="height: 15px; width: 15px; vertical-align: middle; margin-left: 2px;"></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #00875a; white-space: nowrap;"><?php echo htmlspecialchars($don['price']); ?></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; white-space: nowrap;">
                                                                                          <?php if ($don['status'] === 'completed'): ?>
@@ -1833,7 +2088,7 @@ function changeLanguage(lang) {
                                                                                  <tr style="border-bottom: 1px solid #e2d2bc; background: rgba(255,255,255,0.7); vertical-align: middle;">
                                                                                      <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #b45309; white-space: nowrap;">#<?php echo $don['id']; ?></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; color: #5a422b; white-space: nowrap; font-size: 11.5px;"><?php echo date('d/m/Y', $don['created_at']); ?><br><span style="font-size: 10.5px; color: #7a6249;"><?php echo date('H:i', $don['created_at']); ?></span></td>
-                                                                                     <td style="padding: 8px; font-weight: 700; color: #2b1704; white-space: nowrap;"><?php echo htmlspecialchars($don['coins']); ?> NosleiraCoins 🪙</td>
+                                                                                     <td style="padding: 8px; font-weight: 700; color: #2b1704; white-space: nowrap;"><?php echo htmlspecialchars($don['coins']); ?> NosleiraCoins <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="N" style="height: 15px; width: 15px; vertical-align: middle; margin-left: 2px;"></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #7c3aed; white-space: nowrap;"><?php echo htmlspecialchars($don['price']); ?></td>
                                                                                      <td style="padding: 8px; font-weight: 600; color: #4a1c00; white-space: nowrap;"><?php echo htmlspecialchars($don['tibia_char_name']); ?></td>
                                                                                      <td style="padding: 8px; font-weight: 700; color: #b45309; white-space: nowrap;">roxzorde</td>
@@ -1885,55 +2140,8 @@ function changeLanguage(lang) {
                                                                      };
                                                                      var method = methodMap[tabId];
                                                                      if (method) {
-                                                                         document.querySelectorAll('.payment-card').forEach(function(card) {
-                                                                             card.classList.remove('selected');
-                                                                             if (card.getAttribute('data-method') === method) {
-                                                                                 card.classList.add('selected');
-                                                                             }
-                                                                         });
-                                                                         var input = document.getElementById('payment_method_input');
-                                                                         if (input) {
-                                                                             input.value = method;
-                                                                         }
-
-                                                                         var select = document.getElementById('points_package_select');
-                                                                         var banner = document.getElementById('bonus_promo_banner');
-                                                                         if (select) {
-                                                                             if (method === 'tibia_coins') {
-                                                                                 if (banner) banner.style.display = 'none';
-                                                                                 select.innerHTML = 
-                                                                                     '<option value="55">250 TC ➔ 55 NosleiraCoins 🪙 (com 5% taxa de conversão)</option>' +
-                                                                                     '<option value="110">500 TC ➔ 110 NosleiraCoins 🪙 (com 5% taxa de conversão)</option>' +
-                                                                                     '<option value="220">1.000 TC ➔ 220 NosleiraCoins 🪙 (com 5% taxa de conversão)</option>' +
-                                                                                     '<option value="550">2.500 TC ➔ 550 NosleiraCoins 🪙 (com 5% taxa de conversão)</option>';
-                                                                             } else if (method === 'pix') {
-                                                                                 if (banner) banner.style.display = 'flex';
-                                                                                 select.innerHTML = 
-                                                                                     '<option value="10">R$ 10,00 - 10 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="20">R$ 20,00 - 20 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="30">R$ 30,00 - 30 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="40">R$ 40,00 - 40 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="50">R$ 50,00 - 50 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="100">R$ 100,00 - 100 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="200">R$ 200,00 - 200 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="400">R$ 400,00 - 400 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="800">R$ 800,00 - 800 + 160 Bônus = 960 NosleiraCoins 🪙 🔥 +20%</option>' +
-                                                                                     '<option value="1000">R$ 1.000,00 - 1000 + 200 Bônus = 1.200 NosleiraCoins 🪙 🔥 +20%</option>';
-                                                                             } else {
-                                                                                 if (banner) banner.style.display = 'none';
-                                                                                 select.innerHTML = 
-                                                                                     '<option value="10">R$ 10,00 - 10 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="20">R$ 20,00 - 20 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="30">R$ 30,00 - 30 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="40">R$ 40,00 - 40 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="50">R$ 50,00 - 50 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="100">R$ 100,00 - 100 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="200">R$ 200,00 - 200 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="400">R$ 400,00 - 400 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="800">R$ 800,00 - 800 NosleiraCoins 🪙</option>' +
-                                                                                     '<option value="1000">R$ 1.000,00 - 1000 NosleiraCoins 🪙</option>';
-                                                                             }
-                                                                         }
+                                                                         var card = document.querySelector('.payment-card[data-method="' + method + '"]');
+                                                                         selectPaymentMethod(method, card);
                                                                      }
                                                                  }
                                                                  </script>

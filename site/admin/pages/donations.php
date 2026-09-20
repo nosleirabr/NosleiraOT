@@ -209,7 +209,7 @@ if ($db->hasTable('myaac_item_traces')) {
     </div>
     <div class="col-md-4">
         <div class="box box-warning" style="border-top: 3px solid #f39c12;">
-            <div class="box-header with-border"><h4 class="box-title">🪙 Tibia Coins (Troca Direct)</h4></div>
+            <div class="box-header with-border"><h4 class="box-title"><img src="../images/nosleira_coin.svg" alt="N" style="height: 18px; width: 18px; vertical-align: middle; margin-right: 4px;"> Tibia Coins (Troca Direct)</h4></div>
             <div class="box-body">
                 <p><strong>NosleiraCoins Entregues:</strong> <?php echo number_format($stats_method['tibia_coins']['coins'], 0, ',', '.'); ?> Coins</p>
                 <p><strong>Vendas Concluídas:</strong> <?php echo $stats_method['tibia_coins']['count']; ?> pedidos</p>
@@ -265,7 +265,7 @@ if ($db->hasTable('myaac_item_traces')) {
                         </td>
                         <td>
                             <?php if ($don['payment_method'] === 'tibia_coins'): ?>
-                                <span class="label label-warning">🪙 Tibia Coins</span><br>
+                                <span class="label label-warning"><img src="../images/nosleira_coin.svg" alt="N" style="height: 14px; width: 14px; vertical-align: middle; margin-right: 2px;"> Tibia Coins</span><br>
                                 <small>Char: <?php echo htmlspecialchars($don['tibia_char_name']); ?></small>
                             <?php elseif ($don['payment_method'] === 'pix'): ?>
                                 <span class="label label-success">⚡ PIX</span>
