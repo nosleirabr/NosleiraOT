@@ -1583,6 +1583,20 @@ function changeLanguage(lang) {
                                                                         color: #ea580c !important;
                                                                         font-weight: 800 !important;
                                                                     }
+                                                                    @keyframes badgeBlink {
+                                                                        0%, 100% {
+                                                                            opacity: 1;
+                                                                            transform: scale(1);
+                                                                        }
+                                                                        50% {
+                                                                            opacity: 0.3;
+                                                                            transform: scale(0.96);
+                                                                        }
+                                                                    }
+                                                                    .badge-blink {
+                                                                        display: inline-block;
+                                                                        animation: badgeBlink 1s infinite ease-in-out;
+                                                                    }
                                                                     .btn-donate-continue-action {
                                                                         min-width: 220px;
                                                                         justify-content: center;
@@ -1694,7 +1708,7 @@ function changeLanguage(lang) {
                                                                             <span style="font-size: 12px; color: #047857; margin-left: 4px;">Pagamentos via <b>PIX</b> contam com <b>5% de desconto automático</b> em todos os pacotes!</span>
                                                                         </div>
                                                                     </div>
-                                                                    <span style="font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 12px; letter-spacing: 0.5px; background: #059669; color: #ffffff; border: 1px solid #047857;">5% DE DESCONTO</span>
+                                                                    <span class="badge-blink" style="font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 12px; letter-spacing: 0.5px; background: #059669; color: #ffffff; border: 1px solid #047857; white-space: nowrap;">5% DE DESCONTO</span>
                                                                 </div>
 
                                                                 <form action="?subtopic=donate&action=checkout" method="post" style="display: flex; flex-direction: column; align-items: center; gap: 16px; width: 100%; margin: 8px 0;">
