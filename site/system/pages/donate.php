@@ -1432,9 +1432,11 @@ function changeLanguage(lang) {
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
                                                     <tbody>
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight: 800; font-size: 18px; padding: 12px 18px; font-family: 'Cinzel', serif; color: #2d1000; text-shadow: 0 1px 1px rgba(255,255,255,0.6); display: flex; align-items: center; gap: 12px;">
-                                                                <img src="<?php echo BASE_URL; ?>images/payment/card_pix_hd.png" alt="Método de Pagamento" style="height: 44px; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.25)); object-fit: contain;">
-                                                                <span style="letter-spacing: 0.5px;">Método de Pagamento</span>
+                                                            <td style="font-weight: 800; font-size: 18px; padding: 12px 18px; font-family: 'Cinzel', serif; color: #2d1000; text-shadow: 0 1px 1px rgba(255,255,255,0.6);">
+                                                                <div style="display: flex; align-items: center; gap: 12px;">
+                                                                    <img src="<?php echo BASE_URL; ?>images/payment/card_pix_hd.png" alt="Método de Pagamento" style="height: 44px; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.25)); object-fit: contain;">
+                                                                    <span style="letter-spacing: 0.5px;">Método de Pagamento</span>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
@@ -1457,8 +1459,9 @@ function changeLanguage(lang) {
                                                                         border: 2px solid #141c28;
                                                                         box-shadow: inset 0 0 0 1px #6f86a6;
                                                                         border-radius: 4px;
-                                                                        padding: 8px;
-                                                                        width: 175px;
+                                                                        padding: 8px 6px;
+                                                                        width: 148px;
+                                                                        box-sizing: border-box;
                                                                         text-align: center;
                                                                         cursor: pointer;
                                                                         transition: all 0.2s ease-in-out;
@@ -1588,8 +1591,8 @@ function changeLanguage(lang) {
                                                                 </style>
 
                                                                 <!-- Container escuro estilo Tibia -->
-                                                                <div style="background-color: #2b394a; border: 2px solid #141c28; box-shadow: inset 0 0 0 1px #4e647f; border-radius: 4px; padding: 14px;">
-                                                                    <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+                                                                <div style="background-color: #2b394a; border: 2px solid #141c28; box-shadow: inset 0 0 0 1px #4e647f; border-radius: 4px; padding: 10px 8px;">
+                                                                    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
                                                                         <!-- Card Cartão de Crédito -->
                                                                         <div class="payment-card <?php echo ($payment_method === 'stripe' || $payment_method === 'credit_card' || $action === 'process_card') ? 'selected' : ''; ?>" data-method="stripe" onclick="selectPaymentMethod('stripe', this)">
                                                                             <div class="card-check-icon">✓</div>
@@ -1646,12 +1649,14 @@ function changeLanguage(lang) {
                                                         </tr>
 
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight: bold; font-size: 16px; padding: 12px 16px; font-family: 'Cinzel', serif; color: #3d1c02; text-shadow: 0 1px 0 rgba(255,255,255,0.4); display: flex; align-items: center; gap: 10px;">
-                                                                <div style="background: linear-gradient(180deg, #f59e0b 0%, #b45309 100%); color: #ffffff; padding: 4px 10px; border-radius: 6px; font-size: 12px; border: 1px solid #78350f; box-shadow: 0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4); display: flex; align-items: center; gap: 4px;">
-                                                                     <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 16px; width: 16px; vertical-align: middle;">
-                                                                    <span style="font-weight: 800; letter-spacing: 0.5px;">MOEDA VIRTUAL</span>
+                                                            <td style="font-weight: bold; font-size: 16px; padding: 10px 16px; font-family: 'Cinzel', serif; color: #3d1c02; text-shadow: 0 1px 0 rgba(255,255,255,0.4);">
+                                                                <div style="display: flex; align-items: center; gap: 10px;">
+                                                                    <div style="background: linear-gradient(180deg, #f59e0b 0%, #b45309 100%); color: #ffffff; padding: 4px 10px; border-radius: 6px; font-size: 12px; border: 1px solid #78350f; box-shadow: 0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4); display: flex; align-items: center; gap: 4px;">
+                                                                         <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 16px; width: 16px; vertical-align: middle;">
+                                                                        <span style="font-weight: 800; letter-spacing: 0.5px;">MOEDA VIRTUAL</span>
+                                                                    </div>
+                                                                    <span>Pacote de <b style="color: #b45309; font-size: 17px; text-shadow: 0 1px 1px rgba(255,255,255,0.6);">NosleiraCoins</b></span>
                                                                 </div>
-                                                                <span>Pacote de <b style="color: #b45309; font-size: 17px; text-shadow: 0 1px 1px rgba(255,255,255,0.6);">NosleiraCoins</b></span>
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
@@ -2192,6 +2197,7 @@ function changeLanguage(lang) {
              </tr>
          </tbody>
      </table>
+     </div>
  </div>
 
 <?php else: ?>
