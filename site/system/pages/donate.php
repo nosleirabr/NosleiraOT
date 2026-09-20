@@ -1496,8 +1496,8 @@ function changeLanguage(lang) {
                                                                     .nosleira-custom-select-wrap {
                                                                         position: relative;
                                                                         flex: 1;
-                                                                        min-width: 320px;
-                                                                        max-width: 480px;
+                                                                        min-width: 280px;
+                                                                        max-width: 440px;
                                                                         font-family: 'Inter', Arial, sans-serif;
                                                                     }
                                                                     .nosleira-select-trigger {
@@ -1672,9 +1672,9 @@ function changeLanguage(lang) {
                                                                     <input type="hidden" name="accept_terms" value="1">
                                                                     <input type="hidden" id="payment_method_input" name="payment_method" value="<?php echo htmlspecialchars($payment_method); ?>">
                                                                     
-                                                                    <div style="display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; width: 100%;">
-                                                                        <label style="font-weight: 700; font-size: 13.5px; color: #4a1c00; font-family: 'Cinzel', serif; text-shadow: 0 1px 0 rgba(255,255,255,0.7); display: flex; align-items: center; gap: 5px;">
-                                                                            Selecione o pacote de <span style="color: #ea580c; font-weight: 900; font-size: 15px; letter-spacing: 0.5px; text-shadow: 0 1px 0 rgba(255,255,255,0.9), 0 0 3px rgba(234, 88, 12, 0.35); border-bottom: 2px solid #f97316; padding-bottom: 1px;">NosleiraCoins</span>:
+                                                                    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; width: 100%;">
+                                                                        <label style="font-weight: 700; font-size: 13px; color: #4a1c00; font-family: 'Cinzel', serif; white-space: nowrap;">
+                                                                            Selecione o pacote de <span style="color: #ea580c; font-weight: 800;">NosleiraCoins</span>:
                                                                         </label>
 
                                                                         <!-- Select nativo em segundo plano para envio de formulário padrão -->
@@ -1999,7 +1999,7 @@ function changeLanguage(lang) {
                                                                      <div class="history-table-wrapper">
                                                                          <table width="100%" style="border-collapse: collapse; font-size: 12px; font-family: 'Inter', sans-serif;">
                                                                              <thead>
-                                                                                 <tr style="background: linear-gradient(180deg, #fdf9f3 0%, #e8d7c0 100%); color: #3d1c02; font-weight: 700; border-bottom: 2px solid #b89a72; font-family: 'Cinzel', serif;">
+                                                                                 <tr style="background: linear-gradient(180deg, #5c3d1a 0%, #3a2208 100%); color: #f5e6c8; font-weight: 700; border-bottom: 2px solid #d4a853; font-family: 'Cinzel', serif; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
                                                                                      <th style="padding: 10px 8px; text-align: center; width: 50px; white-space: nowrap;">Ref #</th>
                                                                                      <th style="padding: 10px 8px; text-align: center; width: 110px; white-space: nowrap;">Data</th>
                                                                                      <th style="padding: 10px 10px; text-align: left; width: 160px; white-space: nowrap;">Pacote</th>
@@ -2042,7 +2042,7 @@ function changeLanguage(lang) {
                                                                      <div class="history-table-wrapper">
                                                                          <table width="100%" style="border-collapse: collapse; font-size: 12px; font-family: 'Inter', sans-serif;">
                                                                              <thead>
-                                                                                 <tr style="background: linear-gradient(180deg, #fdf9f3 0%, #e8d7c0 100%); color: #3d1c02; font-weight: 700; border-bottom: 2px solid #b89a72; font-family: 'Cinzel', serif;">
+                                                                                 <tr style="background: linear-gradient(180deg, #5c3d1a 0%, #3a2208 100%); color: #f5e6c8; font-weight: 700; border-bottom: 2px solid #d4a853; font-family: 'Cinzel', serif; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
                                                                                      <th style="padding: 10px 8px; text-align: center; width: 50px; white-space: nowrap;">Ref #</th>
                                                                                      <th style="padding: 10px 8px; text-align: center; width: 110px; white-space: nowrap;">Data</th>
                                                                                      <th style="padding: 10px 10px; text-align: left; width: 160px; white-space: nowrap;">Pacote</th>
@@ -2085,7 +2085,7 @@ function changeLanguage(lang) {
                                                                      <div class="history-table-wrapper">
                                                                          <table width="100%" style="border-collapse: collapse; font-size: 12px; font-family: 'Inter', sans-serif;">
                                                                              <thead>
-                                                                                 <tr style="background: linear-gradient(180deg, #fdf9f3 0%, #e8d7c0 100%); color: #3d1c02; font-weight: 700; border-bottom: 2px solid #b89a72; font-family: 'Cinzel', serif;">
+                                                                                 <tr style="background: linear-gradient(180deg, #5c3d1a 0%, #3a2208 100%); color: #f5e6c8; font-weight: 700; border-bottom: 2px solid #d4a853; font-family: 'Cinzel', serif; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
                                                                                      <th style="padding: 10px 6px; text-align: center; width: 45px; white-space: nowrap;">Ref #</th>
                                                                                      <th style="padding: 10px 6px; text-align: center; width: 100px; white-space: nowrap;">Data</th>
                                                                                      <th style="padding: 10px 8px; text-align: left; width: 140px; white-space: nowrap;">Pacote</th>
@@ -2124,6 +2124,19 @@ function changeLanguage(lang) {
                                                                  </div>
 
                                                                  <script type="text/javascript">
+                                                                 function toggleDonationHistoryBox() {
+                                                                     var content = document.getElementById('donation_history_collapsible_content');
+                                                                     var btn = document.getElementById('history_toggle_btn');
+                                                                     if (!content || !btn) return;
+                                                                     if (content.style.display === 'none' || content.style.display === '') {
+                                                                         content.style.display = 'block';
+                                                                         btn.innerText = '[ − ] Minimizar';
+                                                                     } else {
+                                                                         content.style.display = 'none';
+                                                                         btn.innerText = '[ + ] Expandir';
+                                                                     }
+                                                                 }
+
                                                                  function syncHistoryTabOnly(tabId) {
                                                                      document.querySelectorAll('.history-tab-content').forEach(function(c) {
                                                                          c.classList.remove('active');
