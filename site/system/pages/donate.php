@@ -1139,7 +1139,7 @@ function changeLanguage(lang) {
                                                                     <div style="background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%); border: 1px solid #a7f3d0; border-left: 4px solid #10b981; border-radius: 6px; padding: 22px 26px; margin-bottom: 20px; text-align: center; color: #065f46; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
                                                                         <div style="font-size: 24px; margin-bottom: 6px;">🎉</div>
                                                                         <div style="font-size: 17px; font-weight: 800; color: #047857; margin-bottom: 8px; font-family: 'Cinzel', serif;">Pagamento Aprovado com Sucesso!</div>
-                                                                        <p style="font-size: 14px; margin-bottom: 12px;">Seu pagamento no valor de <b>R$ <?php echo htmlspecialchars($points_package); ?>,00</b> via Cartão de Crédito foi processado.</p>
+                                                                        <p style="font-size: 14px; margin-bottom: 12px;">Seu pagamento no valor de <b style="color: #047857;">R$ <?php echo htmlspecialchars($points_package); ?>,00</b> via Cartão de Crédito foi processado.</p>
                                                                         <p style="font-size: 14px; font-weight: 700; color: #065f46; background: #ffffff; display: inline-block; padding: 8px 18px; border-radius: 20px; border: 1px solid #6ee7b7;">
                                                                             <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 18px; width: 18px; vertical-align: middle; margin-right: 4px;"> Seus <?php echo htmlspecialchars($points_package); ?> NosleiraCoins já foram adicionados à sua conta!
                                                                         </p>
@@ -1575,6 +1575,10 @@ function changeLanguage(lang) {
                                                                         background: #faecd8 !important;
                                                                         font-weight: 700 !important;
                                                                     }
+                                                                    .nosleira-price-val {
+                                                                        color: #047857 !important;
+                                                                        font-weight: 800 !important;
+                                                                    }
                                                                     .btn-donate-continue-action {
                                                                         min-width: 220px;
                                                                         justify-content: center;
@@ -1795,7 +1799,8 @@ function changeLanguage(lang) {
                                                                             noteBadge = ' <span style="font-size: 11px; font-weight: 700; color: #047857; background: #ecfdf5; border: 1px solid #10b981; padding: 1px 6px; border-radius: 4px; margin-left: 6px;">(' + item.note + ')</span>';
                                                                         }
                                                                     }
-                                                                    return '<span style="white-space: nowrap;">' + item.lead + '</span>' + coinIcon + noteBadge;
+                                                                    var formattedLead = item.lead.replace(/(R\$\s*[\d\.,]+)/g, '<span class="nosleira-price-val" style="color: #047857; font-weight: 800;">$1</span>');
+                                                                    return '<span style="white-space: nowrap;">' + formattedLead + '</span>' + coinIcon + noteBadge;
                                                                 }
 
                                                                 function toggleNosleiraDropdown(e) {
