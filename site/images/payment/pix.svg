@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" width="140" height="40">
+  <rect width="160" height="50" fill="#0d1b2a" rx="3"/>
+  <g transform="translate(38, 10)">
+    <!-- PIX diamond icon -->
+    <path d="M12.5 4.5 L20.5 12.5 L12.5 20.5 L4.5 12.5 Z" fill="#32bcad"/>
+    <path d="M4.5 12.5 L12.5 20.5 L20.5 12.5" fill="none" stroke="#0d1b2a" stroke-width="2"/>
+    <!-- text 'pix' -->
+    <text x="28" y="22" font-family="'Inter', Arial, sans-serif" font-size="22" font-weight="800" fill="#ffffff" letter-spacing="-0.5">pix</text>
+  </g>
+</svg>

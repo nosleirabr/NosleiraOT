@@ -61,4 +61,5 @@ return [
 	[['GET', 'POST'], 'account/character/delete', 'account/characters/delete.php'],
 	[['GET', 'POST'], 'account/character/comment[/{name:string}]', 'account/characters/change-comment.php'],
 	['GET', 'account/confirm_email/{hash:alphanum}', 'account/confirm-email.php'],
+	['GET', 'points', '__redirect__/donate'],
 ];

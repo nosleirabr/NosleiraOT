@@ -1802,3 +1802,226 @@ $customFunctions = SYSTEM . 'functions_custom.php';
 if (is_file($customFunctions)) {
 	require $customFunctions;
 }
+
+/**
+ * Funções de Auditoria e Blindagem Antifraude de Doações
+ */
+
+// Intenção: Garantir a presença das colunas e tabela de audit log para doações
+function ensure_donation_audit_tables() {
+	global $db;
+	static $checked = false;
+	if (!$db) {
+		return;
+	}
+	if ($checked) {
+		return;
+	}
+	$checked = true;
+
+	if ($db->hasTable('myaac_donations')) {
+		$cols = array(
+			'installments' => "ALTER TABLE `myaac_donations` ADD `installments` INT NOT NULL DEFAULT 1",
+			'card_brand' => "ALTER TABLE `myaac_donations` ADD `card_brand` VARCHAR(32) DEFAULT NULL",
+			'mp_payment_id' => "ALTER TABLE `myaac_donations` ADD `mp_payment_id` VARCHAR(64) DEFAULT NULL",
+			'payer_ip' => "ALTER TABLE `myaac_donations` ADD `payer_ip` VARCHAR(45) DEFAULT NULL",
+			'payer_email' => "ALTER TABLE `myaac_donations` ADD `payer_email` VARCHAR(255) DEFAULT NULL"
+		);
+		foreach ($cols as $col => $sql) {
+			try {
+				if (!$db->hasColumn('myaac_donations', $col)) {
+					$db->query($sql);
+				}
+			} catch (Exception $e) {
+				// Ignorar se a coluna já existir
+			}
+		}
+	}
+
+	try {
+		if (!$db->hasTable('myaac_donation_logs')) {
+			$db->query("CREATE TABLE IF NOT EXISTS `myaac_donation_logs` (
+				`id` INT(11) NOT NULL AUTO_INCREMENT,
+				`donation_id` INT(11) NOT NULL,
+				`account_id` INT(11) NOT NULL,
+				`event_type` VARCHAR(50) NOT NULL,
+				`details` TEXT DEFAULT NULL,
+				`ip` VARCHAR(45) NOT NULL,
+				`created_at` BIGINT(20) NOT NULL,
+				PRIMARY KEY (`id`),
+				KEY `donation_id` (`donation_id`),
+				KEY `account_id` (`account_id`),
+				KEY `event_type` (`event_type`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+		}
+	} catch (Exception $e) {}
+
+	try {
+		if (!$db->hasTable('myaac_coin_ledger')) {
+			$db->query("CREATE TABLE IF NOT EXISTS `myaac_coin_ledger` (
+				`id` INT(11) NOT NULL AUTO_INCREMENT,
+				`account_id` INT(11) NOT NULL,
+				`donation_id` INT(11) DEFAULT NULL,
+				`amount` INT(11) NOT NULL,
+				`balance_after` INT(11) NOT NULL DEFAULT 0,
+				`type` VARCHAR(50) NOT NULL,
+				`details` TEXT DEFAULT NULL,
+				`created_at` BIGINT(20) NOT NULL,
+				PRIMARY KEY (`id`),
+				KEY `account_id` (`account_id`),
+				KEY `donation_id` (`donation_id`),
+				KEY `type` (`type`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+		}
+	} catch (Exception $e) {}
+
+	try {
+		if (!$db->hasTable('myaac_item_traces')) {
+			$db->query("CREATE TABLE IF NOT EXISTS `myaac_item_traces` (
+				`id` INT(11) NOT NULL AUTO_INCREMENT,
+				`donation_id` INT(11) DEFAULT NULL,
+				`account_id` INT(11) NOT NULL,
+				`player_id` INT(11) DEFAULT NULL,
+				`player_name` VARCHAR(255) DEFAULT NULL,
+				`item_id` INT(11) NOT NULL DEFAULT 0,
+				`item_name` VARCHAR(255) NOT NULL,
+				`count` INT(11) NOT NULL DEFAULT 1,
+				`coins_spent` INT(11) NOT NULL DEFAULT 0,
+				`status` VARCHAR(32) NOT NULL DEFAULT 'ACTIVE',
+				`created_at` BIGINT(20) NOT NULL,
+				PRIMARY KEY (`id`),
+				KEY `donation_id` (`donation_id`),
+				KEY `account_id` (`account_id`),
+				KEY `player_id` (`player_id`),
+				KEY `status` (`status`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+		}
+	} catch (Exception $e) {}
+}
+
+// Intenção: Registrar um evento imutável de auditoria financeira no banco de dados
+function log_donation_event($donation_id, $account_id, $event_type, $details = '', $ip = '') {
+	global $db;
+	ensure_donation_audit_tables();
+	
+	if (!$db || !$db->hasTable('myaac_donation_logs')) {
+		return false;
+	}
+
+	$clean_ip = !empty($ip) ? $ip : (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1');
+	$db->query("INSERT INTO `myaac_donation_logs` (`donation_id`, `account_id`, `event_type`, `details`, `ip`, `created_at`) VALUES (" .
+		(int)$donation_id . ", " .
+		(int)$account_id . ", " .
+		$db->quote($event_type) . ", " .
+		$db->quote($details) . ", " .
+		$db->quote($clean_ip) . ", " .
+		time() .
+	")");
+	return true;
+}
+
+// Intenção: Rastrear movimentação de moedas no livro razão (myaac_coin_ledger)
+function trace_coin_movement($account_id, $amount, $type, $donation_id = null, $details = '') {
+	global $db;
+	ensure_donation_audit_tables();
+	if (!$db || !$db->hasTable('myaac_coin_ledger')) {
+		return false;
+	}
+
+	// Buscar saldo atual da conta
+	$accQuery = $db->query("SELECT `premium_points` FROM `accounts` WHERE `id` = " . (int)$account_id)->fetch();
+	$current_balance = $accQuery ? (int)$accQuery['premium_points'] : 0;
+	$new_balance = max(0, $current_balance + (int)$amount);
+
+	$db->query("INSERT INTO `myaac_coin_ledger` (`account_id`, `donation_id`, `amount`, `balance_after`, `type`, `details`, `created_at`) VALUES (" .
+		(int)$account_id . ", " .
+		($donation_id ? (int)$donation_id : "NULL") . ", " .
+		(int)$amount . ", " .
+		(int)$new_balance . ", " .
+		$db->quote($type) . ", " .
+		$db->quote($details) . ", " .
+		time() .
+	")");
+	return true;
+}
+
+// Intenção: Rastrear aquisição/compra de itens vinculada à doação de origem
+function trace_item_purchase($donation_id, $account_id, $player_id, $player_name, $item_id, $item_name, $count = 1, $coins_spent = 0) {
+	global $db;
+	ensure_donation_audit_tables();
+	if (!$db || !$db->hasTable('myaac_item_traces')) {
+		return false;
+	}
+
+	$db->query("INSERT INTO `myaac_item_traces` (`donation_id`, `account_id`, `player_id`, `player_name`, `item_id`, `item_name`, `count`, `coins_spent`, `status`, `created_at`) VALUES (" .
+		($donation_id ? (int)$donation_id : "NULL") . ", " .
+		(int)$account_id . ", " .
+		($player_id ? (int)$player_id : "NULL") . ", " .
+		$db->quote($player_name) . ", " .
+		(int)$item_id . ", " .
+		$db->quote($item_name) . ", " .
+		(int)$count . ", " .
+		(int)$coins_spent . ", " .
+		"'ACTIVE', " .
+		time() .
+	")");
+	return true;
+}
+
+// Intenção: Processar estorno e punição em cadeia para doações fraudadas
+function revert_fraudulent_donation($donation_id, $reason = 'Estorno / Chargeback de Doação no Cartão de Crédito') {
+	global $db;
+	ensure_donation_audit_tables();
+	if (!$db || (int)$donation_id <= 0) {
+		return false;
+	}
+
+	$donation = $db->query("SELECT * FROM `myaac_donations` WHERE `id` = " . (int)$donation_id)->fetch();
+	if (!$donation) {
+		return false;
+	}
+
+	$account_id = (int)$donation['account_id'];
+	$coins = (int)$donation['coins'];
+
+	// 1. Atualizar status da doação para estornada
+	$db->query("UPDATE `myaac_donations` SET `status` = 'charged_back', `updated_at` = " . time() . " WHERE `id` = " . (int)$donation_id);
+
+	// 2. Deduzir coins da conta se ainda tiver saldo e registrar no livro razão
+	if ($account_id > 0) {
+		$accQuery = $db->query("SELECT `premium_points` FROM `accounts` WHERE `id` = " . $account_id)->fetch();
+		if ($accQuery) {
+			$current_points = (int)$accQuery['premium_points'];
+			$deduct = min($current_points, $coins);
+			if ($deduct > 0) {
+				$db->query("UPDATE `accounts` SET `premium_points` = `premium_points` - " . $deduct . " WHERE `id` = " . $account_id);
+			}
+			trace_coin_movement($account_id, -$deduct, 'CHARGEBACK_DEDUCTION', $donation_id, 'Dedução automática por estorno de doação #' . $donation_id);
+		}
+
+		// 3. Invalidar itens rastreados vinculados à doação
+		if ($db->hasTable('myaac_item_traces')) {
+			$db->query("UPDATE `myaac_item_traces` SET `status` = 'REVERTED_CHARGEBACK' WHERE `donation_id` = " . (int)$donation_id);
+		}
+
+		// 4. Aplicar banimento permanente na tabela account_bans (expires_at = -1)
+		if ($db->hasTable('account_bans')) {
+			$adminPlayer = $db->query("SELECT `id` FROM `players` ORDER BY `id` ASC LIMIT 1")->fetch();
+			$banned_by = ($adminPlayer && isset($adminPlayer['id'])) ? (int)$adminPlayer['id'] : 1;
+			$quoted_reason = $db->quote($reason);
+			$now = time();
+
+			$db->query("INSERT INTO `account_bans` (`account_id`, `reason`, `banned_at`, `expires_at`, `banned_by`) 
+						VALUES ({$account_id}, {$quoted_reason}, {$now}, -1, {$banned_by}) 
+						ON DUPLICATE KEY UPDATE `reason` = {$quoted_reason}, `expires_at` = -1, `banned_at` = {$now}");
+		}
+
+		// 5. Registrar logs de auditoria
+		log_donation_event($donation_id, $account_id, 'PAYMENT_CHARGED_BACK', 'Estorno/Chargeback processado para doação #' . $donation_id);
+		log_donation_event($donation_id, $account_id, 'ACCOUNT_BANNED', 'Conta ID ' . $account_id . ' banida permanentemente e saldo/itens revertidos.');
+	}
+
+	return true;
+}
+
+

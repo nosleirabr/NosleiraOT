@@ -42,20 +42,25 @@ $groups = new OTS_Groups_List();
  * @var OTS_Account $account_logged
  */
 $premDays = $account_logged->getPremDays();
-
-$freePremium = isset($config['lua']['freePremium']) && getBoolean($config['lua']['freePremium']) || $premDays == OTS_Account::GRATIS_PREMIUM_DAYS;
 $dayOrDays = ($premDays == 1 ? 'day' : 'days');
 
 $vipSystemEnabled = isset($config['lua']['vipSystemEnabled']) && getBoolean($config['lua']['vipSystemEnabled']);
 $premiumLabel = $vipSystemEnabled ? 'VIP' : 'Premium Account';
 
-if ($freePremium && !$vipSystemEnabled) {
-	$account_status = '<b><span style="color: green">Gratis Premium Account</span></b>';
-} else if(!$account_logged->isPremium()) {
+if (!$account_logged->isPremium() || $premDays <= 0 || $premDays == OTS_Account::GRATIS_PREMIUM_DAYS) {
 	$account_status = '<b><span style="color: red">Free Account</span></b>';
 } else {
-	$account_status = '<b><span style="color: green">' . $premiumLabel . ', ' . $premDays . ' '.$dayOrDays.' left</span></b>';
+	$account_status = '<b><span style="color: green">' . $premiumLabel . ', ' . $premDays . ' ' . $dayOrDays . ' left</span></b>';
 }
+
+$account_coins = (int)$account_logged->getCustomField('premium_points');
+
+$acc_id = (int)$account_logged->getId();
+$acc_name = (USE_ACCOUNT_NAME ? $account_logged->getName() : (USE_ACCOUNT_NUMBER ? $account_logged->getNumber() : $account_logged->getId()));
+
+$stripe_donations = $db->query("SELECT * FROM `myaac_donations` WHERE (`account_id` = " . $acc_id . " OR `account_name` = " . $db->quote($acc_name) . ") AND `payment_method` = 'stripe' ORDER BY `id` DESC LIMIT 20")->fetchAll();
+$pix_donations = $db->query("SELECT * FROM `myaac_donations` WHERE (`account_id` = " . $acc_id . " OR `account_name` = " . $db->quote($acc_name) . ") AND `payment_method` = 'pix' ORDER BY `id` DESC LIMIT 20")->fetchAll();
+$tc_donations = $db->query("SELECT * FROM `myaac_donations` WHERE (`account_id` = " . $acc_id . " OR `account_name` = " . $db->quote($acc_name) . ") AND `payment_method` = 'tibia_coins' ORDER BY `id` DESC LIMIT 20")->fetchAll();
 
 $recovery_key = $account_logged->getCustomField('key');
 if(empty($recovery_key))
@@ -115,11 +120,15 @@ $twig->display('account.management.html.twig', array(
 	'email_new' => isset($email_new) ? $email_new : '',
 	'account' => (USE_ACCOUNT_NAME ? $account_logged->getName() : (USE_ACCOUNT_NUMBER ? $account_logged->getNumber() : $account_logged->getId())),
 	'account_email' => $account_email,
+	'account_coins' => $account_coins,
 	'account_created' => $account_created,
 	'account_status' => $account_status,
 	'account_registered' => $account_registered,
 	'account_rlname' => $account_rlname,
 	'account_location' => $account_location,
 	'actions' => $actions,
-	'players' => $account_players
+	'players' => $account_players,
+	'stripe_donations' => $stripe_donations,
+	'pix_donations' => $pix_donations,
+	'tc_donations' => $tc_donations
 ));

@@ -152,6 +152,6 @@ pip-log.txt
 # Docker Desktop instalado no disco D (nao eh codigo do projeto)
 Docker/
 server/config.lua
-server/config.lua
+node_modules/
+gitlog.txt
 
-server/config.lua

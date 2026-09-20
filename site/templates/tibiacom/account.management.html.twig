@@ -6,14 +6,26 @@
 		<div class="Message">
 			<div class="BoxFrameVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></div>
 			<div class="BoxFrameVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></div>
-			<table>
+			<table style="width: 100%; border-collapse: collapse;">
 				<tr>
-					<td width="100%"></td>
-					<td>
-						<table border="0" cellspacing="0" cellpadding="0" >
+					<td style="vertical-align: middle; padding-left: 6px;">
+						<div style="display: flex; align-items: center; gap: 10px; font-family: Verdana, sans-serif;">
+							<img src="{{ config.site_url }}/images/nosleira_coin.svg" alt="NosleiraOT" style="height: 30px; width: 30px; vertical-align: middle; flex-shrink: 0; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.25));">
+							<div>
+								<div style="font-size: 12.5px; font-weight: bold; color: #3d1c02;">
+									Bem-vindo, <span style="color: #92400e;">{{ account }}</span>!
+								</div>
+								<div style="font-size: 11px; color: #5a2e0a; margin-top: 1px;">
+									Painel de Gerenciamento da Conta &bull; <span style="color: #047857; font-weight: bold;">Sessão Ativa</span>
+								</div>
+							</div>
+						</div>
+					</td>
+					<td style="text-align: right; vertical-align: middle; white-space: nowrap; width: 120px;">
+						<table border="0" cellspacing="0" cellpadding="0" style="margin-left: auto;">
 							<tr>
 								<td style="border:0;">
-									<form action="{{ getLink('account/logout') }}" method="post" >
+									<form action="{{ getLink('account/logout') }}" method="post" style="margin: 0;">
 										{{ csrf() }}
 										{{ include('buttons.logout.html.twig') }}
 									</form>
@@ -146,19 +158,23 @@
 							<td style="width:90%;" >{{ account_email }}{{ email_change|raw }}</td>
 						</tr>
 						<tr style="background-color: {{ config.lightborder }};" >
+							<td class="LabelV" >NosleiraCoins:</td>
+							<td style="width:90%; font-weight: bold; color: #b45309;"><span style="color: #006600;">{{ account_coins }}</span> NosleiraCoins <img src="{{ config.site_url }}/images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 18px; width: 18px; vertical-align: middle; margin-left: 4px;"></td>
+						</tr>
+						<tr style="background-color: {{ config.darkborder }};" >
 							<td class="LabelV" >Created:</td>
 							<td>{{ account_created|date("j F Y, G:i:s") }}</td>
 						</tr>
-						<tr style="background-color: {{ config.darkborder }};" >
+						<tr style="background-color: {{ config.lightborder }};" >
 							<td class="LabelV" >Last Login:</td>
 							<td>{{ account_logged.getCustomField('web_lastlogin')|date("j F Y, G:i:s") }}</td>
 						</tr>
 						{% autoescape false %}
-						<tr style="background-color: {{ config.lightborder }};">
+						<tr style="background-color: {{ config.darkborder }};">
 							<td class="LabelV" >Account Status:</td>
 							<td>{{ account_status }}</td>
 						</tr>
-						<tr style="background-color: {{ config.darkborder }};" >
+						<tr style="background-color: {{ config.lightborder }};" >
 							<td class="LabelV" >Registered:</td>
 							<td>{{ account_registered }}</td>
 						</tr>
@@ -228,6 +244,308 @@
 </table>
 {% endset %}
 {% include 'tables.headline.html.twig' %}
+<br/>
+
+<style>
+.history-tabs-nav {
+    display: flex;
+    gap: 6px;
+    border-bottom: 2px solid #d8c6af;
+    margin-bottom: 12px;
+}
+.history-tab-btn {
+    padding: 8px 16px;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #4a1c00;
+    background: linear-gradient(180deg, #fdf9f3 0%, #e2d2bc 100%);
+    border: 1px solid #d8c6af;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+.history-tab-btn.active {
+    background: linear-gradient(180deg, #5c9e38 0%, #3d6e24 100%);
+    color: #ffffff;
+    border-color: #294c18;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+}
+.history-tab-content {
+    display: none;
+}
+.history-tab-content.active {
+    display: block;
+}
+.history-table-wrapper {
+    border: 1px solid #d8c6af;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    background: #ffffff;
+}
+.status-badge-pending {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: #fffbeb;
+    color: #92400e;
+    border: 1px solid #f59e0b;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 11px;
+    white-space: nowrap;
+}
+.status-badge-completed {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: #dcfce7;
+    color: #15803d;
+    border: 1px solid #22c55e;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 11px;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(34, 197, 94, 0.25);
+}
+.status-badge-canceled {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #ef4444;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 11px;
+    white-space: nowrap;
+}
+</style>
+
+<!-- SEÇÃO DE HISTÓRICO DE DOAÇÕES DA CONTA (ABAS POR MÉTODO & MINIMIZÁVEL) -->
+<a name="Donation+History"></a>
+<div class="TableContainer">
+    <div class="CaptionContainer">
+        <div class="CaptionInnerContainer" style="position: relative;">
+            <span class="CaptionEdgeLeftTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
+            <div class="Text">HISTÓRICO DE DOAÇÕES</div>
+            <span id="history_toggle_btn" onclick="toggleDonationHistoryBox()" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #ffffff; font-weight: bold; font-size: 11.5px; background: rgba(0,0,0,0.35); padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.4); user-select: none;">[ − ] Minimizar</span>
+            <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
+            <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionEdgeRightBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+        </div>
+    </div>
+    
+    <div id="donation_history_collapsible_content">
+        <table class="Table3" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="InnerTableContainer">
+                            <table style="width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="TableContentAndRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-rm.gif);">
+                                                <div class="TableContentContainer">
+                                                    <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+                                                        <tbody>
+                                                            <tr bgcolor="{{ config.darkborder }}">
+                                                                <td style="font-weight: bold; font-size: 14px; padding: 10px 14px; font-family: 'Cinzel', serif; color: #3d1c02;">
+                                                                    Histórico de Pedidos da Conta
+                                                                </td>
+                                                            </tr>
+                                                            <tr bgcolor="{{ config.lightborder }}">
+                                                                <td style="padding: 16px;">
+                                                                    <div class="history-tabs-nav">
+                                                                        <button type="button" class="history-tab-btn active" data-tab="tab_stripe" onclick="openHistoryTab('tab_stripe', this)">💳 Cartão de Crédito</button>
+                                                                        <button type="button" class="history-tab-btn" data-tab="tab_pix" onclick="openHistoryTab('tab_pix', this)">⚡ PIX</button>
+                                                                        <button type="button" class="history-tab-btn" data-tab="tab_tibia_coins" onclick="openHistoryTab('tab_tibia_coins', this)"><img src="{{ config.site_url }}/images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 18px; width: 18px; vertical-align: middle; margin-right: 2px;"> Tibia Coins</button>
+                                                                    </div>
+
+                                                                    <!-- ABA CARTÃO DE CRÉDITO -->
+                                                                    <div id="tab_stripe" class="history-tab-content active" style="display: block;">
+                                                                        {% if stripe_donations is not empty %}
+                                                                        <div class="history-table-wrapper">
+                                                                            <table width="100%" style="border-collapse: collapse; font-size: 12px; font-family: 'Inter', sans-serif;">
+                                                                                <thead>
+                                                                                    <tr style="background: linear-gradient(180deg, #fdf9f3 0%, #e8d7c0 100%); color: #3d1c02; font-weight: 700; border-bottom: 2px solid #b89a72; font-family: 'Cinzel', serif;">
+                                                                                        <th style="padding: 10px 8px; text-align: center; width: 50px; white-space: nowrap;">Ref #</th>
+                                                                                        <th style="padding: 10px 8px; text-align: center; width: 110px; white-space: nowrap;">Data</th>
+                                                                                        <th style="padding: 10px 10px; text-align: left; width: 160px; white-space: nowrap;">Pacote</th>
+                                                                                        <th style="padding: 10px 8px; text-align: center; width: 100px; white-space: nowrap;">Valor</th>
+                                                                                        <th style="padding: 10px 8px; text-align: center; width: 110px; white-space: nowrap;">Status</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    {% for don in stripe_donations %}
+                                                                                    <tr style="border-bottom: 1px solid #e2d2bc; background: rgba(255,255,255,0.7); vertical-align: middle;">
+                                                                                        <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #b45309; white-space: nowrap;">#{{ don.id }}</td>
+                                                                                        <td style="padding: 8px 6px; text-align: center; color: #5a422b; white-space: nowrap; font-size: 11.5px;">{{ don.created_at|date('d/m/Y') }}<br><span style="font-size: 10.5px; color: #7a6249;">{{ don.created_at|date('H:i') }}</span></td>
+                                                                                        <td style="padding: 8px 10px; font-weight: 700; color: #2b1704; white-space: nowrap;">{{ don.coins }} NosleiraCoins <img src="{{ config.site_url }}/images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 18px; width: 18px; vertical-align: middle; margin-right: 2px;"></td>
+                                                                                        <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #00875a; white-space: nowrap;">{{ don.price }}</td>
+                                                                                        <td style="padding: 8px 6px; text-align: center; white-space: nowrap;">
+                                                                                            {% if don.status == 'completed' %}
+                                                                                                <span class="status-badge-completed">Concluído ✅</span>
+                                                                                            {% elseif don.status == 'canceled' %}
+                                                                                                <span class="status-badge-canceled">Cancelado ❌</span>
+                                                                                            {% else %}
+                                                                                                <span class="status-badge-pending">Pendente ⏳</span>
+                                                                                            {% endif %}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    {% endfor %}
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        {% else %}
+                                                                        <p style="color: #6e543b; font-size: 13px; margin: 10px 0;">Nenhuma doação registrada via Cartão de Crédito nesta conta ainda.</p>
+                                                                        {% endif %}
+                                                                    </div>
+
+                                                                    <!-- ABA PIX -->
+                                                                    <div id="tab_pix" class="history-tab-content" style="display: none;">
+                                                                        {% if pix_donations is not empty %}
+                                                                        <div class="history-table-wrapper">
+                                                                            <table width="100%" style="border-collapse: collapse; font-size: 12px; font-family: 'Inter', sans-serif;">
+                                                                                <thead>
+                                                                                    <tr style="background: linear-gradient(180deg, #fdf9f3 0%, #e8d7c0 100%); color: #3d1c02; font-weight: 700; border-bottom: 2px solid #b89a72; font-family: 'Cinzel', serif;">
+                                                                                        <th style="padding: 10px 8px; text-align: center; width: 50px; white-space: nowrap;">Ref #</th>
+                                                                                        <th style="padding: 10px 8px; text-align: center; width: 110px; white-space: nowrap;">Data</th>
+                                                                                        <th style="padding: 10px 10px; text-align: left; width: 160px; white-space: nowrap;">Pacote</th>
+                                                                                        <th style="padding: 10px 8px; text-align: center; width: 100px; white-space: nowrap;">Valor</th>
+                                                                                        <th style="padding: 10px 8px; text-align: center; width: 110px; white-space: nowrap;">Status</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    {% for don in pix_donations %}
+                                                                                    <tr style="border-bottom: 1px solid #e2d2bc; background: rgba(255,255,255,0.7); vertical-align: middle;">
+                                                                                        <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #00875a; white-space: nowrap;">#{{ don.id }}</td>
+                                                                                        <td style="padding: 8px 6px; text-align: center; color: #5a422b; white-space: nowrap; font-size: 11.5px;">{{ don.created_at|date('d/m/Y') }}<br><span style="font-size: 10.5px; color: #7a6249;">{{ don.created_at|date('H:i') }}</span></td>
+                                                                                        <td style="padding: 8px 10px; font-weight: 700; color: #2b1704; white-space: nowrap;">{{ don.coins }} NosleiraCoins <img src="{{ config.site_url }}/images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 18px; width: 18px; vertical-align: middle; margin-right: 2px;"></td>
+                                                                                        <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #00875a; white-space: nowrap;">{{ don.price }}</td>
+                                                                                        <td style="padding: 8px 6px; text-align: center; white-space: nowrap;">
+                                                                                            {% if don.status == 'completed' %}
+                                                                                                <span class="status-badge-completed">Concluído ✅</span>
+                                                                                            {% elseif don.status == 'canceled' %}
+                                                                                                <span class="status-badge-canceled">Cancelado ❌</span>
+                                                                                            {% else %}
+                                                                                                <span class="status-badge-pending">Pendente ⏳</span>
+                                                                                            {% endif %}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    {% endfor %}
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        {% else %}
+                                                                        <p style="color: #6e543b; font-size: 13px; margin: 10px 0;">Nenhuma doação registrada via PIX nesta conta ainda.</p>
+                                                                        {% endif %}
+                                                                    </div>
+
+                                                                    <!-- ABA TIBIA COINS -->
+                                                                    <div id="tab_tibia_coins" class="history-tab-content" style="display: none;">
+                                                                        {% if tc_donations is not empty %}
+                                                                        <div class="history-table-wrapper">
+                                                                            <table width="100%" style="border-collapse: collapse; font-size: 12px; font-family: 'Inter', sans-serif;">
+                                                                                <thead>
+                                                                                    <tr style="background: linear-gradient(180deg, #fdf9f3 0%, #e8d7c0 100%); color: #3d1c02; font-weight: 700; border-bottom: 2px solid #b89a72; font-family: 'Cinzel', serif;">
+                                                                                        <th style="padding: 10px 6px; text-align: center; width: 45px; white-space: nowrap;">Ref #</th>
+                                                                                        <th style="padding: 10px 6px; text-align: center; width: 100px; white-space: nowrap;">Data</th>
+                                                                                        <th style="padding: 10px 8px; text-align: left; width: 140px; white-space: nowrap;">Pacote</th>
+                                                                                        <th style="padding: 10px 6px; text-align: center; width: 80px; white-space: nowrap;">Valor</th>
+                                                                                        <th style="padding: 10px 8px; text-align: left; width: 110px; white-space: nowrap;">Personagem</th>
+                                                                                        <th style="padding: 10px 8px; text-align: left; width: 90px; white-space: nowrap;">Destino</th>
+                                                                                        <th style="padding: 10px 6px; text-align: center; width: 105px; white-space: nowrap;">Status</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    {% for don in tc_donations %}
+                                                                                    <tr style="border-bottom: 1px solid #e2d2bc; background: rgba(255,255,255,0.7); vertical-align: middle;">
+                                                                                        <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #b45309; white-space: nowrap;">#{{ don.id }}</td>
+                                                                                        <td style="padding: 8px 6px; text-align: center; color: #5a422b; white-space: nowrap; font-size: 11.5px;">{{ don.created_at|date('d/m/Y') }}<br><span style="font-size: 10.5px; color: #7a6249;">{{ don.created_at|date('H:i') }}</span></td>
+                                                                                        <td style="padding: 8px; font-weight: 700; color: #2b1704; white-space: nowrap;">{{ don.coins }} NosleiraCoins <img src="{{ config.site_url }}/images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 18px; width: 18px; vertical-align: middle; margin-right: 2px;"></td>
+                                                                                        <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #7c3aed; white-space: nowrap;">{{ don.price }}</td>
+                                                                                        <td style="padding: 8px; font-weight: 600; color: #4a1c00; white-space: nowrap;">{{ don.tibia_char_name }}</td>
+                                                                                        <td style="padding: 8px; font-weight: 700; color: #b45309; white-space: nowrap;">roxzorde</td>
+                                                                                        <td style="padding: 8px 6px; text-align: center; white-space: nowrap;">
+                                                                                            {% if don.status == 'completed' %}
+                                                                                                <span class="status-badge-completed">Entregue ✅</span>
+                                                                                            {% elseif don.status == 'canceled' %}
+                                                                                                <span class="status-badge-canceled">Cancelado ❌</span>
+                                                                                            {% else %}
+                                                                                                <span class="status-badge-pending">Pendente ⏳</span>
+                                                                                            {% endif %}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    {% endfor %}
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        {% else %}
+                                                                        <p style="color: #6e543b; font-size: 13px; margin: 10px 0;">Nenhuma doação registrada por Tibia Coins nesta conta ainda.</p>
+                                                                        {% endif %}
+                                                                    </div>
+
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+function toggleDonationHistoryBox() {
+    var content = document.getElementById('donation_history_collapsible_content');
+    var btn = document.getElementById('history_toggle_btn');
+    if (content.style.display === 'none') {
+        content.style.display = 'block';
+        btn.innerText = '[ − ] Minimizar';
+    } else {
+        content.style.display = 'none';
+        btn.innerText = '[ + ] Expandir';
+    }
+}
+function openHistoryTab(tabId, btn) {
+    document.querySelectorAll('.history-tab-content').forEach(function(c) {
+        c.classList.remove('active');
+        c.style.display = 'none';
+    });
+    document.querySelectorAll('.history-tab-btn').forEach(function(b) {
+        b.classList.remove('active');
+    });
+    btn.classList.add('active');
+    var target = document.getElementById(tabId);
+    if (target) {
+        target.classList.add('active');
+        target.style.display = 'block';
+    }
+}
+</script>
 <br/>
 {{ hook('HOOK_ACCOUNT_MANAGE_BEFORE_PUBLIC_INFORMATION') }}
 <a name="Public+Information"></a>

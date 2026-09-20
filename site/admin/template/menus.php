@@ -29,6 +29,7 @@ $menus = [
 	['name' => 'Menus', 'icon' => 'list', 'order' => 60, 'link' => 'menus'],
 	['name' => 'Plugins', 'icon' => 'plug', 'order' => 70, 'link' => 'plugins'],
 	['name' => 'Server Data', 'icon' => 'gavel', 'order' => 80, 'link' => 'data'],
+	['name' => 'Doações', 'icon' => 'coins', 'order' => 85, 'link' => 'donations'],
 	['name' => 'Editor', 'icon' => 'edit', 'order' => 90, 'link' =>
 		[
 			['name' => 'Accounts', 'link' => 'accounts', 'icon' => 'users', 'order' => 10],

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" width="140" height="40">
+  <rect width="160" height="50" fill="#0c0e12" rx="3" stroke="#b89742" stroke-width="1"/>
+  <!-- Gold coin icon -->
+  <circle cx="28" cy="25" r="12" fill="url(#goldGrad)" stroke="#785b1a" stroke-width="1.5"/>
+  <circle cx="28" cy="25" r="9" fill="none" stroke="#fef08a" stroke-width="1" opacity="0.6"/>
+  <text x="28" y="29" font-family="Arial, sans-serif" font-size="10" font-weight="900" fill="#422006" text-anchor="middle">TC</text>
+  
+  <text x="95" y="31" font-family="'Cinzel', 'Georgia', serif" font-size="17" font-weight="700" fill="#facc15" text-anchor="middle" letter-spacing="0.5">tibia coins</text>
+
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="50%" stop-color="#eab308"/>
+      <stop offset="100%" stop-color="#a16207"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -47,6 +47,7 @@ switch($page)
 		$page = 'last-kills';
 		break;
 
+	case 'points':
 	case 'buypoints':
 		// Legacy route – redirect to donate page
 		$page = 'donate';

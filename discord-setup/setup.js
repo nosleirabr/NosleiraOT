@@ -1,258 +1,570 @@
 /**
- * Discord Server Setup Bot
- * Monta automaticamente toda a estrutura do servidor:
- * categorias, canais, cargos e permissões.
- *
- * Como usar:
- * 1. npm install discord.js
- * 2. Coloque o token do bot e o ID do servidor abaixo
- * 3. node setup.js
+ * ═══════════════════════════════════════════════════════════════════
+ *   NosleiraOT — Setup Completo do Servidor Discord  v2.0
+ *   Rode APENAS UMA VEZ para montar toda a estrutura
+ * ═══════════════════════════════════════════════════════════════════
+ *   npm install discord.js
+ *   node setup.js
  */
 
-const { Client, GatewayIntentBits, PermissionFlagsBits, ChannelType } = require('discord.js');
+const {
+  Client,
+  Events,
+  GatewayIntentBits,
+  PermissionFlagsBits,
+  ChannelType,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} = require('discord.js');
 
 // ─────────────────────────────────────────────
-//  CONFIGURAÇÃO — preencha aqui
+//  CONFIGURAÇÃO
 // ─────────────────────────────────────────────
-const TOKEN    = 'SEU_TOKEN_AQUI';   // Token do bot
-const GUILD_ID = 'ID_DO_SERVIDOR';   // ID do servidor Discord
+const TOKEN    = 'MTU1MDk0Njg0OTIyMzg2ODQ3Nw.GbKhS5.cStGJn59ObTX8lv-URRPVjSBuoqHg2X0gy64eQ';
+const GUILD_ID = '1550944696761843915';
+
+// URL do site (para integração futura com avisos)
+const SITE_URL  = 'https://nosleira.com.br'; // ajuste conforme necessário
 // ─────────────────────────────────────────────
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-// ─────────────────────────────────────────────
-//  DEFINIÇÃO DOS CARGOS
-// ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════
+//  CARGOS  (ordem: maior → menor na hierarquia)
+// ═══════════════════════════════════════════════════════════════════
 const ROLES = [
-  // Staff interna (mais alto → mais baixo)
-  { name: '👑 Game Master',    color: '#FF0000', hoist: true, permissions: [PermissionFlagsBits.Administrator] },
-  { name: '🛡️ Community Manager', color: '#FF6600', hoist: true, permissions: [PermissionFlagsBits.ManageMessages, PermissionFlagsBits.KickMembers, PermissionFlagsBits.BanMembers, PermissionFlagsBits.MuteMembers] },
-  { name: '⭐ Sênior Tutor',   color: '#FFAA00', hoist: true, permissions: [PermissionFlagsBits.ManageMessages, PermissionFlagsBits.KickMembers, PermissionFlagsBits.MuteMembers] },
-  { name: '🎓 Tutor',          color: '#FFD700', hoist: true, permissions: [PermissionFlagsBits.ManageMessages, PermissionFlagsBits.MuteMembers] },
-
-  // Jogadores
-  { name: '💎 VIP',            color: '#9B59B6', hoist: true, permissions: [] },
-  { name: '🎮 Player',         color: '#3498DB', hoist: true, permissions: [] },
-
-  // Utilidade
-  { name: '🤖 Bots',          color: '#95A5A6', hoist: false, permissions: [] },
+  // ── Staff ──────────────────────────────────────────────────────
+  {
+    name: '💠 Dono',
+    colors: '#FF0000',
+    hoist: true, mentionable: false,
+    permissions: [PermissionFlagsBits.Administrator],
+  },
+  {
+    name: '👑 Administrador',
+    colors: '#C0392B',
+    hoist: true, mentionable: true,
+    permissions: [PermissionFlagsBits.Administrator],
+  },
+  {
+    name: '🔱 Game Master',
+    colors: '#E67E22',
+    hoist: true, mentionable: true,
+    permissions: [
+      PermissionFlagsBits.ViewChannel,      PermissionFlagsBits.SendMessages,
+      PermissionFlagsBits.ReadMessageHistory,PermissionFlagsBits.ManageMessages,
+      PermissionFlagsBits.KickMembers,      PermissionFlagsBits.BanMembers,
+      PermissionFlagsBits.MuteMembers,      PermissionFlagsBits.DeafenMembers,
+      PermissionFlagsBits.MoveMembers,      PermissionFlagsBits.ManageNicknames,
+      PermissionFlagsBits.Connect,          PermissionFlagsBits.Speak,
+      PermissionFlagsBits.EmbedLinks,       PermissionFlagsBits.AttachFiles,
+    ],
+  },
+  {
+    name: '🛡️ Community Manager',
+    colors: '#F39C12',
+    hoist: true, mentionable: true,
+    permissions: [
+      PermissionFlagsBits.ViewChannel,      PermissionFlagsBits.SendMessages,
+      PermissionFlagsBits.ReadMessageHistory,PermissionFlagsBits.ManageMessages,
+      PermissionFlagsBits.KickMembers,      PermissionFlagsBits.MuteMembers,
+      PermissionFlagsBits.MoveMembers,      PermissionFlagsBits.ManageNicknames,
+      PermissionFlagsBits.Connect,          PermissionFlagsBits.Speak,
+      PermissionFlagsBits.EmbedLinks,       PermissionFlagsBits.AttachFiles,
+    ],
+  },
+  {
+    name: '⭐ Sênior Tutor',
+    colors: '#FFD700',
+    hoist: true, mentionable: true,
+    permissions: [
+      PermissionFlagsBits.ViewChannel,      PermissionFlagsBits.SendMessages,
+      PermissionFlagsBits.ReadMessageHistory,PermissionFlagsBits.ManageMessages,
+      PermissionFlagsBits.MuteMembers,      PermissionFlagsBits.MoveMembers,
+      PermissionFlagsBits.Connect,          PermissionFlagsBits.Speak,
+      PermissionFlagsBits.EmbedLinks,       PermissionFlagsBits.AttachFiles,
+    ],
+  },
+  {
+    name: '🎓 Tutor',
+    colors: '#3498DB',
+    hoist: true, mentionable: true,
+    permissions: [
+      PermissionFlagsBits.ViewChannel,      PermissionFlagsBits.SendMessages,
+      PermissionFlagsBits.ReadMessageHistory,PermissionFlagsBits.ManageMessages,
+      PermissionFlagsBits.Connect,          PermissionFlagsBits.Speak,
+      PermissionFlagsBits.EmbedLinks,       PermissionFlagsBits.AttachFiles,
+    ],
+  },
+  // ── Jogadores ──────────────────────────────────────────────────
+  {
+    name: '💎 VIP',
+    colors: '#9B59B6',
+    hoist: true, mentionable: true,
+    permissions: [
+      PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages,
+      PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.Connect,
+      PermissionFlagsBits.Speak, PermissionFlagsBits.AddReactions,
+    ],
+  },
+  {
+    name: '🎮 Player',
+    colors: '#2ECC71',
+    hoist: true, mentionable: false,
+    permissions: [
+      PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages,
+      PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.Connect,
+      PermissionFlagsBits.Speak, PermissionFlagsBits.AddReactions,
+    ],
+  },
+  // ── Vocações (tags, sem hoist) ─────────────────────────────────
+  { name: '⚔️ Knight | EK',    colors: '#E74C3C', hoist: false, mentionable: false, permissions: [] },
+  { name: '🏹 Paladin | RP',   colors: '#27AE60', hoist: false, mentionable: false, permissions: [] },
+  { name: '🔮 Sorcerer | MS',  colors: '#8E44AD', hoist: false, mentionable: false, permissions: [] },
+  { name: '🌿 Druid | ED',     colors: '#16A085', hoist: false, mentionable: false, permissions: [] },
+  // ── Idade (tags, sem hoist) ────────────────────────────────────
+  { name: '✅ 18+',            colors: '#2ECC71', hoist: false, mentionable: false, permissions: [] },
+  { name: '🔞 -18',            colors: '#E74C3C', hoist: false, mentionable: false, permissions: [] },
+  // ── Sistema ────────────────────────────────────────────────────
+  { name: '🆕 Novato',         colors: '#95A5A6', hoist: false, mentionable: false, permissions: [] },
+  { name: '🤖 Bots',           colors: '#7F8C8D', hoist: false, mentionable: false, permissions: [] },
 ];
 
-// ─────────────────────────────────────────────
-//  ESTRUTURA DE CATEGORIAS E CANAIS
-//  allow/deny aplicados por cargo (key = nome do cargo)
-// ─────────────────────────────────────────────
-const STRUCTURE = [
+// ═══════════════════════════════════════════════════════════════════
+//  ESTRUTURA  (função que recebe roleMap + everyoneId já resolvidos)
+// ═══════════════════════════════════════════════════════════════════
+const buildStructure = (rm, ev) => {
+  // Helpers de permissão
+  const staffAllow = (perms) => [
+    rm['🎓 Tutor'], rm['⭐ Sênior Tutor'],
+    rm['🛡️ Community Manager'], rm['🔱 Game Master'],
+    rm['👑 Administrador'], rm['💠 Dono'],
+  ].map((r) => ({ id: r.id, allow: perms }));
 
-  // ── INFORMAÇÕES ──────────────────────────────
-  {
-    name: '📌 INFORMAÇÕES',
-    channels: [
-      { name: '📜┃regras',           type: ChannelType.GuildText },
-      { name: '📢┃avisos',           type: ChannelType.GuildText },
-      { name: '🌐┃links-oficiais',   type: ChannelType.GuildText },
-      { name: '🗓️┃eventos',          type: ChannelType.GuildText },
-    ],
-    // Apenas leitura para todos; staff pode escrever
-    permissions: {
-      everyone:  { deny: [PermissionFlagsBits.SendMessages] },
-      '🎮 Player': { deny: [PermissionFlagsBits.SendMessages] },
-      '🎓 Tutor':  { allow: [PermissionFlagsBits.SendMessages] },
+  return [
+
+    // ── 1. VERIFICAÇÃO ─────────────────────────────────────────────
+    {
+      name: '🔐 VERIFICAÇÃO',
+      permissionOverwrites: [
+        { id: ev, deny: [PermissionFlagsBits.ViewChannel] },
+        { id: rm['🆕 Novato'].id, allow: [PermissionFlagsBits.ViewChannel] },
+        ...staffAllow([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]),
+      ],
+      channels: [
+        {
+          name: '📋┃como-verificar',
+          type: ChannelType.GuildText,
+          topic: 'Instruções de verificação.',
+          key: 'comoVerificar',
+        },
+        {
+          name: '🔐┃verificacao',
+          type: ChannelType.GuildText,
+          topic: 'Responda as perguntas para liberar o acesso ao servidor.',
+          key: 'verificacao',
+        },
+      ],
     },
-  },
 
-  // ── REDES SOCIAIS ────────────────────────────
-  {
-    name: '🌐 REDES SOCIAIS',
-    channels: [
-      { name: '📸┃instagram',    type: ChannelType.GuildText, topic: 'Siga nosso Instagram e acompanhe as novidades!' },
-      { name: '📘┃facebook',     type: ChannelType.GuildText, topic: 'Curta nossa página no Facebook!' },
-      { name: '💬┃whatsapp',     type: ChannelType.GuildText, topic: 'Entre no nosso grupo do WhatsApp!' },
-      { name: '✈️┃telegram',     type: ChannelType.GuildText, topic: 'Acesse nosso canal no Telegram!' },
-      { name: '▶️┃youtube',      type: ChannelType.GuildText, topic: 'Inscreva-se no nosso canal do YouTube!' },
-      { name: '🎵┃tiktok',       type: ChannelType.GuildText, topic: 'Nos siga no TikTok!' },
-    ],
-    // Somente leitura para todos; staff pode postar links
-    permissions: {
-      everyone:  { deny: [PermissionFlagsBits.SendMessages] },
-      '🎓 Tutor': { allow: [PermissionFlagsBits.SendMessages] },
+    // ── 2. INFORMAÇÕES ─────────────────────────────────────────────
+    {
+      name: '📌 INFORMAÇÕES',
+      permissionOverwrites: [
+        { id: ev, deny: [PermissionFlagsBits.SendMessages] },
+        ...staffAllow([PermissionFlagsBits.SendMessages]),
+      ],
+      channels: [
+        { name: '📜┃regras',          type: ChannelType.GuildText, topic: 'Regras do NosleiraOT.', key: 'regras' },
+        { name: '📢┃avisos',          type: ChannelType.GuildText, topic: `Avisos oficiais — integração futura com ${SITE_URL}`, key: 'avisos' },
+        { name: '🌐┃links-oficiais',  type: ChannelType.GuildText, topic: 'Links do servidor.' },
+        { name: '🗓️┃eventos',         type: ChannelType.GuildText, topic: 'Eventos e promoções.' },
+        { name: '📊┃status-servidor', type: ChannelType.GuildText, topic: 'Status online/offline.' },
+      ],
     },
-  },
 
-  // ── COMUNIDADE ───────────────────────────────
-  {
-    name: '💬 COMUNIDADE',
-    channels: [
-      { name: '💬┃chat-geral',      type: ChannelType.GuildText },
-      { name: '📸┃imagens-e-videos', type: ChannelType.GuildText },
-      { name: '🤖┃comandos-bot',    type: ChannelType.GuildText },
-      { name: '🎉┃giveaways',       type: ChannelType.GuildText },
-    ],
-  },
-
-  // ── SUPORTE ──────────────────────────────────
-  {
-    name: '🛠️ SUPORTE',
-    channels: [
-      { name: '🎫┃abrir-ticket',    type: ChannelType.GuildText },
-      { name: '🐛┃reportar-bugs',   type: ChannelType.GuildText },
-      { name: '❓┃duvidas',         type: ChannelType.GuildText },
-    ],
-  },
-
-  // ── ÁREA VIP ─────────────────────────────────
-  {
-    name: '💎 ÁREA VIP',
-    channels: [
-      { name: '💎┃chat-vip',        type: ChannelType.GuildText },
-      { name: '🎁┃beneficios-vip',  type: ChannelType.GuildText },
-    ],
-    // Visível só para VIP e staff
-    permissions: {
-      everyone:    { deny: [PermissionFlagsBits.ViewChannel] },
-      '💎 VIP':    { allow: [PermissionFlagsBits.ViewChannel] },
-      '🎓 Tutor':  { allow: [PermissionFlagsBits.ViewChannel] },
+    // ── 3. REDES SOCIAIS ───────────────────────────────────────────
+    {
+      name: '🌐 REDES SOCIAIS',
+      permissionOverwrites: [
+        { id: ev, deny: [PermissionFlagsBits.SendMessages] },
+        { id: rm['👑 Administrador'].id, allow: [PermissionFlagsBits.SendMessages] },
+        { id: rm['💠 Dono'].id,          allow: [PermissionFlagsBits.SendMessages] },
+      ],
+      channels: [
+        { name: '📸┃instagram', type: ChannelType.GuildText, topic: 'Siga nosso Instagram!' },
+        { name: '📘┃facebook',  type: ChannelType.GuildText, topic: 'Curta nossa página no Facebook!' },
+        { name: '💬┃whatsapp',  type: ChannelType.GuildText, topic: 'Entre no grupo do WhatsApp!' },
+        { name: '✈️┃telegram',  type: ChannelType.GuildText, topic: 'Acesse nosso canal no Telegram!' },
+        { name: '▶️┃youtube',   type: ChannelType.GuildText, topic: 'Inscreva-se no YouTube!' },
+        { name: '🎵┃tiktok',    type: ChannelType.GuildText, topic: 'Nos siga no TikTok!' },
+      ],
     },
-  },
 
-  // ── STAFF ────────────────────────────────────
-  {
-    name: '🔒 STAFF',
-    channels: [
-      { name: '📋┃staff-chat',       type: ChannelType.GuildText },
-      { name: '📝┃anotacoes',        type: ChannelType.GuildText },
-      { name: '⚠️┃punicoes',         type: ChannelType.GuildText },
-      { name: '📊┃relatorios',       type: ChannelType.GuildText },
-      { name: '🔊┃voz-staff',        type: ChannelType.GuildVoice },
-    ],
-    // Visível APENAS para staff (Tutor para cima)
-    permissions: {
-      everyone:         { deny: [PermissionFlagsBits.ViewChannel] },
-      '🎮 Player':      { deny: [PermissionFlagsBits.ViewChannel] },
-      '💎 VIP':         { deny: [PermissionFlagsBits.ViewChannel] },
-      '🎓 Tutor':       { allow: [PermissionFlagsBits.ViewChannel] },
+    // ── 4. COMUNIDADE ──────────────────────────────────────────────
+    {
+      name: '💬 COMUNIDADE',
+      permissionOverwrites: [],
+      channels: [
+        { name: '💬┃chat-geral',       type: ChannelType.GuildText, topic: 'Chat geral da comunidade.' },
+        { name: '📸┃imagens-e-videos', type: ChannelType.GuildText, topic: 'Compartilhe capturas do jogo!' },
+        { name: '🤖┃comandos-bot',     type: ChannelType.GuildText, topic: 'Use os comandos do bot aqui.' },
+        { name: '🎉┃giveaways',        type: ChannelType.GuildText, topic: 'Sorteios e eventos especiais.' },
+        { name: '🏆┃rankings',         type: ChannelType.GuildText, topic: 'Rankings do servidor.' },
+      ],
     },
-  },
 
-  // ── CANAIS DE VOZ ────────────────────────────
-  {
-    name: '🔊 CANAIS DE VOZ',
-    channels: [
-      { name: '🔊 Bate-Papo 1',   type: ChannelType.GuildVoice },
-      { name: '🔊 Bate-Papo 2',   type: ChannelType.GuildVoice },
-      { name: '🎮 Jogando',        type: ChannelType.GuildVoice },
-      { name: '🤫 AFK',            type: ChannelType.GuildVoice },
-    ],
-  },
-];
+    // ── 5. SUPORTE / TICKETS ───────────────────────────────────────
+    {
+      name: '🛠️ SUPORTE',
+      permissionOverwrites: [
+        { id: ev, deny: [PermissionFlagsBits.SendMessages] },
+        ...staffAllow([PermissionFlagsBits.SendMessages]),
+      ],
+      channels: [
+        { name: '🎫┃abrir-ticket', type: ChannelType.GuildText, topic: 'Abra um ticket de suporte.', key: 'ticketPanel' },
+        { name: '📋┃log-tickets',  type: ChannelType.GuildText, topic: 'Log de tickets fechados.', staffOnly: true },
+      ],
+    },
+
+    // ── 6. ÁREA VIP ────────────────────────────────────────────────
+    {
+      name: '💎 ÁREA VIP',
+      permissionOverwrites: [
+        { id: ev, deny: [PermissionFlagsBits.ViewChannel] },
+        { id: rm['💎 VIP'].id, allow: [PermissionFlagsBits.ViewChannel] },
+        ...staffAllow([PermissionFlagsBits.ViewChannel]),
+      ],
+      channels: [
+        { name: '💎┃chat-vip',       type: ChannelType.GuildText, topic: 'Chat exclusivo para VIPs.' },
+        { name: '🎁┃beneficios-vip', type: ChannelType.GuildText, topic: 'Benefícios exclusivos VIP.' },
+      ],
+    },
+
+    // ── 7. STAFF ───────────────────────────────────────────────────
+    {
+      name: '🔒 STAFF',
+      permissionOverwrites: [
+        { id: ev, deny: [PermissionFlagsBits.ViewChannel] },
+        { id: rm['🎮 Player'].id, deny: [PermissionFlagsBits.ViewChannel] },
+        { id: rm['💎 VIP'].id,    deny: [PermissionFlagsBits.ViewChannel] },
+        { id: rm['🆕 Novato'].id, deny: [PermissionFlagsBits.ViewChannel] },
+        ...staffAllow([PermissionFlagsBits.ViewChannel]),
+      ],
+      channels: [
+        { name: '📋┃staff-chat',   type: ChannelType.GuildText, topic: 'Chat interno da staff.' },
+        { name: '📝┃anotacoes',    type: ChannelType.GuildText, topic: 'Anotações importantes.' },
+        { name: '⚠️┃punicoes',     type: ChannelType.GuildText, topic: 'Registro de punições.' },
+        { name: '📊┃relatorios',   type: ChannelType.GuildText, topic: 'Relatórios e métricas.' },
+        { name: '📣┃staff-avisos', type: ChannelType.GuildText, topic: 'Avisos internos da staff.' },
+      ],
+    },
+
+    // ── 8. BOSSES (só Dono + GM veem) ─────────────────────────────
+    {
+      name: '⚔️ BOSSES',
+      permissionOverwrites: [
+        { id: ev, deny: [PermissionFlagsBits.ViewChannel] },
+        { id: rm['🆕 Novato'].id,           deny: [PermissionFlagsBits.ViewChannel] },
+        { id: rm['🎮 Player'].id,            deny: [PermissionFlagsBits.ViewChannel] },
+        { id: rm['💎 VIP'].id,               deny: [PermissionFlagsBits.ViewChannel] },
+        { id: rm['🎓 Tutor'].id,             deny: [PermissionFlagsBits.ViewChannel] },
+        { id: rm['⭐ Sênior Tutor'].id,       deny: [PermissionFlagsBits.ViewChannel] },
+        { id: rm['🛡️ Community Manager'].id, deny: [PermissionFlagsBits.ViewChannel] },
+        { id: rm['🔱 Game Master'].id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages] },
+        { id: rm['👑 Administrador'].id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages] },
+        { id: rm['💠 Dono'].id,         allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages] },
+      ],
+      channels: [
+        { name: '📊┃boss-spawns',    type: ChannelType.GuildText, topic: 'Registro de quando os bosses nascem.', key: 'bossSpawns' },
+        { name: '💀┃boss-drops',     type: ChannelType.GuildText, topic: 'Itens dropados pelos bosses.' },
+        { name: '📜┃boss-historico', type: ChannelType.GuildText, topic: 'Histórico completo dos bosses.' },
+      ],
+    },
+
+    // ── 9. CANAIS DE VOZ ───────────────────────────────────────────
+    {
+      name: '🔊 CANAIS DE VOZ',
+      permissionOverwrites: [],
+      channels: [
+        { name: '🔊 Geral 1', type: ChannelType.GuildVoice },
+        { name: '🔊 Geral 2', type: ChannelType.GuildVoice },
+        { name: '🎮 Jogando',  type: ChannelType.GuildVoice },
+        { name: '🤫 AFK',      type: ChannelType.GuildVoice },
+        {
+          name: '🔊 Staff Voice',
+          type: ChannelType.GuildVoice,
+          extraOverwrites: [
+            { id: ev, deny: [PermissionFlagsBits.ViewChannel] },
+            ...(['🎓 Tutor', '⭐ Sênior Tutor', '🛡️ Community Manager',
+                 '🔱 Game Master', '👑 Administrador', '💠 Dono'
+            ].map((n) => ({ id: rm[n].id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.Connect] }))),
+          ],
+        },
+      ],
+    },
+  ];
+};
 
 // ─────────────────────────────────────────────
-//  FUNÇÕES AUXILIARES
+//  UTILITÁRIOS
 // ─────────────────────────────────────────────
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-/** Aguarda N milissegundos (evita rate-limit da API) */
-const sleep = (ms) => new Promise(res => setTimeout(res, ms));
-
-/** Cria todos os cargos e devolve um mapa nome→role */
+// ─────────────────────────────────────────────
+//  CRIAR CARGOS
+// ─────────────────────────────────────────────
 async function criarCargos(guild) {
   const mapa = {};
   console.log('\n🎭 Criando cargos...');
+  await guild.roles.fetch();
 
   for (const def of ROLES) {
-    // Evita duplicar se já existir
-    const existe = guild.roles.cache.find(r => r.name === def.name);
-    if (existe) {
-      mapa[def.name] = existe;
-      console.log(`  ⏭️  Cargo já existe: ${def.name}`);
-      continue;
+    let role = guild.roles.cache.find((r) => r.name === def.name);
+    if (role) {
+      mapa[def.name] = role;
+      console.log(`  ⏭️  Já existe: ${def.name}`);
+    } else {
+      role = await guild.roles.create({
+        name:        def.name,
+        colors:      def.colors,
+        hoist:       def.hoist,
+        mentionable: def.mentionable,
+        permissions: def.permissions,
+        reason:      'NosleiraOT Setup v2',
+      });
+      mapa[def.name] = role;
+      console.log(`  ✅ Criado: ${def.name}`);
+      await sleep(400);
     }
-
-    const role = await guild.roles.create({
-      name:        def.name,
-      color:       def.color,
-      hoist:       def.hoist,
-      permissions: def.permissions,
-      reason:      'Setup automático',
-    });
-    mapa[def.name] = role;
-    console.log(`  ✅ Cargo criado: ${def.name}`);
-    await sleep(300);
   }
   return mapa;
 }
 
-/** Resolve overwrites de permissão para uma categoria/canal */
-function resolverPermissoes(guild, permsDef, roleMap) {
-  if (!permsDef) return [];
-
-  return Object.entries(permsDef).map(([key, val]) => {
-    const id = key === 'everyone'
-      ? guild.roles.everyone.id
-      : roleMap[key]?.id;
-
-    if (!id) return null;
-    return { id, allow: val.allow || [], deny: val.deny || [] };
-  }).filter(Boolean);
-}
-
-/** Cria a estrutura de categorias + canais */
+// ─────────────────────────────────────────────
+//  CRIAR ESTRUTURA
+// ─────────────────────────────────────────────
 async function criarEstrutura(guild, roleMap) {
   console.log('\n📂 Criando categorias e canais...');
+  const ev        = guild.roles.everyone.id;
+  const structure = buildStructure(roleMap, ev);
+  const especiais = {};
 
-  for (const cat of STRUCTURE) {
-    const permOverwrites = resolverPermissoes(guild, cat.permissions, roleMap);
-
-    // Cria categoria
+  for (const cat of structure) {
     const categoria = await guild.channels.create({
       name:                 cat.name,
       type:                 ChannelType.GuildCategory,
-      permissionOverwrites: permOverwrites,
-      reason:               'Setup automático',
+      permissionOverwrites: cat.permissionOverwrites || [],
+      reason:               'NosleiraOT Setup v2',
     });
-    console.log(`\n  📁 Categoria: ${cat.name}`);
+    console.log(`\n  📁 ${cat.name}`);
     await sleep(400);
 
-    // Cria canais dentro da categoria
     for (const ch of cat.channels) {
-      await guild.channels.create({
-        name:   ch.name,
-        type:   ch.type,
-        topic:  ch.topic || undefined,
-        parent: categoria.id,
-        // Herda permissões da categoria (sync)
-        reason: 'Setup automático',
+      const overwrites = ch.extraOverwrites || cat.permissionOverwrites || [];
+      const canal = await guild.channels.create({
+        name:                 ch.name,
+        type:                 ch.type,
+        topic:                ch.topic || undefined,
+        parent:               categoria.id,
+        permissionOverwrites: overwrites,
+        reason:               'NosleiraOT Setup v2',
       });
-      console.log(`    ✅ Canal: ${ch.name}`);
-      await sleep(300);
+      if (ch.key) especiais[ch.key] = canal;
+      console.log(`    ✅ ${ch.name}`);
+      await sleep(350);
     }
   }
+  return especiais;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+//  EMBEDS — cada canal recebe seu conteúdo inicial
+// ═══════════════════════════════════════════════════════════════════
+
+async function enviarComoVerificar(canal) {
+  const embed = new EmbedBuilder()
+    .setColor('#3498DB')
+    .setTitle('🔐  Como Verificar sua Conta')
+    .setDescription(
+      '**Bem-vindo ao NosleiraOT!**\n\n' +
+      'Para ter acesso completo ao servidor, você precisa passar pela verificação rápida.\n\n' +
+      '**Vá até o canal <#' + canal.id + '> e responda 2 perguntinhas:**\n' +
+      '> 1️⃣  Você tem 18 anos ou mais?\n' +
+      '> 2️⃣  Qual vocação você joga no Tibia?\n\n' +
+      '*Após responder, você receberá o cargo de Player e terá acesso total!*'
+    )
+    .setFooter({ text: 'NosleiraOT • Verificação Automática' });
+  await canal.send({ embeds: [embed] });
+}
+
+async function enviarPainelVerificacao(canal) {
+  const embed = new EmbedBuilder()
+    .setColor('#3498DB')
+    .setTitle('🔐  Verificação de Entrada')
+    .setDescription(
+      '**Olá, aventureiro!** Bem-vindo ao **NosleiraOT**! 🎮\n\n' +
+      'Antes de acessar o servidor, precisamos de algumas informações rápidas.\n\n' +
+      '**Clique no botão abaixo para iniciar:**'
+    )
+    .setFooter({ text: 'NosleiraOT • Verificação Automática' })
+    .setTimestamp();
+
+  const row = new ActionRowBuilder().addComponents(
+    new ButtonBuilder()
+      .setCustomId('start_verification')
+      .setLabel('▶️  Iniciar Verificação')
+      .setStyle(ButtonStyle.Primary),
+  );
+  await canal.send({ embeds: [embed], components: [row] });
+  console.log('  🔐 Painel de verificação enviado!');
+}
+
+async function enviarRegras(canal) {
+  const embed = new EmbedBuilder()
+    .setColor('#E74C3C')
+    .setTitle('📜  Regras do NosleiraOT')
+    .setDescription('**Leia com atenção. O desrespeito às regras acarreta punição imediata.**\n\u200B')
+    .addFields(
+      {
+        name: '1️⃣  Respeito mútuo',
+        value: 'Trate todos com respeito. Ofensas, xingamentos, bullying e discriminação de qualquer tipo resultarão em **banimento permanente**.',
+        inline: false,
+      },
+      {
+        name: '2️⃣  Spam e flood',
+        value: 'Proibido enviar mensagens repetidas, letras aleatórias ou emojis em excesso. Use os canais para seus propósitos.',
+        inline: false,
+      },
+      {
+        name: '3️⃣  Propaganda',
+        value: 'É estritamente proibido divulgar outros servidores de Tibia, Discord ou qualquer produto sem autorização da **staff**.',
+        inline: false,
+      },
+      {
+        name: '4️⃣  Conteúdo impróprio',
+        value: 'Conteúdo adulto, ilegal, violento ou ofensivo será removido e o responsável **banido imediatamente**.',
+        inline: false,
+      },
+      {
+        name: '5️⃣  Obediência à Staff',
+        value: 'Siga as orientações da equipe. Reclamações e recursos devem ser feitos via **ticket** — nunca em chat público.',
+        inline: false,
+      },
+      {
+        name: '6️⃣  Trapaça e exploits',
+        value: 'Uso de bots, hacks, exploits ou qualquer vantagem indevida no jogo resulta em **banimento permanente** sem aviso.',
+        inline: false,
+      },
+      {
+        name: '7️⃣  Impersonação',
+        value: 'Proibido se passar por membros da staff ou personagens do jogo para enganar outros jogadores.',
+        inline: false,
+      },
+      {
+        name: '8️⃣  Links e arquivos',
+        value: 'Não envie links suspeitos, executáveis ou qualquer arquivo que possa ser malicioso.',
+        inline: false,
+      },
+    )
+    .setFooter({ text: 'Ao permanecer no servidor, você concorda com todas as regras acima. • NosleiraOT' })
+    .setTimestamp();
+
+  await canal.send({ embeds: [embed] });
+  console.log('  📜 Regras enviadas!');
+}
+
+async function enviarAvisos(canal) {
+  const embed = new EmbedBuilder()
+    .setColor('#F39C12')
+    .setTitle('📢  Central de Avisos — NosleiraOT')
+    .setDescription(
+      '**Este canal é reservado para avisos oficiais do servidor.**\n\n' +
+      '> 🌐  Acompanhe também os avisos em: **[nosleira.com.br](' + SITE_URL + ')**\n\n' +
+      '⚙️  *Integração automática com o site em breve — os avisos do site serão publicados aqui automaticamente.*'
+    )
+    .setFooter({ text: 'NosleiraOT • Canal Oficial de Avisos' })
+    .setTimestamp();
+  await canal.send({ embeds: [embed] });
+  console.log('  📢 Embed de avisos enviado!');
+}
+
+async function enviarPainelTicket(canal) {
+  const embed = new EmbedBuilder()
+    .setColor('#E67E22')
+    .setTitle('🎫  Suporte NosleiraOT')
+    .setDescription(
+      '**Precisa de ajuda? Abra um ticket!**\n\n' +
+      '> 🔹 Dúvidas sobre o jogo\n' +
+      '> 🔹 Reportar bugs ou problemas\n' +
+      '> 🔹 Suporte de conta\n' +
+      '> 🔹 Denúncias\n' +
+      '> 🔹 Outros assuntos\n\n' +
+      '**Clique no botão abaixo para abrir um ticket.**\n' +
+      '*Tempo médio de resposta: até 24 horas.*'
+    )
+    .setFooter({ text: 'NosleiraOT • Suporte Oficial' })
+    .setTimestamp();
+
+  const row = new ActionRowBuilder().addComponents(
+    new ButtonBuilder()
+      .setCustomId('create_ticket')
+      .setLabel('🎫  Abrir Ticket')
+      .setStyle(ButtonStyle.Primary),
+  );
+  await canal.send({ embeds: [embed], components: [row] });
+  console.log('  🎫 Painel de ticket enviado!');
+}
+
+async function enviarBossSpawns(canal) {
+  const embed = new EmbedBuilder()
+    .setColor('#8E44AD')
+    .setTitle('⚔️  Monitor de Bosses — NosleiraOT')
+    .setDescription(
+      '**Registro automático de bosses.**\n\n' +
+      '> Use o comando `!boss spawn <nome>` para registrar um spawn.\n' +
+      '> Use `!boss drop <nome> <item> <jogador>` para registrar um drop.\n\n' +
+      '🔗 *Integração direta com o servidor de jogo em desenvolvimento.*'
+    )
+    .setFooter({ text: 'NosleiraOT • Sistema de Bosses' })
+    .setTimestamp();
+  await canal.send({ embeds: [embed] });
+  console.log('  ⚔️ Embed de bosses enviado!');
 }
 
 // ─────────────────────────────────────────────
 //  EVENTO PRINCIPAL
 // ─────────────────────────────────────────────
-client.once('ready', async () => {
-  console.log(`\n🤖 Bot conectado como ${client.user.tag}`);
-  console.log('⚙️  Iniciando setup do servidor...\n');
+client.once(Events.ClientReady, async () => {
+  console.log(`\n🤖 Bot: ${client.user.tag}`);
+  console.log('⚙️  Iniciando setup NosleiraOT v2...\n');
 
   const guild = client.guilds.cache.get(GUILD_ID);
-  if (!guild) {
-    console.error('❌ Servidor não encontrado! Verifique o GUILD_ID.');
-    process.exit(1);
-  }
+  if (!guild) { console.error('❌ Servidor não encontrado!'); process.exit(1); }
 
-  // Garante que o cache de cargos está completo
   await guild.roles.fetch();
   await guild.channels.fetch();
 
   try {
-    const roleMap = await criarCargos(guild);
-    await criarEstrutura(guild, roleMap);
+    const roleMap  = await criarCargos(guild);
+    const especiais = await criarEstrutura(guild, roleMap);
 
-    console.log('\n🎉 Setup concluído com sucesso!');
-    console.log('   Todos os cargos, categorias e canais foram criados.');
+    console.log('\n📨 Enviando conteúdo inicial...');
+    if (especiais.comoVerificar) await enviarComoVerificar(especiais.comoVerificar);
+    if (especiais.verificacao)   await enviarPainelVerificacao(especiais.verificacao);
+    if (especiais.regras)        await enviarRegras(especiais.regras);
+    if (especiais.avisos)        await enviarAvisos(especiais.avisos);
+    if (especiais.ticketPanel)   await enviarPainelTicket(especiais.ticketPanel);
+    if (especiais.bossSpawns)    await enviarBossSpawns(especiais.bossSpawns);
+
+    console.log('\n════════════════════════════════════════════════');
+    console.log('🎉  Setup v2 concluído com sucesso!');
+    console.log('▶️   Próximo passo: node bot.js');
+    console.log('════════════════════════════════════════════════\n');
   } catch (err) {
-    console.error('\n❌ Erro durante o setup:', err);
+    console.error('\n❌ Erro:', err);
   }
 
   client.destroy();

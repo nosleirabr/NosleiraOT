@@ -109,19 +109,23 @@
 				</td>
 			</tr>
 			<tr style="background-color: {{ config.lightborder }};" >
+				<td>NosleiraCoins:</td>
+				<td style="width:90%; font-weight: bold; color: #b45309;"><span style="color: #006600;">{{ account_coins }}</span> NosleiraCoins <img src="{{ config.site_url }}/images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 18px; width: 18px; vertical-align: middle; margin-left: 4px;"></td>
+			</tr>
+			<tr style="background-color: {{ config.darkborder }};" >
 				<td>Created:</td>
 				<td>{{ account_created|date("j F Y, G:i:s") }}</td>
 			</tr>
-			<tr style="background-color: {{ config.darkborder }};" >
+			<tr style="background-color: {{ config.lightborder }};" >
 				<td>Last Login:</td>
 				<td>{{ account_logged.getCustomField('web_lastlogin')|date("j F Y, G:i:s") }}</td>
 			</tr>
 			{% autoescape false %}
-			<tr style="background-color: {{ config.lightborder }};" >
+			<tr style="background-color: {{ config.darkborder }};" >
 				<td>Account Status:</td>
 				<td>{{ account_status }}</td>
 			</tr>
-			<tr style="background-color: {{ config.darkborder }};" >
+			<tr style="background-color: {{ config.lightborder }};" >
 				<td>Registered:</td>
 				<td>{{ account_registered }}</td>
 			</tr>
