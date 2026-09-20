@@ -1475,8 +1475,9 @@ function changeLanguage(lang) {
                                                                         border: 2px solid #141c28;
                                                                         box-shadow: inset 0 0 0 1px #6f86a6;
                                                                         border-radius: 4px;
-                                                                        padding: 8px 6px;
-                                                                        width: 148px;
+                                                                        padding: 10px 8px;
+                                                                        flex: 1 1 170px;
+                                                                        max-width: 215px;
                                                                         box-sizing: border-box;
                                                                         text-align: center;
                                                                         cursor: pointer;
@@ -1494,18 +1495,18 @@ function changeLanguage(lang) {
                                                                     .card-check-icon {
                                                                         display: none;
                                                                         position: absolute;
-                                                                        top: -8px;
-                                                                        right: -8px;
-                                                                        width: 22px;
-                                                                        height: 22px;
+                                                                        top: -9px;
+                                                                        right: -9px;
+                                                                        width: 24px;
+                                                                        height: 24px;
                                                                         background: #22c55e;
                                                                         color: #ffffff;
                                                                         border: 2px solid #ffffff;
                                                                         border-radius: 50%;
                                                                         text-align: center;
-                                                                        line-height: 18px;
+                                                                        line-height: 20px;
                                                                         font-weight: 800;
-                                                                        font-size: 13px;
+                                                                        font-size: 14px;
                                                                         box-shadow: 0 2px 5px rgba(0,0,0,0.4);
                                                                         z-index: 20;
                                                                     }
@@ -1633,50 +1634,50 @@ function changeLanguage(lang) {
                                                                 </style>
 
                                                                 <!-- Container escuro estilo Tibia -->
-                                                                <div style="background-color: #2b394a; border: 2px solid #141c28; box-shadow: inset 0 0 0 1px #4e647f; border-radius: 4px; padding: 10px 8px;">
-                                                                    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                                                                <div style="background-color: #2b394a; border: 2px solid #141c28; box-shadow: inset 0 0 0 1px #4e647f; border-radius: 4px; padding: 14px 10px;">
+                                                                    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
                                                                         <!-- Card Cartão de Crédito -->
                                                                         <div class="payment-card <?php echo ($payment_method === 'stripe' || $payment_method === 'credit_card' || $action === 'process_card') ? 'selected' : ''; ?>" data-method="stripe" onclick="selectPaymentMethod('stripe', this)">
                                                                             <div class="card-check-icon">✓</div>
-                                                                            <div style="height: 58px; display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #141c28; border-radius: 3px; overflow: hidden; margin-bottom: 6px; padding: 4px;">
+                                                                            <div style="height: 72px; display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #141c28; border-radius: 3px; overflow: hidden; margin-bottom: 6px; padding: 6px;">
                                                                                 <img src="<?php echo BASE_URL; ?>images/payment/stripe_cards_hd.png" alt="Cartões de Crédito" style="max-width: 98%; max-height: 94%; object-fit: contain;">
                                                                             </div>
-                                                                            <div style="background: #212c3b; border: 1px solid #121824; border-radius: 3px; padding: 5px 2px; margin-bottom: 5px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);">
-                                                                                <span style="color: #ffffff; font-weight: 700; font-size: 13px; font-family: Arial, sans-serif;">Cartão de Crédito</span>
+                                                                            <div style="background: #212c3b; border: 1px solid #121824; border-radius: 3px; padding: 6px 2px; margin-bottom: 6px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);">
+                                                                                <span style="color: #ffffff; font-weight: 700; font-size: 13.5px; font-family: Arial, sans-serif;">Cartão de Crédito</span>
                                                                             </div>
-                                                                            <div style="background: #212c3b; border: 1px solid #121824; border-radius: 3px; padding: 6px 2px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);">
+                                                                            <div style="background: #212c3b; border: 1px solid #121824; border-radius: 3px; padding: 7px 2px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);">
                                                                                 <span style="color: #a0b3c6; font-size: 11px; font-family: Arial, sans-serif; display: block;">Usual Process Time:</span>
-                                                                                <span style="color: #ffffff; font-weight: 600; font-size: 12px; font-family: Arial, sans-serif; display: block; margin-top: 2px;">Instant</span>
+                                                                                <span style="color: #ffffff; font-weight: 600; font-size: 12.5px; font-family: Arial, sans-serif; display: block; margin-top: 2px;">Instant</span>
                                                                             </div>
                                                                         </div>
 
                                                                         <!-- Card PIX -->
                                                                         <div class="payment-card <?php echo ($payment_method === 'pix') ? 'selected' : ''; ?>" data-method="pix" onclick="selectPaymentMethod('pix', this)">
                                                                             <div class="card-check-icon">✓</div>
-                                                                            <div style="height: 58px; display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #141c28; border-radius: 3px; overflow: hidden; margin-bottom: 6px; padding: 4px;">
-                                                                                <img src="<?php echo BASE_URL; ?>images/payment/pix_official.png" alt="PIX Oficial" style="max-width: 95%; max-height: 90%; object-fit: contain;">
+                                                                            <div style="height: 72px; display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #141c28; border-radius: 3px; overflow: hidden; margin-bottom: 6px; padding: 6px;">
+                                                                                <img src="<?php echo BASE_URL; ?>images/payment/pix_official.png" alt="PIX Oficial" style="max-width: 95%; max-height: 92%; object-fit: contain;">
                                                                             </div>
-                                                                            <div style="background: #212c3b; border: 1px solid #121824; border-radius: 3px; padding: 5px 2px; margin-bottom: 5px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);">
-                                                                                <span style="color: #ffffff; font-weight: 700; font-size: 13px; font-family: Arial, sans-serif;">PIX</span>
+                                                                            <div style="background: #212c3b; border: 1px solid #121824; border-radius: 3px; padding: 6px 2px; margin-bottom: 6px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);">
+                                                                                <span style="color: #ffffff; font-weight: 700; font-size: 13.5px; font-family: Arial, sans-serif;">PIX</span>
                                                                             </div>
-                                                                            <div style="background: #212c3b; border: 1px solid #121824; border-radius: 3px; padding: 6px 2px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);">
+                                                                            <div style="background: #212c3b; border: 1px solid #121824; border-radius: 3px; padding: 7px 2px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);">
                                                                                 <span style="color: #a0b3c6; font-size: 11px; font-family: Arial, sans-serif; display: block;">Usual Process Time:</span>
-                                                                                <span style="color: #ffffff; font-weight: 600; font-size: 12px; font-family: Arial, sans-serif; display: block; margin-top: 2px;">Instant</span>
+                                                                                <span style="color: #ffffff; font-weight: 600; font-size: 12.5px; font-family: Arial, sans-serif; display: block; margin-top: 2px;">Instant</span>
                                                                             </div>
                                                                         </div>
 
                                                                         <!-- Card Tibia Coins -->
                                                                         <div class="payment-card <?php echo ($payment_method === 'tibia_coins') ? 'selected' : ''; ?>" data-method="tibia_coins" onclick="selectPaymentMethod('tibia_coins', this)">
                                                                             <div class="card-check-icon">✓</div>
-                                                                            <div style="height: 58px; display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #141c28; border-radius: 3px; overflow: hidden; margin-bottom: 6px; padding: 4px;">
-                                                                                <img src="<?php echo BASE_URL; ?>images/payment/tibia_coins_hd.png" alt="Tibia Coins" style="max-width: 95%; max-height: 90%; object-fit: contain;">
+                                                                            <div style="height: 72px; display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #141c28; border-radius: 3px; overflow: hidden; margin-bottom: 6px; padding: 6px;">
+                                                                                <img src="<?php echo BASE_URL; ?>images/payment/tibia_coins_hd.png" alt="Tibia Coins" style="max-width: 95%; max-height: 92%; object-fit: contain;">
                                                                             </div>
-                                                                            <div style="background: #212c3b; border: 1px solid #121824; border-radius: 3px; padding: 5px 2px; margin-bottom: 5px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);">
-                                                                                <span style="color: #ffffff; font-weight: 700; font-size: 13px; font-family: Arial, sans-serif;">Tibia Coins</span>
+                                                                            <div style="background: #212c3b; border: 1px solid #121824; border-radius: 3px; padding: 6px 2px; margin-bottom: 6px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);">
+                                                                                <span style="color: #ffffff; font-weight: 700; font-size: 13.5px; font-family: Arial, sans-serif;">Tibia Coins</span>
                                                                             </div>
-                                                                            <div style="background: #212c3b; border: 1px solid #121824; border-radius: 3px; padding: 6px 2px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);">
+                                                                            <div style="background: #212c3b; border: 1px solid #121824; border-radius: 3px; padding: 7px 2px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);">
                                                                                 <span style="color: #a0b3c6; font-size: 11px; font-family: Arial, sans-serif; display: block;">Usual Process Time:</span>
-                                                                                <span style="color: #ffffff; font-weight: 600; font-size: 12px; font-family: Arial, sans-serif; display: block; margin-top: 2px;">1 dia a 24 horas</span>
+                                                                                <span style="color: #ffffff; font-weight: 600; font-size: 12.5px; font-family: Arial, sans-serif; display: block; margin-top: 2px;">1 dia a 24 horas</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
