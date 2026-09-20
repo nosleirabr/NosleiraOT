@@ -1557,16 +1557,19 @@ function changeLanguage(lang) {
                                                                         font-weight: 700 !important;
                                                                     }
                                                                     .btn-donate-continue-action {
-                                                                        padding: 8px 26px;
+                                                                        min-width: 220px;
+                                                                        justify-content: center;
+                                                                        padding: 9px 32px;
                                                                         font-weight: 800;
-                                                                        font-size: 13.5px;
+                                                                        font-size: 14px;
+                                                                        letter-spacing: 0.5px;
                                                                         font-family: 'Cinzel', serif;
                                                                         cursor: pointer;
                                                                         background: linear-gradient(180deg, #22c55e 0%, #15803d 100%);
                                                                         color: #ffffff;
                                                                         border: 1px solid #14532d;
                                                                         border-radius: 4px;
-                                                                        box-shadow: 0 2px 5px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.3);
+                                                                        box-shadow: 0 3px 6px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.35);
                                                                         text-shadow: 0 1px 2px rgba(0,0,0,0.6);
                                                                         display: inline-flex;
                                                                         align-items: center;
@@ -1574,9 +1577,9 @@ function changeLanguage(lang) {
                                                                         transition: all 0.2s ease;
                                                                     }
                                                                     .btn-donate-continue-action:hover {
-                                                                        filter: brightness(1.1);
+                                                                        filter: brightness(1.12);
                                                                         transform: translateY(-1px);
-                                                                        box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
+                                                                        box-shadow: 0 5px 12px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.5) !important;
                                                                     }
                                                                     .btn-donate-continue-action:active {
                                                                         filter: brightness(0.95);
@@ -1586,7 +1589,6 @@ function changeLanguage(lang) {
 
                                                                 <!-- Container escuro estilo Tibia -->
                                                                 <div style="background-color: #2b394a; border: 2px solid #141c28; box-shadow: inset 0 0 0 1px #4e647f; border-radius: 4px; padding: 14px;">
-                                                                    <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
                                                                     <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
                                                                         <!-- Card Cartão de Crédito -->
                                                                         <div class="payment-card <?php echo ($payment_method === 'stripe' || $payment_method === 'credit_card' || $action === 'process_card') ? 'selected' : ''; ?>" data-method="stripe" onclick="selectPaymentMethod('stripe', this)">
@@ -1666,60 +1668,68 @@ function changeLanguage(lang) {
                                                                     <span class="bonus-badge-blink" style="font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 12px; letter-spacing: 0.5px; border: 1px solid #b45309;">+20% BÔNUS PIX</span>
                                                                 </div>
 
-                                                                <form action="?subtopic=donate&action=checkout" method="post" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                                                                <form action="?subtopic=donate&action=checkout" method="post" style="display: flex; flex-direction: column; align-items: center; gap: 16px; width: 100%; margin: 8px 0;">
                                                                     <input type="hidden" name="accept_terms" value="1">
                                                                     <input type="hidden" id="payment_method_input" name="payment_method" value="<?php echo htmlspecialchars($payment_method); ?>">
-                                                                    <label style="font-weight: 700; font-size: 13px; color: #4a1c00; font-family: 'Cinzel', serif;">Selecione o pacote de <span style="color: #d97706; font-weight: 800;">NosleiraCoins</span>:</label>
+                                                                    
+                                                                    <div style="display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; width: 100%;">
+                                                                        <label style="font-weight: 700; font-size: 13.5px; color: #4a1c00; font-family: 'Cinzel', serif; text-shadow: 0 1px 0 rgba(255,255,255,0.7); display: flex; align-items: center; gap: 5px;">
+                                                                            Selecione o pacote de <span style="color: #ea580c; font-weight: 900; font-size: 15px; letter-spacing: 0.5px; text-shadow: 0 1px 0 rgba(255,255,255,0.9), 0 0 3px rgba(234, 88, 12, 0.35); border-bottom: 2px solid #f97316; padding-bottom: 1px;">NosleiraCoins</span>:
+                                                                        </label>
 
-                                                                    <!-- Select nativo em segundo plano para envio de formulário padrão -->
-                                                                    <select id="points_package_select" name="points_package" style="display: none;">
-                                                                        <?php if ($payment_method === 'tibia_coins'): ?>
-                                                                            <option value="52" <?php echo ($points_package == '52') ? 'selected' : ''; ?>>250 TC ➔ 52 NosleiraCoins (5% taxa inclusa)</option>
-                                                                            <option value="105" <?php echo ($points_package == '105') ? 'selected' : ''; ?>>500 TC ➔ 105 NosleiraCoins (5% taxa inclusa)</option>
-                                                                            <option value="209" <?php echo ($points_package == '209') ? 'selected' : ''; ?>>1.000 TC ➔ 209 NosleiraCoins (5% taxa inclusa)</option>
-                                                                            <option value="525" <?php echo ($points_package == '525') ? 'selected' : ''; ?>>2.500 TC ➔ 525 NosleiraCoins (5% taxa inclusa)</option>
-                                                                        <?php elseif ($payment_method === 'pix'): ?>
-                                                                            <option value="10">R$ 10,00 - 10 NosleiraCoins</option>
-                                                                            <option value="20">R$ 20,00 - 20 NosleiraCoins</option>
-                                                                            <option value="30">R$ 30,00 - 30 NosleiraCoins</option>
-                                                                            <option value="40">R$ 40,00 - 40 NosleiraCoins</option>
-                                                                            <option value="50">R$ 50,00 - 50 NosleiraCoins</option>
-                                                                            <option value="100">R$ 100,00 - 100 NosleiraCoins</option>
-                                                                            <option value="200">R$ 200,00 - 200 NosleiraCoins</option>
-                                                                            <option value="400">R$ 400,00 - 400 NosleiraCoins</option>
-                                                                            <option value="800">R$ 800,00 - 800 + 160 Bônus = 960 NosleiraCoins 🔥 +20%</option>
-                                                                            <option value="1000">R$ 1.000,00 - 1000 + 200 Bônus = 1.200 NosleiraCoins 🔥 +20%</option>
-                                                                        <?php else: ?>
-                                                                            <option value="10">R$ 10,00 - 10 NosleiraCoins</option>
-                                                                            <option value="20">R$ 20,00 - 20 NosleiraCoins</option>
-                                                                            <option value="30">R$ 30,00 - 30 NosleiraCoins</option>
-                                                                            <option value="40">R$ 40,00 - 40 NosleiraCoins</option>
-                                                                            <option value="50">R$ 50,00 - 50 NosleiraCoins</option>
-                                                                            <option value="100">R$ 100,00 - 100 NosleiraCoins</option>
-                                                                            <option value="200">R$ 200,00 - 200 NosleiraCoins</option>
-                                                                            <option value="400">R$ 400,00 - 400 NosleiraCoins</option>
-                                                                            <option value="800">R$ 800,00 - 800 NosleiraCoins</option>
-                                                                            <option value="1000">R$ 1.000,00 - 1000 NosleiraCoins</option>
-                                                                        <?php endif; ?>
-                                                                    </select>
+                                                                        <!-- Select nativo em segundo plano para envio de formulário padrão -->
+                                                                        <select id="points_package_select" name="points_package" style="display: none;">
+                                                                            <?php if ($payment_method === 'tibia_coins'): ?>
+                                                                                <option value="52" <?php echo ($points_package == '52') ? 'selected' : ''; ?>>250 TC ➔ 52 NosleiraCoins (5% taxa inclusa)</option>
+                                                                                <option value="105" <?php echo ($points_package == '105') ? 'selected' : ''; ?>>500 TC ➔ 105 NosleiraCoins (5% taxa inclusa)</option>
+                                                                                <option value="209" <?php echo ($points_package == '209') ? 'selected' : ''; ?>>1.000 TC ➔ 209 NosleiraCoins (5% taxa inclusa)</option>
+                                                                                <option value="525" <?php echo ($points_package == '525') ? 'selected' : ''; ?>>2.500 TC ➔ 525 NosleiraCoins (5% taxa inclusa)</option>
+                                                                            <?php elseif ($payment_method === 'pix'): ?>
+                                                                                <option value="10">R$ 10,00 - 10 NosleiraCoins</option>
+                                                                                <option value="20">R$ 20,00 - 20 NosleiraCoins</option>
+                                                                                <option value="30">R$ 30,00 - 30 NosleiraCoins</option>
+                                                                                <option value="40">R$ 40,00 - 40 NosleiraCoins</option>
+                                                                                <option value="50">R$ 50,00 - 50 NosleiraCoins</option>
+                                                                                <option value="100">R$ 100,00 - 100 NosleiraCoins</option>
+                                                                                <option value="200">R$ 200,00 - 200 NosleiraCoins</option>
+                                                                                <option value="400">R$ 400,00 - 400 NosleiraCoins</option>
+                                                                                <option value="800">R$ 800,00 - 800 + 160 Bônus = 960 NosleiraCoins 🔥 +20%</option>
+                                                                                <option value="1000">R$ 1.000,00 - 1000 + 200 Bônus = 1.200 NosleiraCoins 🔥 +20%</option>
+                                                                            <?php else: ?>
+                                                                                <option value="10">R$ 10,00 - 10 NosleiraCoins</option>
+                                                                                <option value="20">R$ 20,00 - 20 NosleiraCoins</option>
+                                                                                <option value="30">R$ 30,00 - 30 NosleiraCoins</option>
+                                                                                <option value="40">R$ 40,00 - 40 NosleiraCoins</option>
+                                                                                <option value="50">R$ 50,00 - 50 NosleiraCoins</option>
+                                                                                <option value="100">R$ 100,00 - 100 NosleiraCoins</option>
+                                                                                <option value="200">R$ 200,00 - 200 NosleiraCoins</option>
+                                                                                <option value="400">R$ 400,00 - 400 NosleiraCoins</option>
+                                                                                <option value="800">R$ 800,00 - 800 NosleiraCoins</option>
+                                                                                <option value="1000">R$ 1.000,00 - 1000 NosleiraCoins</option>
+                                                                            <?php endif; ?>
+                                                                        </select>
 
-                                                                    <!-- Dropdown Personalizado Profissional com Ícone Oficial Golden N NosleiraCoin -->
-                                                                    <div class="nosleira-custom-select-wrap" id="nosleira_select_wrap">
-                                                                        <div id="nosleira_select_trigger" class="nosleira-select-trigger" onclick="toggleNosleiraDropdown(event)">
-                                                                            <div id="nosleira_select_display" style="display: flex; align-items: center; gap: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                                                                <!-- Conteúdo renderizado pelo JS -->
+                                                                        <!-- Dropdown Personalizado Profissional com Ícone Oficial Golden N NosleiraCoin -->
+                                                                        <div class="nosleira-custom-select-wrap" id="nosleira_select_wrap">
+                                                                            <div id="nosleira_select_trigger" class="nosleira-select-trigger" onclick="toggleNosleiraDropdown(event)">
+                                                                                <div id="nosleira_select_display" style="display: flex; align-items: center; gap: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                                                    <!-- Conteúdo renderizado pelo JS -->
+                                                                                </div>
+                                                                                <span id="nosleira_select_arrow" style="font-size: 10px; color: #78350f; margin-left: 8px; transition: transform 0.2s ease;">▼</span>
                                                                             </div>
-                                                                            <span id="nosleira_select_arrow" style="font-size: 10px; color: #78350f; margin-left: 8px; transition: transform 0.2s ease;">▼</span>
-                                                                        </div>
-                                                                        <div id="nosleira_select_dropdown" class="nosleira-select-dropdown">
-                                                                            <!-- Opções renderizadas pelo JS -->
+                                                                            <div id="nosleira_select_dropdown" class="nosleira-select-dropdown">
+                                                                                <!-- Opções renderizadas pelo JS -->
+                                                                            </div>
                                                                         </div>
                                                                     </div>
 
-                                                                    <button type="submit" class="btn-donate-continue-action">
-                                                                        <span>Continuar</span>
-                                                                        <span style="font-size: 14px; font-weight: bold;">➔</span>
-                                                                    </button>
+                                                                    <!-- Botão Continuar Centralizado -->
+                                                                    <div style="width: 100%; display: flex; justify-content: center; margin-top: 4px;">
+                                                                        <button type="submit" class="btn-donate-continue-action">
+                                                                            <span>Continuar</span>
+                                                                            <span style="font-size: 14px; font-weight: bold; margin-left: 4px;">➔</span>
+                                                                        </button>
+                                                                    </div>
                                                                 </form>
 
                                                                 <script type="text/javascript">
@@ -1933,6 +1943,7 @@ function changeLanguage(lang) {
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
             <div class="Text">HISTÓRICO DE DOAÇÕES</div>
+            <span id="history_toggle_btn" onclick="toggleDonationHistoryBox()" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #ffffff; font-weight: bold; font-size: 11.5px; background: rgba(0,0,0,0.35); padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.4); user-select: none;">[ + ] Expandir</span>
             <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
@@ -1940,6 +1951,7 @@ function changeLanguage(lang) {
         </div>
     </div>
     
+    <div id="donation_history_collapsible_content" style="display: none;">
     <table class="Table3" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
