@@ -1448,10 +1448,19 @@ function changeLanguage(lang) {
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
                                                     <tbody>
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight: 800; font-size: 18px; padding: 12px 18px; font-family: 'Cinzel', serif; color: #2d1000; text-shadow: 0 1px 1px rgba(255,255,255,0.6);">
-                                                                <div style="display: flex; align-items: center; gap: 12px;">
-                                                                    <img src="<?php echo BASE_URL; ?>images/payment/card_pix_hd.png" alt="Método de Pagamento" style="height: 44px; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.25)); object-fit: contain;">
-                                                                    <span style="letter-spacing: 0.5px;">Método de Pagamento</span>
+                                                            <td style="font-weight: bold; font-size: 16px; padding: 10px 16px; font-family: 'Cinzel', serif; color: #3d1c02; text-shadow: 0 1px 0 rgba(255,255,255,0.4);">
+                                                                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; flex-wrap: wrap; gap: 8px;">
+                                                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                                                        <div style="background: linear-gradient(180deg, #2b394a 0%, #1a232e 100%); color: #ffffff; padding: 4px 10px; border-radius: 6px; font-size: 12px; border: 1px solid #141c28; box-shadow: 0 2px 4px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.2); display: flex; align-items: center; gap: 6px;">
+                                                                            <svg style="height: 15px; width: 15px; fill: #60a5fa; vertical-align: middle;" viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+                                                                            <span style="font-weight: 800; letter-spacing: 0.5px;">CHECKOUT</span>
+                                                                        </div>
+                                                                        <span>Selecione o <b style="color: #4a1c00; font-size: 17px; text-shadow: 0 1px 1px rgba(255,255,255,0.6);">Método de Pagamento</b></span>
+                                                                    </div>
+                                                                    <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-family: 'Inter', Arial, sans-serif; color: #065f46; background: #ecfdf5; border: 1px solid #10b981; padding: 3px 9px; border-radius: 12px; font-weight: 700; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                                                                        <span>🔒</span>
+                                                                        <span>Pagamento Seguro & Criptografado</span>
+                                                                    </div>
                                                                 </div>
                                                             </td>
                                                         </tr>
