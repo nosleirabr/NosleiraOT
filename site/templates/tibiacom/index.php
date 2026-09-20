@@ -399,7 +399,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 				$m_style = 'style="color: lime; animation: blinkDonate 1s linear infinite;"';
 				$m_name = $m_name . ' <span style="font-family: Arial, sans-serif;">💳</span>';
 			} elseif ($menu['link'] === 'whatsapp') {
-				$m_name .= ' <img src="' . $template_path . '/images/menu/hot.gif" style="vertical-align: middle; margin-left: 2px;" alt="HOT!" />';
+				$m_name = '<img src="https://img.icons8.com/color/16/whatsapp--v1.png" style="vertical-align:middle;margin-right:3px;" alt="" />' . $m_name;
 				$m_style = 'style="color: lime; background: transparent !important; animation: blinkDonate 1s linear infinite;"';
 				$menu['link_full'] = 'https://chat.whatsapp.com/JfAG9EkXI5EJUofbr68UcP';
 				$menu['target_blank'] = ' target="_blank"';
@@ -407,7 +407,10 @@ foreach($config['menu_categories'] as $id => $cat) {
 				$m_name .= ' <img src="' . $template_path . '/images/menu/hot.gif" style="vertical-align: middle; margin-left: 2px;" alt="HOT!" />';
 				$m_style = 'style="color: lightblue; background: transparent !important;"';
 			} elseif ($menu['link'] === 'discord') {
-				$m_style = 'style="color: #4169e1; background: transparent !important; font-weight: bold;"'; // Azul escuro
+				$m_name = '<img src="https://rozinx.online/images/discord.png" style="width:16px;height:16px;vertical-align:middle;margin-right:3px;" alt="" />' . $m_name;
+				$m_style = 'style="color: #7289DA; background: transparent !important; font-weight: bold;"';
+				$menu['link_full'] = 'https://discord.gg/CH4njxpWk7';
+				$menu['target_blank'] = ' target="_blank"';
 			} elseif ($menu['link'] === 'forum') {
 				$m_style = 'style="color: yellow;"';
 			} elseif ($menu['link'] === 'online') {

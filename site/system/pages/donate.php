@@ -599,6 +599,182 @@ function changeLanguage(lang) {
 .flag-icon:hover {
     transform: scale(1.2);
 }
+
+/* Termos e Condições & Checkbox & Botão Continuar */
+.terms-main-title {
+    font-family: 'Cinzel', 'Georgia', serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: #4a1c00;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(160, 130, 90, 0.35);
+    padding-bottom: 8px;
+    letter-spacing: 0.3px;
+    text-shadow: 0 1px 1px rgba(255,255,255,0.7);
+}
+
+.terms-rules-header {
+    background: linear-gradient(180deg, #f5ebd9 0%, #e8d5bc 100%);
+    border: 1px solid #c8b193;
+    border-left: 5px solid #b45309;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.terms-rules-title {
+    font-family: 'Cinzel', 'Georgia', serif;
+    font-weight: 800;
+    font-size: 15px;
+    color: #4a1c00;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+}
+
+.terms-rules-subtitle {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 11.5px;
+    color: #78350f;
+    font-weight: 600;
+    background: rgba(255,255,255,0.6);
+    padding: 3px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(180, 83, 9, 0.2);
+}
+
+.terms-agreement-card {
+    background: linear-gradient(180deg, #ffffff 0%, #fbf6ee 100%);
+    border: 1.5px solid #cbb290;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 10px auto;
+    max-width: 680px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    transition: all 0.2s ease-in-out;
+}
+
+.terms-agreement-card:hover {
+    border-color: #059669;
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.12);
+}
+
+.custom-checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    user-select: none;
+    text-align: left;
+    margin: 0;
+}
+
+.custom-checkbox-container input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    cursor: pointer;
+}
+
+.custom-checkbox-checkmark {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    background-color: #ffffff;
+    border: 2px solid #a0825a;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.custom-checkbox-container:hover .custom-checkbox-checkmark {
+    border-color: #059669;
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+}
+
+.custom-checkbox-container input[type="checkbox"]:checked ~ .custom-checkbox-checkmark {
+    background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+    border-color: #065f46;
+    box-shadow: 0 2px 5px rgba(4, 120, 87, 0.4);
+}
+
+.custom-checkbox-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    width: 6px;
+    height: 11px;
+    border: solid #ffffff;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.custom-checkbox-container input[type="checkbox"]:checked ~ .custom-checkbox-checkmark:after {
+    display: block;
+}
+
+.terms-agreement-text {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 13.5px;
+    color: #2b1704;
+    line-height: 1.5;
+}
+
+.terms-agreement-text strong {
+    color: #065f46;
+}
+
+.btn-donate-continue {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 42px;
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    background: linear-gradient(180deg, #34d399 0%, #059669 45%, #047857 100%);
+    border: 1px solid #064e3b;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(4, 120, 87, 0.35), inset 0 1px 0 rgba(255,255,255,0.4);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-donate-continue:hover {
+    background: linear-gradient(180deg, #4ade80 0%, #10b981 45%, #059669 100%);
+    box-shadow: 0 6px 16px rgba(4, 120, 87, 0.45), inset 0 1px 0 rgba(255,255,255,0.6);
+    transform: translateY(-2px);
+}
+
+.btn-donate-continue:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(4, 120, 87, 0.3);
+}
+
+.btn-donate-continue .btn-arrow {
+    font-size: 16px;
+    transition: transform 0.2s ease;
+}
+
+.btn-donate-continue:hover .btn-arrow {
+    transform: translateX(4px);
+}
 </style>
 
 <?php if ($action === 'confirm_tc'): ?>
@@ -1824,24 +2000,31 @@ function changeLanguage(lang) {
                                                     <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
                                                         <tbody>
                                                             <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                                 <td style="padding: 12px 15px; line-height: 1.6;">
-                                                                     <div style="font-size: 14px; font-weight: bold; color: #5a2800; margin-bottom: 8px;">
-                                                                         Termos e Condições de Apoio ao Projeto
+                                                                 <td style="padding: 14px 18px; line-height: 1.65;">
+                                                                     <div class="terms-main-title">
+                                                                         <span>🛡️</span>
+                                                                         <span>Termos e Condições de Apoio ao Projeto</span>
                                                                      </div>
-                                                                     <p style="margin: 0 0 8px 0;">
-                                                                         Antes de prosseguir, solicitamos que leia e concorde com as nossas regras de doação.
+                                                                     <p style="margin: 0 0 10px 0; font-family: 'Inter', sans-serif; font-size: 13.5px; color: #2b1704;">
+                                                                         Antes de prosseguir, solicitamos que leia e concorde com as nossas diretrizes oficiais de apoio ao servidor.
                                                                      </p>
-                                                                     <p style="margin: 0 0 8px 0;">
-                                                                         Sua contribuição é fundamental para a sustentabilidade do servidor: todo o valor arrecadado é revertido diretamente na manutenção da infraestrutura, hospedagem de alta performance, proteção contra ataques (DDoS) e no desenvolvimento contínuo de novas funcionalidades.
+                                                                     <p style="margin: 0 0 10px 0; font-family: 'Inter', sans-serif; font-size: 13px; color: #3d230d;">
+                                                                         Sua contribuição é fundamental para a sustentabilidade do servidor: todo o valor arrecadado é revertido diretamente na manutenção da infraestrutura, hospedagem de alta performance, proteção avançada contra ataques DDoS e no desenvolvimento contínuo de novidades.
                                                                      </p>
-                                                                     <p style="margin: 0;">
-                                                                         Como forma de agradecimento pelo seu apoio, creditaremos <strong>NosleiraCoins</strong> em sua conta, que podem ser utilizadas em nossa loja do jogo para adquirir itens e benefícios exclusivos para o seu personagem.
+                                                                     <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 13px; color: #3d230d;">
+                                                                         Como forma de agradecimento pelo seu apoio, creditaremos <strong>NosleiraCoins</strong> <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 17px; width: 17px; vertical-align: middle; margin: 0 2px;"> em sua conta, que podem ser utilizadas em nossa loja do jogo para adquirir itens e benefícios exclusivos para o seu personagem.
                                                                      </p>
                                                                  </td>
                                                             </tr>
                                                             <tr bgcolor="<?php echo $config['lightborder']; ?>">
-                                                                <td style="font-weight:bold; font-size: 14px; padding: 10px;">
-                                                                    Regras (Clique para expandir o detalhamento)
+                                                                <td style="padding: 0;">
+                                                                    <div class="terms-rules-header">
+                                                                        <div class="terms-rules-title">
+                                                                            <span>📜</span>
+                                                                            <span>Regras (Clique para expandir o detalhamento)</span>
+                                                                        </div>
+                                                                        <span class="terms-rules-subtitle">Clique nos tópicos abaixo para ler</span>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                             <tr bgcolor="<?php echo $config['darkborder']; ?>">
@@ -1989,10 +2172,22 @@ function changeLanguage(lang) {
                                                                 </td>
                                                             </tr>
                                                             <tr bgcolor="<?php echo $config['lightborder']; ?>">
-                                                                <td style="padding: 10px; text-align: center;">
-                                                                    <label style="cursor: pointer; font-weight: 500; font-size: 14px;"><input type="checkbox" name="accept_terms" value="1" required> Eu aceito os termos de doação e desejo prosseguir.</label>
-                                                                    <br><br>
-                                                                    <input type="submit" value="Continuar">
+                                                                <td style="padding: 24px 16px; text-align: center;">
+                                                                    <div class="terms-agreement-card">
+                                                                        <label class="custom-checkbox-container" for="accept_terms_checkbox">
+                                                                            <input type="checkbox" name="accept_terms" value="1" required id="accept_terms_checkbox">
+                                                                            <span class="custom-checkbox-checkmark"></span>
+                                                                            <span class="terms-agreement-text">
+                                                                                Declaro que <strong>li, compreendi e concordo integralmente</strong> com todos os <strong>Termos e Condições de Apoio ao Projeto</strong> acima descritos.
+                                                                            </span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div style="margin-top: 20px;">
+                                                                        <button type="submit" class="btn-donate-continue">
+                                                                            <span>Concordar e Prosseguir para Doação</span>
+                                                                            <span class="btn-arrow">&#10148;</span>
+                                                                        </button>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         </tbody>

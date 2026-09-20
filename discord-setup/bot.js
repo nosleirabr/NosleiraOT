@@ -1,16 +1,18 @@
 /**
  * ═══════════════════════════════════════════════════════════════════
- *   NosleiraOT — Bot Principal  v3.0
+ *   NosleiraOT — Bot Principal  v4.0
  *   Mantenha rodando SEMPRE com: node bot.js
  * ═══════════════════════════════════════════════════════════════════
  *
  *  FUNCIONALIDADES:
  *   ✅ Verificação (Idade + Vocação) com botões
  *   ✅ Boas-vindas automáticas
- *   ✅ Sistema de Tickets com 6 categorias
+ *   ✅ Sistema de Tickets com 7 categorias (incl. Falar com o Dono)
  *   ✅ Sistema de Streamers (!NosleiraOT + detecção automática)
  *   ✅ Monitor de Bosses (!boss spawn/drop)
  *   ✅ Comandos de moderação (!mute !unmute !kick !ban)
+ *   ✅ AFK auto-mute no canal de voz
+ *   ✅ Sistema de Medalhas de Fidelidade (automático)
  */
 
 const {
@@ -42,7 +44,49 @@ const CARGOS_STAFF = [
 
 // Prefixo dos comandos de texto
 const PREFIX = '!';
+
 // ─────────────────────────────────────────────
+//  SISTEMA DE MEDALHAS DE FIDELIDADE
+//  Cada medalha tem: tempo mínimo (em dias), nome do cargo, cor e emoji
+// ─────────────────────────────────────────────
+const MEDALHAS = [
+  { dias:   7,  nome: '🌱 Novato Fiel',           cor: '#2ECC71', emoji: '🌱', msg: 'Completou **1 semana** no servidor!' },
+  { dias:  30,  nome: '🥉 Membro Bronze',          cor: '#CD7F32', emoji: '🥉', msg: 'Completou **1 mês** no servidor!' },
+  { dias:  90,  nome: '🥈 Membro Prata',           cor: '#C0C0C0', emoji: '🥈', msg: 'Completou **3 meses** no servidor!' },
+  { dias: 180,  nome: '🥇 Membro Ouro',            cor: '#FFD700', emoji: '🥇', msg: 'Completou **6 meses** no servidor!' },
+  { dias: 365,  nome: '💎 Membro Diamante',         cor: '#B9F2FF', emoji: '💎', msg: 'Completou **1 ano** no servidor! Incrível!' },
+  { dias: 730,  nome: '🏆 Lenda do NosleiraOT',     cor: '#FF4500', emoji: '🏆', msg: 'Completou **2 anos** no servidor! Uma verdadeira **LENDA**!' },
+];
+// ─────────────────────────────────────────────
+//  AUTO-MODERAÇÃO — palavras e links proibidos
+// ─────────────────────────────────────────────
+const PALAVRAS_ADULTAS = [
+  'porn', 'xxx', 'xvideos', 'pornhub', 'xnxx', 'redtube', 'youporn',
+  'hentai', 'onlyfans', 'cam4', 'chaturbate', 'brazzers', 'sexo',
+  'nudes', 'nude', 'putaria', 'safada', 'gozada',
+];
+
+const LINKS_BET = [
+  'bet365', 'betano', 'sportingbet', 'betfair', 'pixbet', 'blaze',
+  'stake.com', 'estrelabet', 'galera.bet', 'novibet', 'betsson',
+  'pinnacle', 'betnacional', 'superbet', 'f12.bet', 'cassino',
+  'roleta', 'tigrinho', 'fortune tiger', 'fortune ox', 'fortune rabbit',
+  'mines', 'crash', 'aviator',
+];
+
+const LINKS_FRAUDE = [
+  'bit.ly', 'tinyurl', 'shorturl', 'adf.ly', 'free-nitro',
+  'discord-nitro', 'steam-gift', 'free-robux', 'gifting',
+  'claim-reward', 'verify-account',
+];
+
+// Escalas de punição (em dias). 0 = permanente
+const ESCALAS_PUNICAO = [30, 60, 90, 365, 0];
+
+// ─────────────────────────────────────────────
+
+const fs   = require('fs');
+const path = require('path');
 
 const client = new Client({
   intents: [
@@ -60,6 +104,34 @@ const client = new Client({
 let   ticketCounter       = 1;
 const pendingVerification = new Map(); // userId → { age: true|false }
 const activeStreams        = new Map(); // userId → messageId postado em #lives-ao-vivo
+
+// ─────────────────────────────────────────────
+//  PERSISTÊNCIA — Punições e Medalhas (JSON)
+// ─────────────────────────────────────────────
+const DATA_DIR  = path.join(__dirname, 'data');
+const PUNICOES_FILE = path.join(DATA_DIR, 'punicoes.json');
+const MEDALHAS_FILE = path.join(DATA_DIR, 'medalhas.json');
+
+// Cria pasta data/ se não existir
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR);
+
+/** Carrega JSON do disco ou retorna objeto vazio */
+function carregarJSON(filepath) {
+  try {
+    if (fs.existsSync(filepath)) return JSON.parse(fs.readFileSync(filepath, 'utf8'));
+  } catch { /* arquivo corrompido */ }
+  return {};
+}
+
+/** Salva JSON no disco */
+function salvarJSON(filepath, data) {
+  fs.writeFileSync(filepath, JSON.stringify(data, null, 2), 'utf8');
+}
+
+// Histórico: { "userId": { infractions: 3, lastReason: "...", lastDate: "..." } }
+let punicoes = carregarJSON(PUNICOES_FILE);
+// Medalhas já concedidas: { "userId": ["🌱 Novato Fiel", "🥉 Membro Bronze"] }
+let medalhasConcedidas = carregarJSON(MEDALHAS_FILE);
 
 // ═══════════════════════════════════════════════════════════════════
 //  HELPERS
