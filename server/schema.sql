@@ -420,3 +420,73 @@ END
 //
 
 DELIMITER ;
+
+-- =============================================================
+-- Dados iniciais — conta god e personagens padrão
+-- Conta: 1  |  Senha: admin123
+-- =============================================================
+
+-- Conta god (type 5 = god, premdays 65535 = vitalício)
+INSERT INTO `accounts` (`id`, `name`, `password`, `type`, `premdays`, `lastday`, `email`, `creation`) VALUES
+(1, '1', 'f865b53623b121fd34ee5426c792e5c33af8c227', 5, 65535, 0, 'god@nosleira.local', 0);
+
+-- Personagem 1: God Nosleir (group_id 6 = god, looktype 75 = citizen male)
+--   Posição: Thais temple clássico (x=160, y=54, z=7)
+INSERT INTO `players` (
+  `id`, `name`, `group_id`, `account_id`, `level`, `vocation`,
+  `health`, `healthmax`, `experience`,
+  `lookbody`, `lookfeet`, `lookhead`, `looklegs`, `looktype`, `lookaddons`,
+  `maglevel`, `mana`, `manamax`, `manaspent`, `soul`,
+  `town_id`, `posx`, `posy`, `posz`,
+  `conditions`, `cap`, `sex`, `save`, `skull`, `skulltime`,
+  `lastlogin`, `lastip`, `lastlogout`, `blessings`, `onlinetime`, `deletion`,
+  `balance`, `offlinetraining_time`, `offlinetraining_skill`, `stamina`,
+  `skill_fist`, `skill_fist_tries`, `skill_club`, `skill_club_tries`,
+  `skill_sword`, `skill_sword_tries`, `skill_axe`, `skill_axe_tries`,
+  `skill_dist`, `skill_dist_tries`, `skill_shielding`, `skill_shielding_tries`,
+  `skill_fishing`, `skill_fishing_tries`
+) VALUES (
+  1, 'Nosleir', 6, 1, 1, 0,
+  1000, 1000, 0,
+  0, 0, 0, 0, 75, 0,
+  0, 0, 0, 0, 100,
+  1, 160, 54, 7,
+  '', 400, 1, 1, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 43200, -1, 3360,
+  10, 0, 10, 0,
+  10, 0, 10, 0,
+  10, 0, 10, 0,
+  10, 0
+);
+
+-- Personagem 2: RookSample (personagem de exemplo em Rookgaard)
+--   Posição: Rookgaard temple clássico (x=97, y=205, z=7)
+INSERT INTO `players` (
+  `id`, `name`, `group_id`, `account_id`, `level`, `vocation`,
+  `health`, `healthmax`, `experience`,
+  `lookbody`, `lookfeet`, `lookhead`, `looklegs`, `looktype`, `lookaddons`,
+  `maglevel`, `mana`, `manamax`, `manaspent`, `soul`,
+  `town_id`, `posx`, `posy`, `posz`,
+  `conditions`, `cap`, `sex`, `save`, `skull`, `skulltime`,
+  `lastlogin`, `lastip`, `lastlogout`, `blessings`, `onlinetime`, `deletion`,
+  `balance`, `offlinetraining_time`, `offlinetraining_skill`, `stamina`,
+  `skill_fist`, `skill_fist_tries`, `skill_club`, `skill_club_tries`,
+  `skill_sword`, `skill_sword_tries`, `skill_axe`, `skill_axe_tries`,
+  `skill_dist`, `skill_dist_tries`, `skill_shielding`, `skill_shielding_tries`,
+  `skill_fishing`, `skill_fishing_tries`
+) VALUES (
+  2, 'RookSample', 1, 1, 1, 0,
+  150, 150, 0,
+  20, 30, 10, 40, 128, 0,
+  0, 0, 0, 0, 100,
+  0, 97, 205, 7,
+  '', 400, 0, 1, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 43200, -1, 3360,
+  10, 0, 10, 0,
+  10, 0, 10, 0,
+  10, 0, 10, 0,
+  10, 0
+);
+
