@@ -1,0 +1,11 @@
+# O proprio .gitattributes: LF
+.gitattributes text eol=lf
+
+# Normalizacao de line-endings do AI kit (sem warnings LF->CRLF no push)
+# Markdown das skills: LF sempre (padrao GitHub, diff limpo)
+.agents/**/*.md text eol=lf
+.agents/**/*.mdc text eol=lf
+.cursor/**/*.md text eol=lf
+.cursor/**/*.mdc text eol=lf
+# Scripts Windows do task-observer: CRLF (cmd.exe exige)
+.agents/**/*.bat text eol=crlf
