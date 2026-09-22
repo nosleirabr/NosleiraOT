@@ -1,5 +1,5 @@
-﻿# Skills
+# Skills
 
-Canonical kit: GitLab `opentibia-740/ai` (cloned to `.cursor` and `.agents`).
+Kit canônico: `.agents/skills/` (Antigravity) e `.cursor/skills/` (Cursor) — **neste** repositório (`nosleirabr/Oteserver7.4`).
 
-See that repo's `skills/` folders and workspace `docs/BOOTSTRAP.md`.
+Bootstrap: [`docs/BOOTSTRAP.md`](BOOTSTRAP.md). Sessão: skill `otserver-session`.

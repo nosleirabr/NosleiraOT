@@ -1,17 +1,20 @@
-# OpenTibia 7.4 - Visão Arquitetural e Memória do Projeto
+# Nosleira OT 7.4 — memória do projeto
 
-## A Diretriz Mestra (O Mandato do Criador)
-O objetivo supremo deste projeto é reescrever o servidor de C++ legado para o **C# moderno (.NET 10)**. O projeto DEVE respeitar os seguintes pilares, inegociáveis para qualquer agente de IA trabalhando neste código:
+## O que o agente trata como verdade hoje
 
-1. **A Alma (Retro 7.4):** A jogabilidade, o PvP, a dificuldade PvE e as mecânicas devem ser as raízes puras de 2004. O "feeling" do jogo não pode ser perdido.
-2. **O Motor (Ultra-Moderno):** A engine C# deve ser o que há de mais avançado no mundo (System.IO.Pipelines, EF Core, Task-based Asynchronous Pattern). O jogo deve ser estupidamente leve e liso (sem lag).
-3. **Segurança Militar (Blindado):** Zero tolerância a brechas. Proteções Anti-DDoS, Rate Limiting, Packet Throttling contra WPE Pro/Bots e arquitetura Server-Authoritative estrita. O servidor não confia no Client.
-4. **Pronto para o Futuro (Integrações):** Tudo deve ser modular para permitir integração total com IA, Web Site (MyAAC suportado), Web Editor, e um Custom Client próprio com Launcher e 2FA.
-5. **Ferramentas de Suporte:** Ferramentas revolucionárias (como o CamSystem via Event Sourcing) devem ser nativas para auditar bugs e manter a integridade do jogo sem pesar a máquina.
+Servidor de jogo **TFS 1.2 (C++ / Lua)**, site **MyAAC** (`tibiacom`), mapa 7.4, client clássico. Repo: [nosleirabr/Oteserver7.4](https://github.com/nosleirabr/Oteserver7.4).
 
-## Histórico de Implementação C# (Fases 1, 2 e 4 em andamento)
-- Servidor Híbrido (Web API + Game TCP) estabelecido.
-- EF Core mapeando banco MySQL antigo para garantir que o Site MyAAC continue funcionando.
-- Leitores de XML (Items, Monsters) e estrutura binária de Mapa (OTBM) consolidados.
-- Game Loop (Dispatcher a 50ms) e física de Tile/Mapa iniciadas.
-- Defesas Anti-Bot e API de Login 2FA implantadas.
+Pilares inegociáveis no trabalho **atual**:
+
+1. **Alma 7.4** — PvP, PvE e mecânicas de 2004. Sem shop web, roulette, mounts, stamina moderna.
+2. **Stack que roda** — Docker Compose, TFS, MariaDB, MyAAC. Não “trocar o motor” no meio de um ticket de datapack/site.
+3. **Server-authoritative** — o servidor não confia no client.
+4. **GitHub** — um monorepo, branch, PR. Sem GitLab.
+
+## Icebox (não é o trabalho do dia)
+
+Reescrita da engine em **C# / .NET** (pipelines, EF Core, etc.) é visão de longo prazo. **Não** use isso como mandato para alterar TFS, Lua ou o datapack. Experimentos C# só se o humano pedir, em pasta/issue próprias.
+
+## Wiki
+
+Páginas ingestidas: [`wiki/README.md`](wiki/README.md). Catálogo curto: este arquivo + `map-as-code.md` + `DICIONARIO_TECNICO.md`.

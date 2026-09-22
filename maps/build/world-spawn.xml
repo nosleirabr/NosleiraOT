@@ -6215,14 +6215,6 @@
 		<monster name="wolf" x="0" y="1" z="7" spawntime="60" />
 		<monster name="wolf" x="1" y="1" z="7" spawntime="60" />
 	</spawn>
-	<spawn centerx="32365" centery="32215" centerz="7" radius="1">
-		<npc name="Aruda" x="1" y="0" z="7" spawntime="60" />
-	</spawn>
-	<spawn centerx="32368" centery="32215" centerz="7" radius="20">
-		<monster name="dog" x="0" y="-1" z="7" spawntime="60" />
-		<npc name="Benjamin" x="-18" y="4" z="7" spawntime="60" />
-		<npc name="Oswald" x="13" y="5" z="7" spawntime="60" />
-	</spawn>
 	<spawn centerx="32853" centery="32215" centerz="7" radius="1">
 		<monster name="snake" x="0" y="0" z="7" spawntime="60" />
 		<monster name="snake" x="1" y="0" z="7" spawntime="60" />
@@ -6232,6 +6224,10 @@
 		<monster name="snake" x="1" y="0" z="7" spawntime="60" />
 		<monster name="snake" x="0" y="1" z="7" spawntime="60" />
 		<monster name="snake" x="1" y="1" z="7" spawntime="60" />
+	</spawn>
+	<spawn centerx="32368" centery="32216" centerz="7" radius="1">
+		<npc name="Aruda" x="-1" y="0" z="7" spawntime="60" />
+		<monster name="dog" x="1" y="0" z="7" spawntime="60" />
 	</spawn>
 	<spawn centerx="32686" centery="32216" centerz="7" radius="1">
 		<monster name="wolf" x="0" y="0" z="7" spawntime="60" />
@@ -6299,6 +6295,9 @@
 	<spawn centerx="32013" centery="32221" centerz="7" radius="1">
 		<monster name="spider" x="0" y="0" z="7" spawntime="60" />
 		<monster name="spider" x="1" y="0" z="7" spawntime="60" />
+	</spawn>
+	<spawn centerx="32379" centery="32221" centerz="7" radius="3">
+		<npc name="Oswald" x="0" y="-1" z="7" spawntime="60" />
 	</spawn>
 	<spawn centerx="32131" centery="32222" centerz="7" radius="1">
 		<monster name="snake" x="0" y="0" z="7" spawntime="60" />
@@ -7054,14 +7053,8 @@
 		<monster name="wolf" x="0" y="0" z="7" spawntime="60" />
 		<monster name="wolf" x="1" y="0" z="7" spawntime="60" />
 	</spawn>
-	<spawn centerx="32272" centery="32339" centerz="7" radius="20">
-		<npc name="Hardek" x="0" y="0" z="7" spawntime="60" />
-		<monster name="poison spider" x="17" y="7" z="7" spawntime="60" />
-		<monster name="poison spider" x="18" y="7" z="7" spawntime="60" />
-		<monster name="poison spider" x="18" y="8" z="7" spawntime="60" />
-		<monster name="bear" x="-13" y="19" z="7" spawntime="60" />
-		<monster name="bear" x="-12" y="19" z="7" spawntime="60" />
-		<monster name="bear" x="-12" y="20" z="7" spawntime="60" />
+	<spawn centerx="32275" centery="32337" centerz="7" radius="5">
+		<npc name="Hardek" x="-3" y="2" z="7" spawntime="60" />
 	</spawn>
 	<spawn centerx="32696" centery="32339" centerz="7" radius="1">
 		<monster name="snake" x="0" y="0" z="7" spawntime="60" />

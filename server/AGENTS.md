@@ -1,5 +1,5 @@
 ﻿# Server agents
 
-TFS 1.2 / datapack 7.4. Open the parent workspace (opentibia-740/workspace) for Compose and maps bind-mount.
+TFS 1.2 / datapack 7.4. Compose e bind-mount de mapas na **raiz** deste monorepo (`D:\Server`).
 
-Dockerfile + docker/entrypoint.sh live in this repo. Do not put Terraform here.
+Dockerfile + docker/entrypoint.sh do TFS vivem nesta pasta. Não colocar Terraform aqui.

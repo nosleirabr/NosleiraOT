@@ -135,8 +135,8 @@ pip-log.txt
 *~
 .*.swp
 .*.swo
-/.cursor/
-/.agents/
+# Cursor settings (IDE local, não versionado)
+# .cursor/settings.json — descomente se necessário
 /brain/
 .env
 .env.*

@@ -6,17 +6,17 @@ Este guia detalha como você pode criar seu próprio servidor (uma variante) a p
 
 Para criar sua própria variante sem perder o acesso às atualizações do repositório principal:
 
-1. Acesse o repositório principal no GitHub: `matosnathan/otserver`
+1. Acesse o repositório principal no GitHub: `nosleirabr/Oteserver7.4`
 2. No canto superior direito, clique no botão **Fork**.
 3. Escolha o destino (sua conta pessoal ou organização).
 4. Clone o seu novo repositório na sua máquina local:
    ```bash
-   git clone https://github.com/SEU_USUARIO/otserver.git
-   cd otserver
+   git clone https://github.com/SEU_USUARIO/Oteserver7.4.git
+   cd Oteserver7.4
    ```
 5. Mantenha o seu fork sincronizado com o repositório original adicionando-o como `upstream`:
    ```bash
-   git remote add upstream https://github.com/matosnathan/otserver.git
+   git remote add upstream https://github.com/nosleirabr/Oteserver7.4.git
    ```
    *Sempre que quiser as atualizações mais recentes do projeto base:*
    ```bash
@@ -83,7 +83,7 @@ Para colocar o **seu** fork em produção:
 2. **Clone o seu Fork** ao invés do repositório base:
    ```bash
    # Se o seu repo for privado, você precisará configurar uma Deploy Key ou Token
-   git clone https://github.com/SEU_USUARIO/otserver.git /opt/otserver
+   git clone https://github.com/SEU_USUARIO/Oteserver7.4.git /opt/otserver
    cd /opt/otserver
    ```
 3. **Configure as Variáveis de Ambiente**:

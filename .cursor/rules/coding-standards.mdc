@@ -1,0 +1,16 @@
+---
+description: Coding standards — named IDs, submethods, early returns, project patterns first, if only with tests
+alwaysApply: true
+---
+
+# Coding standards
+
+Canonical doc: `docs/CODING.md`. Skill: `otserver-developer`.
+
+- **Project pattern first:** prefer updating the conventional place over inventing parallel files/styles. Consistent beats “better but different.”
+- Name or comment every item/action/unique/storage ID (`crownArmorId` / `2487 -- armadura de coroa`). Optional grouped tables (`ARMORS`, `HELMETS`, …); shared server IDs: `ItemIds` in `server/server/data/lib/core/constants.lua`.
+- Prefer submethods, intention comments on non-trivial blocks (**always in Portuguese**), and early returns over nested if/else.
+- Before adding a new `if`: extract if needed, keep existing tests green **without editing them**, then add a new test for the new branch (`docs/TESTING.md`).
+- No machine-absolute paths in versioned docs/skills (`C:\Users\...`, `C:\Projetos\...`). Use repo-relative paths.
+- Project brain is only `docs/learnings/` (shared via Git) — not a per-user home brain.
+- External tools only under gitignored paths (`tools/vendor/`, `tools/external/`). Exception: `tools/rme-bin/` is tracked.

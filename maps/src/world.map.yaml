@@ -1,5 +1,5 @@
 kind: world
-name: opentibia-740
+name: nosleira-ot74
 # Fonte = sectors/ + meta/ + quests/. Sem baseline OTBM no Git.
 sectors: sectors
 regions:

@@ -2,7 +2,7 @@
 
 Fonte de verdade: **YAML em `src/`**. Não há `world.otbm` de baseline no Git.
 
-A tool [`tools/map-editor`](https://gitlab.com/opentibia-740/tools/map_editor) (otmap) **gera** o OTBM a partir deste código.
+A tool [`tools/map-editor`](../tools/map-editor/README.md) (otmap) **gera** o OTBM a partir deste código.
 
 ## Layout
 
@@ -26,9 +26,9 @@ docs/                   # MAP_AS_CODE*, REALMAP_74, …
 1. **Import (raro / já feito):** `otmap decompile` a partir de um `.otbm` externo → grava `src/`. Não versionar o OTBM de entrada.
 2. **Dia a dia:** editar YAML em `src/` (quests, setores, Salvar do viewer).
 3. **Bake:** `otmap build --from-source` → `build/world.otbm` (**sem** `--overlay`, **sem** baseline OTBM).
-4. **Runtime:** Compose no workspace monta `maps/build/world.otbm` + spawn/house no TFS.
+4. **Runtime:** Compose na raiz do repo monta `maps/build/world.otbm` + spawn/house no TFS.
 
-Comandos: ver [`docs/MAP_AS_CODE_FLOW.md`](../../docs/MAP_AS_CODE_FLOW.md) no workspace e [`docs/README.md`](docs/README.md) neste repo.
+Comandos: ver [`docs/MAP_AS_CODE_FLOW.md`](../docs/MAP_AS_CODE_FLOW.md) e [`maps/docs/README.md`](docs/README.md).
 
 ## Git
 

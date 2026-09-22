@@ -1,10 +1,10 @@
 ﻿# Roadmap — OT Server 7.4 (base estável)
 
-Tracker visual: [GitHub Project](https://github.com/users/matosnathan/projects/1)
+Tracker: [Issues nosleirabr/Oteserver7.4](https://github.com/nosleirabr/Oteserver7.4/issues)
 
-Fluxo agentic (Ready -> In progress -> In review/Done via **Project Workflows**, branch `<id>-mN-summary`): [`docs/AGENTIC_KANBAN.md`](AGENTIC_KANBAN.md)
+Fluxo agentic (branch `<id>-mN-summary`, PR com `Closes #N`): [`docs/AGENTIC_KANBAN.md`](AGENTIC_KANBAN.md)
 
-Este documento é a **fonte canônica de ordem de entrega**. Issues/milestones no GitHub espelham estes epics. Detalhe técnico continua em `KNOWN_DEFECTS.md`, `REALMAP_74.md`, `QUESTS_AND_FEATURES.md` e `TESTING.md`.
+Este documento é a **fonte canônica de ordem de entrega**. Links `#NN` para `matosnathan/otserver` abaixo são **histórico** de um tracker anterior; issues **ativas** deste servidor estão em `nosleirabr/Oteserver7.4`. Detalhe técnico continua em `KNOWN_DEFECTS.md`, `REALMAP_74.md`, `QUESTS_AND_FEATURES.md` e `TESTING.md`.
 
 ---
 
@@ -39,7 +39,7 @@ Cada **milestone** = fatia entregável. Cada **epic** = grupo de issues no Proje
 
 ## Ordem de fechamento (prioridade)
 
-Ordem alinhada ao [GitHub Project](https://github.com/users/matosnathan/projects/1) — feche nesta sequência; não pule P0 de M1 por itens mais ""interessantes... de milestones posteriores.
+Ordem alinhada ao roadmap — feche nesta sequência; não pule P0 de M1 por itens mais “interessantes” de milestones posteriores.
 
 **Regra de aceitação:** feature marcada **Done** no código ainda precisa de story `[Manual QA]` antes do milestone fechar. **L3 automatizado â‰  aceitação.**
 

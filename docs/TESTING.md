@@ -1,6 +1,6 @@
 # Testes
 
-Workspace multi-repo: rode os comandos na **raiz** do workspace (onde está `docker-compose.yml`).
+Monorepo: rode os comandos na **raiz** do repositório (onde está `docker-compose.yml`).
 
 ## Categorias
 
@@ -11,15 +11,15 @@ Workspace multi-repo: rode os comandos na **raiz** do workspace (onde está `doc
 | **L3** | Quests, travel, spawns, NPC | `dotnet test` no server | Não |
 | **L4** | Protocolo TCP (login/game) | filtro `RuntimeContractTests` + `OT74_L4=1` | Sim |
 
-**Antes de MR:** L1+L2+L3. L4 só se a mudança afetar runtime ou o humano pedir.
+**Antes de PR:** L1+L2+L3. L4 só se a mudança afetar runtime ou o humano pedir.
 
 ## L1+L2+L3 (local)
 
 ```powershell
-# Gameplay / datapack (repo server)
+# Gameplay / datapack
 dotnet test server\tests\Ot74.Gameplay.Tests\Ot74.Gameplay.Tests.csproj
 
-# Toolchain de mapa (repo map-editor)
+# Toolchain de mapa
 dotnet test tools\map-editor\tests\Ot74.Map.Tests\Ot74.Map.Tests.csproj
 ```
 
@@ -39,9 +39,9 @@ dotnet test server\tests\Ot74.Gameplay.Tests\Ot74.Gameplay.Tests.csproj --filter
 
 Variáveis opcionais: `OT74_MYSQL`, `OT74_L4_HOST`, `OT74_L4_LOGIN_PORT`, `OT74_L4_GAME_PORT`.
 
-## CI (GitLab)
+## CI (GitHub Actions)
 
-Cada repo tem `.gitlab-ci.yml` que inclui `opentibia-740/infra/ci-templates`. Jobs montam o workspace via `CI_JOB_TOKEN`, rodam L1–L3 e **excluem L4**. Merge em `main` exige pipeline verde.
+Workflows em `.github/workflows/`. Jobs de PR/push na `main` rodam L1–L3 (e lints). **L4** é nightly/opt-in. Merge na `main` só com autorização do humano; prefira pipeline verde.
 
 ## Smoke manual
 

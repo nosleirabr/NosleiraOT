@@ -2,7 +2,7 @@
 
 Data da pesquisa: 2026-08-24. Objetivo: encontrar `quests.xml` e Lua de quest para **Tibia 7.4** sem importar mecânicas 8.0 (rust remover, worms, áreas pós-7.4).
 
-## Este repo (`matosnathan/otserver`)
+## Este repo (`nosleirabr/Oteserver7.4`)
 
 | Branch | `quests.xml` |
 |--------|----------------|
@@ -11,12 +11,11 @@ Data da pesquisa: 2026-08-24. Objetivo: encontrar `quests.xml` e Lua de quest pa
 
 TFS upstream: [otland/forgottenserver v1.2](https://github.com/otland/forgottenserver/tree/v1.2) envia **só Example Quest** em `data/XML/quests.xml`.
 
-## Clone irmão (`C:\Projetos\otserver`)
+## Referência TFS vanilla (Example Quest)
 
-- `server/data/XML/quests.xml` — **só Example Quest**
-- `actions/scripts/quests/` — amostras `quests.lua`, `annihilator.lua` (não ligadas ao realmap)
+O datapack TFS 1.2 upstream traz só Example Quest. Clone local antigo fora deste repo **não** é fonte canônica.
 
-## Referência RealMap 8.0 (`C:\Projetos\otserver800`)
+## Referência RealMap 8.0 (não portar verbatim)
 
 - `server/data/XML/quests.xml` — **33 quests**, ~1400 linhas (pack Global 8.0 RealMap)
 - `actions/scripts/quest/` — **203** arquivos Lua (Yalahar, Inquisition, Postman, …)

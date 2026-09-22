@@ -1,5 +1,7 @@
+<link rel="stylesheet" href="{{ base_url }}tools/css/datatables.min.css">
+
 <style>
-/* === ESTILOS DA TABELA DE SPELLS (ESTILO TIBIAWIKI / TIBIA 7.4) === */
+/* === ESTILOS DA TABELA DE SPELLS (TIBIA 7.4 SINCRONIZADO - COMPACTO & PROFISSIONAL) === */
 .spells-container {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #1e293b;
@@ -8,14 +10,22 @@
     box-sizing: border-box;
 }
 
-/* Barra de Abas Superiores (Docking Perfeito) */
+/* Barra Superior: Abas e Seletor de Idioma */
+.spells-header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: -1px;
+    position: relative;
+    z-index: 2;
+}
+
 .spells-nav-tabs {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-    margin-bottom: -1px;
-    position: relative;
-    z-index: 2;
 }
 
 .spells-tab-btn {
@@ -23,15 +33,15 @@
     border: 1px solid #cbd5e1;
     border-bottom: 1px solid #94a3b8;
     border-radius: 5px 5px 0 0;
-    padding: 7px 14px;
-    font-size: 12px;
+    padding: 6px 12px;
+    font-size: 11.5px;
     font-weight: 700;
     color: #334e68;
     cursor: pointer;
     transition: all 0.15s ease;
     display: inline-flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
     text-decoration: none;
     user-select: none;
 }
@@ -46,24 +56,24 @@
     background: #ffffff;
     color: #0b2e4f;
     border: 1px solid #cbd5e1;
-    border-bottom: 1px solid #ffffff; /* Conexão contínua com a caixa de filtros */
+    border-bottom: 1px solid #ffffff;
     box-shadow: 0 -2px 5px rgba(0,0,0,0.04);
     font-weight: 800;
 }
 
 .spells-tab-btn img.tab-spell-icon {
-    width: 20px;
-    height: 20px;
-    image-rendering: pixelated;
+    width: 18px;
+    height: 18px;
     display: inline-block;
     vertical-align: middle;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25));
 }
 
 .spells-tab-btn .badge-count {
     background: #cbd5e1;
     color: #1e293b;
-    font-size: 10.5px;
-    padding: 1px 6px;
+    font-size: 10px;
+    padding: 1px 5px;
     border-radius: 10px;
     font-weight: 600;
 }
@@ -73,305 +83,448 @@
     color: #ffffff;
 }
 
-/* Barra de Filtros e Busca Rápida */
-.spells-filter-bar {
-    background: #ffffff;
+/* Seletor de Idiomas com Bandeiras (PT / EN) */
+.spells-lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: #e2eaf1;
     border: 1px solid #cbd5e1;
-    border-radius: 0 5px 5px 5px;
-    padding: 10px 14px;
-    margin-bottom: 12px;
+    border-bottom: 1px solid #94a3b8;
+    border-radius: 5px 5px 0 0;
+    padding: 3px 6px;
+}
+
+.spells-lang-switch .lang-btn {
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #475569;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.15s ease;
+    user-select: none;
+}
+
+.spells-lang-switch .lang-btn:hover {
+    background: #cbd5e1;
+    color: #0f172a;
+}
+
+.spells-lang-switch .lang-btn.active {
+    background: #ffffff;
+    color: #0b2e4f;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.spells-lang-switch .flag-icon {
+    font-size: 12px;
+    line-height: 1;
+}
+
+/* BARRA DE FILTROS TOTALMENTE DESTACADA E VIBRANTE (NÃO APAGADA) */
+.spells-filter-bar {
+    background: linear-gradient(180deg, #d8e5f3 0%, #c4d7ec 100%);
+    border: 1.5px solid #8fb2d8;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 2px 4px rgba(0,0,0,0.08);
 }
 
 .spells-filter-group {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .spells-filter-item {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     font-size: 11.5px;
-    font-weight: 600;
-    color: #475569;
+    font-weight: 700;
+    color: #0c2d54;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.6);
 }
 
-.spells-filter-item select,
-.spells-search-input {
+.spells-filter-item select {
     background: #ffffff;
-    border: 1px solid #cbd5e1;
+    border: 1.5px solid #7ea7d4;
     border-radius: 4px;
-    padding: 4px 7px;
-    font-size: 11.5px;
-    color: #0f172a;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #0c2d54;
     outline: none;
-    transition: border-color 0.2s;
+    cursor: pointer;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
+    transition: all 0.15s ease;
 }
 
-.spells-filter-item select:focus,
-.spells-search-input:focus {
-    border-color: #1b4975;
+.spells-filter-item select:hover {
+    border-color: #2563eb;
+}
+
+.spells-filter-item select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
 }
 
 .spells-search-input {
-    width: 210px;
-    padding-left: 24px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="%2364748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>');
-    background-repeat: no-repeat;
-    background-position: 6px center;
+    background: #ffffff;
+    border: 1.5px solid #7ea7d4;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    width: 220px;
+    color: #0c2d54;
+    outline: none;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
+    transition: all 0.15s ease;
 }
 
-/* Tabela Estilo TibiaWiki Compacta */
+.spells-search-input:hover {
+    border-color: #2563eb;
+}
+
+.spells-search-input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+}
+
+/* Tabela Principal Compacta */
 .spells-table-wrapper {
-    overflow-x: auto;
     background: #ffffff;
-    border: 1px solid #cbd5e1;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    border: 1px solid #8fb2d8;
+    border-radius: 3px;
+    overflow-x: auto;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
 table.spells-table {
     width: 100% !important;
     border-collapse: collapse !important;
-    font-size: 11.5px;
-    line-height: 1.35;
-}
-
-table.spells-table thead th {
-    background-color: #dbe4ee !important;
-    color: #0f2742 !important;
-    font-weight: 700 !important;
-    padding: 7px 6px !important;
-    border-bottom: 2px solid #a3b8cc !important;
-    border-right: 1px solid #c8d7e6 !important;
+    border-spacing: 0 !important;
+    font-size: 11px;
     text-align: left;
-    white-space: nowrap;
-    cursor: pointer;
-    font-size: 11.5px;
 }
 
-table.spells-table thead th:last-child {
+/* CABEÇALHO PERMANENTEMENTE COLORIDO (#cedff2) CONFORME REFERÊNCIA */
+table.spells-table thead,
+table.spells-table thead tr,
+table.spells-table thead th,
+table.dataTable thead,
+table.dataTable thead tr,
+table.dataTable thead th,
+table.dataTable thead td,
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+    background-color: #cedff2 !important;
+    color: #0c2d54 !important;
+    font-weight: 700 !important;
+    padding: 6px 8px !important;
+    font-size: 11px !important;
+    border: none !important;
+    border-bottom: 2px solid #8fadcb !important;
+    border-right: 1px solid #ffffff !important;
+    white-space: nowrap !important;
+    cursor: pointer !important;
+    vertical-align: middle !important;
+    text-shadow: none !important;
+}
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+    padding-right: 18px !important;
+}
+
+table.spells-table thead th:last-child,
+table.dataTable thead th:last-child {
     border-right: none !important;
 }
 
-table.spells-table tbody tr {
+table.spells-table thead th:hover,
+table.dataTable thead th:hover {
+    background-color: #bcd4ed !important;
+    color: #071f3b !important;
+}
+
+/* Oculta busca e length padrão do DataTables (usamos barra customizada acima) */
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_length {
+    display: none !important;
+}
+
+/* Linhas Compactas e Cores Alternadas Zebra com Bordas Brancas */
+table.spells-table tbody tr,
+table.dataTable tbody tr,
+table.spells-table tbody tr.odd,
+table.dataTable tbody tr.odd {
+    background-color: #f7fafc !important;
     transition: background-color 0.1s ease;
 }
 
-table.spells-table tbody tr.odd {
-    background-color: #f8fafc;
+table.spells-table tbody tr:nth-child(even),
+table.dataTable tbody tr:nth-child(even),
+table.spells-table tbody tr.even,
+table.dataTable tbody tr.even {
+    background-color: #e8f2f8 !important;
 }
 
-table.spells-table tbody tr.even {
-    background-color: #ffffff;
+table.spells-table tbody tr:hover,
+table.dataTable tbody tr:hover {
+    background-color: #d8e8f6 !important;
 }
 
-table.spells-table tbody tr:hover {
-    background-color: #edf5fd !important;
-}
-
-table.spells-table tbody td {
-    padding: 5px 6px !important;
-    border-bottom: 1px solid #e2e8f0 !important;
-    border-right: 1px solid #f1f5f9 !important;
+table.spells-table tbody td,
+table.dataTable tbody td {
+    padding: 4px 6px !important;
     vertical-align: middle !important;
+    color: #1e293b;
+    border: none !important;
+    border-right: 1px solid #ffffff !important;
+    border-bottom: 1px solid #ffffff !important;
+    font-size: 11px;
 }
 
-table.spells-table tbody td:last-child {
+table.spells-table tbody td:last-child,
+table.dataTable tbody td:last-child {
     border-right: none !important;
 }
 
-/* Coluna Nome */
-.spell-name-text {
-    font-weight: 700;
-    font-size: 12px;
-    color: #0f2d4a;
+/* Coluna 1: Nome da Magia com link azul em destaque permanente e fundo diferenciado */
+table.spells-table tbody td.col-spell-name,
+table.dataTable tbody td.col-spell-name,
+table.spells-table tbody tr.odd td.col-spell-name,
+table.dataTable tbody tr.odd td.col-spell-name,
+table.spells-table tbody tr.even td.col-spell-name,
+table.dataTable tbody tr.even td.col-spell-name {
+    background-color: #dce8f5 !important;
+}
+
+table.spells-table tbody tr:hover td.col-spell-name,
+table.dataTable tbody tr:hover td.col-spell-name {
+    background-color: #cde0f3 !important;
+}
+
+.spell-name-link {
+    color: #005fa6 !important;
+    font-weight: 700 !important;
+    font-size: 11.5px !important;
+    text-decoration: none !important;
+    display: inline-block;
+}
+
+.spell-name-link:hover {
+    text-decoration: underline !important;
+    color: #004080 !important;
+}
+
+/* Coluna 6: Spell Words (Dizer) em itálico */
+.spell-words-text {
+    font-style: italic;
+    color: #1e293b;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.spell-alias-tag {
+    background: #e0f2fe;
+    color: #0369a1;
+    border-radius: 3px;
+    padding: 1px 4px;
+    font-size: 9.5px;
+    font-weight: 600;
+    margin-left: 3px;
     white-space: nowrap;
 }
 
-.spell-short-badge {
-    background: #e2e8f0;
-    color: #475569;
-    font-size: 9.5px;
-    padding: 1px 4px;
-    border-radius: 3px;
-    margin-left: 3px;
-    font-weight: 600;
-}
-
-/* Coluna Ícone (SEM BORDA, SEM FUNDO ESCURO - PURO TIBIAWIKI) */
+/* Ícones Oficiais do TibiaWiki (100% transparentes, sem fundo preto ou molduras) */
 .spell-icon-img {
-    width: 32px;
-    height: 32px;
-    image-rendering: pixelated;
-    display: block;
-    margin: 0 auto;
+    max-width: 32px;
+    max-height: 32px;
+    width: auto;
+    height: auto;
+    border: none !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    display: inline-block;
+    vertical-align: middle;
 }
 
-/* Coluna ML / Level */
+/* ML Box */
 .spell-ml-box {
     text-align: center;
-    font-weight: 700;
-    white-space: nowrap;
-}
-
-.spell-ml-value {
-    color: #1e3a5f;
-    font-size: 11.5px;
+    font-size: 11px;
+    color: #1e293b;
+    line-height: 1.2;
 }
 
 .spell-ml-sub {
     font-size: 9.5px;
     color: #64748b;
-    display: block;
-    font-weight: normal;
+    margin-top: 1px;
 }
 
-/* Coluna Vocação */
+/* Badges de Vocação */
 .voc-badge {
     display: inline-block;
     padding: 1px 5px;
     border-radius: 3px;
     font-size: 10px;
     font-weight: 600;
-    margin: 1px;
+    margin: 1px 1px 1px 0;
     white-space: nowrap;
 }
 
-.voc-sorcerer { background: #ede9fe; color: #5b21b6; border: 1px solid #ddd6fe; }
-.voc-druid { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
-.voc-paladin { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
-.voc-knight { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
-.voc-all { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
-.voc-default { background: #f8fafc; color: #475569; border: 1px solid #e2e8f0; }
+.voc-sorcerer { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+.voc-druid    { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+.voc-paladin  { background: #fef9c3; color: #a16207; border: 1px solid #fef08a; }
+.voc-knight   { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+.voc-all      { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+.voc-default  { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
 
-/* Coluna Premium (Tick e Cross Oficiais do TibiaWiki) */
+/* Box Direcionado de Runas (Quem Faz vs Quem Usa) */
+.rune-voc-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.rune-voc-row {
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+.rune-voc-lbl {
+    font-size: 9px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    width: 30px;
+}
+
+/* Premium Icons */
 .prem-icon-img {
-    width: 14px;
-    height: 14px;
-    display: inline-block;
+    width: 13px;
+    height: 13px;
     vertical-align: middle;
 }
 
-/* Coluna Spell Words */
-.spell-formula-text {
-    font-family: 'Consolas', 'Courier New', monospace;
-    font-size: 11px;
-    font-weight: 600;
-    color: #1e293b;
-    white-space: nowrap;
-    display: inline-block;
-    background: #f1f5f9;
-    padding: 2px 5px;
-    border-radius: 3px;
-    border: 1px solid #e2e8f0;
-}
-
-/* Coluna Mana */
+/* Mana */
 .spell-mana-val {
     font-weight: 700;
     color: #0284c7;
-    text-align: center;
-    display: block;
     font-size: 11.5px;
 }
 
-/* Coluna Grupo */
-.group-badge {
-    display: inline-block;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-size: 10.5px;
-    font-weight: 600;
-    white-space: nowrap;
+/* Grupos */
+.spell-group-text {
+    font-size: 11px;
+    color: #334155;
+    font-weight: 500;
 }
 
-.group-ataque { background: #ffe4e6; color: #9f1239; border: 1px solid #fecdd3; }
-.group-cura { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
-.group-suporte { background: #e0f2fe; color: #075985; border: 1px solid #bae6fd; }
-.group-campo { background: #ffedd5; color: #9a3412; border: 1px solid #fed7aa; }
-.group-conjuracao { background: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
-
-/* Coluna Efeito (Compacta, Resumida com Cores e Ícones do TibiaWiki) */
+/* Efeito com Palavras-Chave Azuis em Destaque */
 .spell-effect-text {
-    font-size: 11px;
-    line-height: 1.35;
+    font-size: 10.5px;
     color: #334155;
+    line-height: 1.3;
 }
 
 .status-mini-icon {
-    width: 13px;
-    height: 13px;
+    width: 14px;
+    height: 14px;
     vertical-align: -2px;
-    margin-right: 2px;
+    margin-right: 4px;
     display: inline-block;
     image-rendering: pixelated;
 }
 
-.effect-heal   { color: #15803d; font-weight: 600; }
-.effect-fire   { color: #b91c1c; font-weight: 600; }
-.effect-energy { color: #6d28d9; font-weight: 600; }
-.effect-poison { color: #166534; font-weight: 600; }
-.effect-phys   { color: #9a3412; font-weight: 600; }
-.effect-speed  { color: #0369a1; font-weight: 600; }
-.effect-invis  { color: #475569; font-weight: 600; }
-.effect-info   { color: #0f766e; font-weight: 600; }
-
-/* Ajustes DataTables e Paginação Profissional */
-.dataTables_wrapper {
-    margin-top: 10px;
+.effect-heal, .effect-phys, .effect-fire, .effect-energy, .effect-poison, .effect-speed, .effect-ice {
+    color: #005fa6 !important;
+    font-weight: 600 !important;
 }
 
-.dataTables_wrapper .dataTables_info {
-    padding-top: 8px;
-    font-size: 11.5px;
-    color: #475569;
-    font-weight: 600;
-}
-
+/* PAGINAÇÃO 100% LIMPA E BRANCA (SEM AZUL, NÚMEROS NUNCA SOMEM NO HOVER) */
 .dataTables_wrapper .dataTables_paginate {
-    padding-top: 6px;
+    padding-top: 8px !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 3px !important;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button {
+.dataTables_wrapper .dataTables_paginate .paginate_button,
+.dataTables_wrapper .dataTables_paginate a.paginate_button,
+.dataTables_wrapper .dataTables_paginate span .paginate_button {
     background: #ffffff !important;
+    background-color: #ffffff !important;
     border: 1px solid #cbd5e1 !important;
     border-radius: 4px !important;
-    color: #334155 !important;
-    padding: 4px 10px !important;
-    font-size: 11.5px !important;
+    color: #1e293b !important;
+    padding: 3px 9px !important;
+    font-size: 11px !important;
     font-weight: 600 !important;
-    margin-left: 2px !important;
+    margin: 0 1px !important;
     cursor: pointer !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04) !important;
     transition: all 0.15s ease !important;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
+    text-decoration: none !important;
+    text-shadow: none !important;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate a.paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate span .paginate_button:hover {
     background: #f1f5f9 !important;
+    background-color: #f1f5f9 !important;
     border-color: #94a3b8 !important;
     color: #0f172a !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-    background: linear-gradient(180deg, #1b4975 0%, #102a43 100%) !important;
-    border-color: #0b2238 !important;
-    color: #ffffff !important;
-    box-shadow: 0 1px 3px rgba(16, 42, 67, 0.25) !important;
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
+.dataTables_wrapper .dataTables_paginate a.paginate_button.current,
+.dataTables_wrapper .dataTables_paginate a.paginate_button.current:hover,
+.dataTables_wrapper .dataTables_paginate span .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate span .paginate_button.current:hover {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    border: 1.5px solid #334e68 !important;
+    color: #0b2e4f !important;
+    font-weight: 800 !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06) !important;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active,
+.dataTables_wrapper .dataTables_paginate a.paginate_button.disabled,
+.dataTables_wrapper .dataTables_paginate a.paginate_button.disabled:hover {
     background: #f8fafc !important;
+    background-color: #f8fafc !important;
     border-color: #e2e8f0 !important;
     color: #94a3b8 !important;
     cursor: not-allowed !important;
@@ -386,33 +539,46 @@ table.spells-table tbody td:last-child {
 
 <div class="spells-container">
 
-    <!-- Abas de Categoria (Tabs com Ícones Oficiais do TibiaWiki) -->
-    <div class="spells-nav-tabs">
-        <a href="javascript:void(0);" class="spells-tab-btn active" data-tab="all">
-            <svg class="tab-spell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-            Todas as Magias <span class="badge-count">{{ counts.all }}</span>
-        </a>
-        <a href="javascript:void(0);" class="spells-tab-btn" data-tab="instant">
-            <img src="{{ base_url }}images/spells/wiki/energy_beam.gif" class="tab-spell-icon" alt="Instant" />
-            Instantâneas <span class="badge-count">{{ counts.instant }}</span>
-        </a>
-        <a href="javascript:void(0);" class="spells-tab-btn" data-tab="rune">
-            <img src="{{ base_url }}images/spells/wiki/sudden_death.gif" class="tab-spell-icon" alt="Rune" />
-            Runas <span class="badge-count">{{ counts.rune }}</span>
-        </a>
-        <a href="javascript:void(0);" class="spells-tab-btn" data-tab="conjure">
-            <img src="{{ base_url }}images/spells/wiki/conjure_arrow.gif" class="tab-spell-icon" alt="Conjure" />
-            Conjurações <span class="badge-count">{{ counts.conjure }}</span>
-        </a>
+    <!-- Barra Superior: Abas e Seletor de Idioma (Bandeiras PT / EN) -->
+    <div class="spells-header-nav">
+        <!-- Abas de Categoria com Ícones Profissionais -->
+        <div class="spells-nav-tabs">
+            <a href="javascript:void(0);" class="spells-tab-btn active" data-tab="instant">
+                <img src="{{ base_url }}images/spells/tabs/tab_instant_spells.png" class="tab-spell-icon" alt="Instant" />
+                <span class="tab-label" data-i18n="tab_instant">Instantâneas</span> <span class="badge-count">{{ counts.instant }}</span>
+            </a>
+            <a href="javascript:void(0);" class="spells-tab-btn" data-tab="rune">
+                <img src="{{ base_url }}images/spells/tabs/tab_rune_spells.png" class="tab-spell-icon" alt="Rune" />
+                <span class="tab-label" data-i18n="tab_rune">Runas</span> <span class="badge-count">{{ counts.rune }}</span>
+            </a>
+            <a href="javascript:void(0);" class="spells-tab-btn" data-tab="conjure">
+                <img src="{{ base_url }}images/spells/tabs/tab_conjure_spells.png" class="tab-spell-icon" alt="Conjure" />
+                <span class="tab-label" data-i18n="tab_conjure">Conjurações</span> <span class="badge-count">{{ counts.conjure }}</span>
+            </a>
+            <a href="javascript:void(0);" class="spells-tab-btn" data-tab="all">
+                <img src="{{ base_url }}images/spells/tabs/tab_all_spells.png" class="tab-spell-icon" alt="All" />
+                <span class="tab-label" data-i18n="tab_all">Todas as Magias</span> <span class="badge-count">{{ counts.all }}</span>
+            </a>
+        </div>
+
+        <!-- Seletor de Idioma (Bandeiras no cantinho superior) -->
+        <div class="spells-lang-switch">
+            <button type="button" class="lang-btn active" data-lang="pt" title="Português">
+                <span class="flag-icon">🇧🇷</span> <span>PT</span>
+            </button>
+            <button type="button" class="lang-btn" data-lang="en" title="English">
+                <span class="flag-icon">🇺🇸</span> <span>EN</span>
+            </button>
+        </div>
     </div>
 
-    <!-- Barra de Filtros e Busca Rápida -->
+    <!-- Barra de Filtros Totalmente Destacada -->
     <div class="spells-filter-bar">
         <div class="spells-filter-group">
             <div class="spells-filter-item">
-                <span>Vocação:</span>
+                <span data-i18n="lbl_vocation">Vocação:</span>
                 <select id="filter_vocation">
-                    <option value="all" {% if selected_vocation == 'all' %}selected{% endif %}>Todas as Vocações</option>
+                    <option value="all" {% if selected_vocation == 'all' %}selected{% endif %} data-i18n="opt_all_voc">Todas as Vocações</option>
                     <option value="sorcerer" {% if selected_vocation == 'sorcerer' %}selected{% endif %}>Sorcerer</option>
                     <option value="druid" {% if selected_vocation == 'druid' %}selected{% endif %}>Druid</option>
                     <option value="paladin" {% if selected_vocation == 'paladin' %}selected{% endif %}>Paladin</option>
@@ -421,49 +587,45 @@ table.spells-table tbody td:last-child {
             </div>
 
             <div class="spells-filter-item">
-                <span>Grupo:</span>
+                <span data-i18n="lbl_group">Grupo:</span>
                 <select id="filter_group">
-                    <option value="all">Todos os Grupos</option>
-                    <option value="Ataque">Ataque</option>
-                    <option value="Cura">Cura</option>
-                    <option value="Suporte">Suporte</option>
-                    <option value="Runa de Ataque">Runa de Ataque</option>
-                    <option value="Runa de Cura">Runa de Cura</option>
-                    <option value="Runa de Campo">Runa de Campo</option>
-                    <option value="Runa de Suporte">Runa de Suporte</option>
-                    <option value="Conjuração">Conjuração</option>
+                    <option value="all" data-i18n="opt_all_groups">Todos os Grupos</option>
+                    <option value="Ataque" data-i18n="opt_attack">Ataque</option>
+                    <option value="Cura" data-i18n="opt_healing">Cura</option>
+                    <option value="Suporte" data-i18n="opt_support">Suporte</option>
+                    <option value="Conjuração" data-i18n="opt_conjure">Conjuração</option>
                 </select>
             </div>
 
             <div class="spells-filter-item">
-                <span>Conta:</span>
+                <span data-i18n="lbl_account">Tipo de Conta:</span>
                 <select id="filter_prem">
-                    <option value="all">Todas as Contas</option>
-                    <option value="free">Free Account</option>
-                    <option value="prem">Premium Account</option>
+                    <option value="all" data-i18n="opt_all_acc">Free & Premium</option>
+                    <option value="free" data-i18n="opt_free">Free Account</option>
+                    <option value="prem" data-i18n="opt_prem">Premium Account</option>
                 </select>
             </div>
         </div>
 
         <div>
-            <input type="text" id="spells_search" class="spells-search-input" placeholder="Buscar magia, fórmula, efeito...">
+            <input type="text" id="spells_search" class="spells-search-input" data-i18n-ph="ph_search" placeholder="Buscar magia, fórmula, dizer...">
         </div>
     </div>
 
-    <!-- Tabela Principal de Spells -->
+    <!-- Tabela Principal Compacta (Exatamente como media_1789879026430.png) -->
     <div class="spells-table-wrapper">
         <table id="spellsTable" class="spells-table">
-            <thead>
-                <tr>
-                    <th style="width: 130px;">Nome</th>
-                    <th style="width: 40px; text-align: center;">Ícone</th>
-                    <th style="width: 75px; text-align: center;">ML / Level</th>
-                    <th style="width: 105px;">Voc</th>
-                    <th style="width: 55px; text-align: center;">Premium</th>
-                    <th style="width: 120px;">Palavras Mágicas</th>
-                    <th style="width: 50px; text-align: center;">Mana</th>
-                    <th style="width: 95px;">Grupo</th>
-                    <th>Efeito</th>
+            <thead style="background-color: #cedff2 !important; background: #cedff2 !important;">
+                <tr style="background-color: #cedff2 !important; background: #cedff2 !important;">
+                    <th style="min-width: 110px; background-color: #cedff2 !important; color: #0c2d54 !important; border-bottom: 2px solid #8fadcb !important; border-right: 1px solid #ffffff !important;" data-i18n="th_name">Nome</th>
+                    <th style="width: 32px; text-align: center; background-color: #cedff2 !important; color: #0c2d54 !important; border-bottom: 2px solid #8fadcb !important; border-right: 1px solid #ffffff !important;" data-i18n="th_icon"></th>
+                    <th style="width: 75px; text-align: center; background-color: #cedff2 !important; color: #0c2d54 !important; border-bottom: 2px solid #8fadcb !important; border-right: 1px solid #ffffff !important;" data-i18n="th_ml">Level</th>
+                    <th style="min-width: 105px; background-color: #cedff2 !important; color: #0c2d54 !important; border-bottom: 2px solid #8fadcb !important; border-right: 1px solid #ffffff !important;" data-i18n="th_voc">Voc</th>
+                    <th style="width: 45px; text-align: center; background-color: #cedff2 !important; color: #0c2d54 !important; border-bottom: 2px solid #8fadcb !important; border-right: 1px solid #ffffff !important;" data-i18n="th_premium">Prem</th>
+                    <th style="min-width: 120px; background-color: #cedff2 !important; color: #0c2d54 !important; border-bottom: 2px solid #8fadcb !important; border-right: 1px solid #ffffff !important;" data-i18n="th_words">Spell Words</th>
+                    <th style="width: 55px; text-align: center; background-color: #cedff2 !important; color: #0c2d54 !important; border-bottom: 2px solid #8fadcb !important; border-right: 1px solid #ffffff !important;" data-i18n="th_mana">Mana</th>
+                    <th style="width: 75px; text-align: center; background-color: #cedff2 !important; color: #0c2d54 !important; border-bottom: 2px solid #8fadcb !important; border-right: 1px solid #ffffff !important;" data-i18n="th_group">Grupo</th>
+                    <th style="min-width: 200px; background-color: #cedff2 !important; color: #0c2d54 !important; border-bottom: 2px solid #8fadcb !important;" data-i18n="th_effect">Efeito</th>
                 </tr>
             </thead>
             <tbody>
@@ -473,37 +635,36 @@ table.spells-table tbody td:last-child {
                     data-group="{{ spell.group }}"
                     data-prem="{{ spell.premium ? 'prem' : 'free' }}">
                     
-                    <!-- Nome -->
-                    <td>
-                        <span class="spell-name-text">{{ spell.name }}</span>
-                        {% if spell.short_name %}
-                            <span class="spell-short-badge">{{ spell.short_name }}</span>
-                        {% endif %}
+                    <!-- 1. Nome (com estilo link azul em fundo destacado) -->
+                    <td class="col-spell-name">
+                        <a href="javascript:void(0);" class="spell-name-link">{{ spell.name }}</a>
                     </td>
 
-                    <!-- Ícone (SEM BORDA / FUNDO PRETO - EXATO TIBIAWIKI) -->
+                    <!-- 2. Ícone Oficial -->
                     <td style="text-align: center;">
                         <img src="{{ base_url }}{{ spell.icon }}" class="spell-icon-img" alt="{{ spell.name }}" loading="lazy" />
                     </td>
 
-                    <!-- ML / Level -->
-                    <td data-order="{{ spell.maglevel_sort }}">
+                    <!-- 3. ML / Level -->
+                    <td data-order="{{ spell.maglevel_sort }}" style="text-align: center;">
                         <div class="spell-ml-box">
-                            <span class="spell-ml-value">{{ spell.maglevel_display|raw }}</span>
+                            {{ spell.maglevel_display|raw }}
                         </div>
                     </td>
 
-                    <!-- Vocações -->
+                    <!-- 4. Voc -->
                     <td>
-                        {{ spell.vocations_html|raw }}
-                        {% if spell.type == 'rune' and spell.use_vocations %}
-                            <div style="font-size: 9px; color: #64748b; margin-top: 1px;">
-                                Uso: {{ spell.use_vocations|join(', ') }}
+                        {% if spell.type == 'rune' and spell.use_vocations_html %}
+                            <div class="rune-voc-box">
+                                <div class="rune-voc-row"><span class="rune-voc-lbl" data-i18n="lbl_make">MAKE:</span> {{ spell.vocations_html|raw }}</div>
+                                <div class="rune-voc-row"><span class="rune-voc-lbl" data-i18n="lbl_use">USE:</span> {{ spell.use_vocations_html|raw }}</div>
                             </div>
+                        {% else %}
+                            {{ spell.vocations_html|raw }}
                         {% endif %}
                     </td>
 
-                    <!-- Premium (Tick.png e Cross.png do TibiaWiki) -->
+                    <!-- 5. Prem -->
                     <td style="text-align: center;" data-order="{{ spell.premium }}">
                         {% if spell.premium == 1 %}
                             <img src="{{ base_url }}images/spells/tick.png" class="prem-icon-img" title="Premium Account" alt="Sim" />
@@ -512,38 +673,35 @@ table.spells-table tbody td:last-child {
                         {% endif %}
                     </td>
 
-                    <!-- Palavras Mágicas -->
+                    <!-- 6. Spell Words (Dizer) -->
                     <td>
-                        {% if spell.words %}
-                            <span class="spell-formula-text">{{ spell.words }}</span>
-                        {% else %}
-                            <span style="color: #94a3b8; font-style: italic; font-size: 11px;">Nenhuma</span>
+                        <span class="spell-words-text">{{ spell.words }}</span>
+                        {% if spell.popular_alias and spell.popular_alias != spell.name %}
+                            <span class="spell-alias-tag">({{ spell.popular_alias }})</span>
                         {% endif %}
                     </td>
 
-                    <!-- Mana -->
-                    <td style="text-align: center;" data-order="{{ spell.mana == 'Var.' ? 9999 : spell.mana }}">
+                    <!-- 7. Mana / Cargas -->
+                    <td style="text-align: center;" data-order="{{ spell.mana == 0 and spell.name == 'Summon Creature' ? 9999 : spell.mana }}">
                         <span class="spell-mana-val">{{ spell.mana }}</span>
                         {% if spell.charges and spell.charges != '—' %}
-                            <span style="font-size: 9.5px; color: #64748b;">({{ spell.charges }})</span>
+                            <div style="font-size: 9px; color: #64748b; font-weight: 600;">{{ spell.charges }}</div>
                         {% endif %}
                     </td>
 
-                    <!-- Grupo -->
-                    <td>
-                        {% set groupClass = 'group-suporte' %}
-                        {% if 'Ataque' in spell.group %}{% set groupClass = 'group-ataque' %}
-                        {% elseif 'Cura' in spell.group %}{% set groupClass = 'group-cura' %}
-                        {% elseif 'Campo' in spell.group %}{% set groupClass = 'group-campo' %}
-                        {% elseif 'Conjuração' in spell.group %}{% set groupClass = 'group-conjuracao' %}
-                        {% endif %}
-                        <span class="group-badge {{ groupClass }}">{{ spell.group }}</span>
+                    <!-- 8. Grupo -->
+                    <td style="text-align: center;">
+                        <span class="spell-group-text"
+                              data-pt="{{ spell.group }}"
+                              data-en="{{ spell.group_en }}">{{ spell.group }}</span>
                     </td>
 
-                    <!-- Efeito (Resumido, Organizado, com Ícones de Condição) -->
+                    <!-- 9. Efeito (Bilingue com destaque de dano azul) -->
                     <td>
-                        <div class="spell-effect-text">
-                            {{ spell.effect|raw }}
+                        <div class="spell-effect-text"
+                             data-pt="{{ spell.effect_pt|e('html_attr') }}"
+                             data-en="{{ spell.effect_en|e('html_attr') }}">
+                            {{ spell.effect_pt|raw }}
                         </div>
                     </td>
                 </tr>
@@ -554,80 +712,215 @@ table.spells-table tbody td:last-child {
 
 </div>
 
-<link rel="stylesheet" href="{{ base_url }}tools/css/datatables.min.css">
 <script src="{{ base_url }}tools/js/datatables.min.js"></script>
 
 <script>
 $(document).ready(function() {
-    // Inicializa DataTable com ordenação e paginação
+    // Dicionário Bilingue (Português Padrão / English)
+    var i18n = {
+        pt: {
+            tab_instant: "Instantâneas",
+            tab_rune: "Runas",
+            tab_conjure: "Conjurações",
+            tab_all: "Todas as Magias",
+            lbl_vocation: "Vocação:",
+            opt_all_voc: "Todas as Vocações",
+            lbl_group: "Grupo:",
+            opt_all_groups: "Todos os Grupos",
+            opt_attack: "Ataque",
+            opt_healing: "Cura",
+            opt_support: "Suporte",
+            opt_conjure: "Conjuração",
+            lbl_account: "Tipo de Conta:",
+            opt_all_acc: "Free & Premium",
+            opt_free: "Free Account",
+            opt_prem: "Premium Account",
+            ph_search: "Buscar magia, fórmula, dizer...",
+            th_name: "Nome",
+            th_icon: "",
+            th_ml: "Level",
+            th_voc: "Voc",
+            th_premium: "Prem",
+            th_words: "Spell Words",
+            th_mana: "Mana",
+            th_group: "Grupo",
+            th_effect: "Efeito",
+            lbl_make: "MAKE:",
+            lbl_use: "USE:",
+            dt_search: "Buscar:",
+            dt_info: "Mostrando _START_ a _END_ de _TOTAL_ magias",
+            dt_empty: "Nenhuma magia encontrada",
+            dt_filtered: "(filtrado de _MAX_ magias)",
+            dt_zero: "Nenhuma magia corresponde aos filtros aplicados",
+            dt_prev: "Anterior",
+            dt_next: "Próxima"
+        },
+        en: {
+            tab_instant: "Instant Spells",
+            tab_rune: "Runes",
+            tab_conjure: "Conjurations",
+            tab_all: "All Spells",
+            lbl_vocation: "Vocation:",
+            opt_all_voc: "All Vocations",
+            lbl_group: "Group:",
+            opt_all_groups: "All Groups",
+            opt_attack: "Attack",
+            opt_healing: "Healing",
+            opt_support: "Support",
+            opt_conjure: "Conjuration",
+            lbl_account: "Account Type:",
+            opt_all_acc: "Free & Premium",
+            opt_free: "Free Account",
+            opt_prem: "Premium Account",
+            ph_search: "Search spell, words, effect...",
+            th_name: "Name",
+            th_icon: "",
+            th_ml: "Level",
+            th_voc: "Voc",
+            th_premium: "Prem",
+            th_words: "Spell Words",
+            th_mana: "Mana",
+            th_group: "Group",
+            th_effect: "Effect",
+            lbl_make: "MAKE:",
+            lbl_use: "USE:",
+            dt_search: "Search:",
+            dt_info: "Showing _START_ to _END_ of _TOTAL_ spells",
+            dt_empty: "No spells found",
+            dt_filtered: "(filtered from _MAX_ spells)",
+            dt_zero: "No spells match the applied filters",
+            dt_prev: "Previous",
+            dt_next: "Next"
+        }
+    };
+
+    var currentLang = localStorage.getItem('spells_lang') || 'pt';
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('spells_lang', lang);
+        
+        $('.spells-lang-switch .lang-btn').removeClass('active');
+        $('.spells-lang-switch .lang-btn[data-lang="' + lang + '"]').addClass('active');
+
+        var dict = i18n[lang] || i18n.pt;
+
+        // Atualiza textos estáticos
+        $('[data-i18n]').each(function() {
+            var key = $(this).data('i18n');
+            if (dict[key] !== undefined) {
+                $(this).text(dict[key]);
+            }
+        });
+
+        // Atualiza placeholders
+        $('[data-i18n-ph]').each(function() {
+            var key = $(this).data('i18n-ph');
+            if (dict[key]) {
+                $(this).attr('placeholder', dict[key]);
+            }
+        });
+
+        // Atualiza Badges de Grupo
+        $('.spell-group-text').each(function() {
+            var t = $(this).attr('data-' + lang);
+            if (t) {
+                $(this).text(t);
+            }
+        });
+
+        // Atualiza Descrições de Efeito
+        $('.spell-effect-text').each(function() {
+            var eff = $(this).attr('data-' + lang);
+            if (eff) {
+                $(this).html(eff);
+            }
+        });
+    }
+
+    // Estado dos Filtros (Instantâneas ativa por padrão)
+    var currentTab = 'instant';
+    var currentVoc = $('#filter_vocation').val() || 'all';
+    var currentGroup = 'all';
+    var currentPrem = 'all';
+
+    // REGISTRA O FILTRO CUSTOMIZADO ANTES DO DataTable()
+    // Utiliza settings.aoData[dataIndex].nTr diretamente (sem chamar API do DataTable)
+    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        if (settings.nTable.id !== 'spellsTable') {
+            return true;
+        }
+
+        var row = settings.aoData[dataIndex];
+        if (!row || !row.nTr) {
+            return false;
+        }
+
+        var tr = row.nTr;
+        var rType = tr.getAttribute('data-type') || '';
+        var rVoc = (tr.getAttribute('data-voc') || '').toLowerCase();
+        var rGroup = tr.getAttribute('data-group') || '';
+        var rPrem = tr.getAttribute('data-prem') || '';
+
+        // Filtro estrito de Aba (instant, rune, conjure, all)
+        if (currentTab !== 'all' && rType !== currentTab) {
+            return false;
+        }
+
+        // Filtro de Vocação (Direcionado para quem usa ou cria)
+        if (currentVoc !== 'all') {
+            if (rVoc.indexOf(currentVoc) === -1) {
+                return false;
+            }
+        }
+
+        // Filtro de Grupo
+        if (currentGroup !== 'all') {
+            if (rGroup.indexOf(currentGroup) === -1) {
+                return false;
+            }
+        }
+
+        // Filtro de Premium
+        if (currentPrem !== 'all' && rPrem !== currentPrem) {
+            return false;
+        }
+
+        return true;
+    });
+
+    // Inicializa DataTable com ordenação por ML/Level e paginação limpa
     var table = $('#spellsTable').DataTable({
+        "dom": 'tip',
         "paging": true,
         "pageLength": 50,
         "lengthChange": false,
         "info": true,
         "autoWidth": false,
-        "order": [[ 2, "asc" ]], // Ordena por ML inicialmente
+        "order": [[ 2, "asc" ]],
         "language": {
-            "search": "Buscar:",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ magias",
-            "infoEmpty": "Nenhuma magia encontrada",
-            "infoFiltered": "(filtrado de _MAX_ magias)",
-            "zeroRecords": "Nenhuma magia corresponde aos filtros aplicados",
+            "search": i18n[currentLang].dt_search,
+            "info": i18n[currentLang].dt_info,
+            "infoEmpty": i18n[currentLang].dt_empty,
+            "infoFiltered": i18n[currentLang].dt_filtered,
+            "zeroRecords": i18n[currentLang].dt_zero,
             "paginate": {
-                "first": "Primeira",
-                "last": "Última",
-                "next": "Próxima",
-                "previous": "Anterior"
+                "next": i18n[currentLang].dt_next,
+                "previous": i18n[currentLang].dt_prev
             }
         }
     });
 
-    var currentTab = 'all';
-    var currentVoc = $('#filter_vocation').val() || 'all';
-    var currentGroup = 'all';
-    var currentPrem = 'all';
+    // Idioma inicial
+    setLanguage(currentLang);
 
-    // Função de filtro customizada no DataTables
-    $.fn.dataTable.ext.search.push(
-        function(settings, data, dataIndex) {
-            var rowNode = table.row(dataIndex).node();
-            if (!rowNode) return true;
+    // Evento de troca de idioma
+    $('.spells-lang-switch .lang-btn').on('click', function() {
+        var lang = $(this).data('lang');
+        setLanguage(lang);
+    });
 
-            var $row = $(rowNode);
-            var rType = $row.data('type') || '';
-            var rVoc = ($row.data('voc') || '').toLowerCase();
-            var rGroup = $row.data('group') || '';
-            var rPrem = $row.data('prem') || '';
-
-            // Filtro de Aba (Type)
-            if (currentTab !== 'all' && rType !== currentTab) {
-                return false;
-            }
-
-            // Filtro de Vocação
-            if (currentVoc !== 'all') {
-                if (rVoc.indexOf(currentVoc) === -1) {
-                    return false;
-                }
-            }
-
-            // Filtro de Grupo
-            if (currentGroup !== 'all') {
-                if (rGroup.indexOf(currentGroup) === -1) {
-                    return false;
-                }
-            }
-
-            // Filtro de Premium
-            if (currentPrem !== 'all' && rPrem !== currentPrem) {
-                return false;
-            }
-
-            return true;
-        }
-    );
-
-    // Abas
+    // Abas de Categoria
     $('.spells-tab-btn').on('click', function(e) {
         e.preventDefault();
         $('.spells-tab-btn').removeClass('active');
@@ -636,32 +929,30 @@ $(document).ready(function() {
         table.draw();
     });
 
-    // Filtro Vocação
+    // Filtro de Vocação
     $('#filter_vocation').on('change', function() {
         currentVoc = $(this).val();
         table.draw();
     });
 
-    // Filtro Grupo
+    // Filtro de Grupo
     $('#filter_group').on('change', function() {
         currentGroup = $(this).val();
         table.draw();
     });
 
-    // Filtro Premium
+    // Filtro de Premium
     $('#filter_prem').on('change', function() {
         currentPrem = $(this).val();
         table.draw();
     });
 
-    // Busca rápida
+    // Campo de Busca Rápida
     $('#spells_search').on('keyup', function() {
         table.search(this.value).draw();
     });
 
-    // Se já havia vocação pré-selecionada na URL, aplica
-    if (currentVoc !== 'all') {
-        table.draw();
-    }
+    // Render inicial
+    table.draw();
 });
 </script>

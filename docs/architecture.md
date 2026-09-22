@@ -1,6 +1,6 @@
-# Arquitetura — OpenTibia-740
+# Arquitetura — Nosleira OT 7.4
 
-Workspace multi-repo. Compose na raiz; cada serviço builda a partir do sibling correspondente.
+Monorepo GitHub (`nosleirabr/Oteserver7.4`). Compose na raiz; cada pasta é uma camada, não um repositório separado.
 
 ## Visão geral
 
@@ -49,12 +49,14 @@ MyAAC lê `config.lua` do server via mount read-only.
 
 Ver [`MAP_AS_CODE_FLOW.md`](MAP_AS_CODE_FLOW.md). Resumo: `maps/src` → `otmap build --from-source` → `maps/build/world.otbm`.
 
-## Repositórios GitLab
+## Pastas neste repositório
 
-| Pasta local | Remote |
-|-------------|--------|
-| workspace (raiz) | `opentibia-740/workspace` |
-| `server/` | `opentibia-740/server` |
-| `maps/` | `opentibia-740/maps` |
-| `tools/map-editor/` | `opentibia-740/tools/map_editor` |
+| Pasta | Papel |
+|-------|--------|
+| raiz | Compose, docs, `.github/workflows` |
+| `server/` | TFS 1.2 + datapack |
+| `site/` | MyAAC |
+| `client/` | OTClient 7.4 |
+| `maps/` | YAML + bake OTBM |
+| `tools/map-editor/` | CLI `otmap` + viewer |
 | demais | ver [`README.md`](../README.md) |

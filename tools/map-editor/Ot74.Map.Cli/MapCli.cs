@@ -1,4 +1,4 @@
-﻿using Ot74.Map.Core.Otbm;
+using Ot74.Map.Core.Otbm;
 using Ot74.Map.Source;
 
 namespace Ot74.Map.Cli;
@@ -572,7 +572,7 @@ static class RepoRoot
 		}
 
 		throw new DirectoryNotFoundException(
-			"Run otmap from the OpenTibia-740 workspace root (docker-compose.yml + maps/).");
+			"Run otmap from the nosleirabr/Oteserver7.4 repo root (docker-compose.yml + maps/).");
 	}
 }
 

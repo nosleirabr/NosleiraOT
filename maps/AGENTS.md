@@ -1,7 +1,5 @@
 # Maps layer — agents
 
-Abra o **workspace** pai (`opentibia-740/workspace`). Fonte de verdade deste repo: [`README.md`](README.md).
-
-Toolchain: clone sibling `tools/map-editor` (GitLab: `opentibia-740/tools/map_editor`).
+Fonte de verdade: [`README.md`](README.md) nesta pasta. Toolchain: `tools/map-editor/` **neste** monorepo (CLI `otmap`).
 
 Não reative injectors. Bake = `otmap build --from-source`.

@@ -1,51 +1,37 @@
-# Bootstrap — OpenTibia-740 (multi-repo)
+# Bootstrap — Nosleira OT Server 7.4
 
-Clone o **workspace** e os siblings. Não há `bootstrap.ps1` — rode os comandos abaixo no PowerShell.
+Monorepo único no GitHub. Clone **uma** vez; `server/`, `site/`, `client/`, `maps/` e `tools/` já vêm dentro.
 
-## 1. Clones
+## 1. Clone
 
 ```powershell
-cd C:\Projetos
-git clone https://gitlab.com/opentibia-740/workspace.git opentibia-740
-cd opentibia-740
+cd D:\Server
+git clone https://github.com/nosleirabr/Oteserver7.4.git .
+# ou, se a pasta ainda não existe:
+# git clone https://github.com/nosleirabr/Oteserver7.4.git D:\Server
+```
 
-git clone https://gitlab.com/opentibia-740/server.git server
-git clone https://gitlab.com/opentibia-740/site.git site
-git clone https://gitlab.com/opentibia-740/client.git client
-git clone https://gitlab.com/opentibia-740/maps.git maps
+Se o mapa usa Git LFS:
 
-# Tool: path GitLab = map_editor (underscore); pasta local = tools/map-editor
-New-Item -ItemType Directory -Force -Path tools | Out-Null
-git clone https://gitlab.com/opentibia-740/tools/map_editor.git tools/map-editor
+```powershell
+git lfs install
+git lfs pull
+```
 
-New-Item -ItemType Directory -Force -Path infra | Out-Null
-git clone https://gitlab.com/opentibia-740/infra/ci-templates.git infra/ci-templates
-
-# AI kit — mesmo repo em .cursor (Cursor) e .agents (Antigravity)
-git clone https://gitlab.com/opentibia-740/ai.git .cursor
-git clone https://gitlab.com/opentibia-740/ai.git .agents
-
-git -C maps lfs install
-git -C maps lfs pull
-
+```powershell
 copy .env.template .env
+# se não houver .env.template: copy .env.example .env
 ```
 
-Atualizar skills depois:
+Skills do agente ficam em `.agents/skills/` (Antigravity) e `.cursor/skills/` (Cursor), **neste** repo — já vêm com o clone acima.
 
-```powershell
-git -C .cursor pull
-git -C .agents pull
-```
+## 2. Brain
 
-## 2. Brain (local, ainda sem Git)
-
-Opcional: copie learnings antigos para `brain/` na raiz do workspace (gitignored).
+Learnings versionados: [`docs/learnings/`](learnings/index.md). Sem pasta home fora do Git.
 
 ## 3. Stack
 
 ```powershell
-# Bake do mapa a partir do YAML (obrigatório se build/world.otbm não veio via LFS)
 dotnet build tools\map-editor\Ot74.Map.Cli\Ot74.Map.Cli.csproj -nologo -v q
 $otmap = 'tools\map-editor\Ot74.Map.Cli\bin\Debug\net10.0\otmap.dll'
 dotnet exec $otmap build --from-source

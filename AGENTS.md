@@ -1,9 +1,8 @@
-# Server agents
+# Nosleira OT 7.4 — agents
 
-TFS 1.2 / datapack 7.4. Open the parent workspace (opentibia-740/workspace) for Compose and maps bind-mount.
+Monorepo GitHub: [nosleirabr/Oteserver7.4](https://github.com/nosleirabr/Oteserver7.4). Compose, mapas e datapack ficam **nesta** pasta (`D:\Server`). Não clone GitLab `opentibia-740/*`.
 
-Dockerfile + docker/entrypoint.sh live in this repo. Do not put Terraform here.
-
+Dockerfile + `docker/entrypoint.sh` / `server` Dockerfile vivem neste repo. Terraform de nuvem (M5) é pasta/issue à parte — não misturar no datapack.
 
 # Regras do Repositorio GitHub
 - NUNCA suba (upar) lixo para o repositorio (como scripts python de teste, logs, arquivos .rar, ou dependencias compiladas).

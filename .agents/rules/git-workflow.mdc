@@ -1,0 +1,16 @@
+---
+description: Git + Kanban — Ready tasks, branch id-first, Closes #N; In review/Done via Project Workflows
+alwaysApply: true
+---
+
+# Git workflow
+
+Canonical: `docs/GIT_WORKFLOW.md`, `docs/AGENTIC_KANBAN.md`.
+
+1. Delivery from [Project #1](https://github.com/users/matosnathan/projects/1): only **Ready**. Assign + **In progress**; scope = issue description. Skill: `otserver-agentic-kanban`.
+2. `git pull` on `main`, then branch `<ticketid>-<summary>` or `<ticketid>-m<N>-<summary>` (issue id first, e.g. `81-m1-remove-ghost-npcs`). Prefer creating the branch from the issue **Development** UI so GitHub links it.
+3. Work only on that branch; tests from `docs/TESTING.md` before PR.
+4. PR to `main` with **`Closes #<ticketid>`** + grouped Changes. **In review** / **Done** = Project native Workflows — do not use CI to move cards; do not set those statuses yourself on code tasks.
+5. **Never merge a PR** unless the human explicitly asks.
+6. Never commit secrets or external tool binaries.
+7. Manual QA: inform user before In progress; verify AC before closing (Done via issue closed workflow).

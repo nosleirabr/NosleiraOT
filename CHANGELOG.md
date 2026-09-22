@@ -1,6 +1,8 @@
-# Changelog — OpenTibia 7.4
+# Changelog — Nosleira OT Server 7.4
 
 Todas as mudanças notáveis neste projeto são documentadas aqui.
+
+Issues históricas linkadas a `matosnathan/otserver` abaixo são arquivo de um tracker anterior.
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/).
 Versionamento segue [Semantic Versioning](https://semver.org/lang/pt-BR/) adaptado para milestones.

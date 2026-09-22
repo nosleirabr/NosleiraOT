@@ -1,0 +1,17 @@
+---
+description: Git + issues GitHub — branch id-first, Closes #N; merge só com autorização humana
+alwaysApply: true
+---
+
+# Git workflow
+
+Canonical: `docs/GIT_WORKFLOW.md`, `docs/AGENTIC_KANBAN.md`.
+
+1. Delivery from [nosleirabr/Oteserver7.4 issues](https://github.com/nosleirabr/Oteserver7.4/issues): only what is Ready / what the human asked. Assign; scope = issue description. Skill: `otserver-agentic-kanban`.
+2. `git pull` on `main`, then branch `<ticketid>-<summary>` or `<ticketid>-m<N>-<summary>` (issue id first). Prefer creating the branch from the issue **Development** UI so GitHub links it.
+3. Work only on that branch; tests from `docs/TESTING.md` before PR.
+4. PR to `main` with **`Closes #<ticketid>`** + grouped Changes. Do not use CI to “move cards”.
+5. **Never merge a PR** unless the human explicitly asks.
+6. Never commit secrets or external tool binaries.
+7. Manual QA: inform user before starting; verify AC before closing the issue.
+8. Remote is GitHub only. Do not clone GitLab `opentibia-740/*` or open Merge Requests.

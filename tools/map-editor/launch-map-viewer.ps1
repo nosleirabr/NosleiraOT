@@ -1,4 +1,4 @@
-# Viewer web do mapa — workspace OpenTibia-740.
+# Viewer web do mapa — monorepo nosleirabr/Oteserver7.4.
 param(
 	[switch]$All = $true,
 	[string]$Region = '32369,32215,7',
@@ -23,7 +23,7 @@ function Find-WorkspaceRoot([string]$Start) {
 		if (-not $dir.Parent) { break }
 		$dir = $dir.Parent
 	}
-	throw "Workspace root not found (docker-compose.yml + maps/). Clone opentibia-740/workspace and siblings."
+	throw "Workspace root not found (docker-compose.yml + maps/). Clone nosleirabr/Oteserver7.4."
 }
 
 $Root = Find-WorkspaceRoot $PSScriptRoot

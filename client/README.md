@@ -110,7 +110,7 @@ Gotchas: não renomear pastas para `_disabled_*`; `game_actionbar` é referencia
 
 ## Links
 
-- Issue: [#44](https://github.com/matosnathan/otserver/issues/44)  
+- Pesquisa 7.4: [`docs/CLIENT_74.md`](docs/CLIENT_74.md)  
 - Docs 7.4: [`docs/CLIENT_74.md`](../docs/CLIENT_74.md)  
 - Learning: [`docs/learnings/wiki/otclientv8-74-base.md`](../docs/learnings/wiki/otclientv8-74-base.md)  
 - Root: [`../README.md`](../README.md) / router [`../AGENTS.md`](../AGENTS.md)

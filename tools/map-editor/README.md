@@ -1,8 +1,8 @@
 # Ot74.Map — map-editor (toolchain only)
 
-CLI `otmap` + web viewer. **Sem dados de mapa.** Fonte YAML e bake: sibling `maps/` no workspace OpenTibia-740.
+CLI `otmap` + web viewer. **Sem dados de mapa.** Fonte YAML e bake: pasta `maps/` neste repositório.
 
-Fluxo completo: `docs/MAP_AS_CODE_FLOW.md` no workspace.
+Fluxo completo: `docs/MAP_AS_CODE_FLOW.md` na raiz.
 
 ## Mental model
 
@@ -40,6 +40,6 @@ dotnet exec $otmap viewer-data --all --otbm maps/build/world.otbm --out maps/bui
 
 Env opcional: `OT74_MAPS` (absoluto) se `maps/` não for sibling do compose.
 
-## GitLab
+## Git
 
-Remote: `opentibia-740/tools/map_editor` (path com underscore; pasta local `tools/map-editor`).
+Código da tool neste monorepo: `tools/map-editor/` em [nosleirabr/Oteserver7.4](https://github.com/nosleirabr/Oteserver7.4).

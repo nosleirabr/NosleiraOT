@@ -1,6 +1,6 @@
 # Tibia 7.4 client — referência de fidelidade
 
-Fonte condensada da pesquisa da issue [#44](https://github.com/matosnathan/otserver/issues/44).  
+Fonte condensada da pesquisa de fidelidade 7.4 do client (OTClientV8).  
 Relatório bruto local (gitignored): `.tmp-client44/research-74-client.md`.
 
 ## Identidade
