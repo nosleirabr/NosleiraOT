@@ -6,9 +6,13 @@ Faz parte do monorepo [`nosleirabr/Oteserver7.4`](https://github.com/nosleirabr/
 ## Layout
 
 ```
-skills/<name>/SKILL.md
-rules/*.mdc
-agents/          # opcional (map-* agents)
+AGENTS.md              # índice mestre (leia primeiro)
+skills/<name>/SKILL.md # 20 skills (ver AGENTS.md para catálogo)
+rules/*.mdc|*.md       # coding-standards, git-workflow, strict-scope, auto-push
+architecture/ cpp/ lua/ security/ uuix/   # referências (C++, Lua, OWASP, UI)
+agents/                # opcional (map-* agents)
+task-observer/         # observador de sessão + hooks
+project_skillz.md      # contexto consolidado do projeto (OTC/C++17/Lua)
 ```
 
 ## Instalação
@@ -31,4 +35,8 @@ git pull origin main
 
 ## Skills
 
-Ver pastas em `skills/`. Catálogo no workspace: [`docs/SKILLS.md`](../docs/SKILLS.md).
+Ver pastas em `skills/` (20 skills). Índice e ordem de leitura: [`AGENTS.md`](AGENTS.md).
+Catálogo no workspace: [`docs/SKILLS.md`](../docs/SKILLS.md).
+
+Skills novas neste ciclo: `otserver-client-otcv8`, `otserver-testing-ci`,
+`otserver-infra-cloud`, `otserver-release-process`.
