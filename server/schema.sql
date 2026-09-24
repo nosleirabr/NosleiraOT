@@ -446,7 +446,7 @@ INSERT INTO `players` (
   `skill_dist`, `skill_dist_tries`, `skill_shielding`, `skill_shielding_tries`,
   `skill_fishing`, `skill_fishing_tries`
 ) VALUES (
-  1, 'Nosleir', 6, 1, 1, 0,
+  1, '[ADM] Nós', 6, 1, 1, 0,
   1000, 1000, 0,
   0, 0, 0, 0, 75, 0,
   0, 0, 0, 0, 100,

@@ -17,4 +17,4 @@ Reescrita da engine em **C# / .NET** (pipelines, EF Core, etc.) é visão de lon
 
 ## Wiki
 
-Páginas ingestidas: [`wiki/README.md`](wiki/README.md). Catálogo curto: este arquivo + `map-as-code.md` + `DICIONARIO_TECNICO.md`.
+Páginas ingestidas: [`wiki/README.md`](wiki/README.md) · [`wiki/discord-repost-policy.md`](wiki/discord-repost-policy.md) · [`wiki/discord-admin-bypass.md`](wiki/discord-admin-bypass.md). Catálogo curto: este arquivo + `map-as-code.md` + `DICIONARIO_TECNICO.md`.

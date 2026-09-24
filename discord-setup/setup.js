@@ -22,11 +22,13 @@ const {
 // ─────────────────────────────────────────────
 //  CONFIGURAÇÃO
 // ─────────────────────────────────────────────
-const TOKEN    = 'MTU1MDk0Njg0OTIyMzg2ODQ3Nw.GbKhS5.cStGJn59ObTX8lv-URRPVjSBuoqHg2X0gy64eQ';
-const GUILD_ID = '1550944696761843915';
+require('dotenv').config();
+
+const TOKEN    = process.env.TOKEN;
+const GUILD_ID = process.env.GUILD_ID;
 
 // URL do site (para integração futura com avisos)
-const SITE_URL  = 'https://nosleira.com.br'; // ajuste conforme necessário
+const SITE_URL  = 'https://www.nosleiraot.com'; // ajuste conforme necessário
 // ─────────────────────────────────────────────
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -100,9 +102,19 @@ const ROLES = [
   },
   // ── Jogadores ──────────────────────────────────────────────────
   {
-    name: '💎 VIP',
+    name: '<:admin:298566> VIP',
     colors: '#9B59B6',
     hoist: true, mentionable: true,
+    permissions: [
+      PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages,
+      PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.Connect,
+      PermissionFlagsBits.Speak, PermissionFlagsBits.AddReactions,
+    ],
+  },
+  {
+    name: '🔴 Ao Vivo',
+    colors: '#FF0000',
+    hoist: true, mentionable: false,
     permissions: [
       PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages,
       PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.Connect,
@@ -145,131 +157,114 @@ const buildStructure = (rm, ev) => {
 
   return [
 
-    // ── 1. VERIFICAÇÃO ─────────────────────────────────────────────
+    // ── 1. MEMBER COUNT (topo absoluto) ──────────────────────────────
     {
-      name: '🔐 VERIFICAÇÃO',
+      name: '𝗠𝗘𝗠𝗕𝗘𝗥 𝗖𝗢𝗨𝗡𝗧',
       permissionOverwrites: [
-        { id: ev, deny: [PermissionFlagsBits.ViewChannel] },
-        { id: rm['🆕 Novato'].id, allow: [PermissionFlagsBits.ViewChannel] },
-        ...staffAllow([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]),
+        { id: ev, deny: [PermissionFlagsBits.Connect], allow: [PermissionFlagsBits.ViewChannel] },
+        ...staffAllow([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.Connect]),
       ],
       channels: [
-        {
-          name: '📋┃como-verificar',
-          type: ChannelType.GuildText,
-          topic: 'Instruções de verificação.',
-          key: 'comoVerificar',
-        },
-        {
-          name: '🔐┃verificacao',
-          type: ChannelType.GuildText,
-          topic: 'Responda as perguntas para liberar o acesso ao servidor.',
-          key: 'verificacao',
-        },
+        { name: '【👥】𝗠𝗲𝗺𝗯𝗿𝗼𝘀-🟢［0］-🔴［0］', type: ChannelType.GuildText, topic: 'Contador de membros em tempo real - verdes = online, vermelhos = offline' },
       ],
     },
 
     // ── 2. INFORMAÇÕES ─────────────────────────────────────────────
     {
-      name: '📌 INFORMAÇÕES',
+      name: '𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗢𝗘𝗦',
       permissionOverwrites: [
         { id: ev, deny: [PermissionFlagsBits.SendMessages] },
         ...staffAllow([PermissionFlagsBits.SendMessages]),
       ],
       channels: [
-        { name: '📜┃regras',          type: ChannelType.GuildText, topic: 'Regras do NosleiraOT.', key: 'regras' },
-        { name: '📢┃avisos',          type: ChannelType.GuildText, topic: `Avisos oficiais — integração futura com ${SITE_URL}`, key: 'avisos' },
-        { name: '🌐┃links-oficiais',  type: ChannelType.GuildText, topic: 'Links do servidor.' },
-        { name: '🗓️┃eventos',         type: ChannelType.GuildText, topic: 'Eventos e promoções.' },
-        { name: '📊┃status-servidor', type: ChannelType.GuildText, topic: 'Status online/offline.' },
+        { name: '[ 📣 ] 𝐂𝐨𝐦𝐮𝐧𝐢𝐜𝐚𝐝𝐨𝐬',  type: ChannelType.GuildText, topic: 'Comunicados oficiais.', key: 'avisos' },
+        { name: '[ ✍🏻 ] 𝐀𝐭𝐮𝐚𝐥𝐢𝐳𝐚𝐜𝐨𝐞𝐬', type: ChannelType.GuildText, topic: 'Atualizações oficiais.' },
+        { name: '[ 🔱 ] 𝐋𝐢𝐧𝐤𝐬',        type: ChannelType.GuildText, topic: 'Links do servidor.' },
       ],
     },
 
-    // ── 3. REDES SOCIAIS ───────────────────────────────────────────
+    // ── 3. SUPORTE ─────────────────────────────────────────────────
     {
-      name: '🌐 REDES SOCIAIS',
+      name: '𝗦𝗨𝗣𝗢𝗥𝗧𝗘',
       permissionOverwrites: [
         { id: ev, deny: [PermissionFlagsBits.SendMessages] },
-        { id: rm['👑 Administrador'].id, allow: [PermissionFlagsBits.SendMessages] },
-        { id: rm['💠 Dono'].id,          allow: [PermissionFlagsBits.SendMessages] },
+        ...staffAllow([PermissionFlagsBits.SendMessages]),
       ],
       channels: [
-        { name: '📸┃instagram', type: ChannelType.GuildText, topic: 'Siga nosso Instagram!' },
-        { name: '📘┃facebook',  type: ChannelType.GuildText, topic: 'Curta nossa página no Facebook!' },
-        { name: '💬┃whatsapp',  type: ChannelType.GuildText, topic: 'Entre no grupo do WhatsApp!' },
-        { name: '✈️┃telegram',  type: ChannelType.GuildText, topic: 'Acesse nosso canal no Telegram!' },
-        { name: '▶️┃youtube',   type: ChannelType.GuildText, topic: 'Inscreva-se no YouTube!' },
-        { name: '🎵┃tiktok',    type: ChannelType.GuildText, topic: 'Nos siga no TikTok!' },
-      ],
+        { name: '[ 🔴 ] 𝐓𝐢𝐜𝐤𝐞𝐭-𝐁𝐑',   type: ChannelType.GuildText, topic: 'Abra um ticket de suporte.', key: 'ticketPanel' },
+        { name: '[ 🚫 ] 𝐑𝐞𝐠𝐫𝐚𝐬',      type: ChannelType.GuildText, topic: 'Regras do NosleiraOT.', key: 'regras' },
+        { name: '[ 📋 ] 𝐋𝐨𝐠-𝐓𝐢𝐜𝐤𝐞𝐭𝐬', type: ChannelType.GuildText, topic: 'Log de tickets (staff).', staffOnly: true },
+        { name: '【🔒】𝗟𝗼𝗴-𝗦𝗲𝗴𝘂𝗿𝗮𝗻𝗰𝗮', type: ChannelType.GuildText, topic: 'Log de segurança e automod.', staffOnly: true },
+        {
+          name: '🔊 | 𝐒𝐭𝐚𝐟𝐟 𝐕𝐨𝐢𝐜𝐞',
+          type: ChannelType.GuildVoice,
+          extraOverwrites: [
+            { id: ev, deny: [PermissionFlagsBits.ViewChannel] },
+            ...(['🎓 Tutor', '⭐ Sênior Tutor', '🛡️ Community Manager',
+                 '🔱 Game Master', '👑 Administrador', '💠 Dono'
+            ].map((n) => ({ id: rm[n].id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.Connect, PermissionFlagsBits.Speak] }))),
+          ],
+        },
+],
     },
 
-    // ── 4. COMUNIDADE ──────────────────────────────────────────────
+    // ── 4. TICKETS ATIVOS (categoria oculta para tickets abertos) ─────────
+  {
+    name: '𝗧𝗜𝗖𝗞𝗘𝗧𝗦 𝗔𝗧𝗜𝗩𝗢𝗦',
+    permissionOverwrites: [
+      { id: ev, deny: [PermissionFlagsBits.ViewChannel] },
+      ...staffAllow([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]),
+    ],
+    channels: [],
+  },
+
+  // ── 5. ADVERTISING ─────────────────────────────────────────────
     {
-      name: '💬 COMUNIDADE',
+      name: '𝗔𝗗𝗩𝗘𝗥𝗧𝗜𝗦𝗜𝗡𝗚',
+      permissionOverwrites: [
+        { id: ev, deny: [PermissionFlagsBits.SendMessages] },
+        ...staffAllow([PermissionFlagsBits.SendMessages]),
+      ],
+      channels: [
+        { name: '[ 🎥 ] 𝐒𝐭𝐫𝐞𝐚𝐦𝐞𝐫𝐬',   type: ChannelType.GuildText, topic: 'Alertas automáticos de live.' },
+        { name: '[ 📷 ] 𝐒𝐜𝐫𝐞𝐞𝐧𝐬𝐡𝐨𝐭𝐬', type: ChannelType.GuildText, topic: 'Screenshots do jogo!' },
+        { name: '[ 📺 ] 𝐂𝐥𝐢𝐩𝐬',       type: ChannelType.GuildText, topic: 'Clips da comunidade!' },
+      ],
+},
+
+    // ── 6. CANAIS DE VOZ ───────────────────────────────────────────
+    {
+      name: '𝗖𝗔𝗡𝗔𝗜𝗦 𝗗𝗘 𝗩𝗢𝗭',
       permissionOverwrites: [],
       channels: [
-        { name: '💬┃chat-geral',       type: ChannelType.GuildText, topic: 'Chat geral da comunidade.' },
-        { name: '📸┃imagens-e-videos', type: ChannelType.GuildText, topic: 'Compartilhe capturas do jogo!' },
-        { name: '🤖┃comandos-bot',     type: ChannelType.GuildText, topic: 'Use os comandos do bot aqui.' },
-        { name: '🎉┃giveaways',        type: ChannelType.GuildText, topic: 'Sorteios e eventos especiais.' },
-        { name: '🏆┃rankings',         type: ChannelType.GuildText, topic: 'Rankings do servidor.' },
+        { name: '[ 🔊 ] 𝐆𝐞𝐫𝐚𝐥 𝟏', type: ChannelType.GuildVoice },
+        { name: '[ 🔊 ] 𝐆𝐞𝐫𝐚𝐥 𝟐', type: ChannelType.GuildVoice },
+        { name: '[ 🎮 ] 𝐉𝐨𝐠𝐚𝐧𝐝𝐨', type: ChannelType.GuildVoice },
+        { name: '[ 🐲 ] 𝐁𝐨𝐬𝐬',    type: ChannelType.GuildVoice },
+        { name: '[ 💤 ] 𝐀𝐅𝐊',     type: ChannelType.GuildVoice },
       ],
     },
 
-    // ── 5. SUPORTE / TICKETS ───────────────────────────────────────
+    // ── 7. COMANDOS ───────────────────────────────────────────────────
     {
-      name: '🛠️ SUPORTE',
+      name: '𝗖𝗢𝗠𝗔𝗡𝗗𝗢𝗦',
       permissionOverwrites: [
         { id: ev, deny: [PermissionFlagsBits.SendMessages] },
         ...staffAllow([PermissionFlagsBits.SendMessages]),
       ],
       channels: [
-        { name: '🎫┃abrir-ticket', type: ChannelType.GuildText, topic: 'Abra um ticket de suporte.', key: 'ticketPanel' },
-        { name: '📋┃log-tickets',  type: ChannelType.GuildText, topic: 'Log de tickets fechados.', staffOnly: true },
+        { name: '[ 🤖 ] 𝐂𝐨𝐦𝐚𝐧𝐝𝐨𝐬-𝐆𝐞𝐫𝐚𝐥', type: ChannelType.GuildText, topic: 'Como aparecer ao vivo.' },
       ],
     },
 
-    // ── 6. ÁREA VIP ────────────────────────────────────────────────
-    {
-      name: '💎 ÁREA VIP',
-      permissionOverwrites: [
-        { id: ev, deny: [PermissionFlagsBits.ViewChannel] },
-        { id: rm['💎 VIP'].id, allow: [PermissionFlagsBits.ViewChannel] },
-        ...staffAllow([PermissionFlagsBits.ViewChannel]),
-      ],
-      channels: [
-        { name: '💎┃chat-vip',       type: ChannelType.GuildText, topic: 'Chat exclusivo para VIPs.' },
-        { name: '🎁┃beneficios-vip', type: ChannelType.GuildText, topic: 'Benefícios exclusivos VIP.' },
-      ],
-    },
-
-    // ── 7. STAFF ───────────────────────────────────────────────────
-    {
-      name: '🔒 STAFF',
-      permissionOverwrites: [
-        { id: ev, deny: [PermissionFlagsBits.ViewChannel] },
-        { id: rm['🎮 Player'].id, deny: [PermissionFlagsBits.ViewChannel] },
-        { id: rm['💎 VIP'].id,    deny: [PermissionFlagsBits.ViewChannel] },
-        { id: rm['🆕 Novato'].id, deny: [PermissionFlagsBits.ViewChannel] },
-        ...staffAllow([PermissionFlagsBits.ViewChannel]),
-      ],
-      channels: [
-        { name: '📋┃staff-chat',   type: ChannelType.GuildText, topic: 'Chat interno da staff.' },
-        { name: '📝┃anotacoes',    type: ChannelType.GuildText, topic: 'Anotações importantes.' },
-        { name: '⚠️┃punicoes',     type: ChannelType.GuildText, topic: 'Registro de punições.' },
-        { name: '📊┃relatorios',   type: ChannelType.GuildText, topic: 'Relatórios e métricas.' },
-        { name: '📣┃staff-avisos', type: ChannelType.GuildText, topic: 'Avisos internos da staff.' },
-      ],
-    },
-
-    // ── 8. BOSSES (só Dono + GM veem) ─────────────────────────────
+  // ── 8. BOSSES (só Dono + GM veem) ─────────────────────────────
     {
       name: '⚔️ BOSSES',
       permissionOverwrites: [
         { id: ev, deny: [PermissionFlagsBits.ViewChannel] },
         { id: rm['🆕 Novato'].id,           deny: [PermissionFlagsBits.ViewChannel] },
         { id: rm['🎮 Player'].id,            deny: [PermissionFlagsBits.ViewChannel] },
-        { id: rm['💎 VIP'].id,               deny: [PermissionFlagsBits.ViewChannel] },
+        { id: rm['<:admin:298566> VIP'].id,               deny: [PermissionFlagsBits.ViewChannel] },
         { id: rm['🎓 Tutor'].id,             deny: [PermissionFlagsBits.ViewChannel] },
         { id: rm['⭐ Sênior Tutor'].id,       deny: [PermissionFlagsBits.ViewChannel] },
         { id: rm['🛡️ Community Manager'].id, deny: [PermissionFlagsBits.ViewChannel] },
@@ -278,33 +273,12 @@ const buildStructure = (rm, ev) => {
         { id: rm['💠 Dono'].id,         allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages] },
       ],
       channels: [
-        { name: '📊┃boss-spawns',    type: ChannelType.GuildText, topic: 'Registro de quando os bosses nascem.', key: 'bossSpawns' },
-        { name: '💀┃boss-drops',     type: ChannelType.GuildText, topic: 'Itens dropados pelos bosses.' },
-        { name: '📜┃boss-historico', type: ChannelType.GuildText, topic: 'Histórico completo dos bosses.' },
+        { name: '[ 📊 ] boss-spawns',    type: ChannelType.GuildText, topic: 'Registro de quando os bosses nascem.', key: 'bossSpawns' },
+        { name: '[ 💀 ] boss-drops',     type: ChannelType.GuildText, topic: 'Itens dropados pelos bosses.' },
+        { name: '[ 📜 ] boss-historico', type: ChannelType.GuildText, topic: 'Histórico completo dos bosses.' },
       ],
     },
 
-    // ── 9. CANAIS DE VOZ ───────────────────────────────────────────
-    {
-      name: '🔊 CANAIS DE VOZ',
-      permissionOverwrites: [],
-      channels: [
-        { name: '🔊 Geral 1', type: ChannelType.GuildVoice },
-        { name: '🔊 Geral 2', type: ChannelType.GuildVoice },
-        { name: '🎮 Jogando',  type: ChannelType.GuildVoice },
-        { name: '🤫 AFK',      type: ChannelType.GuildVoice },
-        {
-          name: '🔊 Staff Voice',
-          type: ChannelType.GuildVoice,
-          extraOverwrites: [
-            { id: ev, deny: [PermissionFlagsBits.ViewChannel] },
-            ...(['🎓 Tutor', '⭐ Sênior Tutor', '🛡️ Community Manager',
-                 '🔱 Game Master', '👑 Administrador', '💠 Dono'
-            ].map((n) => ({ id: rm[n].id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.Connect] }))),
-          ],
-        },
-      ],
-    },
   ];
 };
 
@@ -329,7 +303,7 @@ async function criarCargos(guild) {
     } else {
       role = await guild.roles.create({
         name:        def.name,
-        colors:      def.colors,
+        color:       def.colors,
         hoist:       def.hoist,
         mentionable: def.mentionable,
         permissions: def.permissions,
@@ -386,30 +360,52 @@ async function criarEstrutura(guild, roleMap) {
 
 async function enviarComoVerificar(canal) {
   const embed = new EmbedBuilder()
-    .setColor('#3498DB')
-    .setTitle('🔐  Como Verificar sua Conta')
+    .setColor('#E67E22')
+    .setAuthor({
+      name: 'NosleiraOT 7.4 • Central de Atendimento & Suporte',
+      iconURL: guild.iconURL() || 'https://img.icons8.com/fluency/96/shield.png',
+    })
+    .setTitle('🛡️  Central de Suporte Oficial')
     .setDescription(
-      '**Bem-vindo ao NosleiraOT!**\n\n' +
-      'Para ter acesso completo ao servidor, você precisa passar pela verificação rápida.\n\n' +
-      '**Vá até o canal <#' + canal.id + '> e responda 2 perguntinhas:**\n' +
-      '> 1️⃣  Você tem 18 anos ou mais?\n' +
-      '> 2️⃣  Qual vocação você joga no Tibia?\n\n' +
-      '*Após responder, você receberá o cargo de Player e terá acesso total!*'
+      'Bem-vindo ao suporte do **NosleiraOT**! Nosso sistema garante um atendimento individual, seguro e confidencial diretamente com a equipe.\n\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'
     )
-    .setFooter({ text: 'NosleiraOT • Verificação Automática' });
-  await canal.send({ embeds: [embed] });
-}
-
-async function enviarPainelVerificacao(canal) {
-  const embed = new EmbedBuilder()
-    .setColor('#3498DB')
-    .setTitle('🔐  Verificação de Entrada')
-    .setDescription(
-      '**Olá, aventureiro!** Bem-vindo ao **NosleiraOT**! 🎮\n\n' +
-      'Antes de acessar o servidor, precisamos de algumas informações rápidas.\n\n' +
-      '**Clique no botão abaixo para iniciar:**'
+    .addFields(
+      {
+        name: '📂  Departamentos Disponíveis',
+        value: [
+          '> 👑 **Falar com o Dono** — Assuntos sigilosos e exclusivos diretamente com a Direção.',
+          '> 🎁 **Itens & Donate** — Suporte para entrega ou dúvidas sobre itens adquiridos.',
+          '> 💳 **Financeiro & Pagamento** — Confirmações de PIX, doações e transações.',
+          '> 🐛 **Bug no Jogo** — Falhas técnicas, bugs de mapa, magias ou monstros.',
+          '> 🚨 **Denúncias** — Reporte de trapaças, ofensas ou violações de regras.',
+          '> 👤 **Problemas com Conta** — Acesso, bloqueios e dados cadastrais.',
+          '> 🔑 **Recover Key** — Recuperação ou solicitação de chave de recuperação.',
+          '> 🔓 **Remover 2FA** — Desativação de autenticação de dois fatores.',
+          '> ❓ **Dúvidas Gerais** — Informações sobre gameplay, rates e sistemas.',
+        ].join('\n'),
+        inline: false,
+      },
+      {
+        name: '📋  Como funciona o Atendimento?',
+        value: [
+          '1️⃣ Clique no botão **`🎫 Abrir Ticket`** abaixo.',
+          '2️⃣ Selecione o departamento correspondente à sua necessidade.',
+          '3️⃣ Um **subtópico privado e exclusivo** será aberto para você.',
+          '4️⃣ Descreva seu caso com detalhes e anexe prints se necessário.',
+        ].join('\n'),
+        inline: false,
+      },
+      {
+        name: '⏱️  Informações & Diretrizes',
+        value:
+          '> 🕒 **Tempo de Resposta:** Respondemos o mais breve possível (até 24h).\n' +
+          '> 🔒 **Privacidade:** Apenas você e a Staff autorizada visualizam seu ticket.\n' +
+          '> ⚠️ **Aviso:** Evite criar múltiplos tickets para o mesmo assunto.',
+        inline: false,
+      }
     )
-    .setFooter({ text: 'NosleiraOT • Verificação Automática' })
+    .setFooter({ text: 'NosleiraOT 7.4 • Atendimento Oficial • Suporte Criptografado' })
     .setTimestamp();
 
   const row = new ActionRowBuilder().addComponents(
@@ -482,7 +478,7 @@ async function enviarAvisos(canal) {
     .setTitle('📢  Central de Avisos — NosleiraOT')
     .setDescription(
       '**Este canal é reservado para avisos oficiais do servidor.**\n\n' +
-      '> 🌐  Acompanhe também os avisos em: **[nosleira.com.br](' + SITE_URL + ')**\n\n' +
+      '> 🌐  Acompanhe também os avisos em: **[www.nosleiraot.com](' + SITE_URL + ')**\n\n' +
       '⚙️  *Integração automática com o site em breve — os avisos do site serão publicados aqui automaticamente.*'
     )
     .setFooter({ text: 'NosleiraOT • Canal Oficial de Avisos' })
@@ -505,6 +501,8 @@ async function enviarPainelTicket(canal) {
       '**Clique no botão abaixo para abrir um ticket.**\n' +
       '*Tempo médio de resposta: até 24 horas.*'
     )
+    .setThumbnail('https://img.icons8.com/color/96/scales.png')
+    .setImage('https://img.icons8.com/color/480/scales.png')
     .setFooter({ text: 'NosleiraOT • Suporte Oficial' })
     .setTimestamp();
 

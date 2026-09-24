@@ -11,6 +11,13 @@ if(isset($config['boxes']))
 	<link rel="icon" type="image/png" href="<?php echo $template_path; ?>/images/favicon.png?v=noslerat4" />
 	<link rel="icon" href="<?php echo $template_path; ?>/images/favicon.ico?v=noslerat4" type="image/x-icon" />
 	<link href="<?php echo $template_path; ?>/basic.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+	<style>
+		body { font-family: 'Inter', Verdana, Arial, sans-serif; }
+		h1, h2, h3, h4, .SubmenuitemLabel { font-family: 'Cinzel', 'Times New Roman', serif; letter-spacing: 0.5px; }
+	</style>
 	<script type="text/javascript" src="tools/basic.js"></script>
 	<script type="text/javascript" src="<?php echo $template_path; ?>/ticker.js"></script>
 	<style>
@@ -409,17 +416,37 @@ foreach($config['menu_categories'] as $id => $cat) {
 			} elseif ($menu['link'] === 'discord') {
 				$m_name = $m_name . ' <img src="https://rozinx.online/images/discord.png" style="width:16px;height:16px;vertical-align:middle;margin-left:3px;" alt="" />';
 				$m_style = 'style="color: #7289DA; background: transparent !important; font-weight: bold;"';
-				$menu['link_full'] = 'https://discord.gg/CH4njxpWk7';
+				$menu['link_full'] = 'https://discord.com/invite/CH4njxpWk7';
 				$menu['target_blank'] = ' target="_blank"';
 			} elseif ($menu['link'] === 'tiktok') {
 				$m_name = $m_name . ' <img src="https://img.icons8.com/color/16/tiktok--v1.png" style="vertical-align:middle;margin-left:3px;" alt="" />';
 				$m_style = 'style="color: #ff0050; background: transparent !important; font-weight: bold;"';
-				$menu['link_full'] = 'https://www.tiktok.com/@arielsonrodrigue22';
+				$menu['link_full'] = 'https://www.tiktok.com/@nosleiraot';
 				$menu['target_blank'] = ' target="_blank"';
 			} elseif ($menu['link'] === 'instagram') {
 				$m_name = $m_name . ' <img src="https://img.icons8.com/color/16/instagram-new--v1.png" style="vertical-align:middle;margin-left:3px;" alt="" />';
 				$m_style = 'style="color: #e1306c; background: transparent !important; font-weight: bold;"';
 				$menu['link_full'] = 'https://www.instagram.com/nosleiraot/';
+				$menu['target_blank'] = ' target="_blank"';
+			} elseif ($menu['link'] === 'facebook-grupo') {
+				$m_name = $m_name . ' <img src="https://img.icons8.com/color/16/facebook-new.png" style="vertical-align:middle;margin-left:3px;" alt="" />';
+				$m_style = 'style="color: #1877F2; background: transparent !important; font-weight: bold;"';
+				$menu['link_full'] = 'https://www.facebook.com/groups/939267222077857';
+				$menu['target_blank'] = ' target="_blank"';
+			} elseif ($menu['link'] === 'facebook-pagina') {
+				$m_name = $m_name . ' <img src="https://img.icons8.com/color/16/facebook-new.png" style="vertical-align:middle;margin-left:3px;" alt="" />';
+				$m_style = 'style="color: #1877F2; background: transparent !important; font-weight: bold;"';
+				$menu['link_full'] = 'https://www.facebook.com/profile.php?id=61594554905220';
+				$menu['target_blank'] = ' target="_blank"';
+			} elseif ($menu['link'] === 'x-twitter') {
+				$m_name = $m_name . ' <img src="https://img.icons8.com/color/16/twitterx--v1.png" style="vertical-align:middle;margin-left:3px;" alt="" />';
+				$m_style = 'style="color: #ffffff; background: transparent !important; font-weight: bold;"';
+				$menu['link_full'] = 'https://x.com/NosleiraOT';
+				$menu['target_blank'] = ' target="_blank"';
+			} elseif ($menu['link'] === 'kwai') {
+				$m_name = $m_name . ' <img src="https://img.icons8.com/color/16/video.png" style="vertical-align:middle;margin-left:3px;" alt="" />';
+				$m_style = 'style="color: #FFCC00; background: transparent !important; font-weight: bold;"';
+				$menu['link_full'] = 'https://www.kwai-video.com/p/S0zMCHbC';
 				$menu['target_blank'] = ' target="_blank"';
 			} elseif ($menu['link'] === 'forum') {
 				$m_style = 'style="color: yellow;"';
