@@ -19,29 +19,29 @@
 	</flags>
 	<attacks>
 		<attack name="melee" interval="2000" min="-50" max="-300" poison="65"/>
-		<attack name="lifedrain" interval="1000" chance="20" range="1" min="-100" max="-250"/>
-		<attack name="poison" interval="1000" chance="20" min="-200" max="-500">
+		<attack name="lifedrain" interval="2000" chance="20" range="1" min="-100" max="-250"/>
+		<attack name="poison" interval="2000" chance="20" min="-200" max="-500">
 			<attribute key="shootEffect" value="poisonarrow"/>
 		</attack>
-		<attack name="fire" interval="1000" chance="20" range="3" min="-120" max="-450">
+		<attack name="fire" interval="2000" chance="20" range="3" min="-120" max="-450">
 			<attribute key="shootEffect" value="burstarrow"/>
 			<attribute key="areaEffect" value="explosionarea"/>
 		</attack>
-		<attack name="melee" interval="1000" chance="20" min="-150" max="-500">
+		<attack name="melee" interval="2000" chance="20" min="-150" max="-500">
 			<attribute key="shootEffect" value="arrow"/>
 		</attack>
-		<attack name="paralyze_omruc" interval="1000" chance="25" range="7"/>
+		<attack name="paralyze_omruc" interval="2000" chance="25" range="7"/>
 	</attacks>
 	<defenses armor="20" defense="35">
-		<defense name="healing" interval="1000" chance="17" min="100" max="200">
+		<defense name="healing" interval="2000" chance="17" min="100" max="200">
 			<attribute key="areaEffect" value="blueshimmer"/>
 		</defense>
-		<defense name="invisible" interval="1000" chance="14" duration="8000">
+		<defense name="invisible" interval="2000" chance="14" duration="8000">
 			<attribute key="areaEffect" value="blueshimmer"/>
 		</defense>
 	</defenses>
 	<summons maxSummons="4">
-		<summon name="stalkers" interval="1000" chance="1000"/>
+		<summon name="stalkers" interval="2000" chance="1000"/>
 	</summons>
 	<elements>
 		<element firePercent="100"/>

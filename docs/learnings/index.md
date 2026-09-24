@@ -17,4 +17,6 @@ Reescrita da engine em **C# / .NET** (pipelines, EF Core, etc.) é visão de lon
 
 ## Wiki
 
-Páginas ingestidas: [`wiki/README.md`](wiki/README.md) · [`wiki/discord-repost-policy.md`](wiki/discord-repost-policy.md) · [`wiki/discord-admin-bypass.md`](wiki/discord-admin-bypass.md). Catálogo curto: este arquivo + `map-as-code.md` + `DICIONARIO_TECNICO.md`.
+Páginas ingestidas: [`wiki/README.md`](wiki/README.md) · [`wiki/discord-repost-policy.md`](wiki/discord-repost-policy.md) · [`wiki/discord-admin-bypass.md`](wiki/discord-admin-bypass.md) · [`wiki/combat-boss-combos-74.md`](wiki/combat-boss-combos-74.md). Catálogo curto: este arquivo + `map-as-code.md` + `DICIONARIO_TECNICO.md`.
+
+- [combat-boss-combos-74](wiki/combat-boss-combos-74.md) | 7.4 monsters lacked exhaust; 2000ms overlap enabled lethal boss combos. User approved keeping it | combat, 7.4, orshabaal, mechanics | high | 2026-09-24 | user-discussion
