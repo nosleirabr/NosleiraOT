@@ -252,8 +252,20 @@ void Spawn::checkSpawn()
 		spawnBlock_t& sb = it.second;
 		if (OTSYS_TIME() >= sb.lastSpawn + sb.interval) {
 			if (findPlayer(sb.pos)) {
-				sb.lastSpawn = OTSYS_TIME();
-				continue;
+				// Block spawn by default if player is around.
+				bool blockSpawn = true;
+
+				// Check if we are in Rookgaard and bypass is still active
+				if (time(nullptr) < g_config.getNumber(ConfigManager::ROOK_SPAWN_BLOCK_UNTIL)) {
+					if (sb.pos.x >= 31900 && sb.pos.x <= 32250 && sb.pos.y >= 31900 && sb.pos.y <= 32280) {
+						blockSpawn = false;
+					}
+				}
+
+				if (blockSpawn) {
+					sb.lastSpawn = OTSYS_TIME();
+					continue;
+				}
 			}
 
 			spawnMonster(spawnId, sb.mType, sb.pos, sb.direction);

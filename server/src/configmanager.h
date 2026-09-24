@@ -100,6 +100,7 @@ class ConfigManager
 			STAIRHOP_DELAY,
 			EXP_FROM_PLAYERS_LEVEL_RANGE,
 			MAX_PACKETS_PER_SECOND,
+			ROOK_SPAWN_BLOCK_UNTIL,
 
 			LAST_INTEGER_CONFIG /* this must be the last one */
 		};

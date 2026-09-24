@@ -1,0 +1,80 @@
+MainWindow
+  id: infoWindow
+  !text: tr('Info')
+  size: 320 250
+  @onEscape: self:destroy()
+
+  Label
+    !text: tr('Tibia Client')
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: parent.top
+    margin-top: 15
+    text-auto-resize: true
+
+  Label
+    !text: tr('Version 7.4')
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: prev.bottom
+    margin-top: 5
+    text-auto-resize: true
+
+  Label
+    !text: tr('Copyright (C) 2002-2004')
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: prev.bottom
+    margin-top: 5
+    text-auto-resize: true
+
+  Label
+    !text: tr('CipSoft GmbH')
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: prev.bottom
+    margin-top: 5
+    text-auto-resize: true
+
+  Label
+    !text: tr('All rights reserved.')
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: prev.bottom
+    margin-top: 5
+    text-auto-resize: true
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 15
+
+  Label
+    id: webLabel
+    !text: tr('Official Website')
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    margin-top: 25
+    margin-left: 10
+    text-auto-resize: true
+
+  Button
+    id: webButton
+    !text: tr('www.tibia.com')
+    width: 140
+    anchors.right: parent.right
+    anchors.verticalCenter: prev.verticalCenter
+    margin-right: 10
+    @onClick: g_platform.openUrl("http://www.tibia.com")
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-bottom: 40
+
+  Button
+    id: okButton
+    !text: tr('Ok')
+    width: 45
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-right: 10
+    margin-bottom: 10
+    @onClick: self:getParent():destroy()

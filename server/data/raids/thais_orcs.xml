@@ -4,8 +4,6 @@
 	<announce delay="0" type="event" message="Orc activity near Thais reported! Beware!" />
 	<!-- The Invasion -->
 	<announce delay="300000" type="event" message="Thais is under attack!" />
-	<!-- The Final Push -->
-	<announce delay="600000" type="event" message="The orcs are preparing their final push!" />
 
 	<!-- Wave 1: Scouts outside the north gate -->
 	<areaspawn delay="0" centerx="32314" centery="32163" centerz="7" radius="12">

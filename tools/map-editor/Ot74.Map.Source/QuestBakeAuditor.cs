@@ -10,7 +10,7 @@ namespace Ot74.Map.Source;
 /// </summary>
 public static class QuestBakeAuditor
 {
-	public const int BlackKnightKeyUid = 10016;
+	public const int BlackKnightKeyUid = 10065;
 	public const int BlackKnightKeyAid = 5010;
 	public const int DeadTreeId = 2720;
 
@@ -668,7 +668,7 @@ public static class QuestBakeAuditor
 			}
 		}
 
-		// Black Knight canónico (árvore 10016 → key 5010 → porta)
+		// Black Knight canónico (árvore 10065 → key 5010 → porta)
 		if (!byUid.ContainsKey(BlackKnightKeyUid))
 		{
 			findings.Add(new Finding("FAIL", "Black Knight chain",
@@ -778,3 +778,4 @@ public static class QuestBakeAuditor
 
 	static string FormatPos(IndexedItem i) => $"{i.X},{i.Y},{i.Z}";
 }
+

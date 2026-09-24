@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <raid>
 	<!-- Initial Warning -->
-	<announce delay="0" type="event" message="Citizens of Thais, beware! A rat plague is emerging from the sewers!" />
+	<announce delay="0" type="event" message="Rat Plague in Thais!" />
 
 	<!-- First Wave: Main streets -->
 	<areaspawn delay="60000" centerx="32350" centery="32210" centerz="7" radius="25">

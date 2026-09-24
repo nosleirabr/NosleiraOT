@@ -142,16 +142,16 @@ public sealed class RuntimeContractTests
 	}
 
 	/// <summary>
-	/// Amostra YAML: Black Knight key sob a árvore (uid 10016 → actionId 5010).
+	/// Amostra YAML: Black Knight key sob a árvore (uid 10065 → actionId 5010).
 	/// Use-with na porta fica WARN se o protocolo não automatizar (só confirma loot da chave).
 	/// </summary>
 	[L4Fact]
 	public async Task God_can_loot_black_knight_key_5010_from_yaml_tree()
 	{
-		const int keyUid = 10016;
+		const int keyUid = 10065;
 		var tree = _catalog.Map.QuestChests.FirstOrDefault(c => c.UniqueId == keyUid);
 		Assert.True(tree is not null,
-			"uid 10016 (Black Knight key under tree) missing on PreferBakedOtbm — rebuild maps/build/world.otbm.");
+			"uid 10065 (Black Knight key under tree) missing on PreferBakedOtbm — rebuild maps/build/world.otbm.");
 
 		await L4Host.EnsureReadyAsync();
 		await TestAccounts.EnsureAsync(CancellationToken.None);
@@ -176,18 +176,18 @@ public sealed class RuntimeContractTests
 		var message = await god.WaitForTextMessageAsync(TimeSpan.FromSeconds(6), cts.Token,
 			"You have found", "is empty", "cannot use", "not possible");
 		Assert.False(string.IsNullOrWhiteSpace(message),
-			"No text reply after using Black Knight tree/chest (uid 10016).");
+			"No text reply after using Black Knight tree/chest (uid 10065).");
 		Assert.True(
 			message!.Contains("You have found", StringComparison.OrdinalIgnoreCase)
 			|| message.Contains("is empty", StringComparison.OrdinalIgnoreCase),
-			$"Expected loot or empty from uid 10016, got: {message}");
+			$"Expected loot or empty from uid 10065, got: {message}");
 	}
 
 	[L4Fact]
 	public async Task God_can_open_yaml_sample_quest_chests()
 	{
 		// Amostra prioritária (Mintwallin / crowns se contentor / Small Ruby / Banshee / Post)
-		int[] sampleUids = [10029, 10058, 10017, 10019, 10061, 10016, 10014];
+		int[] sampleUids = [10029, 10058, 10017, 10019, 10061, 10065, 10014];
 		var chests = _catalog.Map.QuestChests
 			.Where(c => sampleUids.Contains(c.UniqueId) && QuestCatalog.QuestSystemActionIds.Contains(c.ActionId))
 			.OrderBy(c => c.UniqueId)
@@ -241,4 +241,5 @@ public sealed class RuntimeContractTests
 			+ string.Join("\n", notes));
 	}
 }
+
 

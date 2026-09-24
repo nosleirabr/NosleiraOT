@@ -2,7 +2,7 @@
 
 Gerado por `otmap validate-quests` / `QuestBakeAuditTests`.
 
-**FAIL:** 7 · **WARN:** 3 · quests YAML: 17 · questRewards: 84
+**FAIL:** 0 · **WARN:** 2 · quests YAML: 17 · questRewards: 84
 
 ## Dívida conhecida
 
@@ -12,22 +12,15 @@ FAILs de **YAML patch sem match/item** e **Door box** são dívida de coords/box
 
 | Severity | Category | Count |
 |----------|----------|------:|
-| FAIL | YAML aid ausente no tile | 1 |
-| FAIL | YAML patch sem match | 5 |
-| FAIL | YAML uid ausente no OTBM | 1 |
-| WARN | Uid sem reward path | 3 |
+| WARN | Black Knight chain | 1 |
+| WARN | Chave sem porta | 1 |
 
 ## Non-chest quest containers
 
 | Uid | ItemId | Coords |
 |----:|-------:|--------|
-| 2198 | 3104 | `32244,32490,10` |
-| 2213 | 3058 | `32233,32491,10` |
 | 2412 | 3058 | `32174,32149,11` |
-| 2430 | 3058 | `32256,32499,10` |
 | 2473 | 3058 | `32175,32145,11` |
-| 2528 | 3065 | `32238,32470,10` |
-| 10016 | 2720 | `32813,31964,7` |
 | 10017 | 2720 | `32868,31955,11` |
 | 10019 | 2720 | `32880,31955,11` |
 | 10021 | 2720 | `32761,32013,7` |
@@ -39,32 +32,14 @@ FAILs de **YAML patch sem match/item** e **Door box** são dívida de coords/box
 | 20002 | 3058 | `32176,32132,9` |
 | 54322 | 3104 | `32179,32224,9` |
 
-## Uid sem reward path (3)
+## Black Knight chain (1)
 
 | Sev | Onde | O quê |
 |-----|------|-------|
-| WARN | `uid 2475 @ 32239,32476,10` | Contentor aid 2000/2001 legado sem questRewards nem contents (não está no YAML). |
-| WARN | `uid 2198 @ 32244,32490,10` | Contentor aid 2000/2001 legado sem questRewards nem contents (não está no YAML). |
-| WARN | `uid 2430 @ 32256,32499,10` | Contentor aid 2000/2001 legado sem questRewards nem contents (não está no YAML). |
+| WARN | `key aid 5010` | Nenhuma porta IsDoor com actionid 5010 (keydoor pode ser nativo / fora do range). |
 
-## YAML aid ausente no tile (1)
+## Chave sem porta (1)
 
 | Sev | Onde | O quê |
 |-----|------|-------|
-| FAIL | `small_chests @ 32146,32097,11` | aid 2000 não está no item matchado. |
-
-## YAML patch sem match (5)
-
-| Sev | Onde | O quê |
-|-----|------|-------|
-| FAIL | `rookgaard @ 32039,32121,13` | Esperado match ids [1738,1739,1740,1741,1745,1746,1747,1748] ou aid/uid do patch. |
-| FAIL | `banshee @ 32215,31850,15` | Esperado match ids [1740] ou aid/uid do patch. |
-| FAIL | `banshee @ 32216,31850,15` | Esperado match ids [1740] ou aid/uid do patch. |
-| FAIL | `banshee @ 32217,31850,15` | Esperado match ids [1740] ou aid/uid do patch. |
-| FAIL | `banshee @ 32218,31850,15` | Esperado match ids [1740] ou aid/uid do patch. |
-
-## YAML uid ausente no OTBM (1)
-
-| Sev | Onde | O quê |
-|-----|------|-------|
-| FAIL | `small_chests @ 32146,32097,11` | uid 52148 não encontrado no tile nem no índice global. |
+| WARN | `uid 10065 key aid 5010` | Nenhum item com esse actionid no OTBM (porta/keydoor). |

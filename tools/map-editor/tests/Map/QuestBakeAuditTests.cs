@@ -81,10 +81,10 @@ public sealed class QuestBakeAuditTests
 		Assert.True(bad.Count == 0, Failures.Format("Black Knight key 5010 chain broken", bad));
 
 		Assert.True(Shared.Value.ByUid.ContainsKey(QuestBakeAuditor.BlackKnightKeyUid),
-			"uid 10016 (Key 5010 under tree) missing on baked OTBM");
+			"uid 10065 (Key 5010 under tree) missing on baked OTBM");
 		Assert.True(Shared.Value.Rewards.TryGetValue(QuestBakeAuditor.BlackKnightKeyUid, out var reward)
 			&& reward.Items.Any(i => i.ActionId == QuestBakeAuditor.BlackKnightKeyAid),
-			"system.lua must give actionId 5010 for uid 10016");
+			"system.lua must give actionId 5010 for uid 10065");
 		// Porta 5010: WARN no relatório se ausente (keydoor nativo / fora de IsDoor)
 	}
 
@@ -107,7 +107,8 @@ public sealed class QuestBakeAuditTests
 	{
 		var path = Path.Combine(RepoPaths.Data, "actions", "scripts", "quests", "system.lua");
 		var rewards = QuestBakeAuditor.ParseQuestRewards(path);
-		Assert.True(rewards.ContainsKey(10016));
-		Assert.Contains(rewards[10016].Items, i => i.ItemId == 2088 && i.ActionId == 5010);
+		Assert.True(rewards.ContainsKey(10065));
+		Assert.Contains(rewards[10065].Items, i => i.ItemId == 2088 && i.ActionId == 5010);
 	}
 }
+
