@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Project: MyAAC
  *     Automatic Account Creator for Open Tibia Servers
@@ -175,3 +176,5 @@ if(superAdmin()) {
 }
 
 $hooks->trigger(HOOK_FINISH);
+
+

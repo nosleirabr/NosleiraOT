@@ -90,7 +90,22 @@ $best_level_query = $db->query('SELECT `name`, `level` FROM `players` WHERE `gro
 $dbStats['best_level_name'] = $best_level_query ? $best_level_query['name'] : 'None';
 $dbStats['best_level'] = $best_level_query ? $best_level_query['level'] : 0;
 
+// Count monsters and npcs
+$monstersCount = 0;
+$npcsCount = 0;
+$spawnFile = $config['server_path'] . 'data/world/world-spawn.xml';
+if (file_exists($spawnFile)) {
+    $spawnContent = file_get_contents($spawnFile);
+    $monstersCount = substr_count($spawnContent, '<monster ');
+    $npcsCount = substr_count($spawnContent, '<npc ');
+}
+
 $twig->display('serverinfo.html.twig', array(
+    'serverOnline' => isset($status['online']) ? $status['online'] : false,
+    'serverPlayers' => isset($status['players']) ? $status['players'] : 0,
+    'serverUptime' => isset($status['uptimeReadable']) ? $status['uptimeReadable'] : (isset($status['uptime']) ? $status['uptime'] : '0h 0m'),
+    'monstersCount' => $monstersCount,
+    'npcsCount' => $npcsCount,
     'experienceStages' => isset($config['lua']['experienceStages']) && getBoolean($config['lua']['experienceStages']) ? $config['lua']['experienceStages'] : null,
     'serverIp' => str_replace('/', '', str_replace('http://', '', $config['lua']['url'])),
     'clientVersion' => $clientVersion,
@@ -110,12 +125,10 @@ $twig->display('serverinfo.html.twig', array(
     'redSkullLength' => $redSkullLength,
     'blackSkull' => $blackSkull,
     'blackSkullLength' => $blackSkullLength,
-    'dailyFragsToRedSkull' => isset($config['lua']['dailyFragsToRedSkull']) ? $config['lua']['dailyFragsToRedSkull'] : (isset($config['lua']['kills_per_day_red_skull']) ? $config['lua']['kills_per_day_red_skull'] : null),
-    'weeklyFragsToRedSkull' => isset($config['lua']['weeklyFragsToRedSkull']) ? $config['lua']['weeklyFragsToRedSkull'] : (isset($config['lua']['kills_per_week_red_skull']) ? $config['lua']['kills_per_week_red_skull'] : null),
-    'monthlyFragsToRedSkull' => isset($config['lua']['monthlyFragsToRedSkull']) ? $config['lua']['monthlyFragsToRedSkull'] : (isset($config['lua']['kills_per_month_red_skull']) ? $config['lua']['kills_per_month_red_skull'] : null),
-    'dailyFragsToBlackSkull' => isset($config['lua']['dailyFragsToBlackSkull']) ? $config['lua']['dailyFragsToBlackSkull'] : (isset($config['lua']['kills_per_day_black_skull']) ? $config['lua']['kills_per_day_black_skull'] : null),
-    'weeklyFragsToBlackSkull' => isset($config['lua']['weeklyFragsToBlackSkull']) ? $config['lua']['weeklyFragsToBlackSkull'] : (isset($config['lua']['kills_per_week_black_skull']) ? $config['lua']['kills_per_week_black_skull'] : null),
-    'monthlyFragsToBlackSkull' => isset($config['lua']['monthlyFragsToBlackSkull']) ? $config['lua']['monthlyFragsToBlackSkull'] : (isset($config['lua']['kills_per_month_black_skull']) ? $config['lua']['kills_per_month_black_skull'] : null),
+    'dailyFragsToRedSkull' => isset($config['lua']['dailyKillsToRedSkull']) ? $config['lua']['dailyKillsToRedSkull'] : null,
+    'weeklyFragsToRedSkull' => isset($config['lua']['weeklyKillsToRedSkull']) ? $config['lua']['weeklyKillsToRedSkull'] : null,
+    'monthlyFragsToRedSkull' => isset($config['lua']['monthlyKillsToRedSkull']) ? $config['lua']['monthlyKillsToRedSkull'] : null,
+    'killsToBlackSkull' => isset($config['lua']['killsToBlackSkull']) ? $config['lua']['killsToBlackSkull'] : null,
     'banishmentLength' => isset($config['lua']['banishment_length']) ? eval('return (' . $config['lua']['banishment_length'] . ') / (24 * 60 * 60);') : null,
     'finalBanishmentLength' => isset($config['lua']['final_banishment_length']) ? eval('return (' . $config['lua']['final_banishment_length'] . ') / (24 * 60 * 60);') : null,
     'ipBanishmentLength' => isset($config['lua']['ip_banishment_length']) ? eval('return (' . $config['lua']['ip_banishment_length'] . ') / (24 * 60 * 60);') : null,

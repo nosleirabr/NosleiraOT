@@ -133,10 +133,10 @@ FILELOADER_ERRORS Items::loadFromOtb(const std::string& file)
 
 	if (Items::dwMajorVersion == 0xFFFFFFFF) {
 		std::cout << "[Warning - Items::loadFromOtb] items.otb using generic client version." << std::endl;
-	} else if (Items::dwMajorVersion > 2) {
+	} else if (Items::dwMajorVersion > 3) {
 		std::cout << "New version detected, an older version of items.otb is required." << std::endl;
 		return ERROR_INVALID_FORMAT;
-	} else if (Items::dwMinorVersion < CLIENT_VERSION_740) {
+	} else if (Items::dwMinorVersion < 0) {
 		std::cout << "A newer version of items.otb is required." << std::endl;
 		return ERROR_INVALID_FORMAT;
 	}
@@ -900,3 +900,4 @@ uint16_t Items::getItemIdByName(const std::string& name)
 	}
 	return 0;
 }
+

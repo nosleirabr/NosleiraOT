@@ -113,4 +113,14 @@
 	<monster name="General Murius" file="bosses/general_murius.xml"/>
 	<monster name="Grorlam" file="bosses/grorlam.xml"/>
 	
+	<!-- Monstros de Port Hope (Tiquanda) adicionados -->
+	<monster name="hydra" file="hydra.xml" />
+	<monster name="serpent spawn" file="serpentspawn.xml" />
+	<monster name="dworc voodoomaster" file="dworcvoodoomaster.xml" />
+	<monster name="dworc fleshhunter" file="dworcfleshhunter.xml" />
+	<monster name="dworc venomsniper" file="dworcvenomsniper.xml" />
+	<monster name="centipede" file="centipede.xml" />
+	<monster name="tarantula" file="tarantula.xml" />
+	<monster name="illusion" file="illusion.xml" />
 </monsters>
+

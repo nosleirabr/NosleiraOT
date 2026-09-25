@@ -1,4 +1,12 @@
 <style>
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+.blink-green { color: green; font-weight: bold; animation: blink 1.5s infinite; }
+.blink-red { color: red; font-weight: bold; animation: blink 1.5s infinite; }
+
 .serverinfo-nav {
     text-align: center;
     font-weight: bold;
@@ -27,8 +35,6 @@
 .row-odd { background-color: #D4C0A1; }
 .row-even { background-color: #F1E0C6; }
 .td-name { width: 40%; font-weight: normal; color: #4a1c00; }
-.ip-highlight { font-weight: bold; color: #000; font-size: 14px; text-decoration: underline; }
-.text-green { color: green; font-weight: bold; }
 </style>
 
 <div class="serverinfo-nav">
@@ -38,7 +44,6 @@
     <a href="#commands">[Commands]</a>
     <a href="#frags">[Frags]</a>
     <a href="#other">[Other Information]</a>
-    <a href="#house">[House Infos]</a>
 </div>
 
 <!-- STATUS -->
@@ -61,23 +66,29 @@
             <tr><th>Name</th><th>Value</th></tr>
             <tr class="row-even">
                 <td class="td-name">Server</td>
-                <td class="text-green">Online</td>
+                <td>
+                    {% if serverOnline or serverPlayers > 0 %}
+                        <span class="blink-green">Online</span>
+                    {% else %}
+                        <span class="blink-red">Offline</span>
+                    {% endif %}
+                </td>
             </tr>
             <tr class="row-odd">
                 <td class="td-name">Players Online according to the rules of Otservlist</td>
-                <td>{{ server_status.players|default('0') }}</td>
+                <td>{{ serverPlayers }}</td>
             </tr>
             <tr class="row-even">
                 <td class="td-name">UpTime</td>
-                <td>24/7</td>
+                <td>{{ serverUptime }}</td>
             </tr>
             <tr class="row-odd">
                 <td class="td-name">Monster</td>
-                <td>154210</td>
+                <td>{{ monstersCount }}</td>
             </tr>
             <tr class="row-even">
                 <td class="td-name">NPC</td>
-                <td>1213</td>
+                <td>{{ npcsCount }}</td>
             </tr>
         </tbody>
     </table>
@@ -104,42 +115,36 @@
             <tr><th>Name</th><th>Value</th></tr>
             <tr class="row-odd">
                 <td class="td-name">Experience</td>
-                <td style="padding: 0;">
-                    <table width="100%" cellpadding="3" cellspacing="1" style="margin:0; border:none; text-align:center;">
-                        <tr style="background-color:#505050; color:#fff;">
-                            <td width="33%"><b>From Level</b></td>
-                            <td width="33%"><b>To Level</b></td>
-                            <td width="33%"><b>Rate</b></td>
-                        </tr>
-                        {% if experienceStages %}
-                            {% for stage in experienceStages %}
-                            <tr class="{% if loop.index is odd %}row-even{% else %}row-odd{% endif %}">
-                                <td>{{ stage.minlevel }}</td>
-                                <td>{% if stage.maxlevel %}{{ stage.maxlevel }}{% else %}-{% endif %}</td>
-                                <td>{{ stage.multiplier }}x</td>
-                            </tr>
-                            {% endfor %}
-                        {% else %}
-                            <tr class="row-even"><td>1</td><td>-</td><td>{{ rateExp|default('1') }}x</td></tr>
-                        {% endif %}
-                    </table>
+                <td style="padding: 10px;">
+                    {% if experienceStages %}
+                        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                        {% for stage in experienceStages %}
+                            <div style="background-color:#fff; border:1px solid #c7b499; border-radius:4px; padding:5px 10px; text-align:center; box-shadow:inset 0 0 3px rgba(0,0,0,0.1);">
+                                <div style="font-size:11px; color:#505050;">{% if stage.maxlevel %}Lv {{ stage.minlevel }} to {{ stage.maxlevel }}{% else %}Lv {{ stage.minlevel }}+{% endif %}</div>
+                                <div style="font-weight:bold; color:#004294; font-size:14px;">{{ stage.multiplier }}x</div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        <span style="font-weight:bold; color:#004294; font-size:14px;">{{ rateExp|default('1') }}x</span>
+                    {% endif %}
                 </td>
             </tr>
             <tr class="row-even">
                 <td class="td-name">Skill</td>
-                <td>{{ rateSkill|default('1') }}x</td>
+                <td><span style="font-weight:bold; color:#004294;">{{ rateSkill|default('1') }}x</span></td>
             </tr>
             <tr class="row-odd">
                 <td class="td-name">Magic</td>
-                <td>{{ rateMagic|default('1') }}x</td>
+                <td><span style="font-weight:bold; color:#004294;">{{ rateMagic|default('1') }}x</span></td>
             </tr>
             <tr class="row-even">
                 <td class="td-name">Loot</td>
-                <td>{{ rateLoot|default('1') }}x</td>
+                <td><span style="font-weight:bold; color:#004294;">{{ rateLoot|default('1') }}x</span></td>
             </tr>
             <tr class="row-odd">
                 <td class="td-name">Spawn</td>
-                <td>{{ rateSpawn|default('1') }}x</td>
+                <td><span style="font-weight:bold; color:#004294;">{{ rateSpawn|default('1') }}x</span></td>
             </tr>
         </tbody>
     </table>
@@ -166,7 +171,7 @@
             <tr><th>Name</th><th>Value</th></tr>
             <tr class="row-even">
                 <td class="td-name">IP</td>
-                <td><span class="ip-highlight">www.nosleiraot.com</span> (Port: {{ config.lua.loginPort }})</td>
+                <td><a href="http://{{ serverIp }}" style="font-weight:bold; color:#004294; text-decoration:none;">{{ serverIp }}</a> (Port: {{ config.lua.loginPort }})</td>
             </tr>
             <tr class="row-odd">
                 <td class="td-name">World Type</td>
@@ -178,7 +183,7 @@
             </tr>
             <tr class="row-odd">
                 <td class="td-name">Server Mode</td>
-                <td>Nosleira OT</td>
+                <td>NosleiraOT</td>
             </tr>
             <tr class="row-even">
                 <td class="td-name">Last joined</td>
@@ -272,16 +277,16 @@
                 <td class="td-name"><img src="images/red_skull.gif" style="vertical-align:middle; margin-right:5px;" alt="Red Skull"/>Red Skull Time</td>
                 <td>{{ redSkullLength / (24 * 60 * 60) }} days</td>
             </tr>
-            {% if blackSkull %}
             <tr class="row-even">
-                <td class="td-name"><img src="images/black_skull.gif" style="vertical-align:middle; margin-right:5px;" alt="Black Skull"/>Black Skull Time</td>
-                <td>{{ blackSkullLength / (24 * 60 * 60) }} days</td>
-            </tr>
-            {% endif %}
-            <tr class="row-odd">
-                <td class="td-name">Frags to Red Skull</td>
+                <td class="td-name"><img src="images/red_skull.gif" style="vertical-align:middle; margin-right:5px;" alt="Red Skull"/>Frags to Red Skull</td>
                 <td><b>Daily:</b> {{ dailyFragsToRedSkull }} &nbsp;<b>Weekly:</b> {{ weeklyFragsToRedSkull }} &nbsp;<b>Monthly:</b> {{ monthlyFragsToRedSkull }}</td>
             </tr>
+            {% if killsToBlackSkull %}
+            <tr class="row-odd">
+                <td class="td-name"><img src="images/black_skull.gif" style="vertical-align:middle; margin-right:5px;" alt="Black Skull"/>Frags to Black Skull</td>
+                <td>{{ killsToBlackSkull }}</td>
+            </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>
@@ -334,31 +339,7 @@
 </div>
 <br>
 
-<!-- HOUSE INFOS -->
-<a name="house"></a>
-<div class="TableContainer">
-    <div class="CaptionContainer">
-        <div class="CaptionInnerContainer">
-            <span class="CaptionEdgeLeftTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">House Infos</div>
-            <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-        </div>
-    </div>
-    <table class="Table3" cellpadding="4" cellspacing="0">
-        <tbody>
-            <tr class="row-even"><td align="center"><i>House rent will be charged {{ houseRent }} and the amount is the same amount you paid when buying the house.</i></td></tr>
-            <tr class="row-odd"><td align="center"><i>You can pay the rent by leaving the money in the depot of the city where the house is located.</i></td></tr>
-            <tr class="row-even"><td align="center"><i>If you stay 7 days without login the house is removed the next day.</i></td></tr>
-            <tr class="row-odd"><td align="center"><i>The maximum number of items per house is 5000.</i></td></tr>
-        </tbody>
-    </table>
-</div>
-
-<div style="text-align:center; margin-top:20px;">
-    <p>Respect our <a href="{{ getLink('rules') }}">rules</a>.<br/>Please report rule violations with <b>CTRL + R</b>.</p>
+<div style="text-align:center; margin-top:20px; padding: 15px; border: 1px solid #000; background-color: #D4C0A1;">
+    <h3 style="margin-top: 0; color: #4a1c00;">Respect our <a href="{{ getLink('rules') }}" style="color: #004294; text-decoration: underline;">rules</a>.</h3>
+    <p style="margin-bottom: 0; font-weight: bold; color: #505050;">Please report rule violations with CTRL + R.</p>
 </div>
