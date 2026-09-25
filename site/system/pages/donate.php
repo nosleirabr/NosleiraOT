@@ -48,7 +48,7 @@ if ((!isset($logged) || !$logged) && isset($_POST['account_login'], $_POST['pass
             $acc_id = (int)$account_logged->getId();
             $acc_name = $account_logged->getName();
         } else {
-            $login_error = 'Número da Conta ou Senha incorretos. Por favor, verifique seus dados.';
+            $login_error = 'N&uacute;mero da Conta ou Senha incorretos. Por favor, verifique seus dados.';
         }
     } else {
         $login_error = 'Por favor, preencha a Conta e a Senha para continuar.';
@@ -61,18 +61,15 @@ if (!isset($logged) || !$logged || !isset($account_logged) || !$account_logged |
     <div class="TableContainer">
         <div class="CaptionContainer">
             <div class="CaptionInnerContainer">
-                <span class="CaptionEdgeLeftTop" style="background-image:url(templates/tibiacom/images/content/box-frame-edge.gif);"></span>
-                <span class="CaptionEdgeRightTop" style="background-image:url(templates/tibiacom/images/content/box-frame-edge.gif);"></span>
-                <span class="CaptionBorderTop" style="background-image:url(templates/tibiacom/images/content/table-headline-border.gif);"></span>
-                <span class="CaptionVerticalLeft" style="background-image:url(templates/tibiacom/images/content/box-frame-vertical.gif);"></span>
-                <div class="Text" style="display: flex; align-items: center; justify-content: space-between;">
-                    <span>?? �rea Restrita - Autentica��o Obrigat�ria</span>
-                    <span style="font-size: 11px; font-weight: normal; color: #ffd700;">NosleiraOT 7.4</span>
-                </div>
-                <span class="CaptionVerticalRight" style="background-image:url(templates/tibiacom/images/content/box-frame-vertical.gif);"></span>
-                <span class="CaptionBorderBottom" style="background-image:url(templates/tibiacom/images/content/table-headline-border.gif);"></span>
-                <span class="CaptionEdgeLeftBottom" style="background-image:url(templates/tibiacom/images/content/box-frame-edge.gif);"></span>
-                <span class="CaptionEdgeRightBottom" style="background-image:url(templates/tibiacom/images/content/box-frame-edge.gif);"></span>
+                <span class="CaptionEdgeLeftTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
+                <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
+                <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
+                <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
+                <div class="Text">&Aacute;rea Restrita - Autentica&ccedil;&atilde;o Obrigat&oacute;ria</div>
+                <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
+                <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
+                <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
+                <span class="CaptionEdgeRightBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             </div>
         </div>
         <div class="TableContentAndHeaderContainer">
@@ -85,21 +82,24 @@ if (!isset($logged) || !$logged || !isset($account_logged) || !$account_logged |
                                     
                                     <!-- Banner Superior -->
                                     <div style="margin-bottom: 22px;">
-                                        <div style="width: 70px; height: 70px; margin: 0 auto 14px auto; background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%); border: 2.5px solid #cfa600; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.35);">
-                                            <span style="font-size: 32px;">??</span>
+                                        <div style="width: 68px; height: 68px; margin: 0 auto 14px auto; background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%); border: 2px solid #cfa600; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                            </svg>
                                         </div>
                                         <h2 style="font-family: 'Cinzel', Georgia, serif; color: #4a1c00; font-size: 21px; margin: 0 0 8px 0; font-weight: 700; text-shadow: 0 1px 1px rgba(255,255,255,0.7); letter-spacing: 0.5px;">
-                                            Login Necess�rio para Doa��o
+                                            Login Necess&aacute;rio para Doa&ccedil;&atilde;o
                                         </h2>
                                         <p style="font-family: 'Inter', -apple-system, sans-serif; font-size: 13px; color: #6e543b; margin: 0; line-height: 1.55;">
-                                            Para sua total seguran�a, o acesso � �rea de doa��es e ao mercado de <strong>NosleiraCoins</strong> exige login pr�vio. Suas moedas ser�o creditadas diretamente na conta autenticada.
+                                            Para sua total seguran&ccedil;a, o acesso &agrave; &aacute;rea de doa&ccedil;&otilde;es e ao mercado de <strong>NosleiraCoins</strong> exige login pr&eacute;vio. Suas moedas ser&atilde;o creditadas diretamente na conta autenticada.
                                         </p>
                                     </div>
 
                                     <?php if (!empty($login_error)): ?>
                                         <div style="background-color: #fef2f2; border: 1.5px solid #ef4444; color: #991b1b; padding: 12px 16px; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 13px; margin-bottom: 22px; text-align: left; display: flex; align-items: center; gap: 10px; box-shadow: 0 3px 8px rgba(239, 68, 68, 0.18);">
-                                            <span style="font-size: 20px;">??</span>
-                                            <div><strong>Falha na Autentica��o:</strong> <?php echo htmlspecialchars($login_error); ?></div>
+                                            <span style="font-weight: bold; font-size: 16px;">[!]</span>
+                                            <div><strong>Falha na Autentica&ccedil;&atilde;o:</strong> <?php echo htmlspecialchars($login_error); ?></div>
                                         </div>
                                     <?php endif; ?>
 
@@ -109,23 +109,25 @@ if (!isset($logged) || !$logged || !isset($account_logged) || !$account_logged |
                                             
                                             <!-- Campo Conta -->
                                             <div style="margin-bottom: 18px;">
-                                                <label style="display: flex; align-items: center; justify-content: space-between; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 12px; color: #4a1c00; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
-                                                    <span>?? Número da Conta / Account Name:</span>
+                                                <label style="display: flex; align-items: center; gap: 6px; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 12px; color: #4a1c00; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7f0000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                                    <span>N&uacute;mero da Conta / Account Name:</span>
                                                 </label>
-                                                <input type="text" name="account_login" required autocomplete="username" placeholder="Digite o número da sua conta" style="width: 100%; box-sizing: border-box; padding: 11px 14px; font-size: 14px; font-family: 'Inter', sans-serif; border: 1px solid #b89a72; border-radius: 6px; background: #ffffff; color: #2b1704; outline: none; transition: all 0.2s ease; box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);" onfocus="this.style.borderColor='#8b0000'; this.style.boxShadow='0 0 0 3.5px rgba(139,0,0,0.15)';" onblur="this.style.borderColor='#b89a72'; this.style.boxShadow='inset 0 1px 3px rgba(0,0,0,0.06)';" />
+                                                <input type="text" name="account_login" required autocomplete="username" placeholder="Digite o n&uacute;mero da sua conta" style="width: 100%; box-sizing: border-box; padding: 11px 14px; font-size: 14px; font-family: 'Inter', sans-serif; border: 1px solid #b89a72; border-radius: 6px; background: #ffffff; color: #2b1704; outline: none; transition: all 0.2s ease; box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);" onfocus="this.style.borderColor='#8b0000'; this.style.boxShadow='0 0 0 3.5px rgba(139,0,0,0.15)';" onblur="this.style.borderColor='#b89a72'; this.style.boxShadow='inset 0 1px 3px rgba(0,0,0,0.06)';" />
                                             </div>
 
                                             <!-- Campo Senha -->
                                             <div style="margin-bottom: 22px;">
-                                                <label style="display: flex; align-items: center; justify-content: space-between; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 12px; color: #4a1c00; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
-                                                    <span>?? Senha / Password:</span>
+                                                <label style="display: flex; align-items: center; gap: 6px; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 12px; color: #4a1c00; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7f0000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                                    <span>Senha / Password:</span>
                                                 </label>
                                                 <input type="password" name="password_login" required autocomplete="current-password" placeholder="" style="width: 100%; box-sizing: border-box; padding: 11px 14px; font-size: 14px; font-family: 'Inter', sans-serif; border: 1px solid #b89a72; border-radius: 6px; background: #ffffff; color: #2b1704; outline: none; transition: all 0.2s ease; box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);" onfocus="this.style.borderColor='#8b0000'; this.style.boxShadow='0 0 0 3.5px rgba(139,0,0,0.15)';" onblur="this.style.borderColor='#b89a72'; this.style.boxShadow='inset 0 1px 3px rgba(0,0,0,0.06)';" />
                                             </div>
 
                                             <!-- Bot�o de Submiss�o -->
                                             <button type="submit" style="width: 100%; padding: 13px 20px; font-family: 'Cinzel', Georgia, serif; font-size: 15px; font-weight: 800; color: #ffffff; background: linear-gradient(180deg, #34d399 0%, #059669 50%, #047857 100%); border: 1px solid #064e3b; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 14px rgba(4, 120, 87, 0.35), inset 0 1px 0 rgba(255,255,255,0.4); text-shadow: 0 1px 2px rgba(0,0,0,0.5); transition: all 0.2s ease-in-out;" onmouseover="this.style.background='linear-gradient(180deg, #4ade80 0%, #10b981 50%, #059669 100%)'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='linear-gradient(180deg, #34d399 0%, #059669 50%, #047857 100%)'; this.style.transform='translateY(0)';" onmousedown="this.style.transform='translateY(1px)';">
-                                                ENTRAR E ACESSAR DOA��O ?
+                                                ENTRAR E ACESSAR DOA&Ccedil;&Atilde;O &rarr;
                                             </button>
 
                                         </form>
@@ -134,19 +136,21 @@ if (!isset($logged) || !$logged || !isset($account_logged) || !$account_logged |
                                     <!-- Links de Apoio -->
                                     <div style="margin-top: 18px; display: flex; align-items: center; justify-content: space-between; font-family: 'Inter', sans-serif; font-size: 12.5px; background: #e8d7be; padding: 11px 18px; border-radius: 6px; border: 1px solid #d4c0a5;">
                                         <a href="?subtopic=account/create" style="color: #8b0000; font-weight: 700; text-decoration: none;" onmouseover="this.style.textDecoration='underline';" onmouseout="this.style.textDecoration='none';">
-                                            ? N�o tem conta? Criar conta gr�tis
+                                            N&atilde;o tem conta? Criar conta gr&aacute;tis
                                         </a>
                                         <span style="color: #a0825a;">|</span>
                                         <a href="?subtopic=account/lost" style="color: #5c3d1e; font-weight: 600; text-decoration: none;" onmouseover="this.style.textDecoration='underline';" onmouseout="this.style.textDecoration='none';">
-                                            ?? Esqueceu a Senha?
+                                            Esqueceu a Senha?
                                         </a>
                                     </div>
 
                                     <!-- Footer Informativo -->
                                     <div style="margin-top: 22px; font-family: 'Inter', sans-serif; font-size: 11.5px; color: #78624c; display: flex; align-items: center; justify-content: center; gap: 16px;">
-                                        <span>??? Criptografia SSL</span>
-                                        <span>? Credita��o Instant�nea</span>
-                                        <span>?? PIX & Cart�o</span>
+                                        <span>Seguran&ccedil;a SSL</span>
+                                        <span>&bull;</span>
+                                        <span>Entrega Autom&aacute;tica</span>
+                                        <span>&bull;</span>
+                                        <span>PIX &amp; Cart&atilde;o</span>
                                     </div>
 
                                 </div>
