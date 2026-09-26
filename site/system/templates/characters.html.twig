@@ -10,7 +10,7 @@
 /* Inner Frame Contour for Tables */
 .tibia-inner-frame {
 	border: 1px solid #7A5726;
-	border-radius: 4px;
+	border-radius: 0;
 	overflow: hidden;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 	margin: 4px 0;
@@ -32,7 +32,11 @@
 			</a>
 		{% endif %}
 
-		{% set char_info_html %}
+				{% set char_info_html %}
+		<div style="position: relative;">
+		{% if staff_banner is not null %}
+			<img src="{{ staff_banner }}" alt="Staff" style="position: absolute; right: -12px; top: 45%; width: 130px; height: auto; z-index: 5;"/>
+		{% endif %}
 		<div class="tibia-inner-frame">
 			<table border="0" cellspacing="1" cellpadding="4" width="100%">
 				{% set rows = rows + 1 %}
@@ -105,26 +109,8 @@
 
 				{% set rows = rows + 1 %}
 				<tr bgcolor="{{ getStyle(rows) }}">
-					<td>Account Status:</td>
-					<td>{% if account.isPremium() %}Premium Account{% else %}Free Account{% endif %}</td>
-				</tr>
-
-				{% set rows = rows + 1 %}
-				<tr bgcolor="{{ getStyle(rows) }}">
-					<td>Frags:</td>
-					<td>
-						Killed <b>{{ frags_count|default(0) }}</b> players
-						{% if skull is not null %}
-							<img src="images/{{ skull }}.gif" style="vertical-align: middle; margin-left: 4px;" alt="skull"/>
-						{% else %}
-							<img src="images/white_skull.gif" style="vertical-align: middle; margin-left: 4px;" alt="skull"/>
-						{% endif %}
-						{% if player.getSkull() == 4 %}
-							<span style="color: red; font-weight: bold; margin-left: 6px;">[Red Skull]</span>
-						{% elseif player.getSkull() == 5 %}
-							<span style="color: #990000; font-weight: bold; margin-left: 6px;">[Black Skull]</span>
-						{% endif %}
-					</td>
+					<td>World:</td>
+					<td>{{ config.lua.serverName }}</td>
 				</tr>
 
 				{% set rows = rows + 1 %}
@@ -157,15 +143,39 @@
 				{% if guild.rank is not null %}
 				{% set rows = rows + 1 %}
 				<tr bgcolor="{{ getStyle(rows) }}">
-					<td>Guild membership:</td>
-					<td>{{ guild.rank }} of the {{ guild.link|raw }}</td>
+					<td>Guild Membership:</td>
+					<td><b>{{ guild.rank }}</b> of the <b>{{ guild.link|raw }}</b></td>
 				</tr>
 				{% endif %}
 
 				{% set rows = rows + 1 %}
 				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Frags:</td>
+					<td>
+						Killed <b>{{ frags_count|default(0) }}</b> players
+						{% if skull is not null %}
+							<img src="images/{{ skull }}.gif" style="vertical-align: middle; margin-left: 4px;" alt="skull"/>
+						{% else %}
+							<img src="images/white_skull.gif" style="vertical-align: middle; margin-left: 4px;" alt="skull"/>
+						{% endif %}
+						{% if player.getSkull() == 4 %}
+							<span style="color: red; font-weight: bold; margin-left: 6px;">[Red Skull]</span>
+						{% elseif player.getSkull() == 5 %}
+							<span style="color: #990000; font-weight: bold; margin-left: 6px;">[Black Skull]</span>
+						{% endif %}
+					</td>
+				</tr>
+
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
 					<td>Last login:</td>
-					<td>{% if player.getLastLogin() == 0 %}Never logged in.{% else %}{{ player.getLastLogin()|date("M d Y, H:i:s") }} CEST{% endif %}</td>
+					<td>{% if player.getLastLogin() == 0 %}Never logged in.{% else %}{{ player.getLastLogin()|date("j F Y, g:i a") }}{% endif %}</td>
+				</tr>
+
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Account Status:</td>
+					<td>{% if account.isPremium() %}Premium Account{% else %}Free Account{% endif %}</td>
 				</tr>
 
 				{% if config.characters.creation_date %}
@@ -190,7 +200,16 @@
 					<td style="word-break: break-all">{{ comment|raw }}</td>
 				</tr>
 				{% endif %}
+
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Inventory:</td>
+					<td>
+						<button style="background: #2b2b2b; color: #1fb91f; border: 1px solid #111; border-top: 1px solid #5a5a5a; border-left: 1px solid #5a5a5a; padding: 2px 5px; cursor: pointer; font-size: 10px;" onclick="toggleWindow('win-inventory')">Show</button>
+					</td>
+				</tr>
 			</table>
+		</div>
 		</div>
 		{% endset %}
 
@@ -335,9 +354,7 @@
 					}
 					</script>
 
-					<div style="margin-bottom: 5px;">
-						<button style="background: #2b2b2b; color: #fff; border: 1px solid #111; border-top: 1px solid #5a5a5a; border-left: 1px solid #5a5a5a; padding: 2px 5px; cursor: pointer;" onclick="toggleWindow('win-inventory')">Hide/Show Inventory</button>
-					</div>
+					
 
 					<div class="tibia-ui">
 						<!-- Inventory -->
@@ -581,7 +598,7 @@
 		<br/><br/>
 		{% set acc_info_html %}
 		<div class="tibia-inner-frame">
-			<table border="0" cellspacing="1" cellpadding="4" width="100%">
+			<table border="0" cellspacing="0" cellpadding="4" width="100%">
 				{% set realName = account.getRLName() %}
 				{% if realName is not empty %}
 				{% set rows = rows + 1 %}

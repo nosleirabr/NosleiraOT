@@ -230,19 +230,27 @@ if(isset($config['boxes']))
 		}
 		function OpenMenuItem(sourceId)
 		{
+		  var submenu = document.getElementById(sourceId+'_Submenu');
+		  if (!submenu) return;
 		  menu[0][sourceId] = 1;
-		  document.getElementById(sourceId+"_Submenu").style.visibility = "visible";
-		  document.getElementById(sourceId+"_Submenu").style.display = "block";
-		  document.getElementById(sourceId+"_Lights").style.visibility = "hidden";
-		  document.getElementById(sourceId+"_Extend").style.backgroundImage = "url(" + IMAGES + "/general/minus.gif)";
+		  submenu.style.visibility = 'visible';
+		  submenu.style.display = 'block';
+		  var lights = document.getElementById(sourceId+'_Lights');
+		  if (lights) lights.style.visibility = 'hidden';
+		  var extend = document.getElementById(sourceId+'_Extend');
+		  if (extend) extend.style.backgroundImage = 'url(' + IMAGES + '/general/minus.gif)';
 		}
 		function CloseMenuItem(sourceId)
 		{
+		  var submenu = document.getElementById(sourceId+'_Submenu');
+		  if (!submenu) return;
 		  menu[0][sourceId] = 0;
-		  document.getElementById(sourceId+"_Submenu").style.visibility = "hidden";
-		  document.getElementById(sourceId+"_Submenu").style.display = "none";
-		  document.getElementById(sourceId+"_Lights").style.visibility = "visible";
-		  document.getElementById(sourceId+"_Extend").style.backgroundImage = "url(" + IMAGES + "/general/plus.gif)";
+		  submenu.style.visibility = 'hidden';
+		  submenu.style.display = 'none';
+		  var lights = document.getElementById(sourceId+'_Lights');
+		  if (lights) lights.style.visibility = 'visible';
+		  var extend = document.getElementById(sourceId+'_Extend');
+		  if (extend) extend.style.backgroundImage = 'url(' + IMAGES + '/general/plus.gif)';
 		}
 
 		// mouse-over effects of menubuttons and submenuitems

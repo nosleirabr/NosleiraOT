@@ -574,7 +574,10 @@ function template_footer(): string
 
 	$footer[] = 'Copyright &copy; ' . date('Y') . ' <a href="' . BASE_URL . '" style="color: #cfa600; font-weight: bold; text-decoration: none;">NosleiraOT</a>. Todos os direitos reservados.<br/><span style="font-size: 10px; color: #a3a3a3;">Tibia is a registered trademark of CipSoft GmbH.</span>';
 
-	global $hooks;
+	global $hooks, $visitors;
+	if(setting('core.visitors_counter') && isset($visitors)) {
+		$footer[] = '<span style="font-size: 11px; color: #cfa600; font-weight: bold;">Visitors Online: ' . (int)$visitors->getAmountVisitors() . '</span>';
+	}
 	$hooks->triggerFilter(HOOK_FILTER_THEME_FOOTER, $footer);
 
 	return implode('<br/>', $footer);

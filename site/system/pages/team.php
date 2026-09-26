@@ -59,9 +59,10 @@ foreach($groupList as $id => $group)
 		$members[] = array(
 			'group_name' => $group->getName(),
 			'player' => $member,
+			'name' => preg_replace('/^\[(GOD|GM|CM)\]\s*/', '', $member->getName()),
 			'outfit' => setting('core.outfit_images_url') . '?id=' . $member->getLookType() . ($outfit_addons ? '&addons=' . $member->getLookAddons() : '') . '&head=' . $member->getLookHead() . '&body=' . $member->getLookBody() . '&legs=' . $member->getLookLegs() . '&feet=' . $member->getLookFeet(),
 			'status' => $member->isOnline(),
-			'link' => getPlayerLink($member->getName()),
+			'link' => getPlayerLink($member->getName(), false),
 			'flag_image' => setting('core.account_country') ? getFlagImage($member->getAccount()->getCountry()) : null,
 			'world_name' => getWorldName(0),
 			'last_login' => $lastLogin
@@ -69,6 +70,7 @@ foreach($groupList as $id => $group)
 	}
 
 	$groupMember[] = array(
+		'group_id' => $id,
 		'group_name' => $group->getName(),
 		'members' => $members
 	);
