@@ -116,6 +116,18 @@ if($player->isLoaded() && !$player->isDeleted())
 			$frags_count = $query['frags'];
 		}
 	}
+	else if($config['characters']['frags'] && $db->hasTable('player_deaths') && $db->hasColumn('player_deaths', 'killed_by')) {
+		// TFS sem tabela player_killers: conta pelas mortes registradas (servidor escreve de verdade)
+		$query = $db->query(
+			'SELECT COUNT(*) as `frags`' .
+			'FROM `player_deaths`' .
+			'WHERE `killed_by` = ' . $db->quote($player->getName()) . ' AND `is_player` = 1');
+		if($query->rowCount() > 0)
+		{
+			$query = $query->fetch();
+			$frags_count = (int)$query['frags'];
+		}
+	}
 
 	$town_field = 'town';
 	if($db->hasColumn('houses', 'town_id'))
@@ -392,9 +404,20 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 		}
 	}
 
+	// Faixa de cargo para personagens da staff (imagens em images/staff/)
+	$staff_banners = array(6 => 'admin', 5 => 'cm', 4 => 'gm', 3 => 'senior', 2 => 'tutor');
+	$staff_banner = null;
+	try {
+		$gid = $player->getGroup()->getId();
+		if(isset($staff_banners[$gid])) {
+			$staff_banner = 'images/staff/' . $staff_banners[$gid] . '.png';
+		}
+	} catch(Exception $e) {}
+
 	$twig->display('characters.html.twig', array(
 		'outfit' => isset($outfit) ? $outfit : null,
 		'player' => $player,
+		'staff_banner' => $staff_banner,
 		'account' => $account,
 		'flag' => $flag,
 		'oldName' => $oldName,

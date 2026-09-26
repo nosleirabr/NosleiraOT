@@ -1335,10 +1335,11 @@ body {
   background-color: #f1e0c5;
 }
 .TableContainer .Table3 .InnerTableContainer {
-  width: 100%;
+  width: auto;
   position: relative;
   margin-top: 5px;
   margin-left: 3px;
+  margin-right: 3px;
 }
 .TableContainer .Table3 .TableContentAndRightShadow td {
   border: 1px solid #faf0d7;
