@@ -5,215 +5,197 @@
 	    Tipped.create('.item_image');
 	});
 </script>
+
+<style>
+/* Inner Frame Contour for Tables */
+.tibia-inner-frame {
+	border: 1px solid #7A5726;
+	border-radius: 4px;
+	overflow: hidden;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+	margin: 4px 0;
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+</style>
+
 {% set rows = 0 %}
 <table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
 	<td><img src="{{ template_path }}/images/general/blank.gif" width="10" height="1" border="0"></td>
-	<td>
+	<td width="100%">
         {{ hook('HOOK_CHARACTERS_BEFORE_INFORMATIONS') }}
 		{% if canEdit %}
 			<a href="{{ constant('ADMIN_URL') }}?p=players&id={{ player.getId() }}" title="Edit in Admin Panel" target="_blank">
 				<img src="images/edit.png"/>Edit
 			</a>
 		{% endif %}
-		<table border="0" cellspacing="1" cellpadding="4" width="100%">
 
+		{% set char_info_html %}
+		<div class="tibia-inner-frame">
+			<table border="0" cellspacing="1" cellpadding="4" width="100%">
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td width="20%">Name:</td>
+					<td>
+						<span style="color: {% if player.isOnline() %}green{% else %}red{% endif %}"><b>{{ player.getName() }}</b></span> {{ flag|raw }}{{ oldName }}
+						
+						{% set gname = player.getGroup().getName()|lower %}
+						{% set gid = player.getGroup().getId() %}
+						{% if gid > 1 or gname in ['administrador', 'god', 'admin', 'community manager', 'cm', 'gamemaster', 'gm', 'senior tutor', 'tutor'] %}
+							{% if gname == 'administrador' or gname == 'god' or gname == 'admin' %}
+								<span class="admin" style="color: #00A800; font-weight: bold; margin-left: 6px;">[Administrador]</span>
+							{% elseif gname == 'community manager' or gname == 'cm' %}
+								<span class="communitym" style="color: #E60000; font-weight: bold; margin-left: 6px;">[Community Manager]</span>
+							{% elseif gname == 'gamemaster' or gname == 'gm' %}
+								<span class="gms" style="color: #0066FF; font-weight: bold; margin-left: 6px;">[Gamemaster]</span>
+							{% elseif gname == 'senior tutor' %}
+								<span class="seniortutor" style="color: #E6A100; font-weight: bold; margin-left: 6px;">[Senior Tutor]</span>
+							{% elseif gname == 'tutor' %}
+								<span class="tutor" style="color: #9933FF; font-weight: bold; margin-left: 6px;">[Tutor]</span>
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
 
-			<tr bgcolor="{{ config.vdarkborder }}">
-				<td colspan="2" class="white"><b>Character Information</b></td>
-			</tr>
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Sex:</td>
+					<td>{{ sex }}</td>
+				</tr>
 
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td width="20%">Name:</td>
-				<td style="position: relative;">
-					<span style="color: {% if player.isOnline() %}green{% else %}red{% endif %}"><b>{{ player.getName() }}</b></span> {{ flag|raw }}{{ oldName }}
-					{% if player.getName()|lower == 'nosleiragod' %}
-					<style>
-					.admin-ribbon-container {
-					    position: absolute;
-					    right: -5px;
-					    top: 50%;
-					    transform: translateY(-50%);
-					    z-index: 100;
-					}
-					.admin-ribbon {
-					    position: relative;
-					    height: 28px;
-					    line-height: 26px;
-					    box-sizing: border-box;
-					    background: linear-gradient(to bottom, #A11818 0%, #680000 100%);
-					    border: 1px solid #D4AF37; 
-					    border-right: none;
-					    color: #FFF3A0; 
-					    padding: 0 15px 0 35px;
-					    font-family: 'Book Antiqua', 'Times New Roman', serif;
-					    font-size: 14px;
-					    font-weight: bold;
-					    text-shadow: 1px 1px 2px black;
-					    box-shadow: 2px 3px 5px rgba(0,0,0,0.5);
-					}
-					.admin-ribbon::before {
-					    content: '';
-					    position: absolute;
-					    left: -14px;
-					    top: -1px;
-					    border-top: 14px solid transparent;
-					    border-bottom: 14px solid transparent;
-					    border-right: 14px solid #D4AF37; 
-					}
-					.admin-ribbon::after {
-					    content: '';
-					    position: absolute;
-					    left: -12px;
-					    top: 0px;
-					    border-top: 13px solid transparent;
-					    border-bottom: 13px solid transparent;
-					    border-right: 13px solid #850B0B; 
-					}
-					.admin-ribbon .fold {
-					    position: absolute;
-					    right: 0px;
-					    bottom: -6px;
-					    border-top: 5px solid #330000;
-					    border-right: 5px solid transparent;
-					}
-					.admin-ribbon .icon {
-					    position: absolute;
-					    left: 8px;
-					    top: 50%;
-					    transform: translateY(-50%);
-					    font-size: 16px;
-					    filter: drop-shadow(1px 1px 1px black);
-					}
-					</style>
-					<div class="admin-ribbon-container" title="Administrador">
-					    <div class="admin-ribbon">
-					        <span class="icon">🛡️</span>
-					        Administrador
-					        <div class="fold"></div>
-					    </div>
-					</div>
-					{% endif %}
-				</td>
-			</tr>
+				{% if marriage_enabled %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Marital status:</td>
+					<td>{{ marital_status }}</td>
+				</tr>
+				{% endif %}
 
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td>Sex:</td>
-				<td>{{ sex }}</td>
-			</tr>
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Profession:</td>
+					<td>{{ vocation }}</td>
+				</tr>
 
-			{% if marriage_enabled %}
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td>Marital status:</td>
-				<td>{{ marital_status }}</td>
-			</tr>
-			{% endif %}
+				{% if config.characters.level %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Level:</td>
+					<td>{{ player.getLevel() }}</td>
+				</tr>
+				{% endif %}
 
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td>Profession:</td>
-				<td>{{ vocation }}</td>
-			</tr>
+				{% if config.characters.experience %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Experience:</td>
+					<td>{{ player.getExperience()|number_format(0, '.', ',') }}</td>
+				</tr>
+				{% endif %}
 
-			{% if config.characters.level %}
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td>Level:</td>
-				<td>{{ player.getLevel() }}</td>
-			</tr>
-			{% endif %}
+				{% if config.characters.magic_level %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Magic Level:</td>
+					<td>{{ player.getMagLevel() }}</td>
+				</tr>
+				{% endif %}
 
-			{% if config.characters.experience %}
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td>Experience:</td>
-				<td>{{ player.getExperience() }}</td>
-			</tr>
-			{% endif %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Account Status:</td>
+					<td>{% if account.isPremium() %}Premium Account{% else %}Free Account{% endif %}</td>
+				</tr>
 
-			{% if config.characters.magic_level %}
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td>Magic Level:</td>
-				<td>{{ player.getMagLevel() }}</td>
-			</tr>
-			{% endif %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Frags:</td>
+					<td>
+						Killed <b>{{ frags_count|default(0) }}</b> players
+						{% if skull is not null %}
+							<img src="images/{{ skull }}.gif" style="vertical-align: middle; margin-left: 4px;" alt="skull"/>
+						{% else %}
+							<img src="images/white_skull.gif" style="vertical-align: middle; margin-left: 4px;" alt="skull"/>
+						{% endif %}
+						{% if player.getSkull() == 4 %}
+							<span style="color: red; font-weight: bold; margin-left: 6px;">[Red Skull]</span>
+						{% elseif player.getSkull() == 5 %}
+							<span style="color: #990000; font-weight: bold; margin-left: 6px;">[Black Skull]</span>
+						{% endif %}
+					</td>
+				</tr>
 
-			{% if frags_enabled %}
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td>Frags:</td>
-				<td>{{ frags_count }}</td>
-			</tr>
-			{% endif %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Residence:</td>
+					<td>{{ town }}</td>
+				</tr>
 
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td>Residence:</td>
-				<td>{{ town }}</td>
-			</tr>
+				{% if house.found %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>House:</td>
+					<td>
+						<table border="0">
+							<tr>
+								<td>{{ house.name ~ house.town ~ house.add }}</td>
+								<td>
+									<form action="?subtopic=houses&page=view" method="post">
+										{{ csrf() }}
+										<input type="hidden" name="house" value="{{ house.name }}">
+										<input type="image" name="View" alt="View" src="{{ template_path }}/images/global/buttons/sbutton_view.gif" border="0" width="120">
+									</form>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				{% endif %}
 
+				{% if guild.rank is not null %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Guild membership:</td>
+					<td>{{ guild.rank }} of the {{ guild.link|raw }}</td>
+				</tr>
+				{% endif %}
 
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Last login:</td>
+					<td>{% if player.getLastLogin() == 0 %}Never logged in.{% else %}{{ player.getLastLogin()|date("M d Y, H:i:s") }} CEST{% endif %}</td>
+				</tr>
 
-			{% if house.found %}
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td>House:</td>
-				<td>
-					<table border="0">
-						<tr>
-							<td>{{ house.name ~ house.town ~ house.add }}</td>
-							<td>
-								<form action="?subtopic=houses&page=view" method="post">
-									{{ csrf() }}
-									<input type="hidden" name="house" value="{{ house.name }}">
-									<input type="image" name="View" alt="View" src="{{ template_path }}/images/global/buttons/sbutton_view.gif" border="0" width="120">
-								</form>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-			{% endif %}
+				{% if config.characters.creation_date %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Created:</td>
+					<td>
+						{{ player.getCreated()|date("M d Y, g:i a") }} CEST
+						{% if gm_ban_info is not null %}
+							<span style="color: red; font-weight: bold; margin-left: 8px;">
+								[Banished by GM {{ gm_ban_info.banned_by }}: {{ gm_ban_info.reason }} (Until: {{ gm_ban_info.expires_at }})]
+							</span>
+						{% endif %}
+					</td>
+				</tr>
+				{% endif %}
 
-			{% if guild.rank is not null %}
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td>Guild membership:</td>
-				<td>{{ guild.rank }} of the {{ guild.link|raw }}</td>
-			</tr>
-			{% endif %}
+				{% if comment is not null %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td valign="top">Comment:</td>
+					<td style="word-break: break-all">{{ comment|raw }}</td>
+				</tr>
+				{% endif %}
+			</table>
+		</div>
+		{% endset %}
 
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td>Last login:</td>
-				<td>{% if player.getLastLogin() == 0 %}Never logged in.{% else %}{{ player.getLastLogin()|date("M d Y, H:i:s") }} CEST{% endif %}</td>
-			</tr>
+		{% include 'tables.headline.html.twig' with {'title': 'Character Information', 'content': char_info_html} %}
 
-			{% if config.characters.creation_date %}
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td>Created:</td>
-				<td>{{ player.getCreated()|date("M d Y, H:i:s") }} CEST</td>
-			</tr>
-			{% endif %}
-
-			{% if comment is not null %}
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td valign="top">Comment:</td>
-				<td style="word-break: break-all">{{ comment|raw }}</td>
-			</tr>
-			{% endif %}
-
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td>Account Status:</td>
-				<td>{% if account.isPremium() %}Premium Account{% else %}Free Account{% endif %}</td>
-			</tr>
-		</table>
 		{{ hook('HOOK_CHARACTERS_AFTER_INFORMATIONS') }}
 		<br/>
 		<table border="0" width="100%">
@@ -437,19 +419,21 @@
 		
 		{% if quests_enabled %}
 		<br/>
-		<table border="0" cellspacing="1" cellpadding="4" width="100%">
-			<tr bgcolor="{{ config.vdarkborder }}">
-				<td colspan="2" class="white"><b>Quests</b></td>
-			</tr>
-			{% set i = 0 %}
-			{% for name, done in quests %}
-			{% set i = i + 1 %}
-			<tr bgcolor="{{ getStyle(i) }}">
-				<td valign="top">{{ name }}</TD>
-				<td><img src="images/{% if done %}true{% else %}false{% endif %}.png" border="0"/></td>
-			</tr>
-			{% endfor %}
-		</table>
+		{% set quests_html %}
+		<div class="tibia-inner-frame">
+			<table border="0" cellspacing="1" cellpadding="4" width="100%">
+				{% set i = 0 %}
+				{% for name, done in quests %}
+				{% set i = i + 1 %}
+				<tr bgcolor="{{ getStyle(i) }}">
+					<td valign="top">{{ name }}</td>
+					<td align="right"><img src="images/{% if done %}true{% else %}false{% endif %}.png" border="0"/></td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+		{% endset %}
+		{% include 'tables.headline.html.twig' with {'title': 'Quests', 'content': quests_html} %}
 		{% endif %}
 
 		{{ hook('HOOK_CHARACTERS_BEFORE_DEATHS') }}
@@ -457,337 +441,264 @@
 		{% if deaths|length > 0 %}
 		<!-- DEATHS -->
 		<br/>
-		<table border="0" cellspacing="1" cellpadding="4" width="100%">
-			<tr bgcolor="{{ config.vdarkborder }}">
-				<td colspan="2" class="white"><b>Character Deaths</b></td>
-			</tr>
-			{% set i = 0 %}
-			{% for death in deaths %}
-			<tr bgcolor="{{ getStyle(i) }}">
-				<td width="20%" align="center">{{ death.time|date("j M Y, H:i") }}</td>
-				<td>{{ death.description|raw }}</td>
-			</tr>
-
-			{% set i = i + 1 %}
-			{% endfor %}
-		</table>
+		{% set deaths_html %}
+		<div class="tibia-inner-frame">
+			<table border="0" cellspacing="1" cellpadding="4" width="100%">
+				{% set i = 0 %}
+				{% for death in deaths %}
+				{% set i = i + 1 %}
+				<tr bgcolor="{{ getStyle(i) }}">
+					<td width="20%" align="center">{{ death.time|date("j M Y, H:i") }}</td>
+					<td>{{ death.description|raw }}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+		{% endset %}
+		{% include 'tables.headline.html.twig' with {'title': 'Character Deaths', 'content': deaths_html} %}
 		<!-- DEATHS_END -->
-		{% endif %}
-		{% if frags|length > 0 %}
-		<!-- FRAGS -->
-		<br/>
-		<table border="0" cellspacing="1" cellpadding="4" width="100%">
-			<tr bgcolor="{{ config.vdarkborder }}">
-				<td colspan="2" class="white"><b>Victims</b></td>
-			</tr>
-			{% set i = 0 %}
-			{% for frag in frags %}
-			<tr bgcolor="{{ getStyle(i) }}">
-				<td width="20%" align="center">{{ frag.time|date("j M Y, H:i") }}</td>
-				<td>{{ frag.description|raw }} ({% if frag.unjustified %}<span style="color: red; font-size: 10px">Unjustified</span>{% else %}<span style="color: green; font-size: 10px">Justified</span>{% endif %})</td>
-			</tr>
-			{% set i = i + 1 %}
-			{% endfor %}
-		</table>
-		<!-- FRAGS_END -->
 		{% endif %}
 
 		{% if exp_history %}
 		<!-- EXP HISTORY -->
 		<br/>
-		<table border="0" cellspacing="1" cellpadding="4" width="100%">
-			<tr bgcolor="{{ config.vdarkborder }}">
-				<td colspan="2" class="white"><b>Record of Daily Experiences</b></td>
-			</tr>
-			{% set i = 0 %}
-			{% for exp in exp_history %}
-			{% set i = i + 1 %}
-			<tr bgcolor="{{ getStyle(i) }}">
-				<td width="20%" align="center"><b>{% if exp.date == 'Today' %}<span style="color: #FF6600">EXP Today</span>{% else %}{{ exp.date }}{% endif %}</b></td>
-				<td>
-					{% if exp.exp_diff > 0 %}
-						<span style="color: green">+{{ exp.exp_diff|number_format(0, '.', '.') }} Experience</span>
-					{% elseif exp.exp_diff < 0 %}
-						<span style="color: red">{{ exp.exp_diff|number_format(0, '.', '.') }} Experience</span>
-					{% else %}
-						not gain exp (No Experience)
-					{% endif %}
-				</td>
-			</tr>
-			{% endfor %}
-		</table>
+		{% set exp_hist_html %}
+		<div class="tibia-inner-frame">
+			<table border="0" cellspacing="1" cellpadding="4" width="100%">
+				{% set i = 0 %}
+				{% for exp in exp_history %}
+				{% set i = i + 1 %}
+				<tr bgcolor="{{ getStyle(i) }}">
+					<td width="25%" align="center"><b>{% if exp.date == 'Today' %}<span style="color: #5A2800">EXP Today</span>{% else %}{{ exp.date }}{% endif %}</b></td>
+					<td>
+						{% if exp.exp_diff > 0 %}
+							<span style="color: #008000; font-weight: bold;">+{{ exp.exp_diff|number_format(0, '.', '.') }} (Gain Experience)</span>
+						{% elseif exp.exp_diff < 0 %}
+							<span style="color: red; font-weight: bold;">{{ exp.exp_diff|number_format(0, '.', '.') }} (Lost Experience)</span>
+						{% else %}
+							<span style="color: #5A2800;">not gain exp (No Experience)</span>
+						{% endif %}
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+		{% endset %}
+		{% include 'tables.headline.html.twig' with {'title': 'Record of Daily Experiences', 'content': exp_hist_html} %}
+
 		<br/>
-		<table border="0" cellspacing="1" cellpadding="4" width="100%">
-			<tr bgcolor="{{ config.vdarkborder }}">
-				<td class="white"><b>General Experience Records Graph</b></td>
-			</tr>
-			<tr bgcolor="{{ config.lightborder }}">
-				<td align="center">
-					<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-					<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-					<div style="width: 95%; height: 250px; position: relative;">
-						<canvas id="exp_chart_canvas"></canvas>
-					</div>
-					<script type="text/javascript">
-					  document.addEventListener("DOMContentLoaded", function() {
-						var ctx = document.getElementById('exp_chart_canvas').getContext('2d');
-						
-						var labels = [
-						  {% for exp in exp_history|reverse %}
-						  '{{ exp.date }}',
-						  {% endfor %}
-						];
-						
-						var dataPoints = [
-						  {% for exp in exp_history|reverse %}
-						  {{ exp.exp_diff }},
-						  {% endfor %}
-						];
+		{% set exp_graph_html %}
+		<div class="tibia-inner-frame" style="padding: 10px; background-color: {{ config.lightborder }}; box-sizing: border-box; max-width: 530px; overflow: hidden; margin: 0 auto;">
+			<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+			<div style="width: 510px; max-width: 100%; height: 250px; position: relative; overflow: hidden; margin: 0 auto;">
+				<canvas id="exp_chart_canvas" style="width: 100% !important; height: 250px !important;"></canvas>
+			</div>
+			<script type="text/javascript">
+			  document.addEventListener("DOMContentLoaded", function() {
+				var ctx = document.getElementById('exp_chart_canvas').getContext('2d');
+				
+				var labels = [
+				  {% for exp in exp_history|reverse %}
+				  '{{ exp.date }}',
+				  {% endfor %}
+				];
+				
+				var dataPoints = [
+				  {% for exp in exp_history|reverse %}
+				  {{ exp.exp_diff }},
+				  {% endfor %}
+				];
 
-						Chart.register(ChartDataLabels);
+				Chart.register(ChartDataLabels);
 
-						var chart = new Chart(ctx, {
-						  type: 'line',
-						  data: {
-							labels: labels,
-							datasets: [{
-							  label: 'Player Experience Graphic History',
-							  data: dataPoints,
-							  fill: false,
-							  pointBackgroundColor: function(context) {
-								var value = context.dataset.data[context.dataIndex];
-								return value < 0 ? 'red' : '#32CD32';
-							  },
-							  pointBorderColor: function(context) {
-								var value = context.dataset.data[context.dataIndex];
-								return value < 0 ? 'darkred' : 'darkgreen';
-							  },
-							  segment: {
-								borderColor: function(context) {
-								  return context.p1.parsed.y < 0 ? 'red' : '#32CD32';
-								}
-							  },
-							  backgroundColor: '#32CD32',
-							  borderColor: '#32CD32',
-							  borderWidth: 1.5,
-							  pointRadius: 4,
-							  pointHoverRadius: 6
-							}]
-						  },
-						  options: {
-							responsive: true,
-							maintainAspectRatio: false,
-							layout: {
-							  padding: {
-								top: 30,
-								bottom: 10,
-								left: 10,
-								right: 10
-							  }
-							},
-							plugins: {
-							  legend: {
-								position: 'top',
-								labels: {
-								  color: '#666',
-								  font: { size: 12, family: 'Arial' },
-								  boxWidth: 40
-								}
-							  },
-							  datalabels: {
-								align: function(context) {
-								  var value = context.dataset.data[context.dataIndex];
-								  return value < 0 ? 'bottom' : 'top';
-								},
-								offset: 4,
-								color: function(context) {
-								  var value = context.dataset.data[context.dataIndex];
-								  return value < 0 ? 'red' : 'green';
-								},
-								font: {
-								  weight: 'bold',
-								  size: 11
-								},
-								formatter: function(value) {
-								  return value.toLocaleString('pt-BR');
-								}
-							  },
-							  tooltip: {
-								callbacks: {
-								  label: function(context) {
-									return ' Exp: ' + context.parsed.y.toLocaleString('pt-BR');
-								  }
-								}
-							  }
-							},
-							scales: {
-							  y: {
-								grid: { color: 'rgba(0, 0, 0, 0.05)' },
-								ticks: { color: '#666' }
-							  },
-							  x: {
-								grid: { color: 'rgba(0, 0, 0, 0.05)' },
-								ticks: { color: '#666' }
-							  }
-							}
-						  }
-						});
-					  });
-					</script>
-				</td>
-			</tr>
-		</table>
+				var chart = new Chart(ctx, {
+				  type: 'line',
+				  data: {
+					labels: labels,
+					datasets: [{
+					  label: 'Player Experience Graphic History',
+					  data: dataPoints,
+					  fill: false,
+					  pointBackgroundColor: function(context) {
+						var value = context.dataset.data[context.dataIndex];
+						return value < 0 ? 'red' : '#32CD32';
+					  },
+					  pointBorderColor: function(context) {
+						var value = context.dataset.data[context.dataIndex];
+						return value < 0 ? 'darkred' : 'darkgreen';
+					  },
+					  segment: {
+						borderColor: function(context) {
+						  return context.p1.parsed.y < 0 ? 'red' : '#32CD32';
+						}
+					  },
+					  backgroundColor: '#32CD32',
+					  borderColor: '#32CD32',
+					  borderWidth: 1.5,
+					  pointRadius: 4,
+					  pointHoverRadius: 6
+					}]
+				  },
+				  options: {
+					responsive: false,
+					maintainAspectRatio: false,
+					layout: {
+					  padding: { top: 30, bottom: 10, left: 10, right: 10 }
+					},
+					plugins: {
+					  legend: { position: 'top', labels: { color: '#666', font: { size: 12, family: 'Arial' }, boxWidth: 40 } },
+					  datalabels: {
+						align: function(context) { return context.dataset.data[context.dataIndex] < 0 ? 'bottom' : 'top'; },
+						offset: 4,
+						color: function(context) { return context.dataset.data[context.dataIndex] < 0 ? 'red' : 'green'; },
+						font: { weight: 'bold', size: 11 },
+						formatter: function(value) { return value.toLocaleString('pt-BR'); }
+					  },
+					  tooltip: {
+						callbacks: {
+						  label: function(context) { return ' Exp: ' + context.parsed.y.toLocaleString('pt-BR'); }
+						}
+					  }
+					},
+					scales: {
+					  y: { grid: { color: 'rgba(0, 0, 0, 0.05)' }, ticks: { color: '#666' } },
+					  x: { grid: { color: 'rgba(0, 0, 0, 0.05)' }, ticks: { color: '#666' } }
+					}
+				  }
+				});
+			  });
+			</script>
+		</div>
+		{% endset %}
+		{% include 'tables.headline.html.twig' with {'title': 'General Experience Records Graph', 'content': exp_graph_html} %}
 		<!-- EXP HISTORY_END -->
 		{% endif %}
 
-		{{ hook('HOOK_CHARACTERS_BEFORE_SIGNATURE') }}
-
-		{% if setting('core.signature_enabled') %}
-		<!-- SIGNATURE -->
-		<script type="text/javascript">
-			function showSignLinks()
-			{
-				if(document.getElementById('signLinks').style.display == "none")
-				{
-					document.getElementById('signLinks').style.display = "inline";
-					document.getElementById('signText').innerHTML = "Hide links";
-				}
-				else
-				{
-					document.getElementById('signLinks').style.display = "none";
-					document.getElementById('signText').innerHTML = "Show links";
-				}
-			}
-		</script>
-		<br/>
-		<table border="0" cellspacing="1" cellpadding="4" width="100%"><tr bgcolor="{{ config.vdarkborder }}"><td colspan=2 class="white"><b>Signature</b></td></tr>
-			<tr bgcolor="{{ config.lightborder }}"><td align="center" valign="top">
-				<img src="{{ signature_url }}" alt="Signature for player {{ player.getName() }}">
-				<br/>
-				<b><a href="#" onclick="showSignLinks(); return false;" id="signText">Show links</a></b>
-				<br/>
-				<table id="signLinks" style="display: none;">
-					<tr>
-						<td>Website:</td>
-						<td><input type="text" value="<a href=&quot;{{ player_link }}&quot;><img src=&quot;{{ signature_url }}&quot;></a>" style="width: 400px;" onclick="this.select()"></td>
-					</tr>
-					<tr>
-						<td>Forum:</td>
-						<td><input type="text" value="[URL={{ player_link }}][IMG]{{ signature_url }}[/IMG][/URL]" style="width: 400px;" onclick="this.select()"></td>
-					</tr>
-					<tr>
-						<td>Direct link:</td>
-						<td><input type="text" value="{{ signature_url }}" style="width: 400px;" onclick="this.select()"></td>
-					</tr>
-				</table>
-			</td></tr>
-		</table>
-		<!-- SIGNATURE_END -->
-		{% endif %}
-		{{ hook('HOOK_CHARACTERS_AFTER_SIGNATURE') }}
 		{% if not player.isHidden() %}
 		{% set rows = 0 %}
 		<!-- ACCOUNT_INFORMATION -->
 		<br/><br/>
-		<table border="0" cellspacing="1" cellpadding="4" width="100%">
-			<tr bgcolor="{{ config.vdarkborder }}">
-				<td colspan="2" class="white"><b>Account Information</b></td>
-			</tr>
+		{% set acc_info_html %}
+		<div class="tibia-inner-frame">
+			<table border="0" cellspacing="1" cellpadding="4" width="100%">
+				{% set realName = account.getRLName() %}
+				{% if realName is not empty %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td width="20%">Real name:</td>
+					<td>{{ realName }}</td>
+				</tr>
+				{% endif %}
 
-			{% set realName = account.getRLName() %}
-			{% if realName is not empty %}
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td width="20%">Real name:</td>
-				<td>{{ realName }}</td>
-			</tr>
-			{% endif %}
+				{% set group = player.getGroup() %}
+				{% if group.isLoaded() and group.getId() != 1 %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Position:</td>
+					<td>
+						{% set gname = group.getName()|lower %}
+						{% if gname == 'administrador' or gname == 'god' or gname == 'admin' %}
+							<span class="admin" style="color: #00A800 !important;">Administrador</span>
+						{% elseif gname == 'community manager' or gname == 'cm' %}
+							<span class="communitym" style="color: #E60000 !important;">Community Manager</span>
+						{% elseif gname == 'gamemaster' or gname == 'gm' %}
+							<span class="gms" style="color: #0066FF !important;">Gamemaster</span>
+						{% elseif gname == 'senior tutor' %}
+							<span class="seniortutor" style="color: #E6A100 !important;">Senior Tutor</span>
+						{% elseif gname == 'tutor' %}
+							<span class="tutor" style="color: #9933FF !important;">Tutor</span>
+						{% else %}
+							<span style="font-weight: bold;">{{ group.getName()|capitalize }}</span>
+						{% endif %}
+					</td>
+				</tr>
+				{% endif %}
 
-			{% set group = player.getGroup() %}
-			{% if group.isLoaded() and group.getId() != 1 %}
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td>Position:</td>
-				<td>{{ group.getName()|capitalize }}</td>
-			</tr>
-			{% endif %}
+				{% set realLocation = account.getLocation() %}
+				{% if realLocation is not empty %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td width="20%">Location:</td>
+					<td>{{ realLocation }}</td>
+				</tr>
+				{% endif %}
 
-			{% set realLocation = account.getLocation() %}
-			{% if realLocation is not empty %}
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td width="20%">Location:</td>
-				<td>{{ realLocation }}</td>
-			</tr>
-			{% endif %}
-
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td width="20%">Created:</td>
-				<td>{{ account.getCreated()|date("j F Y, g:i a") }}
-					{% if bannedUntil matches '/^\\d+$/' or bannedUntil == '-1' %}
-						<span style="color: red">[Banished {% if bannedUntil == '-1' %}forever{% else %}until {{ bannedUntil|date('d F Y, h:s') }}{% endif %}]</span>
-					{% else %}
-					{{ bannedUntil|raw }}
-					{% endif %}
-				</td>
-			</tr>
-		</table>
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td width="20%">Created:</td>
+					<td>
+						{{ account.getCreated()|date("j F Y, g:i a") }}
+						{% if gm_ban_info is not null %}
+							<span style="color: red; font-weight: bold; margin-left: 8px;">
+								[Banished by GM {{ gm_ban_info.banned_by }}: {{ gm_ban_info.reason }} (Until: {{ gm_ban_info.expires_at }})]
+							</span>
+						{% endif %}
+					</td>
+				</tr>
+			</table>
+		</div>
+		{% endset %}
+		{% include 'tables.headline.html.twig' with {'title': 'Account Information', 'content': acc_info_html} %}
 		<!-- ACCOUNT_INFORMATION_END -->
+
 		{{ hook('HOOK_CHARACTERS_AFTER_ACCOUNT') }}
 		<!-- CHARACTERS_LIST -->
 		<br/><br/>
-		<table border="0" cellspacing="1" cellpadding="4" width="100%">
-			<tr bgcolor="{{ config.vdarkborder }}">
-				<td colspan=4 class="white"><b>Characters</b></td>
-			</tr>
-			<tr bgcolor="{{ config.darkborder }}">
-				<td width="62%"><B>Name</b></td>
-				<td width="30%"><B>Level</b></td>
-				<td width="8%"><b>Status</b></td>
-				<td><b>&#160;</b></td>
-			</tr>
-			{% set i = 0 %}
-			{% for player in account_players %}
-				{% if not player.isHidden() and (config('characters')['deleted'] or not player.isDeleted()) %}
-				{% set i = i + 1 %}
-			<tr bgcolor="{{ getStyle(i) }}">
-				<td>
-					<nobr>{{ i }}.&#160;{{ player.getName() }}{% if player.isDeleted() %}<span style="color: red"> [DELETED]</span>{% endif %}</nobr>
-				</td>
+		{% set chars_list_html %}
+		<div class="tibia-inner-frame">
+			<table border="0" cellspacing="1" cellpadding="4" width="100%">
+				<tr bgcolor="{{ config.darkborder }}">
+					<td width="62%"><b>Name</b></td>
+					<td width="30%"><b>Level</b></td>
+					<td width="8%"><b>Status</b></td>
+					<td><b>&#160;</b></td>
+				</tr>
+				{% set i = 0 %}
+				{% for player in account_players %}
+					{% if not player.isHidden() and (config('characters')['deleted'] or not player.isDeleted()) %}
+					{% set i = i + 1 %}
+				<tr bgcolor="{{ getStyle(i) }}">
+					<td>
+						<nobr>{{ i }}.&#160;{{ player.getName() }}{% if player.isDeleted() %}<span style="color: red"> [DELETED]</span>{% endif %}</nobr>
+					</td>
 
-				<td>{{ player.getLevel() }} {{ player.getVocationName() }}</td>
-				<td>{% if player.isOnline() %}<b><span style="color: green">Online</span></b>{% endif %}</td>
-				<td>
-					<table border="0" cellspacing="0" cellpadding="0">
-						<form action="{{ getLink('characters') }}" method="post">
-							{{ csrf() }}
-							<tr>
-								<td>
-									<input type="hidden" name="name" value="{{ player.getName() }}"/>
-									{% set button_name = "View" %}
-									{{ include('buttons.base.html.twig') }}
-								</td>
-							</tr>
-						</form>
-					</table>
-				</td>
-			</tr>
-				{% endif %}
-			{% endfor %}
-		</table>
+					<td>{{ player.getLevel() }} {{ player.getVocationName() }}</td>
+					<td>{% if player.isOnline() %}<b><span style="color: green">Online</span></b>{% endif %}</td>
+					<td>
+						<table border="0" cellspacing="0" cellpadding="0">
+							<form action="{{ getLink('characters') }}" method="post">
+								{{ csrf() }}
+								<tr>
+									<td>
+										<input type="hidden" name="name" value="{{ player.getName() }}"/>
+										{% set button_name = "View" %}
+										{{ include('buttons.base.html.twig') }}
+									</td>
+								</tr>
+							</form>
+						</table>
+					</td>
+				</tr>
+					{% endif %}
+				{% endfor %}
+			</table>
+		</div>
+		{% endset %}
+		{% include 'tables.headline.html.twig' with {'title': 'Characters', 'content': chars_list_html} %}
 		<!-- CHARACTERS_LIST_END -->
 		{% endif %}
 		{{ hook('HOOK_CHARACTERS_AFTER_CHARACTERS') }}
-		{% if canEdit %}
-			<a href="{{ constant('ADMIN_URL') }}?p=players&id={{ player.getId() }}" title="Edit in Admin Panel" target="_blank">
-				<img src="images/edit.png"/>Edit
-			</a>
-		{% endif %}
 		</td>
 		<td>
 			<img src="{{ template_path }}/images/general/blank.gif" width="10" height="1" border="0">
 		</td>
 	</tr>
 </table>
-<br/><br/>{{ search_form|raw }}
+<br/><br/>
+{% set search_box_html %}
+<div class="tibia-inner-frame" style="padding: 10px; background-color: {{ config.lightborder }};">
+	{{ search_form|raw }}
+</div>
+{% endset %}
+{% include 'tables.headline.html.twig' with {'title': 'Search Character', 'content': search_box_html} %}

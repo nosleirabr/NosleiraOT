@@ -203,25 +203,23 @@ if($player->isLoaded() && !$player->isDeleted())
 
 	if ($db->hasTableAndColumns('player_items', ['pid', 'sid', 'itemtype'])) {
 		$eq_sql = $db->query('SELECT `pid`, `itemtype` FROM player_items WHERE player_id = '.$player->getId().' AND (`pid` >= 1 and `pid` <= 10)');
-		$equipment = [];
+				$equipment_details = [];
+		for($i = 1; $i <= 10; $i++) {
+			$equipment_details[$i] = false;
+		}
 		foreach($eq_sql as $eq) {
-			$equipment[$eq['pid']] = $eq['itemtype'];
-		}
-
-		$empty_slots = ["", "no_helmet", "no_necklace", "no_backpack", "no_armor", "no_handleft", "no_handright", "no_legs", "no_boots", "no_ring", "no_ammo"];
-
-		for($i = 0; $i <= 10; $i++) {
-			if(!isset($equipment[$i]) || $equipment[$i] == 0)
-				$equipment[$i] = $empty_slots[$i];
-		}
-
-		for($i = 1; $i < 11; $i++) {
-			if(Validator::number($equipment[$i])) {
-				$equipment[$i] = getItemImage($equipment[$i]);
-			}
-			else {
-				$equipment[$i] = '<img src="images/items/' . $equipment[$i] . '.gif" width="32" height="32" border="0" alt=" ' . $equipment[$i] . '" />';
-			}
+			$item_id = $eq['itemtype'];
+			$item_desc = '';
+			try {
+				$item_desc = \MyAAC\Items::getDescription($item_id, 1);
+			} catch (Exception $e) {}
+			$img_src = config('item_images_url') . $item_id . '.gif';
+			$equipment_details[$eq['pid']] = [
+				'id' => $item_id,
+				'name' => getItemNameById($item_id),
+				'desc' => $item_desc,
+				'html' => '<img src="' . $img_src . '" alt="item"/>'
+			];
 		}
 	}
 
@@ -394,45 +392,6 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 		}
 	}
 
-	// Experience History
-	$exp_history = array();
-	if($db->hasTable('player_experience')) {
-		$history = $db->query('SELECT `experience`, `date` FROM `player_experience` WHERE `player_id` = ' . $player->getId() . ' ORDER BY `date` DESC LIMIT 10')->fetchAll();
-		$current_exp = $player->getExperience();
-		
-		$history_by_date = array();
-		foreach($history as $h) {
-			$history_by_date[date('Y-m-d', $h['date'])] = $h['experience'];
-		}
-		
-		$today_date = date('Y-m-d');
-		$today_start_exp = isset($history_by_date[$today_date]) ? $history_by_date[$today_date] : $current_exp;
-		$exp_today = $current_exp - $today_start_exp;
-
-		$exp_history[] = array(
-			'date' => 'Today',
-			'exp_diff' => $exp_today
-		);
-
-		for($i = 1; $i <= 7; $i++) {
-			$d1 = date('Y-m-d', strtotime("-$i days"));
-			$d2 = date('Y-m-d', strtotime("-" . ($i - 1) . " days"));
-			
-			$exp1 = isset($history_by_date[$d1]) ? $history_by_date[$d1] : 0;
-			$exp2 = isset($history_by_date[$d2]) ? $history_by_date[$d2] : 0;
-			
-			$diff = 0;
-			if($exp1 > 0 && $exp2 > 0) {
-				$diff = $exp2 - $exp1;
-			}
-			
-			$exp_history[] = array(
-				'date' => date('d/m/Y', strtotime($d1)),
-				'exp_diff' => $diff
-			);
-		}
-	}
-
 	$twig->display('characters.html.twig', array(
 		'outfit' => isset($outfit) ? $outfit : null,
 		'player' => $player,
@@ -460,7 +419,7 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 		'skills' => isset($skills) ? $skills : null,
 		'quests_enabled' => $quests_enabled,
 		'quests' => isset($quests) ? $quests : null,
-		'equipment' => isset($equipment) ? $equipment : null,
+		'equipment_details' => isset($equipment_details) ? $equipment_details : null,
 		'skull' => $player->getSkullTime() > 0 && ($player->getSkull() == 4 || $player->getSkull() == 5) ? $skulls[$player->getSkull()] : null,
 		'deaths' => $deaths,
 		'frags' => $frags,
@@ -471,8 +430,7 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 		'bannedUntil' => isset($bannedUntil) ? $bannedUntil : null,
 		'account_players' => isset($account_players) ? $account_players : null,
 		'search_form' => generate_search_form(),
-		'canEdit' => hasFlag(FLAG_CONTENT_PLAYERS) || superAdmin(),
-		'exp_history' => $exp_history
+		'canEdit' => hasFlag(FLAG_CONTENT_PLAYERS) || superAdmin()
 	));
 } else {
 	$search_errors[] = 'Character <b>' . $name . '</b> does not exist or has been deleted.';
@@ -505,3 +463,5 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 
 if(!empty($search_errors))
 	$twig->display('error_box.html.twig', array('errors' => $search_errors));
+
+
