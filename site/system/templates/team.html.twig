@@ -1,7 +1,10 @@
 {% set title = 'Support in game' %}
 {% set content %}
 
-<div style="background-color: #f1e2c3; border: 1px solid #7E3B00; border-radius: 4px; padding: 15px; margin-bottom: 15px; text-align: center; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
+{# Compensa o margin-left:3px do .InnerTableContainer (Table3 do tibiacom): sem isso o conteudo vaza na borda direita. O margin-right:6px deixa 3px de respiro igual ao lado esquerdo. #}
+<div style="margin-right: 6px;">
+
+<div style="background-color: #f1e2c3; border: 1px solid #7E3B00; border-radius: 4px; padding: 15px; margin-bottom: 15px; text-align: center; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); box-sizing: border-box;">
 	<h2 style="color: #A65200; font-size: 16px; margin: 0 0 10px 0; font-family: Tahoma, sans-serif;">
 		<img src="{{ template_path }}/images/content/headline-bracer-left.gif" style="vertical-align: middle;"> CENTRAL DE SUPORTE & ADMINISTRAÇÃO <img src="{{ template_path }}/images/content/headline-bracer-right.gif" style="vertical-align: middle;">
 	</h2>
@@ -15,11 +18,11 @@
 {% for group in groupmember|reverse %}
 	{% if group.members is not empty %}
 	
-	<div style="background: linear-gradient(to bottom, #3E240D, #2B1605); border: 1px solid #111; padding: 4px; text-align: center; margin-top: 15px; margin-bottom: 5px; box-shadow: 1px 1px 3px rgba(0,0,0,0.5); border-radius: 6px;">
+	<div style="background: linear-gradient(to bottom, #3E240D, #2B1605); border: 1px solid #111; padding: 4px; text-align: center; margin-top: 15px; margin-bottom: 5px; box-shadow: 1px 1px 3px rgba(0,0,0,0.5); border-radius: 6px; box-sizing: border-box;">
 		<h2 style="color: #FFD700; font-weight: bold; font-size: 13px; margin: 0; padding: 0; font-family: Tahoma, sans-serif; text-shadow: 1px 1px 1px #000;">✦ {{ group.group_name|upper }} ✦</h2>
 	</div>
 
-	<table cellspacing="0" cellpadding="4" border="0" width="100%" style="border-collapse: separate; border-spacing: 0; border: 1px solid #7E3B00; border-radius: 6px; overflow: hidden; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); margin-bottom: 20px; background-color: #F1E0C6;">
+	<table cellspacing="0" cellpadding="4" border="0" width="100%" style="border-collapse: separate; border-spacing: 0; border: 1px solid #7E3B00; border-radius: 6px; overflow: hidden; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); margin-bottom: 20px; background-color: #F1E0C6; box-sizing: border-box; table-layout: fixed;">
 		<tr style="background-color: #4A4A4A; color: #FFFFFF; font-size: 11px; font-weight: bold; border-bottom: 2px solid #111;">
 			<td width="30%" style="padding: 6px 10px; border-bottom: 2px solid #222;">Group</td>
 			<td width="30%" style="padding: 6px 10px; border-bottom: 2px solid #222;">Name</td>
@@ -108,6 +111,8 @@
 	</table>
 	{% endif %}
 {% endfor %}
+
+</div>
 
 {% endset %}
 {% include 'tables.headline.html.twig' with {'title': title, 'content': content} %}
