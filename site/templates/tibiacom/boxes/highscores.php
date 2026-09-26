@@ -9,6 +9,10 @@ foreach($topPlayers as &$player) {
 
 		$player['outfit'] = $outfit_url;
 	}
+	$player['vocation_name'] = config('vocations')[$player['vocation']] ?? 'None';
+	if(isset($player['promotion']) && $player['promotion'] > 0) {
+		$player['vocation_name'] = config('vocations_promoted')[$player['promotion']][$player['vocation']] ?? $player['vocation_name'];
+	}
 }
 
 $twig->display('highscores.html.twig', array(

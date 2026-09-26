@@ -1,0 +1,64 @@
+<style>
+.exphist-table {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 11px;
+}
+.exphist-table td {
+	white-space: nowrap;
+}
+</style>
+<table class="exphist-table" border="0" cellspacing="1" cellpadding="3" width="100%" bgcolor="#000000">
+	<tr bgcolor="{{ config.vdarkborder }}">
+		<td colspan="11" class="white"><b>Ranking of Powergamers on {{ config.lua.serverName }}</b></td>
+	</tr>
+	<tr bgcolor="{{ config.darkborder }}">
+		<td width="3%" align="center" class="white"><b>#</b></td>
+		<td width="15%" class="white"><b>Name</b></td>
+		<td width="10%" align="center" bgcolor="#FFFF00"><b><span style="color: black">Week</span></b></td>
+		<td width="8%" align="center" bgcolor="#FFFF00"><b><span style="color: black">[7&ordm;]</span></b></td>
+		<td width="8%" align="center" bgcolor="#FFFF00"><b><span style="color: black">[6&ordm;]</span></b></td>
+		<td width="8%" align="center" bgcolor="#FFFF00"><b><span style="color: black">[5&ordm;]</span></b></td>
+		<td width="8%" align="center" bgcolor="#FFFF00"><b><span style="color: black">[4&ordm;]</span></b></td>
+		<td width="8%" align="center" bgcolor="#FFFF00"><b><span style="color: black">[3&ordm;]</span></b></td>
+		<td width="8%" align="center" bgcolor="#FFFF00"><b><span style="color: black">[2&ordm;]</span></b></td>
+		<td width="8%" align="center" bgcolor="#FFFF00"><b><span style="color: black">[1&ordm;]</span></b></td>
+		<td width="14%" align="center" bgcolor="#FF0000"><b><span style="color: white">Today</span></b></td>
+	</tr>
+	{% set i = 0 %}
+	{% for player in exp_data %}
+	{% set i = i + 1 %}
+	<tr bgcolor="{{ getStyle(i) }}">
+		<td align="center" style="font-weight: bold; color: #333;">{{ i }}.</td>
+		<td>
+			<a href="{{ getLink('characters', player.name) }}" style="color: {% if player.online > 0 %}#00AA00{% else %}#CC0000{% endif %}; font-weight: bold; text-decoration: none;">{{ player.name }}</a>
+			<br/>
+			<span style="color: #663300; font-size: 10px;">Level: [{{ player.level }}]</span>
+		</td>
+		
+		<td align="right">
+			{% if player.week > 0 %}<span style="color: #00AA00;">+{{ player.week|number_format(0, '.', '.') }}</span>
+			{% elseif player.week < 0 %}<span style="color: #EE0000;">{{ player.week|number_format(0, '.', '.') }}</span>
+			{% else %}<span style="color: #111;">0</span>{% endif %}
+		</td>
+		
+		{% for day_diff in player.days|reverse %}
+		<td align="right">
+			{% if day_diff > 0 %}<span style="color: #00AA00;">+{{ day_diff|number_format(0, '.', '.') }}</span>
+			{% elseif day_diff < 0 %}<span style="color: #EE0000;">{{ day_diff|number_format(0, '.', '.') }}</span>
+			{% else %}<span style="color: #111;">0</span>{% endif %}
+		</td>
+		{% endfor %}
+		
+		<td align="right">
+			{% if player.today > 0 %}<span style="color: #00AA00;">+{{ player.today|number_format(0, '.', '.') }}</span>
+			{% elseif player.today < 0 %}<span style="color: #EE0000;">{{ player.today|number_format(0, '.', '.') }}</span>
+			{% else %}<span style="color: #111;">0</span>{% endif %}
+		</td>
+	</tr>
+	{% endfor %}
+	{% if exp_data|length == 0 %}
+	<tr bgcolor="{{ getStyle(1) }}">
+		<td colspan="11" align="center">No data available yet.</td>
+	</tr>
+	{% endif %}
+</table>

@@ -97,7 +97,12 @@ $spawnFile = $config['server_path'] . 'data/world/world-spawn.xml';
 if (file_exists($spawnFile)) {
     $spawnContent = file_get_contents($spawnFile);
     $monstersCount = substr_count($spawnContent, '<monster ');
-    $npcsCount = substr_count($spawnContent, '<npc ');
+}
+
+// Count NPCs from data/npc folder
+$npcDir = $config['server_path'] . 'data/npc';
+if (is_dir($npcDir)) {
+    $npcsCount = count(glob($npcDir . '/*.xml'));
 }
 
 $twig->display('serverinfo.html.twig', array(
@@ -125,10 +130,14 @@ $twig->display('serverinfo.html.twig', array(
     'redSkullLength' => $redSkullLength,
     'blackSkull' => $blackSkull,
     'blackSkullLength' => $blackSkullLength,
+    'killsToRedSkull' => isset($config['lua']['killsToRedSkull']) ? $config['lua']['killsToRedSkull'] : null,
     'dailyFragsToRedSkull' => isset($config['lua']['dailyKillsToRedSkull']) ? $config['lua']['dailyKillsToRedSkull'] : null,
     'weeklyFragsToRedSkull' => isset($config['lua']['weeklyKillsToRedSkull']) ? $config['lua']['weeklyKillsToRedSkull'] : null,
     'monthlyFragsToRedSkull' => isset($config['lua']['monthlyKillsToRedSkull']) ? $config['lua']['monthlyKillsToRedSkull'] : null,
     'killsToBlackSkull' => isset($config['lua']['killsToBlackSkull']) ? $config['lua']['killsToBlackSkull'] : null,
+    'dailyKillsToBanishment' => isset($config['lua']['dailyKillsToBanishment']) ? $config['lua']['dailyKillsToBanishment'] : null,
+    'weeklyKillsToBanishment' => isset($config['lua']['weeklyKillsToBanishment']) ? $config['lua']['weeklyKillsToBanishment'] : null,
+    'monthlyKillsToBanishment' => isset($config['lua']['monthlyKillsToBanishment']) ? $config['lua']['monthlyKillsToBanishment'] : null,
     'banishmentLength' => isset($config['lua']['banishment_length']) ? eval('return (' . $config['lua']['banishment_length'] . ') / (24 * 60 * 60);') : null,
     'finalBanishmentLength' => isset($config['lua']['final_banishment_length']) ? eval('return (' . $config['lua']['final_banishment_length'] . ') / (24 * 60 * 60);') : null,
     'ipBanishmentLength' => isset($config['lua']['ip_banishment_length']) ? eval('return (' . $config['lua']['ip_banishment_length'] . ') / (24 * 60 * 60);') : null,

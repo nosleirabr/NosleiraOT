@@ -10,7 +10,6 @@ return [
 		"Account Management" => "account/manage",
 		"Create Account" => "account/create",
 		"Lost Account?" => "account/lost",
-		"Server Rules" => "rules",
 		"Downloads" => "downloads",
 	],
 	MENU_CATEGORY_COMMUNITY => [
@@ -21,10 +20,13 @@ return [
 		"Houses" => "houses",
 		"Guilds" => "guilds",
 		"Bans" => "bans",
-		"Support List" => "team",
 	],
 	MENU_CATEGORY_FORUM => [
 		"Forum" => "forum",
+	],
+	MENU_CATEGORY_SUPPORT => [
+		"Support List" => "team",
+		"Server Rules" => "rules",
 	],
 	MENU_CATEGORY_LIBRARY => [
 		"Monsters" => "monsters",

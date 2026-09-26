@@ -48,7 +48,7 @@ if ((!isset($logged) || !$logged) && isset($_POST['account_login'], $_POST['pass
             $acc_id = (int)$account_logged->getId();
             $acc_name = $account_logged->getName();
         } else {
-            $login_error = 'N&uacute;mero da Conta ou Senha incorretos. Por favor, verifique seus dados.';
+            $login_error = 'Número da Conta ou Senha incorretos. Por favor, verifique seus dados.';
         }
     } else {
         $login_error = 'Por favor, preencha a Conta e a Senha para continuar.';

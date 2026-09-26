@@ -27,10 +27,8 @@ if(isset($config['boxes']))
 			100% { opacity: 1; text-shadow: 0 0 5px lime; }
 		}
 		@keyframes bounceLeft {
-			0%   { transform: translateX(20px); opacity: 0; }
-			20%  { opacity: 1; }
-			80%  { opacity: 1; }
-			100% { transform: translateX(-15px); opacity: 0; }
+			0%   { transform: translateX(0px);  }
+			100% { transform: translateX(20px); }
 		}
 		@keyframes bounceRight {
 			0% { transform: translateX(0); }
@@ -523,7 +521,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 								</div>
 								
 								<!-- Modal Tela Cheia -->
-								<div id="featuredModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 99999; justify-content: center; align-items: center; cursor: pointer;" onclick="this.style.display='none'">
+								<div id="featuredModal" style="display: none; position: fixed; top: 0; right: 0; left: auto; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 99999; justify-content: center; align-items: center; cursor: pointer;" onclick="this.style.display='none'">
 									<img src="<?php echo $template_path; ?>/images/custom/featured_game.png" style="max-width: 90%; max-height: 90%; border: 3px solid #e7d1b3; box-shadow: 0 0 30px rgba(0,0,0,1);">
 								</div>
 								
@@ -532,7 +530,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 									<b style="color: #7f0000;">VERSION:</b> <b>7.4</b> &nbsp;&nbsp;&bull;&nbsp;&nbsp; 
 									<b style="color: #7f0000;">PORT:</b> <b>7171</b>
 								</div><br>
-								A verdadeira experi&ecirc;ncia do Tibia est&aacute; aqui! Fa&ccedil;a sua <b>[<a href="?subtopic=donate">Doa&ccedil;&atilde;o</a>]</b> <img src="<?php echo $template_path; ?>/images/custom/setas.webp" style="height: 14px; vertical-align: middle; margin-left: 3px; animation: bounceLeft 0.8s infinite;"><br>
+								A verdadeira experi&ecirc;ncia do Tibia est&aacute; aqui! Fa&ccedil;a sua <b>[<a href="?subtopic=donate">Doa&ccedil;&atilde;o</a>]</b> <img src="<?php echo $template_path; ?>/images/custom/setas.gif" style="height: 14px; vertical-align: middle; margin-left: 5px;"><br>
 								<b>NosleiraOT</b> private OTServer, <b>[<a href="?subtopic=serverinfo">Server Info</a>]</b>.<br>
 								Servidor privado <b>100% fiel ao original</b>, com mapa completo, todas as miss&otilde;es, &aacute;reas de ca&ccedil;a, respawns e NPCs configurados.<br>
 								Todas as cidades, &aacute;reas de ca&ccedil;a e sistemas cl&aacute;ssicos dispon&iacute;veis em um <b>servidor dedicado</b>, com <b>jogabilidade cl&aacute;ssica</b> e foco total na experi&ecirc;ncia que voc&ecirc; viveu<br>
@@ -609,6 +607,7 @@ if (count($guilds) > 0) {
           <div id="Footer"><?php echo template_footer(); ?></div>
         </div>
         <div id="ThemeboxesColumn">
+
           <div id="RightArtwork">
             <img id="Monster" style="max-width: 56px !important; max-height: 56px !important; width: auto !important; height: auto !important; top: -126px !important; left: 12px !important; position: absolute; z-index: 15; cursor: pointer;" src="images/monsters/<?php echo logo_monster() ?>.gif?v=<?php echo time(); ?>" onClick="window.location = '?subtopic=creatures&creature=<?php echo $config['logo_monster'] ?>';" alt="Monster of the Week" />
             <img id="PedestalAndOnline" src="<?php echo $template_path; ?>/images/header/pedestal-and-online.gif" alt="Monster Pedestal and Players Online Box"/>
@@ -644,7 +643,8 @@ if (count($guilds) > 0) {
     </div>
   </div>
 	<?php echo template_place_holder('body_end'); ?>
-</body>
+
+  </body>
 </html>
 <?php
 function logo_monster()
@@ -652,4 +652,13 @@ function logo_monster()
 	global $config;
 	return str_replace(" ", "", trim(strtolower($config['logo_monster'])));
 }
+
+
+
+
+
+
+
+
+
 

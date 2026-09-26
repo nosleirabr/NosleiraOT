@@ -3,61 +3,63 @@
 		position: absolute;
 		top: 29px;
 		left: 6px;
-		height: 160px;
+		height: 195px;
 		width: 168px;
 		z-index: 20;
-		padding-top: 6px;
-		font-family: Tahoma, Geneva, sans-serif;
-		font-size: 9.2pt;
-		color: #FFF;
-		font-weight: bold;
-		text-align: right;
-		text-decoration: inherit;
-		text-shadow: 0.1em 0.1em #333
+		background: url({{ template_path }}/images/content/scroll.gif);
+		border: 1px solid #111;
+		box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
+		overflow: hidden;
 	}
 
 	#Topbar a {
 		text-decoration: none;
 	}
-
-	.online {
-		color: #008000;
-	}
-
-	.offline {
-		color: #FF0000;
-	}
-
-	a.topfont {
-		font-family: Verdana, Arial, Helvetica, sans-serif;
-		font-size: 11px;
-		text-decoration: none
-	}
-	a:hover.topfont {
-		font-family: Verdana, Arial, Helvetica, sans-serif;
-		font-size: 11px;
-		color: #CCC;
-		text-decoration:none
-	}
 </style>
 
-<div id="Topbar" class="Themebox" style="background-image:url({{ template_path }}/images/themeboxes/highscores/highscores.png);">
-	<div class="top_level" style="background:url({{ template_path }}/images/themeboxes/bg_top.png)" align="	">
+<div id="Topbar" class="Themebox" style="background-image:url({{ template_path }}/images/themeboxes/highscores/highscores.png); height: 236px;">
+	<div class="top_level">
     {% for player in topPlayers %}
-	    <div style="text-align:left"><a href="{{ getPlayerLink(player['name'], false) }} " class="topfont {% if player['online'] %}online{% else %}offline{% endif %}">
+	    <div style="position: relative; height: 38px; border-bottom: 1px dotted #B09874; padding-left: 36px; padding-top: 4px; box-sizing: border-box;">
 			{% if setting('core.online_outfit') %}
-				<img style="position:absolute;margin-top:-45px;margin-left:-25px;" src="{{ player.outfit }}" alt="player outfit"/>
+				<div style="position: absolute; top: -1px; left: -10px; width: 44px; height: 44px; overflow: hidden; transform: scale(0.75);">
+					<img style="position: absolute; top: -14px; left: -18px;" src="{{ player.outfit }}&anim=0" alt="player outfit"/>
+				</div>
 			{% endif %}
-				<span style="color: #CCC; margin-left: 40px">{{ player['rank'] }} - </span>
-				{{ player['name'] }}
-			<br>
-			<small><span style="color: white; margin-left: 50px">Level: ({{ player['level'] }})</span></small>
-			<br>
-		</a>
-	</div>
+			
+			<div style="position: absolute; right: 5px; top: 12px;" title="{{ player.online ? 'Online' : 'Offline' }}">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="width:11px; height:11px; fill:{{ player.online ? '#00AA00' : '#CC0000' }}; drop-shadow: 1px 1px 1px rgba(0,0,0,0.3);"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+			</div>
+
+			<div style="line-height: 1.2;">
+				<a href="{{ getPlayerLink(player.name, false) }}" style="color: #0044BB; font-weight: bold; font-family: Tahoma, sans-serif; font-size: 10px; text-decoration: none;">
+					{% if player.rank == 1 %}
+						<span style="font-size: 9px;">🏆</span> <span style="background: #111; color: #FFCC00; border-radius: 2px; padding: 0 2px; font-size: 8px; vertical-align: top;">1ST</span>
+					{% endif %}
+					{{ player.rank }}- {{ player.name }}
+				</a>
+				<br/>
+				<span style="color: #5a2800; font-family: Tahoma, sans-serif; font-size: 9px;">{{ player.level }}, {{ player.vocation_name }}</span>
+			</div>
+		</div>
 	{% endfor %}
-	<div class="Bottom" style="background-image:url({{ template_path }}/images/general/box-bottom.gif); top: 159px;; left:-5px;">
 	</div>
-</div>
+	<div class="Bottom" style="background-image:url({{ template_path }}/images/general/box-bottom.gif); top: 226px; left:-5px;">
+	</div>
+	
+	<!-- Custom floating buttons -->
+	<style>
+	  .tb-btn-view { position: absolute; right: -14px; top: 38px; background-color: #2e2820; border: 1px solid #a88741; border-left: none; border-radius: 0 6px 6px 0; padding: 4px 2px; z-index: 99; text-align: center; text-decoration: none; box-shadow: 2px 2px 3px rgba(0,0,0,0.5); width: 10px; }
+	  .tb-btn-view:hover { background-color: #3b3328; }
+	  .tb-btn-view span { display: block; color: #ffcc00; font-weight: bold; font-size: 8px; font-family: Tahoma, sans-serif; text-shadow: 1px 1px 1px #000; line-height: 1.0; margin-bottom: 1px; }
+	  
+	  .tb-btn-exp { position: absolute; right: -14px; top: 100px; background-color: #2e2820; border: 1px solid #a88741; border-left: none; border-radius: 0 6px 6px 0; padding: 4px 2px; z-index: 99; text-align: center; text-decoration: none; box-shadow: 2px 2px 3px rgba(0,0,0,0.5); width: 10px; }
+	  .tb-btn-exp:hover { background-color: #3b3328; }
+	  .tb-btn-exp span { display: block; color: #00ff00; font-weight: bold; font-size: 8px; font-family: Tahoma, sans-serif; text-shadow: 1px 1px 1px #000; line-height: 1.0; margin-bottom: 1px; }
+	  
+	  .tb-spacer { display: block; height: 3px; }
+	</style>
+	<a href="{{ getLink('highscores') }}" class="tb-btn-view" title="Highscores"><span>V</span><span>I</span><span>E</span><span>W</span></a>
+	<a href="{{ getLink('exphist') }}" class="tb-btn-exp" title="Powergamers"><span>E</span><span>X</span><span>P</span><span class="tb-spacer"></span><span>D</span><span>A</span><span>Y</span></a>
 </div>
 <br/><br/><br/>

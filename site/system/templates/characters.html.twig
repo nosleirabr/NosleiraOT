@@ -16,9 +16,7 @@
 			</a>
 		{% endif %}
 		<table border="0" cellspacing="1" cellpadding="4" width="100%">
-			{% if config.characters.outfit %}
-			<div style="width:64px;height:64px;border:2px solid #F1E0C6; border-radius:50px; padding:13px; margin-top:38px;margin-left:376px;position:absolute;"><img style="margin-left:-60px;margin-top:-60px;width:128px;height:128px;" src="{{ outfit }}" alt="player outfit"/></div>
-			{% endif %}
+
 
 			<tr bgcolor="{{ config.vdarkborder }}">
 				<td colspan="2" class="white"><b>Character Information</b></td>
@@ -27,7 +25,76 @@
 			{% set rows = rows + 1 %}
 			<tr bgcolor="{{ getStyle(rows) }}">
 				<td width="20%">Name:</td>
-				<td><span style="color: {% if player.isOnline() %}green{% else %}red{% endif %}"><b>{{ player.getName() }}</b></span> {{ flag|raw }}{{ oldName }}</td>
+				<td style="position: relative;">
+					<span style="color: {% if player.isOnline() %}green{% else %}red{% endif %}"><b>{{ player.getName() }}</b></span> {{ flag|raw }}{{ oldName }}
+					{% if player.getName()|lower == 'nosleiragod' %}
+					<style>
+					.admin-ribbon-container {
+					    position: absolute;
+					    right: -5px;
+					    top: 50%;
+					    transform: translateY(-50%);
+					    z-index: 100;
+					}
+					.admin-ribbon {
+					    position: relative;
+					    height: 28px;
+					    line-height: 26px;
+					    box-sizing: border-box;
+					    background: linear-gradient(to bottom, #A11818 0%, #680000 100%);
+					    border: 1px solid #D4AF37; 
+					    border-right: none;
+					    color: #FFF3A0; 
+					    padding: 0 15px 0 35px;
+					    font-family: 'Book Antiqua', 'Times New Roman', serif;
+					    font-size: 14px;
+					    font-weight: bold;
+					    text-shadow: 1px 1px 2px black;
+					    box-shadow: 2px 3px 5px rgba(0,0,0,0.5);
+					}
+					.admin-ribbon::before {
+					    content: '';
+					    position: absolute;
+					    left: -14px;
+					    top: -1px;
+					    border-top: 14px solid transparent;
+					    border-bottom: 14px solid transparent;
+					    border-right: 14px solid #D4AF37; 
+					}
+					.admin-ribbon::after {
+					    content: '';
+					    position: absolute;
+					    left: -12px;
+					    top: 0px;
+					    border-top: 13px solid transparent;
+					    border-bottom: 13px solid transparent;
+					    border-right: 13px solid #850B0B; 
+					}
+					.admin-ribbon .fold {
+					    position: absolute;
+					    right: 0px;
+					    bottom: -6px;
+					    border-top: 5px solid #330000;
+					    border-right: 5px solid transparent;
+					}
+					.admin-ribbon .icon {
+					    position: absolute;
+					    left: 8px;
+					    top: 50%;
+					    transform: translateY(-50%);
+					    font-size: 16px;
+					    filter: drop-shadow(1px 1px 1px black);
+					}
+					</style>
+					<div class="admin-ribbon-container" title="Administrador">
+					    <div class="admin-ribbon">
+					        <span class="icon">🛡️</span>
+					        Administrador
+					        <div class="fold"></div>
+					    </div>
+					</div>
+					{% endif %}
+				</td>
 			</tr>
 
 			{% set rows = rows + 1 %}
@@ -88,13 +155,7 @@
 				<td>{{ town }}</td>
 			</tr>
 
-			{% if config.characters.balance %}
-			{% set rows = rows + 1 %}
-			<tr bgcolor="{{ getStyle(rows) }}">
-				<td>Balance:</td>
-				<td>{{ player.getBalance() }} Gold Coins.</td>
-			</tr>
-			{% endif %}
+
 
 			{% if house.found %}
 			{% set rows = rows + 1 %}
@@ -159,90 +220,237 @@
 			<tr>
 				{{ hook('HOOK_CHARACTERS_BEFORE_SKILLS') }}
 
-				{% if config.characters.skills %}
-				<!-- SKILLS -->
-				<td width="30%" valign="top">
-					<table border="0" cellspacing="1" cellpadding="4" width="100%">
-						<tr bgcolor="{{ config.vdarkborder }}">
-							<td colspan="2" class="white"><B>Skills</b></td>
-						</tr>
-						{% set i = 0 %}
-						{% for skill in skills %}
-						{% set i = i + 1 %}
-						<tr bgcolor="{{ getStyle(i) }}">
-							<td valign="top">{{ skill.name }}</td>
-							<td>{{ skill.value }}</td>
-						</tr>
-						{% endfor %}
-					</table>
+				<td valign="top" colspan="3">
+					<!-- TIBIA UI START -->
+					<style>
+					.tibia-ui {
+						display: flex;
+						flex-wrap: wrap;
+						gap: 15px;
+						padding: 15px;
+						background: #3A3A3A;
+						border: 1px solid #111;
+						font-family: Tahoma, sans-serif;
+						font-size: 11px;
+						color: #C0C0C0;
+						justify-content: center;
+					}
+					.tibia-window {
+						background: #363636;
+						border-top: 1px solid #5A5A5A;
+						border-left: 1px solid #5A5A5A;
+						border-bottom: 1px solid #111;
+						border-right: 1px solid #111;
+						width: 175px;
+						box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+					}
+					.tibia-window-header {
+						background: #363636;
+						border-bottom: 1px solid #111;
+						padding: 2px 4px;
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						color: #C0C0C0;
+						cursor: pointer;
+					}
+					.tibia-window-content {
+						padding: 5px;
+						background: #3A3A3A;
+						border-top: 1px solid #5A5A5A;
+					}
+					/* Health/Mana Bars */
+					.tibia-bar-container {
+						margin-bottom: 4px;
+						background: #000;
+						height: 12px;
+						border: 1px solid #111;
+						position: relative;
+					}
+					.tibia-bar-hp {
+						background: #D82828;
+						height: 100%;
+					}
+					.tibia-bar-mana {
+						background: #4848D8;
+						height: 100%;
+					}
+					.tibia-bar-text {
+						position: absolute;
+						top: -1px;
+						right: 3px;
+						font-size: 10px;
+						color: #FFF;
+						text-shadow: 1px 1px 0 #000;
+					}
+					/* Inventory Slots */
+					.tibia-eq-grid {
+						display: grid;
+						grid-template-columns: 34px 34px 34px;
+						grid-gap: 4px;
+						justify-content: center;
+						margin-bottom: 5px;
+					}
+					.tibia-slot {
+						width: 34px;
+						height: 34px;
+						background: #2B2B2B;
+						border-top: 1px solid #000;
+						border-left: 1px solid #000;
+						border-bottom: 1px solid #5A5A5A;
+						border-right: 1px solid #5A5A5A;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+					}
+					/* Equipment positioning */
+					.slot-neck { grid-column: 1; grid-row: 1; }
+					.slot-head { grid-column: 2; grid-row: 1; }
+					.slot-back { grid-column: 3; grid-row: 1; }
+					.slot-left { grid-column: 1; grid-row: 2; }
+					.slot-armor { grid-column: 2; grid-row: 2; }
+					.slot-right { grid-column: 3; grid-row: 2; }
+					.slot-ring { grid-column: 1; grid-row: 3; }
+					.slot-legs { grid-column: 2; grid-row: 3; }
+					.slot-ammo { grid-column: 3; grid-row: 3; }
+					.slot-soul { grid-column: 1; grid-row: 4; text-align:center; padding-top:4px; font-size:10px; background: transparent; border: none; }
+					.slot-boots { grid-column: 2; grid-row: 4; }
+					.slot-cap { grid-column: 3; grid-row: 4; text-align:center; padding-top:4px; font-size:10px; background: transparent; border: none;}
+					
+					/* Skills */
+					.tibia-skill-row {
+						display: flex;
+						justify-content: space-between;
+						margin-bottom: 2px;
+					}
+					.tibia-skill-name { color: #C0C0C0; }
+					.tibia-skill-val { color: #C0C0C0; text-align: right; }
+					.tibia-skill-sep { border-bottom: 1px solid #111; margin: 4px 0; border-top: 1px solid #5A5A5A; }
+					
+					/* Outfits */
+					.tibia-outfit-box {
+						width: 128px;
+						height: 128px;
+						margin: 0 auto;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						position: relative;
+					}
+					.tibia-outfit-box img {
+						width: 128px;
+						height: 128px;
+						margin-left: -32px;
+						margin-top: -32px;
+					}
+					</style>
+
+					<script>
+					function toggleWindow(id) {
+						var el = document.getElementById(id);
+						if(el.style.display == 'none') el.style.display = 'block';
+						else el.style.display = 'none';
+					}
+					</script>
+
+					<div style="margin-bottom: 5px;">
+						<button style="background: #2b2b2b; color: #fff; border: 1px solid #111; border-top: 1px solid #5a5a5a; border-left: 1px solid #5a5a5a; padding: 2px 5px; cursor: pointer;" onclick="toggleWindow('win-inventory')">Hide/Show Inventory</button>
+					</div>
+
+					<div class="tibia-ui">
+						<!-- Inventory -->
+						<div class="tibia-window" id="win-inventory" style="display:none;">
+							<div class="tibia-window-header" onclick="toggleWindow('win-inventory')">
+								<div><img src="images/general/blank.gif" width="10" height="10" style="background:#555; border:1px solid #111;"/> Inventory</div>
+								<div>x</div>
+							</div>
+							<div class="tibia-window-content">
+								<div class="tibia-bar-container">
+									{% set hp_percent = (player.getHealthMax() > 0) ? (player.getHealth() / player.getHealthMax()) * 100 : 0 %}
+									<div class="tibia-bar-hp" style="width: {{ hp_percent }}%;"></div>
+									<div class="tibia-bar-text">{{ player.getHealth() }}</div>
+								</div>
+								<div class="tibia-bar-container">
+									{% set mana_percent = (player.getManaMax() > 0) ? (player.getMana() / player.getManaMax()) * 100 : 0 %}
+									<div class="tibia-bar-mana" style="width: {{ mana_percent }}%;"></div>
+									<div class="tibia-bar-text">{{ player.getMana() }}</div>
+								</div>
+								
+								<div class="tibia-eq-grid">
+									<div class="tibia-slot slot-neck">{{ equipment[2]|raw }}</div>
+									<div class="tibia-slot slot-head">{{ equipment[1]|raw }}</div>
+									<div class="tibia-slot slot-back">{{ equipment[3]|raw }}</div>
+									<div class="tibia-slot slot-left">{{ equipment[6]|raw }}</div>
+									<div class="tibia-slot slot-armor">{{ equipment[4]|raw }}</div>
+									<div class="tibia-slot slot-right">{{ equipment[5]|raw }}</div>
+									<div class="tibia-slot slot-ring">{{ equipment[9]|raw }}</div>
+									<div class="tibia-slot slot-legs">{{ equipment[7]|raw }}</div>
+									<div class="tibia-slot slot-ammo">{{ equipment[10]|raw }}</div>
+									<div class="tibia-slot slot-soul">{% if skull is not null %}<img src="images/{{ skull }}.gif">{% endif %}</div>
+									<div class="tibia-slot slot-boots">{{ equipment[8]|raw }}</div>
+									<div class="tibia-slot slot-cap">Cap:<br/>{{ player.getCapacity() }}</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Skills -->
+						<div class="tibia-window">
+							<div class="tibia-window-header" onclick="toggleWindow('win-skills')">
+								<div><img src="images/general/blank.gif" width="10" height="10" style="background:#555; border:1px solid #111;"/> Skills</div>
+								<div>_</div>
+							</div>
+							<div class="tibia-window-content" id="win-skills">
+								<div class="tibia-skill-row"><span class="tibia-skill-name">Experience</span><span class="tibia-skill-val">{{ player.getExperience() }}</span></div>
+								<div class="tibia-skill-row"><span class="tibia-skill-name">Level</span><span class="tibia-skill-val">{{ player.getLevel() }}</span></div>
+								<div class="tibia-skill-row"><span class="tibia-skill-name">Hit Points</span><span class="tibia-skill-val">{{ player.getHealth() }}</span></div>
+								<div class="tibia-skill-row"><span class="tibia-skill-name">Mana</span><span class="tibia-skill-val">{{ player.getMana() }}</span></div>
+								<div class="tibia-skill-row"><span class="tibia-skill-name">Capacity</span><span class="tibia-skill-val">{{ player.getCapacity() }}</span></div>
+								<div class="tibia-skill-row"><span class="tibia-skill-name">Magic Level</span><span class="tibia-skill-val">{{ player.getMagLevel() }}</span></div>
+								<div class="tibia-skill-sep"></div>
+								{% for skill in skills %}
+								<div class="tibia-skill-row"><span class="tibia-skill-name">{{ skill.name }}</span><span class="tibia-skill-val">{{ skill.value }}</span></div>
+								{% endfor %}
+							</div>
+						</div>
+
+						<!-- Outfits -->
+						<div class="tibia-window">
+							<div class="tibia-window-header" onclick="toggleWindow('win-outfits')">
+								<div><img src="images/general/blank.gif" width="10" height="10" style="background:#555; border:1px solid #111;"/> Outfits</div>
+								<div>_</div>
+							</div>
+							<div class="tibia-window-content" id="win-outfits">
+								<div class="tibia-outfit-box">
+									{% if config.characters.outfit %}
+									<img src="{{ outfit }}" alt="player outfit"/>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- TIBIA UI END -->
 				</td>
-				<!-- SKILLS_END -->
-				{% endif %}
-
-				{{ hook('HOOK_CHARACTERS_AFTER_SKILLS') }}
-
-				{% if quests_enabled %}
-				<!-- QUESTS -->
-				<td width="40%" valign="top">
-					<table border="0" cellspacing="1" cellpadding="4" width="100%">
-						<tr bgcolor="{{ config.vdarkborder }}">
-							<td colspan="2" class="white"><b>Quests</b></td>
-						</tr>
-						{% set i = 0 %}
-						{% for name, done in quests %}
-						{% set i = i + 1 %}
-						<tr bgcolor="{{ getStyle(i) }}">
-							<td valign="top">{{ name }}</TD>
-							<td><img src="images/{% if done %}true{% else %}false{% endif %}.png" border="0"/></td>
-						</tr>
-						{% endfor %}
-					</table>
-				</td>
-				<!-- QUESTS_END -->
-				{% endif %}
-
-				{{ hook('HOOK_CHARACTERS_AFTER_QUESTS') }}
-
-				{% if config.characters.equipment %}
-				<!-- EQUIPMENT -->
-				<td width="100" valign="top">
-					<table border="0" cellspacing="1" cellpadding="4" width="100%">
-						<tr bgcolor="{{ config.vdarkborder}}">
-							<td colspan="2" class="white"><b>Equipment</b></td>
-						</tr>
-						<tr bgcolor="{{ getStyle(1) }}">
-							<td>
-								<table width="100" align="center" cellspacing="0" cellpadding="0" style="background: #808080; border:1px solid #808080;">
-									<tr>
-										<td>
-											<table cellspacing="0" style="background: #292929;">
-												<tr><td style="border:1px solid #808080;">{{ equipment[2]|raw }}</td></tr><tr><td style="border:1px solid #808080;">{{ equipment[6]|raw }}</td></tr><tr><td style="border:1px solid #808080;">{{ equipment[9]|raw }}</td></tr>
-												<tr height="11px"><td>{% if skull is not null %}<img src="images/{{ skull }}.gif">{% endif %}</td></tr>
-											</table>
-										</td>
-										<td>
-											<table cellspacing="0" style="background: #292929;">
-												<tr><td style="border:1px solid #808080;">{{ equipment[1]|raw }}</td></tr><tr><td style="border:1px solid #808080;">{{ equipment[4]|raw }}</td></tr><tr><td style="border:1px solid #808080;">{{ equipment[7]|raw }}</td></tr><tr><td style="border:1px solid #808080;">{{ equipment[8]|raw }}</td></tr>
-											</table>
-										</td>
-										<td>
-											<table cellspacing="0" style="background: #292929;">
-												<tr><td style="border:1px solid #808080;">{{ equipment[3]|raw }}</td></tr><tr><td style="border:1px solid #808080;">{{ equipment[5]|raw }}</td></tr><tr><td style="border:1px solid #808080;">{{ equipment[10]|raw }}</td></tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
-				</td>
-				<!-- EQUIPMENT_END -->
-
-				{% endif %}
-
+				
 				{{ hook('HOOK_CHARACTERS_AFTER_EQUIPMENT') }}
 			</tr>
 		</table>
+		
+		{% if quests_enabled %}
+		<br/>
+		<table border="0" cellspacing="1" cellpadding="4" width="100%">
+			<tr bgcolor="{{ config.vdarkborder }}">
+				<td colspan="2" class="white"><b>Quests</b></td>
+			</tr>
+			{% set i = 0 %}
+			{% for name, done in quests %}
+			{% set i = i + 1 %}
+			<tr bgcolor="{{ getStyle(i) }}">
+				<td valign="top">{{ name }}</TD>
+				<td><img src="images/{% if done %}true{% else %}false{% endif %}.png" border="0"/></td>
+			</tr>
+			{% endfor %}
+		</table>
+		{% endif %}
 
 		{{ hook('HOOK_CHARACTERS_BEFORE_DEATHS') }}
 
@@ -282,6 +490,154 @@
 			{% endfor %}
 		</table>
 		<!-- FRAGS_END -->
+		{% endif %}
+
+		{% if exp_history %}
+		<!-- EXP HISTORY -->
+		<br/>
+		<table border="0" cellspacing="1" cellpadding="4" width="100%">
+			<tr bgcolor="{{ config.vdarkborder }}">
+				<td colspan="2" class="white"><b>Record of Daily Experiences</b></td>
+			</tr>
+			{% set i = 0 %}
+			{% for exp in exp_history %}
+			{% set i = i + 1 %}
+			<tr bgcolor="{{ getStyle(i) }}">
+				<td width="20%" align="center"><b>{% if exp.date == 'Today' %}<span style="color: #FF6600">EXP Today</span>{% else %}{{ exp.date }}{% endif %}</b></td>
+				<td>
+					{% if exp.exp_diff > 0 %}
+						<span style="color: green">+{{ exp.exp_diff|number_format(0, '.', '.') }} Experience</span>
+					{% elseif exp.exp_diff < 0 %}
+						<span style="color: red">{{ exp.exp_diff|number_format(0, '.', '.') }} Experience</span>
+					{% else %}
+						not gain exp (No Experience)
+					{% endif %}
+				</td>
+			</tr>
+			{% endfor %}
+		</table>
+		<br/>
+		<table border="0" cellspacing="1" cellpadding="4" width="100%">
+			<tr bgcolor="{{ config.vdarkborder }}">
+				<td class="white"><b>General Experience Records Graph</b></td>
+			</tr>
+			<tr bgcolor="{{ config.lightborder }}">
+				<td align="center">
+					<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+					<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+					<div style="width: 95%; height: 250px; position: relative;">
+						<canvas id="exp_chart_canvas"></canvas>
+					</div>
+					<script type="text/javascript">
+					  document.addEventListener("DOMContentLoaded", function() {
+						var ctx = document.getElementById('exp_chart_canvas').getContext('2d');
+						
+						var labels = [
+						  {% for exp in exp_history|reverse %}
+						  '{{ exp.date }}',
+						  {% endfor %}
+						];
+						
+						var dataPoints = [
+						  {% for exp in exp_history|reverse %}
+						  {{ exp.exp_diff }},
+						  {% endfor %}
+						];
+
+						Chart.register(ChartDataLabels);
+
+						var chart = new Chart(ctx, {
+						  type: 'line',
+						  data: {
+							labels: labels,
+							datasets: [{
+							  label: 'Player Experience Graphic History',
+							  data: dataPoints,
+							  fill: false,
+							  pointBackgroundColor: function(context) {
+								var value = context.dataset.data[context.dataIndex];
+								return value < 0 ? 'red' : '#32CD32';
+							  },
+							  pointBorderColor: function(context) {
+								var value = context.dataset.data[context.dataIndex];
+								return value < 0 ? 'darkred' : 'darkgreen';
+							  },
+							  segment: {
+								borderColor: function(context) {
+								  return context.p1.parsed.y < 0 ? 'red' : '#32CD32';
+								}
+							  },
+							  backgroundColor: '#32CD32',
+							  borderColor: '#32CD32',
+							  borderWidth: 1.5,
+							  pointRadius: 4,
+							  pointHoverRadius: 6
+							}]
+						  },
+						  options: {
+							responsive: true,
+							maintainAspectRatio: false,
+							layout: {
+							  padding: {
+								top: 30,
+								bottom: 10,
+								left: 10,
+								right: 10
+							  }
+							},
+							plugins: {
+							  legend: {
+								position: 'top',
+								labels: {
+								  color: '#666',
+								  font: { size: 12, family: 'Arial' },
+								  boxWidth: 40
+								}
+							  },
+							  datalabels: {
+								align: function(context) {
+								  var value = context.dataset.data[context.dataIndex];
+								  return value < 0 ? 'bottom' : 'top';
+								},
+								offset: 4,
+								color: function(context) {
+								  var value = context.dataset.data[context.dataIndex];
+								  return value < 0 ? 'red' : 'green';
+								},
+								font: {
+								  weight: 'bold',
+								  size: 11
+								},
+								formatter: function(value) {
+								  return value.toLocaleString('pt-BR');
+								}
+							  },
+							  tooltip: {
+								callbacks: {
+								  label: function(context) {
+									return ' Exp: ' + context.parsed.y.toLocaleString('pt-BR');
+								  }
+								}
+							  }
+							},
+							scales: {
+							  y: {
+								grid: { color: 'rgba(0, 0, 0, 0.05)' },
+								ticks: { color: '#666' }
+							  },
+							  x: {
+								grid: { color: 'rgba(0, 0, 0, 0.05)' },
+								ticks: { color: '#666' }
+							  }
+							}
+						  }
+						});
+					  });
+					</script>
+				</td>
+			</tr>
+		</table>
+		<!-- EXP HISTORY_END -->
 		{% endif %}
 
 		{{ hook('HOOK_CHARACTERS_BEFORE_SIGNATURE') }}

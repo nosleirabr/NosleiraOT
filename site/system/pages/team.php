@@ -50,18 +50,21 @@ foreach($groupList as $id => $group)
 			continue;
 
 		$lastLogin = 'Never.';
-		if($member->getLastLogin() > 0)
-			$lastLogin = date("j F Y, g:i a", $member->getLastLogin());
+		if($member->isOnline()) {
+			$lastLogin = 'Logado';
+		} elseif($member->getLastLogin() > 0) {
+			$lastLogin = date("d/m/Y, H:i:s", $member->getLastLogin());
+		}
 
 		$members[] = array(
 			'group_name' => $group->getName(),
 			'player' => $member,
-			'outfit' => setting('core.team_outfit') ? setting('core.outfit_images_url') . '?id=' . $member->getLookType() . ($outfit_addons ? '&addons=' . $member->getLookAddons() : '') . '&head=' . $member->getLookHead() . '&body=' . $member->getLookBody() . '&legs=' . $member->getLookLegs() . '&feet=' . $member->getLookFeet() : null,
-			'status' => setting('core.team_status') ? $member->isOnline() : null,
+			'outfit' => setting('core.outfit_images_url') . '?id=' . $member->getLookType() . ($outfit_addons ? '&addons=' . $member->getLookAddons() : '') . '&head=' . $member->getLookHead() . '&body=' . $member->getLookBody() . '&legs=' . $member->getLookLegs() . '&feet=' . $member->getLookFeet(),
+			'status' => $member->isOnline(),
 			'link' => getPlayerLink($member->getName()),
 			'flag_image' => setting('core.account_country') ? getFlagImage($member->getAccount()->getCountry()) : null,
-			'world_name' => (setting('core.multiworld') || setting('core.team_world')) ? getWorldName($member->getWorldId()) : null,
-			'last_login' => setting('core.team_lastlogin') ? $lastLogin : null
+			'world_name' => getWorldName(0),
+			'last_login' => $lastLogin
 		);
 	}
 
