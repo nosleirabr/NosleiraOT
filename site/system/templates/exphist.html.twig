@@ -2,12 +2,16 @@
 .exphist-table {
 	font-family: Verdana, Arial, sans-serif;
 	font-size: 11px;
+    width: 100%;
+    border-collapse: collapse;
 }
-.exphist-table td {
+.exphist-table td, .exphist-table th {
 	white-space: nowrap;
+    border: 1px solid #faf0d7;
 }
 </style>
-<table class="exphist-table" border="0" cellspacing="1" cellpadding="3" width="100%" bgcolor="#000000">
+<div style="border: 1px solid #000; background-color: #f1e0c5; padding: 2px;">
+<table class="exphist-table" border="0" cellspacing="0" cellpadding="3">
 	<tr bgcolor="{{ config.vdarkborder }}">
 		<td colspan="11" class="white"><b>Ranking of Powergamers on {{ config.lua.serverName }}</b></td>
 	</tr>
@@ -62,3 +66,6 @@
 	</tr>
 	{% endif %}
 </table>
+</div>
+
+
