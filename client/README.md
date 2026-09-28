@@ -20,7 +20,7 @@ O CipSoft híbrido antigo e o OTClient Redemption ficam em `client_base/` (gitig
 
 Como rodar: abra `otclient_dx.exe` **nesta pasta** (Start in = `client/`).
 
-Login de dev: account `1` / `admin123` / char `Admin` (stack Docker no ar).
+Login de dev: account `1` / `1` / char `[GOD] Nosleira` (stack Docker no ar).
 
 ## Objetivo (para onde vamos)
 
@@ -146,7 +146,7 @@ Basta rodar o arquivo `build_windows.bat` disponivel nesta pasta. Ele fara:
 Apos o build e execucao, o binario utiliza as configuracoes presentes no `init.lua` e `ot74_dev.lua`. Para conectar-se:
 - IP: `127.0.0.1`
 - Port: `7171`
-- Account/Password: O default de testes (Account `1`, Password `admin123`).
+- Account/Password: O default de testes (Account `1`, Password `1`).
 - Protocolo: O client esta setado internamente para usar o protocolo 7.72 da CipSoft com assets hibridos do 7.40.
 
 ## Build Reproduzivel (Windows)

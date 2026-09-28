@@ -565,23 +565,24 @@ $title = 'Rules';
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 14px;">
 
-                                                                <!-- REGRA 1 -->
+                                                                 <!-- REGRA 1 -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">1) Comentários sobre Resets</span>
-                                                                                <span class="rule-accordion-brief">Não comentar sobre Reset's muito menos afirmar que vai resetar.</span>
+                                                                                <span class="rule-accordion-title">1) Comentários sobre Resets <span style="color:#e60000; font-size:12px; font-weight:bold;">[15 dias]</span></span>
+                                                                                <span class="rule-accordion-brief">Proibido espalhar boatos afirmando que o servidor vai resetar.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É estritamente proibido espalhar boatos, notícias falsas ou afirmar em qualquer canal do jogo/site/Discord que o servidor irá resetar. Esta conduta prejudica a comunidade e desestimula outros jogadores.
+                                                                        É estritamente proibido espalhar boatos, notícias falsas ou afirmar em qualquer canal do jogo/site/Discord que o servidor irá resetar.<br>
+                                                                        <b>Penalidade:</b> Banimento de <b>15 dias</b>.
                                                                     </div>
                                                                 </details>
 
@@ -591,17 +592,18 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">2) Doações e Free Itens</span>
-                                                                                <span class="rule-accordion-brief">Não fazer free itens, gerar banimentos e em casos extremos deleted.</span>
+                                                                                <span class="rule-accordion-title">2) Free Itens Massivo <span style="color:#e60000; font-size:12px; font-weight:bold;">[60 dias]</span></span>
+                                                                                <span class="rule-accordion-brief">Proibido fazer doações ou free itens massivos afetando a economia.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        A realização massiva de "free itens" que afete a economia do servidor ou beneficie contas de forma irregular é proibida, podendo acarretar banimento temporário ou exclusão permanente (delete).
+                                                                        A realização massiva de "free itens" que afete a economia do servidor ou beneficie contas de forma irregular é proibida.<br>
+                                                                        <b>Penalidade:</b> Banimento de <b>60 dias</b> ou exclusão da conta em casos reincidentes.
                                                                     </div>
                                                                 </details>
 
@@ -611,17 +613,21 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">3) Bloqueio de Hunts e Respawn</span>
+                                                                                <span class="rule-accordion-title">3) Bloqueio de Hunts e Respawn <span style="color:#e60000; font-size:12px; font-weight:bold;">[15 dias]</span></span>
                                                                                 <span class="rule-accordion-brief">Proibido bloquear vias de acesso ou o respawn de monstros.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É proibido bloquear a hunt (vias de acesso ou não) de forma a impedir que outro jogador evolua (up) ou saia do local de hunt, assim como impedir o respawn dos monstros de maneira intencional.
+                                                                        É proibido bloquear vias de acesso ou passagens de forma a impedir outro jogador de evoluir (up) ou sair do local, assim como impedir o respawn de monstros de maneira intencional.<br><br>
+                                                                        <span style="color: #4a2c00; background-color: #fff4e0; border-left: 3px solid #d4a359; padding: 6px 10px; display: block; margin: 4px 0 8px 0; border-radius: 3px;">
+                                                                            <b>Adendo:</b> <i>(A regra é aplicável apenas para players neutros. Para os players que estão em Guild System / Guild War, a regra não se aplica e situações atípicas serão analisadas pela Staff).</i>
+                                                                        </span>
+                                                                        <b>Penalidade:</b> Banimento de <b>15 dias</b>.
                                                                     </div>
                                                                 </details>
 
@@ -631,17 +637,21 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">4) Bloqueio de Quests & Quests Custom</span>
-                                                                                <span class="rule-accordion-brief">Não bloquear acessos a Quests e proibidíssimo upar em Quests Custom.</span>
+                                                                                <span class="rule-accordion-title">4) Bloqueio de Quests <span style="color:#e60000; font-size:12px; font-weight:bold;">[15 dias]</span></span>
+                                                                                <span class="rule-accordion-brief">Proibido bloquear acessos a Quests ou atrapalhar times.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Não bloquear acessos a Quests ou atrapalhar a realização de Quests causando danos ao time. É estritamente proibido evoluir (upar) em Quests Custons criadas pelo servidor! Infrações geram banimento.
+                                                                        Bloquear acessos a Quests ou atrapalhar jogadores durante a realização de missões causando danos intencionais ao time é extremamente proibido. Infrações geram banimento.<br><br>
+                                                                        <span style="color: #4a2c00; background-color: #fff4e0; border-left: 3px solid #d4a359; padding: 6px 10px; display: block; margin: 4px 0 8px 0; border-radius: 3px;">
+                                                                            <b>Adendo:</b> <i>(A regra é aplicável apenas para players neutros. Para os players que estão em Guild System / Guild War, a regra não se aplica e situações atípicas serão analisadas pela Staff).</i>
+                                                                        </span>
+                                                                        <b>Penalidade:</b> Banimento de <b>15 dias</b>.
                                                                     </div>
                                                                 </details>
 
@@ -651,17 +661,18 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">5) Respeito à Equipe & Canal Help</span>
-                                                                                <span class="rule-accordion-brief">Ofender tutores no Help ou desrespeitar a staff gera banimento.</span>
+                                                                                <span class="rule-accordion-title">5) Respeito à Equipe & Canal Help <span style="color:#e60000; font-size:12px; font-weight:bold;">[30 dias a Permanente]</span></span>
+                                                                                <span class="rule-accordion-brief">Ofender tutores no Help ou desrespeitar a staff.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Ofender tutores no canal HELP gera banimento imediato por ofensas. Desrespeitar orientações ou alertas de Gamemasters (GMs) e CMs sobre irregularidades também ocasionará punições severas.
+                                                                        Ofender tutores no canal HELP ou desrespeitar orientações de Gamemasters (GMs), CMs e GOD.<br>
+                                                                        <b>Penalidade:</b> Banimento de <b>30 dias</b> ou <b>Permanente</b> dependendo da gravidade da ofensa.
                                                                     </div>
                                                                 </details>
 
@@ -671,17 +682,18 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">6) Abuse de Novatos & Zonas Neutras</span>
-                                                                                <span class="rule-accordion-brief">Conduta abusiva perante novatos ou em zonas neutras (barcos/templos).</span>
+                                                                                <span class="rule-accordion-title">6) Abuso de Novatos & Zonas Neutras <span style="color:#e60000; font-size:12px; font-weight:bold;">[15 dias]</span></span>
+                                                                                <span class="rule-accordion-brief">Conduta abusiva perante novatos ou em templos/barcos.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Ter conduta abusiva perante jogador novato matando-o, auxiliando a matar, impedindo ou atrapalhando sua progressão no jogo poderá resultar em punição. Também ficará sujeito a punição o jogador que abusar de situações que envolvam lojas de potes, templos, barcos, cidades iniciais, entradas e saídas de quests e hunts.
+                                                                        Ter conduta abusiva perante jogador novato impedindo sua progressão, ou abusar de bloqueios em lojas de potes, templos, barcos e cidades iniciais.<br>
+                                                                        <b>Penalidade:</b> Banimento de <b>15 dias</b>.
                                                                     </div>
                                                                 </details>
 
@@ -691,17 +703,18 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">7) Exploits, Bug Abuse & Duplicação (Dupes)</span>
-                                                                                <span class="rule-accordion-brief">Proibido explorar falhas, bugs ou provocar rollbacks para duplicar itens ou obter vantagens.</span>
+                                                                                <span class="rule-accordion-title">7) Exploits, Bug Abuse & Duplicação (Dupes) <span style="color:#e60000; font-size:12px; font-weight:bold;">[Permanente]</span></span>
+                                                                                <span class="rule-accordion-brief">Proibido explorar falhas, bugs ou provocar rollbacks.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É estritamente proibido utilizar qualquer bug, falha de mapa, erro de script ou instabilidade do servidor para obter itens, experiência ou qualquer vantagem indevida. Provocar ativamente crashes no servidor para forçar rollback e duplicar itens resultará em banimento permanente (Delete) de todas as contas associadas.
+                                                                        É estritamente proibido utilizar qualquer bug, falha de mapa, erro de script ou provocar instabilidades para duplicar itens ou obter vantagens indevidas.<br>
+                                                                        <b>Penalidade:</b> <b>Banimento Permanente (Delete)</b> de todas as contas vinculadas.
                                                                     </div>
                                                                 </details>
 
@@ -711,17 +724,18 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">8) Divulgação de Outros Servidores</span>
-                                                                                <span class="rule-accordion-brief">É proibido anúncios de outros servidores.</span>
+                                                                                <span class="rule-accordion-title">8) Divulgação de Outros Servidores <span style="color:#e60000; font-size:12px; font-weight:bold;">[Permanente]</span></span>
+                                                                                <span class="rule-accordion-brief">Proibido anúncios e propaganda de outros servidores.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Anunciar, divulgar ou fazer propaganda de outros servidores de Open Tibia em qualquer canal do NosleiraOT resultará em banimento imediato.
+                                                                        Anunciar, divulgar ou fazer propaganda de outros servidores de Open Tibia em qualquer canal do NosleiraOT.<br>
+                                                                        <b>Penalidade:</b> <b>Banimento Permanente</b> imediato.
                                                                     </div>
                                                                 </details>
 
@@ -731,17 +745,18 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">9) Uso de Multicliente (MC)</span>
-                                                                                <span class="rule-accordion-brief">MC é permitido, exceto para obter vantagens no PvP ou Raids.</span>
+                                                                                <span class="rule-accordion-title">9) Abuso de Multicliente (MC) no PvP ou Trap <span style="color:#e60000; font-size:12px; font-weight:bold;">[Permanente]</span></span>
+                                                                                <span class="rule-accordion-brief">Proibido uso de MCs para obter vantagens em battles PvP ou Boss Raids.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        MC é totalmente permitido no servidor para treino e tarefas neutras, desde que não seja utilizado para obter benefícios nas battles de PvP ou durante eventos de Boss Raid.
+                                                                        O uso de MC para obter vantagens de dano, trap ou combate no PvP, assim como em Boss Raids, é estritamente proibido.<br>
+                                                                        <b>Penalidade:</b> <b>Banimento Permanente</b>.
                                                                     </div>
                                                                 </details>
 
@@ -751,17 +766,18 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">10) Responsabilidade pelas Contas</span>
-                                                                                <span class="rule-accordion-brief">Jogadores são responsáveis por suas contas e itens.</span>
+                                                                                <span class="rule-accordion-title">10) Fraude em Doações & Chargeback <span style="color:#e60000; font-size:12px; font-weight:bold;">[Permanente]</span></span>
+                                                                                <span class="rule-accordion-brief">Proibido estornos fraudulentos ou tentativas de golpe financeiro.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Todos os jogadores são totalmente responsáveis por suas contas e itens. A administração não se responsabiliza por perdas causadas por compartilhamento de conta ou roubos de itens entre jogadores.
+                                                                        Tentativa de estorno fraudulento, chargeback ou não pagamento de doações realizadas na loja.<br>
+                                                                        <b>Penalidade:</b> <b>Banimento Permanente (Delete)</b> da conta.
                                                                     </div>
                                                                 </details>
 
@@ -771,17 +787,18 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">11) Política de Doações</span>
-                                                                                <span class="rule-accordion-brief">O servidor não devolve valores de doações.</span>
+                                                                                <span class="rule-accordion-title">11) Comércio de Scripts de Bot <span style="color:#e60000; font-size:12px; font-weight:bold;">[Permanente]</span></span>
+                                                                                <span class="rule-accordion-brief">Proibida a venda ou anúncio de scripts para automação.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Todas as doações são espontâneas para manter a infraestrutura do servidor online, não havendo reembolso ou devolução dos valores doados.
+                                                                        É proibido comercializar ou anunciar scripts de automação, cavebot ou macros no servidor e em seus canais oficiais.<br>
+                                                                        <b>Penalidade:</b> <b>Banimento Permanente</b>.
                                                                     </div>
                                                                 </details>
 
@@ -791,17 +808,19 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">12) Validade de Pontos do Shop</span>
-                                                                                <span class="rule-accordion-brief">Pontos têm validade de 2 meses a contar da data de compra.</span>
+                                                                                <span class="rule-accordion-title">12) RMT e Comercialização In-Game <span style="color:#e60000; font-size:12px; font-weight:bold;">[Permanente In-Game]</span></span>
+                                                                                <span class="rule-accordion-brief">Extremamente proibido anúncio e comércio por moeda real dentro do jogo.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Os pontos adquiridos na loja do servidor possuem validade de 2 meses a partir do dia em que foram creditados na conta.
+                                                                        É extremamente proibida a venda, compra e comercialização de personagens, contas ou itens por dinheiro real (RMT) <b>dentro do jogo</b> (canais públicos, Trade, chats, mensagens privadas ou envio de contatos/PIX).<br><br>
+                                                                        • <b>Negociações Externas (Fora do Jogo):</b> O RMT realizado por fora do jogo é de <b>total e estrita responsabilidade dos próprios jogadores envolvidos</b>. Nós da Staff <b>não recomendamos</b> negociações externas e não nos responsabilizamos por golpes ou prejuízos.<br><br>
+                                                                        <b>Penalidade:</b> Anunciar ou realizar comércio por dinheiro real <b>in-game</b> resultará em <b>Banimento Permanente (Delete)</b>.
                                                                     </div>
                                                                 </details>
 
@@ -811,17 +830,18 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">13) Comércio de Scripts de Bot</span>
-                                                                                <span class="rule-accordion-brief">Proibida a venda ou anúncio de scripts para BOT.</span>
+                                                                                <span class="rule-accordion-title">13) Trocas entre Servidores <span style="color:#e60000; font-size:12px; font-weight:bold;">[Permanente]</span></span>
+                                                                                <span class="rule-accordion-brief">Proibida a negociação cruzada com outros servidores.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É proibido comercializar ou anunciar scripts de automação ou bots no servidor e nos seus canais oficiais.
+                                                                        É estritamente proibida a troca de itens e personagens entre o NosleiraOT e outros servidores de Open Tibia.<br>
+                                                                        <b>Penalidade:</b> <b>Banimento Permanente</b>.
                                                                     </div>
                                                                 </details>
 
@@ -831,17 +851,18 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">14) Venda por Dinheiro Real (RMT)</span>
-                                                                                <span class="rule-accordion-brief">Proibida a venda de chars e itens por dinheiro real.</span>
+                                                                                <span class="rule-accordion-title">14) Trapaças no PvP (Magebomb / Navigation) <span style="color:#e60000; font-size:12px; font-weight:bold;">[Permanente]</span></span>
+                                                                                <span class="rule-accordion-brief">Proibido uso de magebombs, navigations ou trapaças no combate.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É proibida a venda de personagens e itens por dinheiro real ou qualquer outra moeda externa ao servidor. Enviar contatos (Whatsapp, PIX, etc.) para negociações externas poderá resultar em banimento permanente.
+                                                                        Proibido o uso de magebombs, conexões coordenadas de navigation ou trapaças de automação de combate.<br>
+                                                                        <b>Penalidade:</b> <b>Banimento Permanente</b>.
                                                                     </div>
                                                                 </details>
 
@@ -851,17 +872,18 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">15) Trocas entre Servidores</span>
-                                                                                <span class="rule-accordion-brief">Proibida a venda ou troca de itens entre outros servidores.</span>
+                                                                                <span class="rule-accordion-title">15) Uso Abusivo de Low Level em Battle <span style="color:#e60000; font-size:12px; font-weight:bold;">[90 dias]</span></span>
+                                                                                <span class="rule-accordion-brief">Proibido usar chars noobs intencionalmente para remover traps.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É estritamente proibida a troca ou comercialização cruzada de itens e personagens entre o NosleiraOT e outros servidores.
+                                                                        Utilizar de forma intencional personagens de nível muito inferior ao da batalha para obter vantagens no PvP ou remover traps.<br>
+                                                                        <b>Penalidade:</b> Banimento de <b>90 dias</b>.
                                                                     </div>
                                                                 </details>
 
@@ -871,19 +893,18 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">16) Proibição de Automações & Trapaças</span>
-                                                                                <span class="rule-accordion-brief">Proibido o uso de Navigations, Magebombs, Macros ou Bots em qualquer situação.</span>
+                                                                                <span class="rule-accordion-title">16) Abuso no Guild Chat (/guildbc) <span style="color:#e60000; font-size:12px; font-weight:bold;">[90 dias]</span></span>
+                                                                                <span class="rule-accordion-brief">Proibido usar o canal da guilda para ofensas ou poluição.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Proibido o uso de NAVIGATIONS, MAGEBOMBS, MACROS ou qualquer tipo de BOT em qualquer circunstância. É extremamente proibido o uso de qualquer trapaça, automação ou recurso que infrinja as regras do servidor ou tente obter vantagem em cima de outros jogadores.<br><br>
-                                                                        • O uso de MCs para obter vantagem em DANOS contra o adversário na battle também se enquadra na regra.<br>
-                                                                        • Proibido o uso de MC para qualquer BOSS Raid.
+                                                                        Utilizar a ferramenta de broadcast da guilda (/guildbc) para propagar ofensas extremadas ou perturbação da ordem.<br>
+                                                                        <b>Penalidade:</b> Banimento de <b>90 dias</b>.
                                                                     </div>
                                                                 </details>
 
@@ -893,17 +914,18 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">17) Uso Abusivo de Chars Low Level em Battle</span>
-                                                                                <span class="rule-accordion-brief">Proibido usar chars low level intencionalmente em PvP para remover trap.</span>
+                                                                                <span class="rule-accordion-title">17) Uso de Bots, Cavebot e Programas Externos <span style="color:#e60000; font-size:12px; font-weight:bold;">[Permanente]</span></span>
+                                                                                <span class="rule-accordion-brief">Proibido Cavebot, AFK Bot, Auto-Heal ou qualquer automação.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        Utilizar de forma intencional personagens de nível muito inferior ao da batalha para obter vantagens no PvP (como remover traps ou desviar alvos) ocasionará banimento severo.
+                                                                        É estritamente proibido o uso de Cavebot, Auto-Heal, Aimbot, macros de teclado ou qualquer programa externo que automatize ações no jogo.<br>
+                                                                        <b>Penalidade:</b> <b>Banimento Permanente (Delete)</b>.
                                                                     </div>
                                                                 </details>
 
@@ -913,58 +935,139 @@ $title = 'Rules';
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">18) Abuso no Guild Chat (/guildbc)</span>
-                                                                                <span class="rule-accordion-brief">Proibido usar o Guild Chat para comércio ou ofensas extremadas.</span>
+                                                                                <span class="rule-accordion-title">18) Tentativa de Phishing & Roubo de Contas <span style="color:#e60000; font-size:12px; font-weight:bold;">[Permanente]</span></span>
+                                                                                <span class="rule-accordion-brief">Proibido envio de links maliciosos ou tentativa de roubo de senhas.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É proibido utilizar a função de anúncio da guilda (/guildbc) para propagar mensagens de comércio e ofensas extremadas.
+                                                                        Divulgar links falsos (phishing), malwares ou tentar obter senhas e contas de outros jogadores.<br>
+                                                                        <b>Penalidade:</b> <b>Banimento Permanente (Delete)</b> de todas as contas associadas.
                                                                     </div>
                                                                 </details>
 
-                                                                <!-- REGRA 19 (ATUALIZADA) -->
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<br><br>
+
+<!-- ================================================================= -->
+<!-- BOX: REGRAS DE NOMES DE PERSONAGENS (NOMES)                      -->
+<!-- ================================================================= -->
+<div class="TableContainer">
+    <div class="CaptionContainer">
+        <div class="CaptionInnerContainer">
+            <span class="CaptionEdgeLeftTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
+            <div class="Text">Regras de Nomes de Personagens</div>
+            <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
+            <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionEdgeRightBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
+        </div>
+    </div>
+    
+    <table class="Table3" cellpadding="0" cellspacing="0">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="InnerTableContainer">
+                        <table style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="TableContentAndRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rm.gif);">
+                                            <div class="TableContentContainer">
+                                                <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+                                                    <tbody>
+                                                        <tr bgcolor="<?php echo $config['darkborder']; ?>">
+                                                             <td style="font-weight:bold; font-size: 14px; padding: 10px 14px; color: #4a2505; border-left: 4px solid #7f0000;">
+                                                                🏷️ Diretrizes de Nomenclatura (Clique para expandir)
+                                                            </td>
+                                                        </tr>
+                                                        <tr bgcolor="<?php echo $config['lightborder']; ?>">
+                                                            <td style="padding: 14px;">
+
+                                                                <!-- REGRA DE NOME A -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">19) Uso de Bots, Scripts e Programas Externos</span>
-                                                                                <span class="rule-accordion-brief">Proibido o uso de programas externos ou automação de ações.</span>
+                                                                                <span class="rule-accordion-title">A) Nome que Viola Regra de Suporte <span style="color:#e60000; font-size:12px; font-weight:bold;">[Namelock / Ban]</span></span>
+                                                                                <span class="rule-accordion-brief">Não crie nomes que imitem ou façam referência ao suporte ou à administração do jogo.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É estritamente proibido o uso de bots, macros de voz, macros de teclado, scripts ou qualquer programa externo que automatize ações ou proporcione vantagem indevida no jogo.<br><br>
-                                                                        <b>Penalidade:</b> O descumprimento desta regra poderá resultar em banimento severo ou permanente da conta e/ou personagem.
+                                                                        Nomes que possam ser confundidos com membros do suporte ou da administração, como "GM", "Admin", "Suporte", ou qualquer variação que sugira autoridade dentro do jogo, são estritamente proibidos. Isso inclui nomes que possam enganar outros jogadores, fazendo-os acreditar que o portador do nome possui poderes ou responsabilidades administrativas. Esses nomes serão imediatamente alterados, e os jogadores podem enfrentar penalidades severas, incluindo banimentos.<br><br>
+                                                                        <b>Penalidade:</b> Alteração forçada do nome (Namelock) e/ou banimento temporário em caso de má fé.
                                                                     </div>
                                                                 </details>
 
-                                                                <!-- REGRA 20 -->
+                                                                <!-- REGRA DE NOME B -->
                                                                 <details class="rule-accordion">
                                                                     <summary>
                                                                         <div class="rule-summary-left">
                                                                             <div class="rule-icon-box">&#9660;</div>
                                                                             <div class="rule-title-group">
-                                                                                <span class="rule-accordion-title">20) Tentativa de Phishing & Roubo de Contas</span>
-                                                                                <span class="rule-accordion-brief">Proibido enviar links falsos, arquivos maliciosos ou tentar obter senhas de outros jogadores.</span>
+                                                                                <span class="rule-accordion-title">B) Nome Ofensivo <span style="color:#e60000; font-size:12px; font-weight:bold;">[Namelock / Ban]</span></span>
+                                                                                <span class="rule-accordion-brief">É proibido criar nomes ofensivos ou desrespeitosos.</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="rule-action-badge">
-                                                                            <span class="badge-text-closed">&#43; Clique para ler</span>
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
                                                                             <span class="badge-text-open">&#8722; Fechar</span>
                                                                         </div>
                                                                     </summary>
                                                                     <div class="rule-accordion-body">
-                                                                        É estritamente proibido divulgar links falsos (phishing), softwares maliciosos (keyloggers/trojans) ou utilizar qualquer meio para tentar obter senhas, chaves de recuperação ou dados de acesso de outros jogadores. Infracionar esta regra resultará no banimento permanente e exclusão (Delete) de todas as contas vinculadas.
+                                                                        Nomes ofensivos incluem, mas não se limitam a, linguagem vulgar, insultos, ameaças, comentários racistas, sexistas ou qualquer forma de discurso de ódio. O objetivo é garantir um ambiente de jogo respeitoso e seguro para todos os jogadores. Nomes que violem esta regra serão alterados pela administração, e os jogadores responsáveis podem receber advertências ou outras penalidades.<br><br>
+                                                                        <b>Penalidade:</b> Alteração forçada do nome (Namelock) e/ou banimento por ofensa.
+                                                                    </div>
+                                                                </details>
+
+                                                                <!-- REGRA DE NOME C -->
+                                                                <details class="rule-accordion">
+                                                                    <summary>
+                                                                        <div class="rule-summary-left">
+                                                                            <div class="rule-icon-box">&#9660;</div>
+                                                                            <div class="rule-title-group">
+                                                                                <span class="rule-accordion-title">C) Nome Inadequado <span style="color:#e60000; font-size:12px; font-weight:bold;">[Namelock]</span></span>
+                                                                                <span class="rule-accordion-brief">Os nomes devem ser apropriados e coerentes com o ambiente do jogo.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rule-action-badge">
+                                                                            <span class="badge-text-closed">&#43; Ler Regra</span>
+                                                                            <span class="badge-text-open">&#8722; Fechar</span>
+                                                                        </div>
+                                                                    </summary>
+                                                                    <div class="rule-accordion-body">
+                                                                        Nomes inadequados são aqueles que não são apropriados para um ambiente de jogo, incluindo referências explícitas a violência extrema, temas sexuais ou qualquer outro conteúdo impróprio. Também inclui nomes que imitem ou façam referência desrespeitosa a figuras políticas ou celebridades. Nomes que não atendam a esses critérios serão modificados pela administração, e os jogadores podem ser advertidos.<br><br>
+                                                                        <b>Penalidade:</b> Alteração forçada do nome (Namelock).
                                                                     </div>
                                                                 </details>
 

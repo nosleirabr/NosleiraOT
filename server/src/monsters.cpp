@@ -125,42 +125,35 @@ void MonsterType::createLoot(Container* corpse)
 		return;
 	}
 
+	for (auto it = lootItems.rbegin(), end = lootItems.rend(); it != end; ++it) {
+		auto itemList = createLootItem(*it);
+		if (itemList.empty()) {
+			continue;
+		}
+
+		for (Item* item : itemList) {
+			//check containers
+			if (Container* container = item->getContainer()) {
+				if (!createLootContainer(container, *it)) {
+					delete container;
+					continue;
+				}
+			}
+
+			if (g_game.internalAddItem(corpse, item) != RETURNVALUE_NOERROR) {
+				corpse->internalAddThing(item);
+			}
+		}
+	}
+
 	Player* owner = g_game.getPlayerByID(corpse->getCorpseOwner());
-	if(!owner) {
-		for (auto it = lootItems.rbegin(), end = lootItems.rend(); it != end; ++it) {
-			auto itemList = createLootItem(*it);
-			if (itemList.empty()) {
-				continue;
-			}
-
-			for (Item* item : itemList) {
-				//check containers
-				if (Container* container = item->getContainer()) {
-					if (!createLootContainer(container, *it)) {
-						delete container;
-						continue;
-					}
-				}
-
-				if (g_game.internalAddItem(corpse, item) != RETURNVALUE_NOERROR) {
-					corpse->internalAddThing(item);
-				}
-			}
-		}
-
-		if (owner) {
-			std::ostringstream ss;
-			ss << "Loot of " << nameDescription << ": " << corpse->getContentDescription();
-
-			if (owner->getParty()) {
-				owner->getParty()->broadcastPartyLoot(ss.str());
-			} else {
-				owner->sendTextMessage(MESSAGE_INFO_DESCR, ss.str());
-			}
-		}
-	} else {
+	if (owner) {
 		std::ostringstream ss;
-		ss << "Loot of " << nameDescription << ": nothing";
+		if (!corpse->getItemList().empty()) {
+			ss << "Loot of " << nameDescription << ": " << corpse->getContentDescription();
+		} else {
+			ss << "Loot of " << nameDescription << ": nothing";
+		}
 
 		if (owner->getParty()) {
 			owner->getParty()->broadcastPartyLoot(ss.str());

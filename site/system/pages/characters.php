@@ -326,7 +326,7 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 					}
 				}
 				else {
-					$description .=  " <b>(soloed)</b>";
+					$description .=  " (soloed)";
 				}
 
 				$deaths[] = array('time' => $death['time'], 'description' => $description);
@@ -335,24 +335,30 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 	}
 
 	$frags = array();
+	$frags_justified = array();
+	$frags_unjustified = array();
 	$frag_add_content = '';
-	if ($config['characters']['frags']) {
-		$frags_limit = 10; // frags limit to show? // default: 10
+	if (true) {
+		$frags_limit = 20; // frags limit to show
+		$pronoun = ($player->getSex() == 0 ? 'She' : 'He');
 
 		if ($db->hasTable('killers')) {
-			//frags list by Xampy
-			$i = 0;
 			$player_frags = $db->query('SELECT `player_deaths`.*, `players`.`name`, `killers`.`unjustified` FROM `player_deaths` LEFT JOIN `killers` ON `killers`.`death_id` = `player_deaths`.`id` LEFT JOIN `player_killers` ON `player_killers`.`kill_id` = `killers`.`id` LEFT JOIN `players` ON `players`.`id` = `player_deaths`.`player_id` WHERE `player_killers`.`player_id` = ' . $player->getId() . ' ORDER BY `date` DESC LIMIT 0,' . $frags_limit . ';')->fetchAll();
 			if (count($player_frags)) {
-				$row_count = 0;
 				foreach ($player_frags as $frag) {
-					$description = 'Fragged <a href="' . getPlayerLink($frag['name'], false) . '">' . $frag['name'] . '</a> at level ' . $frag['level'];
-					$frags[] = array('time' => $frag['date'], 'description' => $description, 'unjustified' => $frag['unjustified'] != 0);
+					$is_unjustified = ($frag['unjustified'] != 0);
+					$desc = $pronoun . ' fragged <a href="' . getPlayerLink($frag['name'], false) . '"><b>' . $frag['name'] . '</b></a> at level ' . $frag['level'] . '. ' . ($is_unjustified ? '(<span style="color: red;">Unjustified</span>)' : '(<span style="color: green;">Justified</span>)');
+					$item = array('time' => $frag['date'], 'description' => $desc, 'unjustified' => $is_unjustified);
+					$frags[] = $item;
+					if ($is_unjustified) {
+						$frags_unjustified[] = $item;
+					} else {
+						$frags_justified[] = $item;
+					}
 				}
 			}
 		}
 		else if($db->hasTable('player_deaths') && $db->hasColumn('player_deaths', 'killed_by')) {
-			$i = 0;
 			$player_frags = PlayerDeath::where('player_deaths.killed_by', $player->getName())
 				->join('players', 'players.id', '=', 'player_deaths.player_id')
 				->limit($frags_limit)
@@ -361,10 +367,16 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 				->get();
 
 			if ($player_frags->count()) {
-				$row_count = 0;
 				foreach ($player_frags as $frag) {
-					$description = 'Fragged <a href="' . getPlayerLink($frag->name, false) . '">' . $frag->name . '</a> at level ' . $frag->level;
-					$frags[] = array('time' => $frag->time, 'description' => $description, 'unjustified' => $frag->unjustified != 0);
+					$is_unjustified = ($frag->unjustified != 0);
+					$desc = $pronoun . ' fragged <a href="' . getPlayerLink($frag->name, false) . '"><b>' . $frag->name . '</b></a> at level ' . $frag->level . '. ' . ($is_unjustified ? '(<span style="color: red;">Unjustified</span>)' : '(<span style="color: green;">Justified</span>)');
+					$item = array('time' => $frag->time, 'description' => $desc, 'unjustified' => $is_unjustified);
+					$frags[] = $item;
+					if ($is_unjustified) {
+						$frags_unjustified[] = $item;
+					} else {
+						$frags_justified[] = $item;
+					}
 				}
 			}
 		}
@@ -376,30 +388,85 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 	}
 
 	$hide = $player->isHidden();
+	$is_banished = false;
+	$gm_ban_info = null;
 	if(!$hide) {
-		// check if account has been banned
-		$bannedUntil = '';
-		$banned = array();
-		if($db->hasTable('account_bans'))
-			$banned = $db->query('SELECT `expires_at` as `expires` FROM `account_bans` WHERE `account_id` = ' . $account->getId() . ' and (`expires_at` > ' . time() . ' OR `expires_at` = -1);');
-		else if ($db->hasTable('bans')) {
-			if ($db->hasColumn('bans', 'expires'))
-				$banned = $db->query('SELECT `expires` FROM `bans` WHERE (`value` = ' . $account->getId() . ' or `value` = ' . $player->getId() . ') and `active` = 1 and `type` != 2 and `type` != 4 and (`expires` > ' . time() . ' OR `expires` = -1);');
-			else
-				$banned = $db->query('SELECT `time` as `time` FROM `bans` WHERE (`account` = ' . $account->getId() . ' or `player` = ' . $player->getId() . ') and `type` != 2 and `type` != 4 and (`time` > ' . time() . ' OR `time` = -1);');
+		if($db->hasTable('player_bans')) {
+			$pBan = $db->query('SELECT `reason`, `banned_at`, `expires_at`, `banned_by` FROM `player_bans` WHERE `player_id` = ' . $player->getId() . ' AND (`expires_at` > ' . time() . ' OR `expires_at` = -1) LIMIT 1')->fetch();
+			if ($pBan) {
+				$is_banished = true;
+				$staffName = 'Staff';
+				$staffColor = '#0066FF';
+				if ((int)$pBan['banned_by'] > 0) {
+					$st = $db->query('SELECT `name`, `group_id` FROM `players` WHERE `id` = ' . (int)$pBan['banned_by'])->fetch();
+					if ($st) {
+						$staffName = $st['name'];
+						$gid = (int)$st['group_id'];
+						if ($gid == 6 || stripos($staffName, 'god') !== false) {
+							$staffColor = '#008000';
+						} elseif ($gid == 5) {
+							$staffColor = '#E60000';
+						} elseif ($gid == 4 || stripos($staffName, 'gm') !== false) {
+							$staffColor = '#0066FF';
+						}
+					}
+				}
+				$expText = ($pBan['expires_at'] == -1 || $pBan['expires_at'] >= 2000000000) ? 'Permanent' : date('d.M.Y H:i:s', $pBan['expires_at']);
+				$gm_ban_info = [
+					'banned_by' => $staffName,
+					'role_color' => $staffColor,
+					'reason' => $pBan['reason'],
+					'expires_at' => $expText,
+				];
+			}
 		}
-		foreach($banned as $ban) {
-			$bannedUntil = $ban['expires'];
+		if(!$is_banished && $db->hasTable('account_bans')) {
+			$aBan = $db->query('SELECT `reason`, `banned_at`, `expires_at`, `banned_by` FROM `account_bans` WHERE `account_id` = ' . $account->getId() . ' AND (`expires_at` > ' . time() . ' OR `expires_at` = -1) LIMIT 1')->fetch();
+			if ($aBan) {
+				$is_banished = true;
+				$staffName = 'Staff';
+				$staffColor = '#0066FF';
+				if ((int)$aBan['banned_by'] > 0) {
+					$st = $db->query('SELECT `name`, `group_id` FROM `players` WHERE `id` = ' . (int)$aBan['banned_by'])->fetch();
+					if ($st) {
+						$staffName = $st['name'];
+						$gid = (int)$st['group_id'];
+						if ($gid == 6 || stripos($staffName, 'god') !== false) {
+							$staffColor = '#008000';
+						} elseif ($gid == 5) {
+							$staffColor = '#E60000';
+						} elseif ($gid == 4 || stripos($staffName, 'gm') !== false) {
+							$staffColor = '#0066FF';
+						}
+					}
+				}
+				$expText = ($aBan['expires_at'] == -1 || $aBan['expires_at'] >= 2000000000) ? 'Permanent' : date('d.M.Y H:i:s', $aBan['expires_at']);
+				$gm_ban_info = [
+					'banned_by' => $staffName,
+					'role_color' => $staffColor,
+					'reason' => $aBan['reason'],
+					'expires_at' => $expText,
+				];
+			}
 		}
 
 		$account_players = array();
 		$query = $db->query('SELECT `id` FROM `players` WHERE `account_id` = ' . $account->getId() . ' ORDER BY `name`')->fetchAll();
 		foreach($query as $p) {
 			$_player = new OTS_Player();
-			$fields = array('id', 'name', 'vocation', 'level', 'online', 'deleted', 'hide');
+			$fields = array('id', 'name', 'vocation', 'level', 'online', 'deleted', 'hide', 'looktype', 'lookhead', 'lookbody', 'looklegs', 'lookfeet', 'lookaddons');
 			$_player->load($p['id'], $fields, false);
 			if($_player->isLoaded() && !$_player->isHidden()) {
-				$account_players[] = $_player;
+				$outfit_url = setting('core.outfit_images_url') . '?id=' . (int)$_player->getCustomField('looktype') . '&head=' . (int)$_player->getCustomField('lookhead') . '&body=' . (int)$_player->getCustomField('lookbody') . '&legs=' . (int)$_player->getCustomField('looklegs') . '&feet=' . (int)$_player->getCustomField('lookfeet');
+				$account_players[] = array(
+					'player' => $_player,
+					'name' => $_player->getName(),
+					'isDeleted' => $_player->isDeleted(),
+					'isOnline' => $_player->isOnline(),
+					'outfit' => $outfit_url,
+					'level' => $_player->getLevel(),
+					'vocation' => $_player->getVocationName()
+				);
 			}
 		}
 	}
@@ -485,6 +552,18 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 		if ($top_ranks['ek'] == $player_id) $player_ranks[] = array('title' => 'TOP EK', 'offset' => 1008);
 	}
 
+	$is_god_admin = false;
+	if (isset($account_logged) && $account_logged->isLoaded()) {
+		if (superAdmin() || (int)$account_logged->getCustomField('type') >= 6 || (int)$account_logged->getGroupId() >= 6) {
+			$is_god_admin = true;
+		} else {
+			$godCheck = $db->query('SELECT 1 FROM `players` WHERE `account_id` = ' . (int)$account_logged->getId() . ' AND `group_id` >= 6 LIMIT 1')->fetch();
+			if ($godCheck) {
+				$is_god_admin = true;
+			}
+		}
+	}
+
 	$twig->display('characters.html.twig', array(
 		'player_ranks' => $player_ranks,
 		'outfit' => isset($outfit) ? $outfit : null,
@@ -518,11 +597,16 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 		'skull' => $player->getSkullTime() > 0 && ($player->getSkull() == 4 || $player->getSkull() == 5) ? $skulls[$player->getSkull()] : null,
 		'deaths' => $deaths,
 		'frags' => $frags,
+		'frags_justified' => $frags_justified,
+		'frags_unjustified' => $frags_unjustified,
 		'signature_url' => isset($signature_url) ? $signature_url : null,
 		'player_link' => getPlayerLink($player->getName(), false),
 		'hide' => $hide,
 		'hidden' => $hide,
-		'bannedUntil' => isset($bannedUntil) ? $bannedUntil : null,
+		'is_banished' => $is_banished,
+		'gm_ban_info' => $gm_ban_info,
+		'is_god_admin' => $is_god_admin,
+		'admin_account_id' => $player->getAccountId(),
 		'account_players' => isset($account_players) ? $account_players : null,
 		'search_form' => generate_search_form(),
 		'canEdit' => hasFlag(FLAG_CONTENT_PLAYERS) || superAdmin()

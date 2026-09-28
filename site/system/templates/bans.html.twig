@@ -1,39 +1,135 @@
-<table border="0" cellspacing="1" cellpadding="4" width="100%">
-	<tr align="center" bgcolor="{{ config.vdarkborder }}" class="white">
-		<td><span style="color: white"><b>Nick</b></span></td>
-		{% if configBans.hasType %}
-		<td><span style="color: white"><b>Type</b></span></td>
-		{% endif %}
-		<td><span style="color: white"><b>Expires</b></span></td>
-		{% if configBans.hasReason %}
-		<td><span style="color: white"><b>Reason</b></span></td>
-		{% endif %}
-		<td><span style="color: white"><b>Comment</b></span></td>
-		<td><span style="color: white"><b>Added by:</b></span></td>
-	</tr>
-	{% for ban in bans %}
-	<tr align="center" bgcolor="{{ getStyle(ban.i) }}">
-		<td height="50" width="140">{{ ban.player|raw }}</td>
-		{% if configBans.hasType %}
-		<td>{{ ban.type }}</td>
-		{% endif %}
-		<td>{{ ban.expires|raw }}</td>
-		{% if configBans.hasReason %}
-		<td>{{ ban.reason }}</td>
-		{% endif %}
-		<td>{{ ban.comment }}</td>
+{% set title = 'Banishments' %}
+{% set content %}
+<table style="width:100%; border-collapse: collapse;">
+	<tbody>
+	<tr>
 		<td>
-			{{ ban.addedBy|raw }}<br/>
-			{{ ban.addedTime|raw }}
+			<div class="TableShadowContainerRightTop">
+				<div class="TableShadowRightTop" style="background-image:url({{ template_path }}/images/content/table-shadow-rt.gif);"></div>
+			</div>
+			<div class="TableContentAndRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-rm.gif);">
+				<div class="TableContentContainer">
+					<table class="TableContent" width="100%">
+						<tbody>
+							<tr bgcolor="#505050" class="LabelH" style="background-color: #505050 !important; height: 22px;">
+								<td width="64px" align="center" bgcolor="#505050" style="background-color: #505050 !important; color: #FFFFFF !important; font-weight: bold; font-size: 11px; padding: 4px 4px; border: 1px solid #FAF0D7;"><span style="color: #FFFFFF !important;"><b>Outfit</b></span></td>
+								<td width="23%" bgcolor="#505050" style="background-color: #505050 !important; color: #FFFFFF !important; font-weight: bold; font-size: 11px; padding: 4px 6px; border: 1px solid #FAF0D7;"><span style="color: #FFFFFF !important;"><b>Character / Account</b></span></td>
+								<td width="14%" align="center" bgcolor="#505050" style="background-color: #505050 !important; color: #FFFFFF !important; font-weight: bold; font-size: 11px; padding: 4px 4px; border: 1px solid #FAF0D7;"><span style="color: #FFFFFF !important;"><b>Type / Status</b></span></td>
+								<td width="16%" align="center" bgcolor="#505050" style="background-color: #505050 !important; color: #FFFFFF !important; font-weight: bold; font-size: 11px; padding: 4px 4px; border: 1px solid #FAF0D7;"><span style="color: #FFFFFF !important;"><b>Expires</b></span></td>
+								<td width="23%" bgcolor="#505050" style="background-color: #505050 !important; color: #FFFFFF !important; font-weight: bold; font-size: 11px; padding: 4px 6px; border: 1px solid #FAF0D7;"><span style="color: #FFFFFF !important;"><b>Reason / Comment</b></span></td>
+								<td width="16%" align="center" bgcolor="#505050" style="background-color: #505050 !important; color: #FFFFFF !important; font-weight: bold; font-size: 11px; padding: 4px 4px; border: 1px solid #FAF0D7;"><span style="color: #FFFFFF !important;"><b>Added by</b></span></td>
+								<td width="8%" align="right" bgcolor="#505050" style="background-color: #505050 !important; color: #FFFFFF !important; font-weight: bold; font-size: 11px; padding: 4px 4px; border: 1px solid #FAF0D7;"><span style="color: #FFFFFF !important;"><b>&#160;</b></span></td>
+							</tr>
+							{% if bans|length > 0 %}
+								{% for ban in bans %}
+									<tr bgcolor="{{ getStyle(ban.i) }}">
+										<td align="center" style="vertical-align: middle; padding: 2px 0; border: 1px solid #FAF0D7;">
+											{% if ban.outfit %}
+												<img src="{{ ban.outfit }}" alt="" style="vertical-align: middle; max-height: 64px;"/>
+											{% else %}
+												<img src="images/monsters/bandit.gif" alt="" style="vertical-align: middle;"/>
+											{% endif %}
+										</td>
+										<td style="vertical-align: middle; padding: 6px; border: 1px solid #FAF0D7;">
+											{% if ban.is_account_number %}
+												<b style="color: #5A2800;">{{ ban.playerName }}</b>
+											{% else %}
+												<a href="{{ getLink('characters') }}/{{ ban.playerName }}" style="font-size: 12px; font-weight: bold; color: #004294;">{{ ban.playerName }}</a>
+											{% endif %}
+											{% if ban.playerLevel and ban.playerVocation %}
+												<br/><small style="color: #4A2500; font-size: 10px;">Level {{ ban.playerLevel }} - {{ ban.playerVocation }}</small>
+											{% endif %}
+											<br/><small style="color: #777; font-size: 9px;">World: {{ config.server_name|default('NosleiraOT') }}</small>
+										</td>
+										<td align="center" style="vertical-align: middle; padding: 6px; border: 1px solid #FAF0D7;">
+											<span style="background: {{ ban.type_badge_bg|default('#8B0000') }}; color: #FFFFFF; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 3px; display: inline-block; margin-bottom: 3px; border: 1px solid rgba(0,0,0,0.3);">
+												{{ ban.type_label }}
+											</span>
+											<br/>
+											{{ ban.status_badge|raw }}
+										</td>
+										<td align="center" style="vertical-align: middle; padding: 6px; font-size: 11px; border: 1px solid #FAF0D7;">
+											{% if ban.is_permanent %}
+												<b style="color: #990000;">Permanent</b>
+												<br/><small style="color: #666;">(Never)</small>
+											{% else %}
+												<b style="color: #201000;">{{ ban.expiresTime }}</b>
+												<br/><span style="color: #444; font-size: 10px;">{{ ban.expiresDate }}</span>
+												{% if ban.duration_label %}
+													<br/><small style="color: #8B0000; font-weight: bold; font-size: 9px;">{{ ban.duration_label }}</small>
+												{% endif %}
+											{% endif %}
+										</td>
+										<td style="vertical-align: middle; padding: 6px; font-size: 11px; color: #201000; word-break: break-word; border: 1px solid #FAF0D7;">
+											<b>{{ ban.reason }}</b>
+										</td>
+										<td align="center" style="vertical-align: middle; padding: 6px; font-size: 11px; border: 1px solid #FAF0D7;">
+											<span style="color: {{ ban.staff_color|default('#004294') }}; font-weight: bold;">
+												{{ ban.staff_tag }}{{ ban.staff_name }}
+											</span>
+											<br/>
+											<small style="color: #444; font-size: 10px;">
+												{{ ban.addedTime }}<br/>{{ ban.addedDate }}
+											</small>
+										</td>
+										<td align="right" style="vertical-align: middle; padding-right: 8px; border: 1px solid #FAF0D7;">
+											{% if ban.playerName and not ban.is_account_number %}
+												<form action="{{ getLink('characters') }}" method="post" style="margin: 0; padding: 0;">
+													{{ csrf() }}
+													<input type="hidden" name="name" value="{{ ban.playerName }}"/>
+													<input type="submit" value="View" style="background: #4B4B4B; color: #FFFFFF; font-weight: bold; font-size: 11px; border: 1px solid #222222; border-radius: 10px; padding: 2px 14px; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);"/>
+												</form>
+											{% endif %}
+										</td>
+									</tr>
+								{% endfor %}
+							{% else %}
+								<tr bgcolor="{{ getStyle(1) }}">
+									<td colspan="7" align="center" style="padding: 16px 10px; border: 1px solid #FAF0D7; vertical-align: middle;">
+										<div style="text-align: center; color: #5A2800; font-size: 11px; line-height: 1.6;">
+											<b style="color: #008000; font-size: 12px;">✔ Nenhum jogador ou conta banida no momento.</b>
+											<br/>
+											<span>Atualmente não há punições ativas registradas no servidor <b>{{ config.server_name|default('NosleiraOT') }}</b>. Todos os jogadores estão cumprindo as regras.</span>
+										</div>
+									</td>
+								</tr>
+							{% endif %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="TableShadowContainer">
+				<div class="TableBottomShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bm.gif);">
+					<div class="TableBottomLeftShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bl.gif);"></div>
+					<div class="TableBottomRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-br.gif);"></div>
+				</div>
+			</div>
 		</td>
 	</tr>
-	{% endfor %}
+	</tbody>
 </table>
-<table border="0" cellpadding="4" cellspacing="1" width="100%">
-{% if page > 1 %}
-	<tr><td width="100%" align="right" valign="bottom"><a href="{{ getLink('bans') }}/{{ (page - 1) }}" class="size_xxs">Previous Page</a></td></tr>
-{% endif %}
-{% if nextPage %}
-	<tr><td width="100%" align="right" valign="bottom"><a href="{{ getLink('bans') }}/{{ (page + 1) }}" class="size_xxs">Next Page</a></td></tr>
-{% endif %}
+
+{# Pagination Controls #}
+{% if page > 1 or nextPage %}
+<table border="0" cellpadding="4" cellspacing="1" width="100%" style="margin-top: 8px;">
+	<tr>
+		{% if page > 1 %}
+			<td width="50%" align="left">
+				<a href="{{ getLink('bans') }}?page={{ page - 1 }}" style="font-weight: bold; color: #004294; font-size: 11px;">&laquo; Previous Page</a>
+			</td>
+		{% else %}
+			<td width="50%"></td>
+		{% endif %}
+		{% if nextPage %}
+			<td width="50%" align="right">
+				<a href="{{ getLink('bans') }}?page={{ page + 1 }}" style="font-weight: bold; color: #004294; font-size: 11px;">Next Page &raquo;</a>
+			</td>
+		{% else %}
+			<td width="50%"></td>
+		{% endif %}
+	</tr>
 </table>
+{% endif %}
+{% endset %}
+
+{% include 'tables.headline.html.twig' with {'title': 'Banishments', 'content': content} %}

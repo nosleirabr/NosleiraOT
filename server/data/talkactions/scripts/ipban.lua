@@ -47,8 +47,12 @@ function onSay(player, words, param)
 	local targetPlayer = Player(name)
 	if targetPlayer then
 		targetIp = targetPlayer:getIp()
+		local tpos = targetPlayer:getPosition()
+		tpos:sendMagicEffect(CONST_ME_MORTAREA)
+		tpos:sendMagicEffect(CONST_ME_EXPLOSIONHIT)
 		targetPlayer:remove()
 	end
+	player:getPosition():sendMagicEffect(CONST_ME_MAGIC_RED)
 
 	if targetIp == 0 then
 		return false

@@ -56,7 +56,7 @@ docker compose exec myaac bash
 
 1. `docker compose up -d --build`
 2. Ports: 7171/7172 open, http://127.0.0.1:8080/ loads
-3. Login client: account `1`, password `admin123`
+3. Login client: account `1`, password `1`
 
 ## Troubleshooting
 

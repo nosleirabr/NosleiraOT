@@ -64,6 +64,54 @@ function onDeath(player, corpse, killer, mostDamageKiller, unjustified, mostDama
 	end
 
 	if byPlayer == 1 then
+		-- Verificação de banimento automático por excesso de frags (Regra Clássica 7.4: 6/dia, 10/semana, 20/mês)
+		if unjustified and killer and killer:isPlayer() then
+			local killerAccId = killer:getAccountId()
+			local escapedKiller = db.escapeString(killer:getName())
+
+			local q = db.storeQuery(string.format(
+				"SELECT " ..
+				"(SELECT COUNT(*) FROM `player_deaths` WHERE `killed_by` = %s AND `unjustified` = 1 AND `time` >= (UNIX_TIMESTAMP() - 86400)) as `daily`, " ..
+				"(SELECT COUNT(*) FROM `player_deaths` WHERE `killed_by` = %s AND `unjustified` = 1 AND `time` >= (UNIX_TIMESTAMP() - 604800)) as `weekly`, " ..
+				"(SELECT COUNT(*) FROM `player_deaths` WHERE `killed_by` = %s AND `unjustified` = 1 AND `time` >= (UNIX_TIMESTAMP() - 2592000)) as `monthly`",
+				escapedKiller, escapedKiller, escapedKiller
+			))
+
+			if q ~= false then
+				local d = result.getNumber(q, "daily")
+				local w = result.getNumber(q, "weekly")
+				local m = result.getNumber(q, "monthly")
+				result.free(q)
+
+				if d >= 6 or w >= 10 or m >= 20 then
+					local banDays = 7 -- 7 dias de banimento automático (padrão Tibia 7.4)
+					local banExpires = os.time() + (banDays * 86400)
+					local reason = string.format("Excessive unjustified player killing (%d in 24h, %d in 7d, %d in 30d)", d, w, m)
+
+					db.query(string.format(
+						"INSERT INTO `account_bans` (`account_id`, `reason`, `banned_at`, `expires_at`, `banned_by`) VALUES (%d, %s, %d, %d, 0) ON DUPLICATE KEY UPDATE `expires_at` = %d, `reason` = %s",
+						killerAccId, db.escapeString(reason), os.time(), banExpires, banExpires, db.escapeString(reason)
+					))
+
+					-- Transmissao global do banimento para todo o servidor ver
+					local broadcastMsg = string.format("Punicao Automatica: O jogador %s foi banido por %d dias. Motivo: Excesso de mortes injustificadas (%d em 24h, %d em 7d, %d em 30d).", killer:getName(), banDays, d, w, m)
+					Game.broadcastMessage(broadcastMsg, MESSAGE_STATUS_CONSOLE_ORANGE)
+					Game.broadcastMessage(broadcastMsg, MESSAGE_STATUS_WARNING)
+
+					addEvent(function()
+						Game.broadcastMessage(broadcastMsg, MESSAGE_STATUS_WARNING)
+					end, 3500)
+
+					addEvent(function()
+						Game.broadcastMessage(broadcastMsg, MESSAGE_STATUS_WARNING)
+					end, 7000)
+
+					killer:sendTextMessage(MESSAGE_STATUS_WARNING, "Sua conta foi banida por " .. banDays .. " dias por excesso de mortes injustificadas.")
+					killer:remove()
+				end
+			end
+		end
+
 		local targetGuild = player:getGuild()
 		targetGuild = targetGuild and targetGuild:getId() or 0
 		if targetGuild ~= 0 then

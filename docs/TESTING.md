@@ -49,4 +49,4 @@ Workflows em `.github/workflows/`. Jobs de PR/push na `main` rodam L1–L3 (e li
 docker compose up -d --build
 ```
 
-Portas: 7171/7172 (TFS), 8080 (site). Login dev: account `1` / `admin123` / character `Admin`.
+Portas: 7171/7172 (TFS), 8080 (site). Login dev: account `1` / `1` / character `[GOD] Nosleira`.

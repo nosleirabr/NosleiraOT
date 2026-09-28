@@ -77,4 +77,4 @@ docker compose up -d --build
 docker compose logs -f tfs
 ```
 
-Default dev login: account `1` / password `admin123` / character `Admin`.
+Default dev login: account `1` / password `1` / character `[GOD] Nosleira`.
