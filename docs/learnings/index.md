@@ -20,3 +20,5 @@ Reescrita da engine em **C# / .NET** (pipelines, EF Core, etc.) é visão de lon
 Páginas ingestidas: [`wiki/README.md`](wiki/README.md) · [`wiki/discord-repost-policy.md`](wiki/discord-repost-policy.md) · [`wiki/discord-admin-bypass.md`](wiki/discord-admin-bypass.md) · [`wiki/combat-boss-combos-74.md`](wiki/combat-boss-combos-74.md). Catálogo curto: este arquivo + `map-as-code.md` + `DICIONARIO_TECNICO.md`.
 
 - [combat-boss-combos-74](wiki/combat-boss-combos-74.md) | 7.4 monsters lacked exhaust; 2000ms overlap enabled lethal boss combos. User approved keeping it | combat, 7.4, orshabaal, mechanics | high | 2026-09-24 | user-discussion
+- [myaac-cache-clear-after-edit](wiki/myaac-cache-clear-after-edit.md) | Sempre limpar cache Twig + MyAAC após qualquer edição no site, senão o arquivo antigo continua sendo servido | cache, myaac, twig, site | high | 2026-09-28 | debug-session
+- [myaac-backup-before-edit](wiki/myaac-backup-before-edit.md) | Sempre fazer backup do arquivo original em .backup/ antes de editar; perguntar ao usuário se quer restaurar após cada edição | backup, site, myaac, restauração | high | 2026-09-28 | debug-session

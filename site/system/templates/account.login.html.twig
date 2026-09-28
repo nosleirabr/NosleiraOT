@@ -61,6 +61,18 @@ Please enter your account {{ account|lower }} and your password.<br/><a href="{{
 		</table>
 	</div>
 	<br/>
+
+	{% if config('cloudflare_turnstile_sitekey') %}
+	<table width="100%" style="margin-bottom: 10px;">
+		<tr align="center">
+			<td>
+				<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+				<div class="cf-turnstile" data-sitekey="{{ config('cloudflare_turnstile_sitekey') }}" data-theme="light"></div>
+			</td>
+		</tr>
+	</table>
+	{% endif %}
+
 	<table width="100%" >
 		<tr align="center">
 			<td>

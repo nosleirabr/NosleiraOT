@@ -57,6 +57,14 @@
 																	<label for="remember_me"> Remember me</label></td>
 															</tr>
 															{{ hook('HOOK_ACCOUNT_LOGIN_AFTER_REMEMBER_ME') }}
+															{% if config('cloudflare_turnstile_sitekey') %}
+															<tr>
+																<td colspan="2" align="center" style="padding-top: 10px;">
+																	<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+																	<div class="cf-turnstile" data-sitekey="{{ config('cloudflare_turnstile_sitekey') }}" data-theme="light"></div>
+																</td>
+															</tr>
+															{% endif %}
 														</table>
 													</td>
 													<td id="LoginFormButtonCell">

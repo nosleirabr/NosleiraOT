@@ -414,7 +414,79 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 		}
 	} catch(Exception $e) {}
 
+	$player_ranks = array();
+	$player_id = $player->getId();
+	if (!$player->isHidden() && !$player->isDeleted() && $player->getGroup()->getId() < 4) {
+		$cacheKey = 'player_top_ranks';
+		$cache = \MyAAC\Cache\Cache::getInstance();
+		$top_ranks = array();
+		if ($cache->enabled() && $cache->fetch($cacheKey, $tmp)) {
+			$top_ranks = unserialize($tmp);
+		} else {
+			$delCol = 'deleted';
+			if ($db->hasColumn('players', 'deletion')) $delCol = 'deletion';
+			
+			$q_lvl = $db->query("SELECT `id` FROM `players` WHERE `group_id` < 4 AND `$delCol` = 0 ORDER BY `level` DESC, `experience` DESC LIMIT 1");
+			$top_ranks['level'] = $q_lvl ? $q_lvl->fetchColumn() : null;
+			
+			$q_ml = $db->query("SELECT `id` FROM `players` WHERE `group_id` < 4 AND `$delCol` = 0 ORDER BY `maglevel` DESC, `manaspent` DESC LIMIT 1");
+			$top_ranks['ml'] = $q_ml ? $q_ml->fetchColumn() : null;
+			
+			$q_sword = $db->query("SELECT `id` FROM `players` WHERE `group_id` < 4 AND `$delCol` = 0 ORDER BY `skill_sword` DESC, `skill_sword_tries` DESC LIMIT 1");
+			$top_ranks['sword'] = $q_sword ? $q_sword->fetchColumn() : null;
+			
+			$q_axe = $db->query("SELECT `id` FROM `players` WHERE `group_id` < 4 AND `$delCol` = 0 ORDER BY `skill_axe` DESC, `skill_axe_tries` DESC LIMIT 1");
+			$top_ranks['axe'] = $q_axe ? $q_axe->fetchColumn() : null;
+			
+			$q_club = $db->query("SELECT `id` FROM `players` WHERE `group_id` < 4 AND `$delCol` = 0 ORDER BY `skill_club` DESC, `skill_club_tries` DESC LIMIT 1");
+			$top_ranks['club'] = $q_club ? $q_club->fetchColumn() : null;
+			
+			$q_fist = $db->query("SELECT `id` FROM `players` WHERE `group_id` < 4 AND `$delCol` = 0 ORDER BY `skill_fist` DESC, `skill_fist_tries` DESC LIMIT 1");
+			$top_ranks['fist'] = $q_fist ? $q_fist->fetchColumn() : null;
+			
+			$q_dist = $db->query("SELECT `id` FROM `players` WHERE `group_id` < 4 AND `$delCol` = 0 ORDER BY `skill_dist` DESC, `skill_dist_tries` DESC LIMIT 1");
+			$top_ranks['distance'] = $q_dist ? $q_dist->fetchColumn() : null;
+			
+			$q_shield = $db->query("SELECT `id` FROM `players` WHERE `group_id` < 4 AND `$delCol` = 0 ORDER BY `skill_shielding` DESC, `skill_shielding_tries` DESC LIMIT 1");
+			$top_ranks['shield'] = $q_shield ? $q_shield->fetchColumn() : null;
+			
+			$q_fish = $db->query("SELECT `id` FROM `players` WHERE `group_id` < 4 AND `$delCol` = 0 ORDER BY `skill_fishing` DESC, `skill_fishing_tries` DESC LIMIT 1");
+			$top_ranks['fish'] = $q_fish ? $q_fish->fetchColumn() : null;
+			
+			$q_ms = $db->query("SELECT `id` FROM `players` WHERE `vocation` IN (1, 5) AND `group_id` < 4 AND `$delCol` = 0 ORDER BY `level` DESC, `experience` DESC LIMIT 1");
+			$top_ranks['ms'] = $q_ms ? $q_ms->fetchColumn() : null;
+			
+			$q_ed = $db->query("SELECT `id` FROM `players` WHERE `vocation` IN (2, 6) AND `group_id` < 4 AND `$delCol` = 0 ORDER BY `level` DESC, `experience` DESC LIMIT 1");
+			$top_ranks['ed'] = $q_ed ? $q_ed->fetchColumn() : null;
+			
+			$q_rp = $db->query("SELECT `id` FROM `players` WHERE `vocation` IN (3, 7) AND `group_id` < 4 AND `$delCol` = 0 ORDER BY `level` DESC, `experience` DESC LIMIT 1");
+			$top_ranks['rp'] = $q_rp ? $q_rp->fetchColumn() : null;
+			
+			$q_ek = $db->query("SELECT `id` FROM `players` WHERE `vocation` IN (4, 8) AND `group_id` < 4 AND `$delCol` = 0 ORDER BY `level` DESC, `experience` DESC LIMIT 1");
+			$top_ranks['ek'] = $q_ek ? $q_ek->fetchColumn() : null;
+			
+			if ($cache->enabled()) {
+				$cache->set($cacheKey, serialize($top_ranks), 60);
+			}
+		}
+
+		if (isset($top_ranks['level']) && $top_ranks['level'] == $player_id) $player_ranks[] = array('title' => 'TOP LEVEL', 'offset' => 0);
+		if ($top_ranks['ml'] == $player_id) $player_ranks[] = array('title' => 'TOP ML', 'offset' => 84);
+		if ($top_ranks['sword'] == $player_id) $player_ranks[] = array('title' => 'TOP SWORD', 'offset' => 168);
+		if ($top_ranks['axe'] == $player_id) $player_ranks[] = array('title' => 'TOP AXE', 'offset' => 252);
+		if ($top_ranks['club'] == $player_id) $player_ranks[] = array('title' => 'TOP CLUB', 'offset' => 336);
+		if ($top_ranks['fist'] == $player_id) $player_ranks[] = array('title' => 'TOP FIST', 'offset' => 420);
+		if ($top_ranks['distance'] == $player_id) $player_ranks[] = array('title' => 'TOP DISTANCE', 'offset' => 504);
+		if ($top_ranks['shield'] == $player_id) $player_ranks[] = array('title' => 'TOP SHIELD', 'offset' => 588);
+		if ($top_ranks['fish'] == $player_id) $player_ranks[] = array('title' => 'TOP FISH', 'offset' => 672);
+		if ($top_ranks['ms'] == $player_id) $player_ranks[] = array('title' => 'TOP MS', 'offset' => 756);
+		if ($top_ranks['ed'] == $player_id) $player_ranks[] = array('title' => 'TOP ED', 'offset' => 840);
+		if ($top_ranks['rp'] == $player_id) $player_ranks[] = array('title' => 'TOP RP', 'offset' => 924);
+		if ($top_ranks['ek'] == $player_id) $player_ranks[] = array('title' => 'TOP EK', 'offset' => 1008);
+	}
+
 	$twig->display('characters.html.twig', array(
+		'player_ranks' => $player_ranks,
 		'outfit' => isset($outfit) ? $outfit : null,
 		'player' => $player,
 		'staff_banner' => $staff_banner,

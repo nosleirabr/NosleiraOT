@@ -155,3 +155,6 @@ server/config.lua
 node_modules/
 gitlog.txt
 
+
+# Backups locais do agente
+.backup/

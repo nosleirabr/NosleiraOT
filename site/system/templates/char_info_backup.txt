@@ -1,0 +1,161 @@
+{% set char_info_html %}
+		<div class="tibia-inner-frame">
+			<table border="0" cellspacing="1" cellpadding="4" width="100%">
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td width="20%">Name:</td>
+					<td>
+						<span style="color: {% if player.isOnline() %}green{% else %}red{% endif %}"><b>{{ player.getName() }}</b></span> {{ flag|raw }}{{ oldName }}
+						
+						{% set gname = player.getGroup().getName()|lower %}
+						{% set gid = player.getGroup().getId() %}
+						{% if gid > 1 or gname in ['administrador', 'god', 'admin', 'community manager', 'cm', 'gamemaster', 'gm', 'senior tutor', 'tutor'] %}
+							{% if gname == 'administrador' or gname == 'god' or gname == 'admin' %}
+								<span class="admin" style="color: #00A800; font-weight: bold; margin-left: 6px;">[Administrador]</span>
+							{% elseif gname == 'community manager' or gname == 'cm' %}
+								<span class="communitym" style="color: #E60000; font-weight: bold; margin-left: 6px;">[Community Manager]</span>
+							{% elseif gname == 'gamemaster' or gname == 'gm' %}
+								<span class="gms" style="color: #0066FF; font-weight: bold; margin-left: 6px;">[Gamemaster]</span>
+							{% elseif gname == 'senior tutor' %}
+								<span class="seniortutor" style="color: #E6A100; font-weight: bold; margin-left: 6px;">[Senior Tutor]</span>
+							{% elseif gname == 'tutor' %}
+								<span class="tutor" style="color: #9933FF; font-weight: bold; margin-left: 6px;">[Tutor]</span>
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
+
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Sex:</td>
+					<td>{{ sex }}</td>
+				</tr>
+
+				{% if marriage_enabled %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Marital status:</td>
+					<td>{{ marital_status }}</td>
+				</tr>
+				{% endif %}
+
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Profession:</td>
+					<td>{{ vocation }}</td>
+				</tr>
+
+				{% if config.characters.level %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Level:</td>
+					<td>{{ player.getLevel() }}</td>
+				</tr>
+				{% endif %}
+
+				{% if config.characters.experience %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Experience:</td>
+					<td>{{ player.getExperience()|number_format(0, '.', ',') }}</td>
+				</tr>
+				{% endif %}
+
+				{% if config.characters.magic_level %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Magic Level:</td>
+					<td>{{ player.getMagLevel() }}</td>
+				</tr>
+				{% endif %}
+
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Account Status:</td>
+					<td>{% if account.isPremium() %}Premium Account{% else %}Free Account{% endif %}</td>
+				</tr>
+
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Frags:</td>
+					<td>
+						Killed <b>{{ frags_count|default(0) }}</b> players
+						{% if skull is not null %}
+							<img src="images/{{ skull }}.gif" style="vertical-align: middle; margin-left: 4px;" alt="skull"/>
+						{% else %}
+							<img src="images/white_skull.gif" style="vertical-align: middle; margin-left: 4px;" alt="skull"/>
+						{% endif %}
+						{% if player.getSkull() == 4 %}
+							<span style="color: red; font-weight: bold; margin-left: 6px;">[Red Skull]</span>
+						{% elseif player.getSkull() == 5 %}
+							<span style="color: #990000; font-weight: bold; margin-left: 6px;">[Black Skull]</span>
+						{% endif %}
+					</td>
+				</tr>
+
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Residence:</td>
+					<td>{{ town }}</td>
+				</tr>
+
+				{% if house.found %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>House:</td>
+					<td>
+						<table border="0">
+							<tr>
+								<td>{{ house.name ~ house.town ~ house.add }}</td>
+								<td>
+									<form action="?subtopic=houses&page=view" method="post">
+										{{ csrf() }}
+										<input type="hidden" name="house" value="{{ house.name }}">
+										<input type="image" name="View" alt="View" src="{{ template_path }}/images/global/buttons/sbutton_view.gif" border="0" width="120">
+									</form>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				{% endif %}
+
+				{% if guild.rank is not null %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Guild membership:</td>
+					<td>{{ guild.rank }} of the {{ guild.link|raw }}</td>
+				</tr>
+				{% endif %}
+
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Last login:</td>
+					<td>{% if player.getLastLogin() == 0 %}Never logged in.{% else %}{{ player.getLastLogin()|date("M d Y, H:i:s") }} CEST{% endif %}</td>
+				</tr>
+
+				{% if config.characters.creation_date %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>Created:</td>
+					<td>
+						{{ player.getCreated()|date("M d Y, g:i a") }} CEST
+						{% if gm_ban_info is not null %}
+							<span style="color: red; font-weight: bold; margin-left: 8px;">
+								[Banished by GM {{ gm_ban_info.banned_by }}: {{ gm_ban_info.reason }} (Until: {{ gm_ban_info.expires_at }})]
+							</span>
+						{% endif %}
+					</td>
+				</tr>
+				{% endif %}
+
+				{% if comment is not null %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td valign="top">Comment:</td>
+					<td style="word-break: break-all">{{ comment|raw }}</td>
+				</tr>
+				{% endif %}
+			</table>
+		</div>
+		{% endset %}

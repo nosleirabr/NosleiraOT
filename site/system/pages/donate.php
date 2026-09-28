@@ -31,7 +31,24 @@ $login_error = '';
 if ((!isset($logged) || !$logged) && isset($_POST['account_login'], $_POST['password_login'])) {
     $login_account = trim($_POST['account_login']);
     $login_password = $_POST['password_login'];
-    if (!empty($login_account) && !empty($login_password)) {
+
+    // Validacao Cloudflare Turnstile - protege contra bots de forca bruta
+    $turnstileSecret = $config['cloudflare_turnstile_secret'] ?? '';
+    if (!empty($turnstileSecret)) {
+        $turnstileToken = $_POST['cf-turnstile-response'] ?? '';
+        $turnstileOk = false;
+        if (!empty($turnstileToken)) {
+            $verifyResp = @file_get_contents('https://challenges.cloudflare.com/turnstile/v0/siteverify', false, stream_context_create(['http' => ['method' => 'POST', 'header' => 'Content-Type: application/x-www-form-urlencoded', 'content' => http_build_query(['secret' => $turnstileSecret, 'response' => $turnstileToken, 'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '']), 'timeout' => 5]]));
+            if ($verifyResp !== false) {
+                $verifyData = json_decode($verifyResp, true);
+                $turnstileOk = !empty($verifyData['success']);
+            }
+        }
+        if (!$turnstileOk) {
+            $login_error = 'Verificacao de seguranca falhou. Por favor, tente novamente.';
+        }
+    }
+    if (empty($login_error) && !empty($login_account) && !empty($login_password)) {
         $acc_check = new OTS_Account();
         if (defined('USE_ACCOUNT_NAME') && USE_ACCOUNT_NAME) {
             $acc_check->find($login_account);
@@ -125,6 +142,14 @@ if (!isset($logged) || !$logged || !isset($account_logged) || !$account_logged |
                                                 <input type="password" name="password_login" required autocomplete="current-password" placeholder="" style="width: 100%; box-sizing: border-box; padding: 11px 14px; font-size: 14px; font-family: 'Inter', sans-serif; border: 1px solid #b89a72; border-radius: 6px; background: #ffffff; color: #2b1704; outline: none; transition: all 0.2s ease; box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);" onfocus="this.style.borderColor='#8b0000'; this.style.boxShadow='0 0 0 3.5px rgba(139,0,0,0.15)';" onblur="this.style.borderColor='#b89a72'; this.style.boxShadow='inset 0 1px 3px rgba(0,0,0,0.06)';" />
                                             </div>
 
+
+                                            <?php if (!empty($config['cloudflare_turnstile_sitekey'])): ?>
+                                            <!-- Cloudflare Turnstile CAPTCHA anti-bot -->
+                                            <div style="margin-bottom: 18px; display: flex; justify-content: center;">
+                                                <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+                                                <div class="cf-turnstile" data-sitekey="<?php echo htmlspecialchars($config['cloudflare_turnstile_sitekey']); ?>" data-theme="light"></div>
+                                            </div>
+                                            <?php endif; ?>
                                             <!-- Bot�o de Submiss�o -->
                                             <button type="submit" style="width: 100%; padding: 13px 20px; font-family: 'Cinzel', Georgia, serif; font-size: 15px; font-weight: 800; color: #ffffff; background: linear-gradient(180deg, #34d399 0%, #059669 50%, #047857 100%); border: 1px solid #064e3b; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 14px rgba(4, 120, 87, 0.35), inset 0 1px 0 rgba(255,255,255,0.4); text-shadow: 0 1px 2px rgba(0,0,0,0.5); transition: all 0.2s ease-in-out;" onmouseover="this.style.background='linear-gradient(180deg, #4ade80 0%, #10b981 50%, #059669 100%)'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='linear-gradient(180deg, #34d399 0%, #059669 50%, #047857 100%)'; this.style.transform='translateY(0)';" onmousedown="this.style.transform='translateY(1px)';">
                                                 ENTRAR E ACESSAR DOA&Ccedil;&Atilde;O &rarr;
