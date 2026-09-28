@@ -3,6 +3,27 @@
 
 {# Compensa o margin-left:3px do .InnerTableContainer (Table3 do tibiacom): sem isso o conteudo vaza na borda direita. O margin-right:6px deixa 3px de respiro igual ao lado esquerdo. #}
 <div style="margin-right: 6px;">
+<style>
+.TableContainer .Table3 {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #000;
+}
+.Table3 th {
+    background-color: #505050;
+    color: #fff;
+    padding: 5px;
+    text-align: left;
+    font-weight: bold;
+    border: 1px solid #faf0d7;
+}
+.Table3 td {
+    border: 1px solid #faf0d7;
+    padding: 4px;
+}
+.row-odd td { background-color: #D4C0A1; }
+.row-even td { background-color: #F1E0C6; }
+</style>
 
 <div style="background-color: #f1e2c3; border: 1px solid #7E3B00; border-radius: 0; padding: 15px; margin-bottom: 15px; text-align: center; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); box-sizing: border-box;">
 	<h2 style="color: #A65200; font-size: 16px; margin: 0 0 10px 0; font-family: Tahoma, sans-serif;">
@@ -22,18 +43,29 @@
 {% for group in groupmember|reverse %}
 	{% if group.members is not empty %}
 	
-	<div style="text-align: center; margin-top: 15px; margin-bottom: 5px; box-sizing: border-box;">
-		<h2 style="color: #FFD700; font-weight: bold; font-size: 13px; margin: 0; padding: 0; font-family: Tahoma, sans-serif; text-shadow: 1px 1px 1px #000;">✦ {{ group.group_name|upper }} ✦</h2>
-	</div>
+<div class="TableContainer" style="margin-bottom: 15px;">
+    <div class="CaptionContainer">
+        <div class="CaptionInnerContainer">
+            <span class="CaptionEdgeLeftTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
+            <div class="Text">{{ group.group_name|capitalize }}</div>
+            <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
+            <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
+            <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+            <span class="CaptionEdgeRightBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
+        </div>
+    </div>
 
-	<table cellspacing="0" cellpadding="4" border="0" width="100%" style="border-collapse: separate; border-spacing: 0; border: 1px solid #7E3B00; border-radius: 0; overflow: hidden; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); margin-bottom: 20px; background-color: #F1E0C6; box-sizing: border-box;">
-		<tr style="background: linear-gradient(to bottom, #4E4E4E, #2E2E2E); font-size: 11px; font-weight: bold; border-bottom: 2px solid #111;">
-			<td width="30%" style="padding: 6px 10px; border-bottom: 2px solid #222; color: #FFFFFF; text-shadow: 1px 1px 1px #000;">Group</td>
-			<td width="30%" style="padding: 6px 10px; border-bottom: 2px solid #222; color: #FFFFFF; text-shadow: 1px 1px 1px #000;">Name</td>
-			<td width="15%" style="padding: 6px 10px; border-bottom: 2px solid #222; color: #FFFFFF; text-shadow: 1px 1px 1px #000;">World</td>
-			<td width="15%" style="padding: 6px 10px; border-bottom: 2px solid #222; color: #FFFFFF; text-shadow: 1px 1px 1px #000;">Ultimo Acesso</td>
-			<td width="10%" style="padding: 6px 10px; border-bottom: 2px solid #222; color: #FFFFFF; text-shadow: 1px 1px 1px #000;">Status</td>
-		</tr>
+	<table class="Table3" cellpadding="4" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+    <tr>
+        <th width="30%">Group</th>
+        <th width="30%">Name</th>
+        <th width="15%">World</th>
+        <th width="15%">Ultimo Acesso</th>
+        <th width="10%">Status</th>
+    </tr>
 
 		{% for member in group.members %}
 		{% set i = i + 1 %}
@@ -89,7 +121,7 @@
 			</td>
 
 			<td style="vertical-align: middle;">
-				<span style="color: #000; font-size: 10px; font-weight: bold;" title="{{ member.last_login }}">
+				<span style="color: #004294; border-bottom: 1px dotted #888; cursor: help;" title="{{ member.last_login }}">
 					{% if member.last_login == 'Never.' or member.last_login == 'Never logged in.' %}
 						Never.
 					{% else %}
@@ -113,6 +145,7 @@
 		</tr>
 		{% endfor %}
 	</table>
+	</div>
 	{% endif %}
 {% endfor %}
 
@@ -120,3 +153,18 @@
 
 {% endset %}
 {% include 'tables.headline.html.twig' with {'title': title, 'content': content} %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
