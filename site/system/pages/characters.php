@@ -47,7 +47,7 @@ if(isset($_REQUEST['name']))
 
 if(empty($name))
 {
-	echo 'Here you can get detailed information about a certain player on ' . $config['lua']['serverName'] . '.<br/>';
+	echo '<div style="margin-bottom: 8px; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; color: #5A2800;">Here you can get detailed information about a certain player on NosleiraOT.</div>';
 	echo generate_search_form(true);
 	return;
 }
