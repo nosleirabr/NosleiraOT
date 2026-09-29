@@ -1621,12 +1621,12 @@ function changeLanguage(lang) {
                                                                     .nosleira-custom-select-wrap {
                                                                         position: relative;
                                                                         flex: 1;
-                                                                        min-width: 330px;
-                                                                        max-width: 500px;
+                                                                        min-width: 340px;
+                                                                        max-width: 540px;
                                                                         font-family: Arial, sans-serif;
                                                                     }
                                                                     .nosleira-select-trigger {
-                                                                        padding: 8px 14px;
+                                                                        padding: 9px 14px;
                                                                         font-size: 13px;
                                                                         font-weight: 600;
                                                                         color: #2b1704;
@@ -1640,6 +1640,7 @@ function changeLanguage(lang) {
                                                                         justify-content: space-between;
                                                                         user-select: none;
                                                                         transition: border-color 0.2s, box-shadow 0.2s;
+                                                                        min-height: 46px;
                                                                     }
                                                                     .nosleira-select-trigger:hover, .nosleira-select-trigger.active {
                                                                         border-color: #6d4214 !important;
@@ -1673,23 +1674,31 @@ function changeLanguage(lang) {
                                                                     .nosleira-select-item.selected {
                                                                         background: #ecdcc6 !important;
                                                                     }
+                                                                    /* Layout em 2 linhas: cabeçalho e rodapé de preço */
                                                                     .nosleira-select-item-content {
                                                                         display: flex;
-                                                                        align-items: center;
-                                                                        justify-content: space-between;
+                                                                        flex-direction: column;
+                                                                        gap: 4px;
                                                                         width: 100%;
-                                                                        gap: 12px;
                                                                     }
-                                                                    .nosleira-select-left {
+                                                                    /* Linha 1: estrela + nome do plano + duração */
+                                                                    .nosleira-select-top {
                                                                         display: flex;
                                                                         align-items: center;
-                                                                        gap: 7px;
-                                                                        white-space: nowrap;
+                                                                        gap: 6px;
+                                                                    }
+                                                                    /* Linha 2: preços + badge alinhados à esquerda */
+                                                                    .nosleira-select-bottom {
+                                                                        display: flex;
+                                                                        align-items: center;
+                                                                        gap: 8px;
+                                                                        padding-left: 20px;
                                                                     }
                                                                     .nosleira-star-icon {
                                                                         color: #926425;
                                                                         font-size: 13px;
                                                                         line-height: 1;
+                                                                        flex-shrink: 0;
                                                                     }
                                                                     .nosleira-plan-title {
                                                                         color: #2b1704;
@@ -1702,12 +1711,6 @@ function changeLanguage(lang) {
                                                                         color: #7d6954;
                                                                         font-size: 11.5px;
                                                                         font-weight: 500;
-                                                                    }
-                                                                    .nosleira-select-right {
-                                                                        display: flex;
-                                                                        align-items: center;
-                                                                        gap: 8px;
-                                                                        white-space: nowrap;
                                                                     }
                                                                     .nosleira-plan-price {
                                                                         color: #3b1e06;
@@ -1733,7 +1736,6 @@ function changeLanguage(lang) {
                                                                         font-size: 11.5px;
                                                                         text-decoration: line-through;
                                                                         letter-spacing: 0.1px;
-                                                                        margin-right: 3px;
                                                                         opacity: 0.8;
                                                                     }
                                                                     /* Preço com desconto PIX — verde escuro sóbrio */
@@ -1933,15 +1935,15 @@ function changeLanguage(lang) {
                                                                         priceHtml = '<span class="nosleira-plan-price">' + item.price + '</span>';
                                                                     }
                                                                     return '<div class="nosleira-select-item-content">' +
-                                                                        '<div class="nosleira-select-left">' +
-                                                                            '<span class="nosleira-star-icon">★</span>' +
-                                                                            '<span class="nosleira-plan-title">' + item.title + '</span>' +
-                                                                            '<span class="nosleira-plan-days">(' + item.duration + ')</span>' +
-                                                                        '</div>' +
-                                                                        '<div class="nosleira-select-right">' +
+                                                                        '\u003cdiv class="nosleira-select-top"\u003e' +
+                                                                            '\u003cspan class="nosleira-star-icon"\u003e\u2605\u003c/span\u003e' +
+                                                                            '\u003cspan class="nosleira-plan-title"\u003e' + item.title + '\u003c/span\u003e' +
+                                                                            '\u003cspan class="nosleira-plan-days"\u003e(' + item.duration + ')\u003c/span\u003e' +
+                                                                        '\u003c/div\u003e' +
+                                                                        '\u003cdiv class="nosleira-select-bottom"\u003e' +
                                                                             priceHtml +
                                                                             badgeHtml +
-                                                                        '</div>' +
+                                                                        '\u003c/div\u003e' +
                                                                     '</div>';
                                                                 }
 
