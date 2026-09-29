@@ -159,7 +159,7 @@ foreach ($rawBans as $ban) {
 	}
 
 	// Datas e Expiração
-	$addedDate = date('d.M.Y', $bannedAt);
+	$addedDate = format_date_br($bannedAt);
 	$addedTime = date('H:i:s', $bannedAt);
 
 	$isPermanent = ($expiresAt === -1 || $expiresAt >= 2000000000);
@@ -169,25 +169,25 @@ foreach ($rawBans as $ban) {
 	$statusBadge = '';
 
 	if ($isPermanent) {
-		$expiresDate = 'Permanent';
-		$expiresTime = 'Never';
-		$statusBadge = '<span style="background: #7B1113; color: #FFFFFF; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 3px; display: inline-block;">Permanent</span>';
+		$expiresDate = 'Permanente';
+		$expiresTime = 'Nunca';
+		$statusBadge = '<span style="background: #7B1113; color: #FFFFFF; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 3px; display: inline-block;">Permanente</span>';
 	} else {
-		$expiresDate = date('d.M.Y', $expiresAt);
+		$expiresDate = format_date_br($expiresAt);
 		$expiresTime = date('H:i:s', $expiresAt);
 		$diff = $expiresAt - time();
 		if ($diff > 0) {
 			$days = ceil($diff / 86400);
 			if ($days > 1) {
-				$durationLabel = $days . ' days remaining';
+				$durationLabel = $days . ' dias restantes';
 			} else {
 				$hours = max(1, ceil($diff / 3600));
-				$durationLabel = $hours . ' hr' . ($hours > 1 ? 's' : '') . ' remaining';
+				$durationLabel = $hours . ' hora' . ($hours > 1 ? 's' : '') . ' restante' . ($hours > 1 ? 's' : '');
 			}
-			$statusBadge = '<span style="background: #C0392B; color: #FFFFFF; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 3px; display: inline-block;">Active</span>';
+			$statusBadge = '<span style="background: #C0392B; color: #FFFFFF; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 3px; display: inline-block;">Ativo</span>';
 		} else {
-			$durationLabel = 'Expired';
-			$statusBadge = '<span style="background: #7F8C8D; color: #FFFFFF; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 3px; display: inline-block;">Expired</span>';
+			$durationLabel = 'Expirado';
+			$statusBadge = '<span style="background: #7F8C8D; color: #FFFFFF; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 3px; display: inline-block;">Expirado</span>';
 		}
 	}
 

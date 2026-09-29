@@ -4,26 +4,27 @@ local events = {
 	'DropLoot'
 }
 
+-- Formatação de data em português para a mensagem de boas-vindas
+local function formatPortugueseDate(timestamp)
+	local months = {
+		[1] = "janeiro", [2] = "fevereiro", [3] = "março", [4] = "abril",
+		[5] = "maio", [6] = "junho", [7] = "julho", [8] = "agosto",
+		[9] = "setembro", [10] = "outubro", [11] = "novembro", [12] = "dezembro"
+	}
+	local t = os.date("*t", timestamp)
+	local monthName = months[t.month] or "janeiro"
+	return string.format("%d de %s de %04d às %02d:%02d:%02d", t.day, monthName, t.year, t.hour, t.min, t.sec)
+end
+
 function onLogin(player)
+	local serverName = configManager.getString(configKeys.SERVER_NAME)
 	local loginStr = ""
-	local timeZone = ""
 
 	if player:getLastLoginSaved() <= 0 then
-		loginStr = "Welcome to " .. configManager.getString(configKeys.SERVER_NAME) .. "!"
-		loginStr = loginStr .. " Please choose your outfit."
+		loginStr = string.format("Bem-vindo ao %s! Por favor, escolha seu outfit.", serverName)
 		player:sendOutfitWindow()
 	else
-		if loginStr ~= "" then
-			player:sendTextMessage(MESSAGE_STATUS_DEFAULT, loginStr)
-		end
-
-		if os.date("%Z").isdst ~= nil then
-			timeZone = "CET"
-		else
-			timeZone = "CEST"
-		end
-
-		loginStr = string.format("Welcome to " .. configManager.getString(configKeys.SERVER_NAME) .. "! Your last visit was on %s " .. timeZone .. ".", os.date("%d. %b %Y %X", player:getLastLoginSaved()))
+		loginStr = string.format("Bem-vindo ao %s! Sua última visita foi em %s.", serverName, formatPortugueseDate(player:getLastLoginSaved()))
 	end
 	player:sendTextMessage(MESSAGE_STATUS_DEFAULT, loginStr)
 

@@ -179,10 +179,11 @@ if($save)
 		}
 	}
 
+	if(!isset($_POST['accept_age']) || $_POST['accept_age'] !== 'true')
+		$errors['accept_age'] = 'Você precisa confirmar que tem 18 anos ou mais para criar uma conta!';
+
 	if(!isset($_POST['accept_rules']) || $_POST['accept_rules'] !== 'true')
-		$errors['accept_rules'] = 'You have to agree to the ' . $config['lua']['serverName'] . ' Rules in order to create an account!';
-
-
+		$errors['accept_rules'] = 'Você precisa aceitar as Regras do Jogo, Termos de Serviço e Política de Privacidade para criar uma conta!';
 
 	$params = array(
 		'account' => $account_db,
@@ -191,7 +192,7 @@ if($save)
 		'password' => $password,
 		'password_confirm' => $password_confirm,
 		'accept_rules' => isset($_POST['accept_rules']) ? $_POST['accept_rules'] === 'true' : false,
-
+		'accept_age' => isset($_POST['accept_age']) ? $_POST['accept_age'] === 'true' : false,
 	);
 
 	if (!config('account_login_by_email')) {
@@ -404,6 +405,7 @@ $params = array(
 	'email' => isset($_POST['email']) ? $_POST['email'] : '',
 	'countries' => isset($countries) ? $countries : null,
 	'accept_rules' => isset($_POST['accept_rules']) ? $_POST['accept_rules'] : false,
+	'accept_age' => isset($_POST['accept_age']) ? $_POST['accept_age'] : false,
 
 	'country_recognized' => $country_recognized,
 	'country' => isset($country) ? $country : null,

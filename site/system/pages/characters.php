@@ -411,7 +411,7 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 						}
 					}
 				}
-				$expText = ($pBan['expires_at'] == -1 || $pBan['expires_at'] >= 2000000000) ? 'Permanent' : date('d.M.Y H:i:s', $pBan['expires_at']);
+				$expText = ($pBan['expires_at'] == -1 || $pBan['expires_at'] >= 2000000000) ? 'Permanente' : format_date_br($pBan['expires_at'], true);
 				$gm_ban_info = [
 					'banned_by' => $staffName,
 					'role_color' => $staffColor,
@@ -440,7 +440,7 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 						}
 					}
 				}
-				$expText = ($aBan['expires_at'] == -1 || $aBan['expires_at'] >= 2000000000) ? 'Permanent' : date('d.M.Y H:i:s', $aBan['expires_at']);
+				$expText = ($aBan['expires_at'] == -1 || $aBan['expires_at'] >= 2000000000) ? 'Permanente' : format_date_br($aBan['expires_at'], true);
 				$gm_ban_info = [
 					'banned_by' => $staffName,
 					'role_color' => $staffColor,

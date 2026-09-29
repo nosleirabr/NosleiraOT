@@ -50,11 +50,11 @@
 										</td>
 										<td align="center" style="vertical-align: middle; padding: 6px; font-size: 11px; border: 1px solid #FAF0D7;">
 											{% if ban.is_permanent %}
-												<b style="color: #990000;">Permanent</b>
-												<br/><small style="color: #666;">(Never)</small>
+												<b style="color: #990000;">Permanente</b>
+												<br/><small style="color: #666;">(Nunca)</small>
 											{% else %}
-												<b style="color: #201000;">{{ ban.expiresTime }}</b>
-												<br/><span style="color: #444; font-size: 10px;">{{ ban.expiresDate }}</span>
+												<b style="color: #201000;">{{ ban.expiresDate }}</b>
+												<br/><span style="color: #444; font-size: 10px;">{{ ban.expiresTime }}</span>
 												{% if ban.duration_label %}
 													<br/><small style="color: #8B0000; font-weight: bold; font-size: 9px;">{{ ban.duration_label }}</small>
 												{% endif %}
@@ -69,7 +69,7 @@
 											</span>
 											<br/>
 											<small style="color: #444; font-size: 10px;">
-												{{ ban.addedTime }}<br/>{{ ban.addedDate }}
+												{{ ban.addedDate }}<br/>{{ ban.addedTime }}
 											</small>
 										</td>
 										<td align="right" style="vertical-align: middle; padding-right: 8px; border: 1px solid #FAF0D7;">

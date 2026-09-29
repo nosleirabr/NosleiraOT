@@ -1,15 +1,22 @@
 --[[
 	Talkaction: /unban
-	Remove o banimento do jogador (player ban), da conta (account ban) e do IP,
-	exibindo mensagem formatada e efeito mágico verde de restauração.
+	Remove o banimento do jogador (player ban), da conta (account ban) e do IP.
+	Apenas GMs (4), CMs (5) e GODs (6) podem executar este comando.
+	A notificacao de desbanimento e PRIVADA (apenas o executor/staff veem).
 ]]
 
+local function trim(s)
+	return (s:gsub("^%s*(.-)%s*$", "%1"))
+end
+
 function onSay(player, words, param)
-	if not player:getGroup():getAccess() then
-		return true
+	local gid = player:getGroup():getId()
+	if gid < 4 and not player:getGroup():getAccess() then
+		player:sendCancelMessage("Apenas GMs, CMs e GODs tem permissao para desbanir.")
+		return false
 	end
 
-	param = string.trim(param)
+	param = trim(param)
 	if param == "" then
 		player:sendCancelMessage("Uso do comando: /unban NomeDoJogador (ou /unban NumeroDaConta)")
 		return false
@@ -28,7 +35,7 @@ function onSay(player, words, param)
 		charName = result.getDataString(resultId, "name")
 		result.free(resultId)
 	elseif accountId and accountId > 0 then
-		-- Foi passado ID numérico da conta
+		-- Foi passado ID numerico da conta
 		local pQuery = db.storeQuery("SELECT `id`, `lastip`, `name` FROM `players` WHERE `account_id` = " .. accountId .. " LIMIT 1")
 		if pQuery ~= false then
 			targetGuid = result.getDataInt(pQuery, "id")
@@ -73,22 +80,9 @@ function onSay(player, words, param)
 		end
 	end
 
-	-- Efeito mágico verde no Staff
-	local pos = player:getPosition()
-	pos:sendMagicEffect(CONST_ME_MAGIC_GREEN)
-	pos:sendMagicEffect(CONST_ME_GREEN_RINGS)
-
-	-- Se o jogador estiver online, envia efeito nele também
-	local target = Player(charName)
-	if target ~= nil then
-		target:getPosition():sendMagicEffect(CONST_ME_MAGIC_GREEN)
-		target:getPosition():sendMagicEffect(CONST_ME_GREEN_RINGS)
-	end
-
-	-- Mensagem de confirmação
+	-- Mensagem de confirmacao PRIVADA (apenas para o Staff executor)
 	player:sendTextMessage(MESSAGE_STATUS_CONSOLE_ORANGE, string.format("[UNBAN] O jogador / conta '%s' foi desbanido com sucesso!", charName))
-	player:sendTextMessage(MESSAGE_INFO_DESCR, string.format("O jogador '%s' foi desbanido.", charName))
-	player:sendTextMessage(MESSAGE_STATUS_WARNING, string.format("Jogador '%s' foi desbanido com sucesso!", charName))
+	player:sendTextMessage(MESSAGE_STATUS_WARNING, string.format("Jogador / Conta '%s' foi desbanido com sucesso!", charName))
 
 	return false
 end

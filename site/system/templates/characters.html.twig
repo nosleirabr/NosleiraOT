@@ -203,7 +203,7 @@
 				{% set rows = rows + 1 %}
 				<tr bgcolor="{{ getStyle(rows) }}">
 					<td>Last login:</td>
-					<td>{% if player.getLastLogin() == 0 %}Never logged in.{% else %}{{ player.getLastLogin()|date("j F Y, g:i a") }}{% endif %}</td>
+					<td>{% if player.getLastLogin() == 0 %}Never logged in.{% else %}{{ player.getLastLogin()|date_br(true) }}{% endif %}</td>
 				</tr>
 
 				{% set rows = rows + 1 %}
@@ -217,7 +217,7 @@
 				<tr bgcolor="{{ getStyle(rows) }}">
 					<td>Created:</td>
 					<td>
-						{% if player.getCreated() > 0 %}{{ player.getCreated()|date("M d Y, g:i a") }} CEST{% else %}Unknown{% endif %}
+						{% if player.getCreated() > 0 %}{{ player.getCreated()|date_br(true) }}{% else %}Unknown{% endif %}
 						{% if gm_ban_info is not null %}
 							<span style="color: #990000; font-weight: bold; margin-left: 8px;">
 								Banished by <span style="color: {{ gm_ban_info.role_color|default('#0066FF') }}">{{ gm_ban_info.banned_by }}</span>: {{ gm_ban_info.reason }} (Until: {{ gm_ban_info.expires_at }})
@@ -293,7 +293,7 @@
 							{% for frag in frags_justified %}
 								{% set i = i + 1 %}
 								<tr bgcolor="{{ getStyle(i) }}">
-									<td width="25%" align="center" style="font-size: 11px; border: 1px solid #FAF0D7; vertical-align: middle;">{{ frag.time|date("j M Y, H:i") }}</td>
+									<td width="25%" align="center" style="font-size: 11px; border: 1px solid #FAF0D7; vertical-align: middle;">{{ frag.time|date_br(true) }}</td>
 									<td style="font-size: 11px; border: 1px solid #FAF0D7; vertical-align: middle;">{{ frag.description|raw }}</td>
 								</tr>
 							{% endfor %}
@@ -319,7 +319,7 @@
 							{% for frag in frags_unjustified %}
 								{% set i = i + 1 %}
 								<tr bgcolor="{{ getStyle(i) }}">
-									<td width="25%" align="center" style="font-size: 11px; border: 1px solid #FAF0D7; vertical-align: middle;">{{ frag.time|date("j M Y, H:i") }}</td>
+									<td width="25%" align="center" style="font-size: 11px; border: 1px solid #FAF0D7; vertical-align: middle;">{{ frag.time|date_br(true) }}</td>
 									<td style="font-size: 11px; border: 1px solid #FAF0D7; vertical-align: middle;">{{ frag.description|raw }}</td>
 								</tr>
 							{% endfor %}
@@ -362,7 +362,7 @@
 				{% for death in deaths %}
 				{% set i = i + 1 %}
 				<tr bgcolor="{{ getStyle(i) }}">
-					<td width="20%" align="center">{{ death.time|date("j M Y,") }}<br/>{{ death.time|date("H:i") }}</td>
+					<td width="25%" align="center" style="font-size: 11px;">{{ death.time|date_br(true) }}</td>
 					<td>{{ death.description|raw }}</td>
 				</tr>
 				{% endfor %}
@@ -542,7 +542,7 @@
 				<tr bgcolor="{{ getStyle(rows) }}">
 					<td width="20%">Created:</td>
 					<td>
-						{% if account.getCreated() > 0 %}{{ account.getCreated()|date("j F Y, g:i a") }}{% else %}Unknown{% endif %}
+						{% if account.getCreated() > 0 %}{{ account.getCreated()|date_br(true) }}{% else %}Unknown{% endif %}
 					</td>
 				</tr>
 			</table>

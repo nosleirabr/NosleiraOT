@@ -1,7 +1,8 @@
 --[[
 	Talkaction: /accban ou /banacc
 	Bane a CONTA INTEIRA do jogador permanentemente. 
-	Apenas GMs, CMs e GODs podem executar este comando.
+	Apenas GMs (4), CMs (5) e GODs (6) podem executar este comando.
+	A notificacao deste banimento e EXCLUSIVA para a Staff (Tutors, ST, GMs, CMs, GODs).
 ]]
 
 local function trim(s)
@@ -15,6 +16,18 @@ local function splitTrimmed(str, sep)
 		table.insert(result, trim(match))
 	end
 	return result
+end
+
+local function sendStaffWarning(msg, alsoConsole)
+	for _, p in ipairs(Game.getPlayers()) do
+		local g = p:getGroup()
+		if g and (g:getId() >= 2 or g:getAccess()) then
+			if alsoConsole then
+				p:sendTextMessage(MESSAGE_STATUS_CONSOLE_ORANGE, msg)
+			end
+			p:sendTextMessage(MESSAGE_STATUS_WARNING, msg)
+		end
+	end
 end
 
 function onSay(player, words, param)
@@ -58,15 +71,12 @@ function onSay(player, words, param)
 	local reason = params[2] or "Violacao grave das regras do servidor (Conta Banida)"
 
 	local timeNow = os.time()
-	local timeExpire = -1 -- Permanente (ate o Staff desbanir)
+	local timeExpire = -1 -- Permanente (ate o Staff desbanir manualmente)
 
 	db.query(string.format(
 		"INSERT INTO `account_bans` (`account_id`, `reason`, `banned_at`, `expires_at`, `banned_by`) VALUES (%d, %s, %d, %d, %d)",
 		accountId, db.escapeString(reason), timeNow, timeExpire, player:getGuid()
 	))
-
-	-- Efeito magico vermelho no Staff executor
-	player:getPosition():sendMagicEffect(CONST_ME_MAGIC_RED)
 
 	-- Desconectar todos os jogadores online dessa conta
 	local accPlayers = db.storeQuery("SELECT `name` FROM `players` WHERE `account_id` = " .. accountId)
@@ -76,7 +86,7 @@ function onSay(player, words, param)
 			local pObj = Player(pName)
 			if pObj ~= nil then
 				local tpos = pObj:getPosition()
-				tpos:sendMagicEffect(CONST_ME_MORTAREA)
+				tpos:sendMagicEffect(CONST_ME_FIREAREA)
 				tpos:sendMagicEffect(CONST_ME_EXPLOSIONHIT)
 				pObj:sendTextMessage(MESSAGE_STATUS_WARNING, "Sua conta foi banida permanentemente. Motivo: " .. reason)
 				pObj:remove()
@@ -85,19 +95,18 @@ function onSay(player, words, param)
 		result.free(accPlayers)
 	end
 
-	-- Mensagem de anuncio para todo o servidor em destaque e laranja (sem caracteres especiais)
-	local broadcastMsg = string.format("Punicao: %s baniu a CONTA do jogador %s permanentemente. Motivo: %s.", player:getName(), charName, reason)
+	-- Mensagem de aviso EXCLUSIVA para a Staff (Tutors, Senior Tutors, GMs, CMs e GODs)
+	local staffMsg = string.format("[STAFF] Punicao: %s baniu a CONTA do jogador %s permanentemente. Motivo: %s.", player:getName(), charName, reason)
 	
-	Game.broadcastMessage(broadcastMsg, MESSAGE_STATUS_CONSOLE_ORANGE)
-	Game.broadcastMessage(broadcastMsg, MESSAGE_STATUS_WARNING)
+	sendStaffWarning(staffMsg, true)
 
-	-- Repetir para permanecer cerca de 10 segundos na tela de todos
+	-- Repetir em destaque na tela apenas para a Staff por cerca de 10 segundos
 	addEvent(function()
-		Game.broadcastMessage(broadcastMsg, MESSAGE_STATUS_WARNING)
+		sendStaffWarning(staffMsg, false)
 	end, 3500)
 
 	addEvent(function()
-		Game.broadcastMessage(broadcastMsg, MESSAGE_STATUS_WARNING)
+		sendStaffWarning(staffMsg, false)
 	end, 7000)
 
 	return false

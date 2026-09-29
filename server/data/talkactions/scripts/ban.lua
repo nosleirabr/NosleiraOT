@@ -102,9 +102,6 @@ function onSay(player, words, param)
 		targetGuid, db.escapeString(reason), timeNow, timeExpire, player:getGuid()
 	))
 
-	-- Efeito magico vermelho no Staff executor
-	player:getPosition():sendMagicEffect(CONST_ME_MAGIC_RED)
-
 	local durationText = ""
 	if isPermanent then
 		durationText = "permanentemente"
@@ -117,7 +114,7 @@ function onSay(player, words, param)
 	local target = Player(name)
 	if target ~= nil then
 		local tpos = target:getPosition()
-		tpos:sendMagicEffect(CONST_ME_MORTAREA)
+		tpos:sendMagicEffect(CONST_ME_FIREAREA)
 		tpos:sendMagicEffect(CONST_ME_EXPLOSIONHIT)
 		target:sendTextMessage(MESSAGE_STATUS_WARNING, string.format("Seu personagem foi banido %s. Motivo: %s", durationText, reason))
 		target:remove()
