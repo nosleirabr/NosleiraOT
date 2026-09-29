@@ -1,0 +1,13 @@
+<?php
+// Copie para config.php APENAS em checkout fresco sem compose.
+// No Docker, as variáveis vêm do ambiente (ver D:\Server\.env.example).
+// NUNCA commite segredos aqui.
+$config['database_host'] = 'database_server';
+$config['database_port'] = '3306';
+$config['database_user'] = 'database';
+$config['database_password'] = 'TROQUE_POR_SENHA_FORTE';
+$config['database_name'] = 'database';
+$config['server_path'] = '/srv/';
+
+$config['mercadopago_public_key'] = '';
+$config['mercadopago_access_token'] = '';

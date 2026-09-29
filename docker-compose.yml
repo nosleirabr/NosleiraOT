@@ -89,6 +89,8 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-ot74}
       MYSQL_USER: ${MYSQL_USER:-ot74}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:?MYSQL_PASSWORD must be set in .env}
+      MERCADOPAGO_PUBLIC_KEY: ${MERCADOPAGO_PUBLIC_KEY:-}
+      MERCADOPAGO_ACCESS_TOKEN: ${MERCADOPAGO_ACCESS_TOKEN:-}
     deploy:
       resources:
         limits:
