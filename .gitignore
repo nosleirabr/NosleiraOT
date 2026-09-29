@@ -158,3 +158,6 @@ gitlog.txt
 
 # Backups locais do agente
 .backup/
+
+# Cliente extraido (artefato local, nao versionar)
+client_old_extracted/
