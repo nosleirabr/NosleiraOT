@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 defined('MYAAC') or die('Direct access not allowed!');
 $title = 'Donate';
 
@@ -34,7 +34,12 @@ if (!function_exists('get_nosleira_package_details')) {
 if (!function_exists('get_nosleira_price')) {
     function get_nosleira_price($method, $package_coins) {
         $details = get_nosleira_package_details($package_coins);
-        return (float)$details['price_brl'];
+        $preco = (float)$details['price_brl'];
+        // Desconto de 5% para pagamentos via PIX
+        if ($method === 'pix') {
+            $preco = round($preco * 0.95, 2);
+        }
+        return $preco;
     }
 }
 
@@ -1721,6 +1726,21 @@ function changeLanguage(lang) {
                                                                         white-space: nowrap;
                                                                         letter-spacing: 0.2px;
                                                                     }
+                                                                    /* Preço original riscado (antes do desconto PIX) */
+                                                                    .nosleira-price-original {
+                                                                        color: #9b7b5a;
+                                                                        font-weight: 500;
+                                                                        font-size: 11.5px;
+                                                                        text-decoration: line-through;
+                                                                        letter-spacing: 0.1px;
+                                                                        margin-right: 3px;
+                                                                        opacity: 0.8;
+                                                                    }
+                                                                    /* Preço com desconto PIX — verde escuro sóbrio */
+                                                                    .nosleira-price-discount {
+                                                                        color: #1a6035 !important;
+                                                                        font-weight: 800 !important;
+                                                                    }
                                                                     .btn-donate-continue-action {
                                                                         min-width: 220px;
                                                                         justify-content: center;
@@ -1823,11 +1843,20 @@ function changeLanguage(lang) {
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 18px 16px;">
                                                                 <!-- Banner Informativo Sóbrio e Clássico -->
-                                                                <div id="bonus_promo_banner" style="background: linear-gradient(90deg, #fbf7ee 0%, #f4ebd9 100%); border: 1px solid #cbb291; border-left: 4px solid #926425; border-radius: 4px; padding: 10px 14px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                                                                <div id="bonus_promo_banner" style="background: linear-gradient(90deg, #fbf7ee 0%, #f4ebd9 100%); border: 1px solid #cbb291; border-left: 4px solid #926425; border-radius: 4px; padding: 10px 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
                                                                     <span style="font-size: 16px; color: #926425;">🛡️</span>
                                                                     <div>
                                                                         <span style="font-weight: 700; font-size: 12.5px; color: #3d1c02;">Ativação Instantânea:</span>
                                                                         <span style="font-size: 12px; color: #5a422b; margin-left: 4px;">Sua <b>Premium Account</b> é creditada de forma automática na conta logo após a confirmação do pagamento.</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Banner de Desconto PIX — aparece somente quando PIX está selecionado -->
+                                                                <div id="pix_discount_banner" style="background: linear-gradient(90deg, #f0faf4 0%, #e6f4ec 100%); border: 1px solid #9fcdb3; border-left: 4px solid #1a7a3f; border-radius: 4px; padding: 10px 14px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                                                                    <span style="font-size: 17px;">💰</span>
+                                                                    <div>
+                                                                        <span style="font-weight: 700; font-size: 12.5px; color: #1a4a2e;">5% de desconto pagando via PIX.</span>
+                                                                        <span style="font-size: 12px; color: #2d6b47; margin-left: 4px;">Desconto aplicado automaticamente — preço já exibido com o desconto no plano selecionado.</span>
                                                                     </div>
                                                                 </div>
 
@@ -1872,20 +1901,21 @@ function changeLanguage(lang) {
 
                                                                 <script type="text/javascript">
                                                                 var nosleiraPackages = {
+                                                                    /* PIX: 5% de desconto aplicado — preço original fica riscado */
                                                                     'pix': [
-                                                                        { value: '3',  title: 'PA 3 Meses', duration: '90 Dias', price: 'R$ 468,00', badge: '' },
-                                                                        { value: '6',  title: 'PA 6 Meses', duration: '180 Dias', price: 'R$ 872,00', badge: '' },
-                                                                        { value: '12', title: 'PA 12 Meses (Anual)', duration: '360 Dias', price: 'R$ 1.621,00', badge: 'Melhor Custo-Benefício' }
+                                                                        { value: '3',  title: 'PA 3 Meses',        duration: '90 Dias',  price: 'R$ 444,60', priceOriginal: 'R$ 468,00', badge: '5% OFF no PIX' },
+                                                                        { value: '6',  title: 'PA 6 Meses',        duration: '180 Dias', price: 'R$ 828,40', priceOriginal: 'R$ 872,00', badge: '5% OFF no PIX' },
+                                                                        { value: '12', title: 'PA 12 Meses (Anual)', duration: '360 Dias', price: 'R$ 1.539,95', priceOriginal: 'R$ 1.621,00', badge: 'Melhor Custo-Benefício' }
                                                                     ],
                                                                     'stripe': [
-                                                                        { value: '3',  title: 'PA 3 Meses', duration: '90 Dias', price: 'R$ 468,00', badge: '' },
-                                                                        { value: '6',  title: 'PA 6 Meses', duration: '180 Dias', price: 'R$ 872,00', badge: '' },
-                                                                        { value: '12', title: 'PA 12 Meses (Anual)', duration: '360 Dias', price: 'R$ 1.621,00', badge: 'Melhor Custo-Benefício' }
+                                                                        { value: '3',  title: 'PA 3 Meses',        duration: '90 Dias',  price: 'R$ 468,00', priceOriginal: '', badge: '' },
+                                                                        { value: '6',  title: 'PA 6 Meses',        duration: '180 Dias', price: 'R$ 872,00', priceOriginal: '', badge: '' },
+                                                                        { value: '12', title: 'PA 12 Meses (Anual)', duration: '360 Dias', price: 'R$ 1.621,00', priceOriginal: '', badge: 'Melhor Custo-Benefício' }
                                                                     ],
                                                                     'tibia_coins': [
-                                                                        { value: '3',  title: 'PA 3 Meses', duration: '90 Dias', price: '2.500 TC', badge: '' },
-                                                                        { value: '6',  title: 'PA 6 Meses', duration: '180 Dias', price: '5.000 TC', badge: '' },
-                                                                        { value: '12', title: 'PA 12 Meses (Anual)', duration: '360 Dias', price: '10.000 TC', badge: 'Melhor Custo-Benefício' }
+                                                                        { value: '3',  title: 'PA 3 Meses',        duration: '90 Dias',  price: '2.500 TC',  priceOriginal: '', badge: '' },
+                                                                        { value: '6',  title: 'PA 6 Meses',        duration: '180 Dias', price: '5.000 TC',  priceOriginal: '', badge: '' },
+                                                                        { value: '12', title: 'PA 12 Meses (Anual)', duration: '360 Dias', price: '10.000 TC', priceOriginal: '', badge: 'Melhor Custo-Benefício' }
                                                                     ]
                                                                 };
 
@@ -1894,6 +1924,14 @@ function changeLanguage(lang) {
                                                                     if (item.badge) {
                                                                         badgeHtml = '<span class="nosleira-badge-soft">' + item.badge + '</span>';
                                                                     }
+                                                                    /* Preço: se houver priceOriginal, exibe riscado + preço com desconto em verde */
+                                                                    var priceHtml = '';
+                                                                    if (item.priceOriginal) {
+                                                                        priceHtml = '<span class="nosleira-price-original">' + item.priceOriginal + '</span>' +
+                                                                                    '<span class="nosleira-plan-price nosleira-price-discount">' + item.price + '</span>';
+                                                                    } else {
+                                                                        priceHtml = '<span class="nosleira-plan-price">' + item.price + '</span>';
+                                                                    }
                                                                     return '<div class="nosleira-select-item-content">' +
                                                                         '<div class="nosleira-select-left">' +
                                                                             '<span class="nosleira-star-icon">★</span>' +
@@ -1901,7 +1939,7 @@ function changeLanguage(lang) {
                                                                             '<span class="nosleira-plan-days">(' + item.duration + ')</span>' +
                                                                         '</div>' +
                                                                         '<div class="nosleira-select-right">' +
-                                                                            '<span class="nosleira-plan-price">' + item.price + '</span>' +
+                                                                            priceHtml +
                                                                             badgeHtml +
                                                                         '</div>' +
                                                                     '</div>';
@@ -2011,6 +2049,12 @@ function changeLanguage(lang) {
                                                                         input.value = method;
                                                                     }
 
+                                                                    /* Exibir banner de desconto PIX apenas quando PIX estiver ativo */
+                                                                    var pixBanner = document.getElementById('pix_discount_banner');
+                                                                    if (pixBanner) {
+                                                                        pixBanner.style.display = (method === 'pix') ? 'flex' : 'none';
+                                                                    }
+
                                                                     renderNosleiraCustomSelect(method);
 
                                                                     var tabMap = {
@@ -2024,17 +2068,27 @@ function changeLanguage(lang) {
                                                                     }
                                                                 }
 
+                                                                /* Controla visibilidade inicial do banner PIX na carga da página */
+                                                                function initPixBannerVisibility(method) {
+                                                                    var pixBanner = document.getElementById('pix_discount_banner');
+                                                                    if (pixBanner) {
+                                                                        pixBanner.style.display = (method === 'pix') ? 'flex' : 'none';
+                                                                    }
+                                                                }
+
                                                                 // Inicialização no carregamento
                                                                 if (document.readyState === 'loading') {
                                                                     document.addEventListener('DOMContentLoaded', function() {
                                                                         var curMethod = '<?php echo htmlspecialchars($payment_method); ?>';
                                                                         var curPkg = '<?php echo htmlspecialchars($points_package); ?>';
                                                                         renderNosleiraCustomSelect(curMethod, curPkg);
+                                                                        initPixBannerVisibility(curMethod);
                                                                     });
                                                                 } else {
                                                                     var curMethod = '<?php echo htmlspecialchars($payment_method); ?>';
                                                                     var curPkg = '<?php echo htmlspecialchars($points_package); ?>';
                                                                     renderNosleiraCustomSelect(curMethod, curPkg);
+                                                                    initPixBannerVisibility(curMethod);
                                                                 }
                                                                 </script>
                                                             </td>
