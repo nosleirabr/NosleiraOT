@@ -85,17 +85,6 @@
 					</td>
 				</tr>
 
-				{% if is_god_admin %}
-				{% set rows = rows + 1 %}
-				<tr bgcolor="#ffebee">
-					<td><b style="color: #8b0000;">[GOD] Account ID:</b></td>
-					<td>
-						<b style="color: #8b0000; font-size: 13px;">{{ admin_account_id }}</b>
-						<button type="button" onclick="copyGodAcc('{{ admin_account_id }}', this);" style="cursor: pointer; background: #8B0000; color: #FFFFFF; border: 1px solid #5C0000; border-radius: 3px; font-size: 10px; font-weight: bold; padding: 1px 7px; margin-left: 6px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);">Copiar</button>
-						<span style="color: #666; font-size: 11px; margin-left: 10px;">(In-Game Ban: <code>/accban {{ admin_account_id }}, Motivo</code>)</span>
-					</td>
-				</tr>
-				{% endif %}
 
 				{% set rows = rows + 1 %}
 				<tr bgcolor="{{ getStyle(rows) }}">
