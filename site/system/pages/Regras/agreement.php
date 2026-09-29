@@ -184,7 +184,7 @@ $title = 'Service Agreement';
     <div class="CaptionContainer">
         <div class="CaptionInnerContainer agreement-header-caption">
             <div class="agreement-header-right">
-                <a href="<?php echo (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) ? htmlspecialchars($_SERVER['HTTP_REFERER']) : getLink('Regras/rules'); ?>" class="btn-agreement-back">← VOLTAR</a>
+                <a href="<?php echo (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) ? htmlspecialchars($_SERVER['HTTP_REFERER']) : getLink('Regras/rules'); ?>" class="btn-agreement-back">&larr; VOLTAR</a>
                 <div class="agreement-flags">
                     <img src="<?php echo BASE_URL; ?>images/flags/br.gif" alt="Português" title="Português (BR)" class="flag-icon" onclick="changeLanguage('pt');" />
                     <img src="<?php echo BASE_URL; ?>images/flags/us.gif" alt="English" title="English (US)" class="flag-icon" onclick="changeLanguage('en');" />
@@ -242,7 +242,7 @@ $title = 'Service Agreement';
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 16px 18px;">
                                                                 <div class="agreement-warning-box">
-                                                                    <span class="agreement-clause-num">1.0. ⚠️ AVISO DE CONTEÚDO ADULTO:</span> "<b>NosleiraOT</b>" é um jogo destinado exclusivamente para usuários com 18 anos ou mais. Ao acessar ou usar este serviço, você confirma que tem 18 anos ou mais.
+                                                                    <span class="agreement-clause-num">1.0. ⚠️ AVISO DE CONTEÚDO ADULTO:</span> "<b>NosleiraOT</b>" é um jogo destinado exclusivamente para usuários com 18 anos ou mais. Ao acessar ou usar este serviço, você confirma que tem 18 anos ou mais.
                                                                 </div>
                                                                 <div class="agreement-paragraph">
                                                                     <span class="agreement-clause-num">1.1.</span> Ao acessar ou utilizar o site da <b>NosleiraOT Soluções Digitais LTDA</b> e/ou registrar uma conta para o jogo "<b>NosleiraOT</b>", você concorda com estes Termos de Serviço e todas as políticas e regulamentos do jogo, incluindo nossa Política de Privacidade e regras específicas.
@@ -316,7 +316,7 @@ $title = 'Service Agreement';
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 16px 18px;">
                                                                 <div class="agreement-warning-box">
-                                                                    <span class="agreement-clause-num">2.1. ⚠️ AVISO DE USO COMPULSIVO:</span> A exposição prolongada a videogames pode causar efeitos adversos na saúde física e mental. Recomendamos fazer pausas regulares, manter hábitos saudáveis de jogo e buscar ajuda profissional se você ou alguém que você conhece mostrar sinais de vício em jogos.
+                                                                    <span class="agreement-clause-num">2.1. ⚠️ AVISO DE USO COMPULSIVO:</span> A exposição prolongada a videogames pode causar efeitos adversos na saúde física e mental. Recomendamos fazer pausas regulares, manter hábitos saudáveis de jogo e buscar ajuda profissional se você ou alguém que você conhece mostrar sinais de vício em jogos.
                                                                 </div>
                                                             </td>
                                                         </tr>
