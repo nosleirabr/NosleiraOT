@@ -21,9 +21,10 @@ require SYSTEM . 'init.php';
 require SYSTEM . 'login.php';
 
 $error = '';
-if(isset($_GET['account']))
+// Senha e PII só via POST — nunca em URL (logs de acesso vazam query string).
+if(isset($_POST['account']))
 {
-	$account = $_GET['account'];
+	$account = $_POST['account'];
 	if(USE_ACCOUNT_NAME) {
 		if(!Validator::accountName($account)) {
 			error_(Validator::getLastError());
@@ -47,9 +48,9 @@ if(isset($_GET['account']))
 
 	success_("Good account $accountNameOrNumber ($account).");
 }
-else if(isset($_GET['email']))
+else if(isset($_POST['email']))
 {
-	$email = $_GET['email'];
+	$email = $_POST['email'];
 	if(!Validator::email($email)) {
 		error_(Validator::getLastError());
 	}
@@ -61,9 +62,9 @@ else if(isset($_GET['email']))
 
 	success_(1);
 }
-else if(isset($_GET['name']))
+else if(isset($_POST['name']))
 {
-	$name = trim(stripslashes($_GET['name']));
+	$name = trim(stripslashes($_POST['name']));
 
 	if(!Validator::characterName($name)) {
 		error_(Validator::getLastError());
@@ -85,9 +86,9 @@ else if(isset($_GET['name']))
 
 	success_("Good. Your name will be:<br /><b>$name</b>$extraText");
 }
-else if(isset($_GET['password']) && isset($_GET['password_confirm'])) {
-	$password = $_GET['password'];
-	$password_confirm = $_GET['password_confirm'];
+else if(isset($_POST['password']) && isset($_POST['password_confirm'])) {
+	$password = $_POST['password'];
+	$password_confirm = $_POST['password_confirm'];
 
 	if(!isset($password[0])) {
 		error_('Please enter the password for your new account.');

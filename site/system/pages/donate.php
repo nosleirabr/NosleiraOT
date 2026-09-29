@@ -4,17 +4,42 @@ $title = 'Donate';
 
 $action = isset($_GET['action']) ? $_GET['action'] : (isset($_POST['action']) ? $_POST['action'] : '');
 $payment_method = isset($_POST['payment_method']) ? $_POST['payment_method'] : (isset($_GET['payment_method']) ? $_GET['payment_method'] : 'pix');
-$points_package = isset($_POST['points_package']) ? $_POST['points_package'] : '25';
+$points_package = isset($_POST['points_package']) ? $_POST['points_package'] : '3';
 $tibia_char_name = isset($_POST['tibia_char_name']) ? trim($_POST['tibia_char_name']) : '';
 
-// Função auxiliar para calcular o valor cobrado em R$ (PIX recebe 5% de desconto automático)
+// Intenção: Estruturar detalhes e precificação dos planos oficiais de Premium Account (PA)
+if (!function_exists('get_nosleira_package_details')) {
+    function get_nosleira_package_details($pkg) {
+        $key = (string)$pkg;
+        $map = array(
+            '3' => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'price_brl' => 468.00, 'price_str' => 'R$ 468,00', 'tc' => '2.500 TC', 'coins' => 468, 'badge' => ''),
+            '6' => array('id' => 6, 'name' => 'PA 6 Meses', 'duration' => '180 Dias', 'price_brl' => 872.00, 'price_str' => 'R$ 872,00', 'tc' => '5.000 TC', 'coins' => 872, 'badge' => ''),
+            '12' => array('id' => 12, 'name' => 'PA 12 Meses (Anual)', 'duration' => '360 Dias', 'price_brl' => 1621.00, 'price_str' => 'R$ 1.621,00', 'tc' => '10.000 TC', 'coins' => 1621, 'badge' => 'Melhor Custo-Benefício'),
+            // Compatibilidade com chaves alternativas
+            '90' => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'price_brl' => 468.00, 'price_str' => 'R$ 468,00', 'tc' => '2.500 TC', 'coins' => 468, 'badge' => ''),
+            '180' => array('id' => 6, 'name' => 'PA 6 Meses', 'duration' => '180 Dias', 'price_brl' => 872.00, 'price_str' => 'R$ 872,00', 'tc' => '5.000 TC', 'coins' => 872, 'badge' => ''),
+            '360' => array('id' => 12, 'name' => 'PA 12 Meses (Anual)', 'duration' => '360 Dias', 'price_brl' => 1621.00, 'price_str' => 'R$ 1.621,00', 'tc' => '10.000 TC', 'coins' => 1621, 'badge' => 'Melhor Custo-Benefício'),
+            '25' => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'price_brl' => 468.00, 'price_str' => 'R$ 468,00', 'tc' => '2.500 TC', 'coins' => 468, 'badge' => ''),
+            '50' => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'price_brl' => 468.00, 'price_str' => 'R$ 468,00', 'tc' => '2.500 TC', 'coins' => 468, 'badge' => ''),
+            '100' => array('id' => 6, 'name' => 'PA 6 Meses', 'duration' => '180 Dias', 'price_brl' => 872.00, 'price_str' => 'R$ 872,00', 'tc' => '5.000 TC', 'coins' => 872, 'badge' => ''),
+            '200' => array('id' => 12, 'name' => 'PA 12 Meses (Anual)', 'duration' => '360 Dias', 'price_brl' => 1621.00, 'price_str' => 'R$ 1.621,00', 'tc' => '10.000 TC', 'coins' => 1621, 'badge' => 'Melhor Custo-Benefício'),
+            '468' => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'price_brl' => 468.00, 'price_str' => 'R$ 468,00', 'tc' => '2.500 TC', 'coins' => 468, 'badge' => ''),
+            '872' => array('id' => 6, 'name' => 'PA 6 Meses', 'duration' => '180 Dias', 'price_brl' => 872.00, 'price_str' => 'R$ 872,00', 'tc' => '5.000 TC', 'coins' => 872, 'badge' => ''),
+            '1621' => array('id' => 12, 'name' => 'PA 12 Meses (Anual)', 'duration' => '360 Dias', 'price_brl' => 1621.00, 'price_str' => 'R$ 1.621,00', 'tc' => '10.000 TC', 'coins' => 1621, 'badge' => 'Melhor Custo-Benefício')
+        );
+        return isset($map[$key]) ? $map[$key] : $map['3'];
+    }
+}
+
 if (!function_exists('get_nosleira_price')) {
     function get_nosleira_price($method, $package_coins) {
-        $coins = (int)$package_coins;
+        $details = get_nosleira_package_details($package_coins);
+        $preco = (float)$details['price_brl'];
+        // Desconto de 5% para pagamentos via PIX
         if ($method === 'pix') {
-            return round($coins * 0.95, 2);
+            $preco = round($preco * 0.95, 2);
         }
-        return (float)$coins;
+        return $preco;
     }
 }
 
@@ -26,7 +51,7 @@ if (isset($logged) && $logged && isset($account_logged) && $account_logged) {
     $acc_name = $account_logged->getName();
 }
 
-// TENTATIVA DE LOGIN DIRETO PELA �REA DE DOA��ES
+// TENTATIVA DE LOGIN DIRETO PELA AREA DE DOACOES
 $login_error = '';
 if ((!isset($logged) || !$logged) && isset($_POST['account_login'], $_POST['password_login'])) {
     $login_account = trim($_POST['account_login']);
@@ -72,7 +97,7 @@ if ((!isset($logged) || !$logged) && isset($_POST['account_login'], $_POST['pass
     }
 }
 
-// BLOQUEIO DE LOGIN: SE N�O ESTIVER LOGADO, EXIBIR INTERFACE PROFISSIONAL DE AUTENTICA��O
+// BLOQUEIO DE LOGIN: SE NAO ESTIVER LOGADO, EXIBIR INTERFACE PROFISSIONAL DE AUTENTICACAO
 if (!isset($logged) || !$logged || !isset($account_logged) || !$account_logged || $acc_id <= 0) {
     ?>
     <div class="TableContainer">
@@ -120,7 +145,7 @@ if (!isset($logged) || !$logged || !isset($account_logged) || !$account_logged |
                                         </div>
                                     <?php endif; ?>
 
-                                    <!-- Card de Formul�rio -->
+                                    <!-- Card de Formulario -->
                                     <div style="background: linear-gradient(180deg, #ffffff 0%, #faf4e8 100%); border: 1.5px solid #d8c6af; border-radius: 8px; padding: 26px 24px; box-shadow: 0 6px 18px rgba(0,0,0,0.07); text-align: left;">
                                         <form action="?subtopic=donate" method="post">
                                             
@@ -150,7 +175,7 @@ if (!isset($logged) || !$logged || !isset($account_logged) || !$account_logged |
                                                 <div class="cf-turnstile" data-sitekey="<?php echo htmlspecialchars($config['cloudflare_turnstile_sitekey']); ?>" data-theme="light"></div>
                                             </div>
                                             <?php endif; ?>
-                                            <!-- Bot�o de Submiss�o -->
+                                            <!-- Botao de Submissao -->
                                             <button type="submit" style="width: 100%; padding: 13px 20px; font-family: 'Cinzel', Georgia, serif; font-size: 15px; font-weight: 800; color: #ffffff; background: linear-gradient(180deg, #34d399 0%, #059669 50%, #047857 100%); border: 1px solid #064e3b; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 14px rgba(4, 120, 87, 0.35), inset 0 1px 0 rgba(255,255,255,0.4); text-shadow: 0 1px 2px rgba(0,0,0,0.5); transition: all 0.2s ease-in-out;" onmouseover="this.style.background='linear-gradient(180deg, #4ade80 0%, #10b981 50%, #059669 100%)'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='linear-gradient(180deg, #34d399 0%, #059669 50%, #047857 100%)'; this.style.transform='translateY(0)';" onmousedown="this.style.transform='translateY(1px)';">
                                                 ENTRAR E ACESSAR DOA&Ccedil;&Atilde;O &rarr;
                                             </button>
@@ -195,41 +220,32 @@ if (function_exists('ensure_donation_audit_tables')) {
     ensure_donation_audit_tables();
 }
 
-// Mapeamento de pacotes Tibia Coins (em múltiplos exatos de 25 com taxa inclusa)
-// 250 TC  ➔ 50 NosleiraCoins
-// 500 TC  ➔ 100 NosleiraCoins
-// 1.000 TC ➔ 200 NosleiraCoins
-// 2.500 TC ➔ 500 NosleiraCoins
+// Mapeamento de pacotes Tibia Coins para planos de Premium Account
 $tc_products = array(
-    '50'   => array('product' => '50 NosleiraCoins',   'price' => '250 TC'),
-    '100'  => array('product' => '100 NosleiraCoins',  'price' => '500 TC'),
-    '200'  => array('product' => '200 NosleiraCoins',  'price' => '1.000 TC'),
-    '500'  => array('product' => '500 NosleiraCoins',  'price' => '2.500 TC'),
+    '3'    => array('product' => 'PA 3 Meses (90 Dias)', 'price' => '2.500 TC'),
+    '6'    => array('product' => 'PA 6 Meses (180 Dias)', 'price' => '5.000 TC'),
+    '12'   => array('product' => 'PA 12 Meses (Anual - 360 Dias)', 'price' => '10.000 TC'),
     // Compatibilidade com seleções legadas
-    '52'   => array('product' => '50 NosleiraCoins',   'price' => '250 TC'),
-    '105'  => array('product' => '100 NosleiraCoins',  'price' => '500 TC'),
-    '209'  => array('product' => '200 NosleiraCoins',  'price' => '1.000 TC'),
-    '525'  => array('product' => '500 NosleiraCoins',  'price' => '2.500 TC'),
-    '55'   => array('product' => '50 NosleiraCoins',   'price' => '250 TC'),
-    '110'  => array('product' => '100 NosleiraCoins',  'price' => '500 TC'),
-    '220'  => array('product' => '200 NosleiraCoins',  'price' => '1.000 TC'),
-    '550'  => array('product' => '500 NosleiraCoins',  'price' => '2.500 TC')
+    '50'   => array('product' => 'PA 3 Meses (90 Dias)', 'price' => '2.500 TC'),
+    '100'  => array('product' => 'PA 6 Meses (180 Dias)', 'price' => '5.000 TC'),
+    '200'  => array('product' => 'PA 12 Meses (Anual)', 'price' => '10.000 TC'),
+    '500'  => array('product' => 'PA 12 Meses (Anual)', 'price' => '10.000 TC')
 );
 
 // Fallback de retrocompatibilidade para requisições de Tibia Coins
 if ($payment_method === 'tibia_coins') {
-    if ($points_package == '55' || $points_package == '52' || $points_package == '25') $points_package = '50';
-    if ($points_package == '110' || $points_package == '105') $points_package = '100';
-    if ($points_package == '220' || $points_package == '209') $points_package = '200';
-    if ($points_package == '550' || $points_package == '525') $points_package = '500';
+    if ($points_package == '55' || $points_package == '52' || $points_package == '25' || $points_package == '50') $points_package = '3';
+    if ($points_package == '110' || $points_package == '105' || $points_package == '100') $points_package = '6';
+    if ($points_package == '220' || $points_package == '209' || $points_package == '200' || $points_package == '500') $points_package = '12';
 }
 
+$pkg_details = get_nosleira_package_details($points_package);
 if (isset($tc_products[$points_package])) {
     $product_label = $tc_products[$points_package]['product'];
     $price_label   = $tc_products[$points_package]['price'];
 } else {
-    $product_label = $points_package . ' NosleiraCoins';
-    $price_label   = $points_package . ' TC';
+    $product_label = $pkg_details['name'] . ' (' . $pkg_details['duration'] . ')';
+    $price_label   = $pkg_details['tc'];
 }
 
 // ENDPOINT AJAX DE VERIFICAÇÃO DE STATUS DO PEDIDO
@@ -257,7 +273,7 @@ if ($action === 'process_card' && !empty($_POST['card_token'])) {
     $payment_method_id = isset($_POST['payment_method_id']) ? trim($_POST['payment_method_id']) : 'visa';
     $installments = isset($_POST['installments']) ? (int)$_POST['installments'] : 1;
     $doc_number = isset($_POST['doc_number']) ? preg_replace('/[^0-9]/', '', $_POST['doc_number']) : '';
-    $points_package = isset($_POST['points_package']) ? $_POST['points_package'] : '55';
+    $points_package = isset($_POST['points_package']) ? $_POST['points_package'] : '3';
 
     if ($order_id > 0) {
         $don = $db->query("SELECT * FROM `myaac_donations` WHERE `id` = " . $order_id)->fetch();
@@ -275,13 +291,15 @@ if ($action === 'process_card' && !empty($_POST['card_token'])) {
                     $payer_email = trim($_POST['cardholder_email']);
                 }
 
+                $card_pkg_details = get_nosleira_package_details($points_package);
+
                 $payload = array(
                     'token' => $card_token,
-                    'description' => $points_package . ' NosleiraCoins - Account: ' . ($acc_name ? $acc_name : 'Player'),
+                    'description' => $card_pkg_details['name'] . ' - Account: ' . ($acc_name ? $acc_name : 'Player'),
                     'external_reference' => (string)$order_id,
                     'installments' => $installments > 0 ? $installments : 1,
                     'payment_method_id' => !empty($payment_method_id) ? strtolower($payment_method_id) : 'visa',
-                    'transaction_amount' => get_nosleira_price($payment_method, $points_package),
+                    'transaction_amount' => $card_pkg_details['price_brl'],
                     'payer' => array(
                         'email' => $payer_email,
                         'identification' => array(
@@ -356,8 +374,9 @@ if ($action === 'confirm_tc' && !empty($tibia_char_name)) {
     }
 } elseif ($action === 'checkout' && isset($_POST['payment_method'])) {
     if ($payment_method === 'pix' || $payment_method === 'stripe') {
-        $charged_amount = get_nosleira_price($payment_method, $points_package);
-        $price_str = 'R$ ' . number_format($charged_amount, 2, ',', '.');
+        $pkg_details = get_nosleira_package_details($points_package);
+        $charged_amount = $pkg_details['price_brl'];
+        $price_str = $pkg_details['price_str'];
         $card_inst = isset($_POST['installments']) ? (int)$_POST['installments'] : 1;
         $card_b = isset($_POST['payment_method_id']) ? trim($_POST['payment_method_id']) : null;
 
@@ -365,8 +384,8 @@ if ($action === 'confirm_tc' && !empty($tibia_char_name)) {
             " . (int)$acc_id . ",
             " . $db->quote($acc_name) . ",
             " . $db->quote($payment_method) . ",
-            " . (int)$points_package . ",
-            " . (int)$points_package . ",
+            " . (int)$pkg_details['id'] . ",
+            " . (int)$pkg_details['coins'] . ",
             " . $db->quote($price_str) . ",
             '',
             'pending',
@@ -379,7 +398,7 @@ if ($action === 'confirm_tc' && !empty($tibia_char_name)) {
         )");
         $order_id = $db->lastInsertId();
         if (function_exists('log_donation_event')) {
-            log_donation_event($order_id, $acc_id, 'ORDER_CREATED', 'Criado pedido ' . strtoupper($payment_method) . ' (' . $points_package . ' NosleiraCoins - ' . $price_str . ')');
+            log_donation_event($order_id, $acc_id, 'ORDER_CREATED', 'Criado pedido ' . strtoupper($payment_method) . ' (' . $pkg_details['name'] . ' - ' . $price_str . ')');
         }
 
         // GERAR COBRANÇA PIX REAL VIA MERCADO PAGO API
@@ -396,7 +415,7 @@ if ($action === 'confirm_tc' && !empty($tibia_char_name)) {
 
                 $payload = array(
                     'transaction_amount' => $charged_amount,
-                    'description' => $points_package . ' NosleiraCoins - Account: ' . ($acc_name ? $acc_name : 'Player'),
+                    'description' => $pkg_details['name'] . ' - Account: ' . ($acc_name ? $acc_name : 'Player'),
                     'payment_method_id' => 'pix',
                     'payer' => array(
                         'email' => $payer_email,
@@ -1123,8 +1142,8 @@ function changeLanguage(lang) {
                                                                     Processing Payment: PIX Instantâneo
                                                                 </div>
                                                                 <div style="background: linear-gradient(180deg, #fdf9f3 0%, #f5e9d6 100%); border: 1px solid #d8c6af; border-radius: 6px; padding: 20px 24px; margin-bottom: 20px; text-align: center; color: #2b1704; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-                                                                    <div style="font-size: 16px; font-weight: 800; color: #00875a; margin-bottom: 8px;">Pagamento via PIX (Mercado Pago)</div>
-                                                                    <p style="font-size: 14px; color: #2b1704; margin-bottom: 14px;">Valor: <b style="color: #00875a;"><?php echo htmlspecialchars($price_str); ?></b> - Pacote: <b><?php echo htmlspecialchars($points_package); ?> NosleiraCoins <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 16px; width: 16px; vertical-align: middle; margin-right: 2px;"></b> (Pedido #<?php echo $order_id; ?>)</p>
+                                                                    <div style="font-size: 16px; font-weight: 800; color: #4a2505; margin-bottom: 8px; font-family: 'Cinzel', serif;">Pagamento via PIX (Mercado Pago)</div>
+                                                                    <p style="font-size: 14px; color: #2b1704; margin-bottom: 14px;">Valor: <b style="color: #4a2505;"><?php echo htmlspecialchars($price_str); ?></b> - Plano: <b><?php echo htmlspecialchars($pkg_details['name']); ?> (<?php echo htmlspecialchars($pkg_details['duration']); ?>)</b> (Pedido #<?php echo $order_id; ?>)</p>
                                                                     <?php 
                                                                     $qr_img_src = '';
                                                                     if (!empty($mp_qr_code_base64)) {
@@ -1213,12 +1232,12 @@ function changeLanguage(lang) {
 
                                                                 <?php if (isset($card_payment_result['status']) && $card_payment_result['status'] === 'approved'): ?>
 
-                                                                    <div style="background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%); border: 1px solid #a7f3d0; border-left: 4px solid #10b981; border-radius: 6px; padding: 22px 26px; margin-bottom: 20px; text-align: center; color: #065f46; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+                                                                    <div style="background: linear-gradient(180deg, #fdf9f3 0%, #f4ead8 100%); border: 1px solid #d8c6af; border-left: 4px solid #8b521b; border-radius: 6px; padding: 22px 26px; margin-bottom: 20px; text-align: center; color: #3d1c02; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
                                                                         <div style="font-size: 24px; margin-bottom: 6px;">🎉</div>
-                                                                        <div style="font-size: 17px; font-weight: 800; color: #047857; margin-bottom: 8px; font-family: 'Cinzel', serif;">Pagamento Aprovado com Sucesso!</div>
-                                                                        <p style="font-size: 14px; margin-bottom: 12px;">Seu pagamento no valor de <b style="color: #047857;">R$ <?php echo htmlspecialchars($points_package); ?>,00</b> via Cartão de Crédito foi processado.</p>
-                                                                        <p style="font-size: 14px; font-weight: 700; color: #065f46; background: #ffffff; display: inline-block; padding: 8px 18px; border-radius: 20px; border: 1px solid #6ee7b7;">
-                                                                            <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 18px; width: 18px; vertical-align: middle; margin-right: 4px;"> Seus <?php echo htmlspecialchars($points_package); ?> NosleiraCoins já foram adicionados à sua conta!
+                                                                        <div style="font-size: 17px; font-weight: 800; color: #4a2505; margin-bottom: 8px; font-family: 'Cinzel', serif;">Pagamento Aprovado com Sucesso!</div>
+                                                                        <p style="font-size: 14px; margin-bottom: 12px;">Seu pagamento no valor de <b style="color: #4a2505;"><?php echo htmlspecialchars($price_str); ?></b> via Cartão de Crédito foi processado.</p>
+                                                                        <p style="font-size: 14px; font-weight: 700; color: #4a2505; background: #ffffff; display: inline-block; padding: 8px 18px; border-radius: 20px; border: 1px solid #d4c0a5;">
+                                                                            Sua <b><?php echo htmlspecialchars($pkg_details['name']); ?></b> já foi ativada com sucesso em sua conta!
                                                                         </p>
                                                                     </div>
 
@@ -1233,7 +1252,7 @@ function changeLanguage(lang) {
 
                                                                     <div style="background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%); border: 1px solid #fde68a; border-left: 4px solid #f59e0b; border-radius: 6px; padding: 20px 24px; margin-bottom: 20px; text-align: center; color: #92400e;">
                                                                         <div style="font-size: 16px; font-weight: 800; margin-bottom: 6px;">⏳ Pagamento em Análise</div>
-                                                                        <p style="font-size: 13.5px;">A operadora do seu cartão de crédito está analisando a transação. Seus NosleiraCoins serão liberados assim que a análise for concluída.</p>
+                                                                        <p style="font-size: 13.5px;">A operadora do seu cartão de crédito está analisando a transação. Sua Premium Account será liberada assim que a análise for concluída.</p>
                                                                     </div>
 
                                                                     <div style="display: flex; justify-content: center;">
@@ -1260,13 +1279,13 @@ function changeLanguage(lang) {
                                                                         <input type="hidden" name="payment_method_id" id="mp_payment_method_id" value="visa">
 
                                                                         <div style="background: linear-gradient(180deg, #fdf9f3 0%, #f5e9d6 100%); border: 1px solid #d8c6af; border-radius: 6px; padding: 22px 26px; margin-bottom: 20px; color: #2b1704; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-                                                                            <div style="font-size: 16px; font-weight: 800; color: #1d4ed8; margin-bottom: 6px; font-family: 'Cinzel', serif; border-bottom: 1px solid rgba(160, 130, 90, 0.3); padding-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                                                                            <div style="font-size: 15px; font-weight: 800; color: #3d1c02; margin-bottom: 6px; font-family: 'Cinzel', serif; border-bottom: 1px solid rgba(160, 130, 90, 0.3); padding-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
                                                                                 <span>💳 Dados do Cartão de Crédito</span>
-                                                                                <span style="font-size: 11.5px; font-family: 'Inter', sans-serif; color: #059669; font-weight: 700; background: #d1fae5; padding: 3px 8px; border-radius: 12px; border: 1px solid #a7f3d0;">🔒 Criptografia SSL 256-bit (Mercado Pago)</span>
+                                                                                <span style="font-size: 11px; font-family: Arial, sans-serif; color: #4a2505; font-weight: 700; background: #eedfc8; padding: 3px 8px; border-radius: 4px; border: 1px solid #cbb291;">🔒 Criptografia SSL 256-bit (Mercado Pago)</span>
                                                                             </div>
                                                                             
                                                                             <p style="font-size: 13.5px; color: #4a1c00; margin-bottom: 16px;">
-                                                                                Valor a Pagar: <b style="color: #059669;"><?php echo htmlspecialchars($price_str); ?></b> &bull; Pacote: <b><?php echo htmlspecialchars($points_package); ?> NosleiraCoins <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 16px; width: 16px; vertical-align: middle; margin-right: 2px;"></b> (Pedido #<?php echo $order_id; ?>)
+                                                                                Valor a Pagar: <b style="color: #4a2505;"><?php echo htmlspecialchars($price_str); ?></b> &bull; Plano: <b><?php echo htmlspecialchars($pkg_details['name']); ?> (<?php echo htmlspecialchars($pkg_details['duration']); ?>)</b> (Pedido #<?php echo $order_id; ?>)
                                                                             </p>
 
                                                                             <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 16px;">
@@ -1602,91 +1621,127 @@ function changeLanguage(lang) {
                                                                     .nosleira-custom-select-wrap {
                                                                         position: relative;
                                                                         flex: 1;
-                                                                        min-width: 280px;
-                                                                        max-width: 440px;
-                                                                        font-family: 'Inter', Arial, sans-serif;
+                                                                        min-width: 340px;
+                                                                        max-width: 540px;
+                                                                        font-family: Arial, sans-serif;
                                                                     }
                                                                     .nosleira-select-trigger {
-                                                                        padding: 8px 14px;
+                                                                        padding: 9px 14px;
                                                                         font-size: 13px;
                                                                         font-weight: 600;
                                                                         color: #2b1704;
-                                                                        background: linear-gradient(180deg, #ffffff 0%, #f4e8d7 100%);
-                                                                        border: 1px solid #a0825a;
+                                                                        background: linear-gradient(180deg, #fffcf8 0%, #f4ebd9 100%);
+                                                                        border: 1px solid #9e815e;
                                                                         border-radius: 4px;
-                                                                        box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
+                                                                        box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
                                                                         cursor: pointer;
                                                                         display: flex;
                                                                         align-items: center;
                                                                         justify-content: space-between;
                                                                         user-select: none;
                                                                         transition: border-color 0.2s, box-shadow 0.2s;
+                                                                        min-height: 46px;
                                                                     }
                                                                     .nosleira-select-trigger:hover, .nosleira-select-trigger.active {
-                                                                        border-color: #78350f !important;
-                                                                        box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.25) !important;
+                                                                        border-color: #6d4214 !important;
+                                                                        box-shadow: 0 0 0 2px rgba(110, 66, 20, 0.18) !important;
                                                                     }
                                                                     .nosleira-select-dropdown {
                                                                         position: absolute;
                                                                         top: calc(100% + 4px);
                                                                         left: 0;
                                                                         right: 0;
-                                                                        background: #ffffff;
-                                                                        border: 1px solid #a0825a;
+                                                                        background: #fffcf8;
+                                                                        border: 1px solid #9e815e;
                                                                         border-radius: 4px;
-                                                                        box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+                                                                        box-shadow: 0 8px 24px rgba(43, 23, 4, 0.18), 0 2px 6px rgba(43, 23, 4, 0.08);
                                                                         z-index: 1000;
-                                                                        max-height: 270px;
-                                                                        overflow-y: auto;
+                                                                        overflow: hidden;
                                                                         display: none;
                                                                     }
                                                                     .nosleira-select-item {
-                                                                        padding: 8px 12px;
-                                                                        font-size: 13px;
-                                                                        font-weight: 600;
-                                                                        color: #2b1704;
+                                                                        padding: 10px 14px;
                                                                         cursor: pointer;
-                                                                        display: flex;
-                                                                        align-items: center;
-                                                                        border-bottom: 1px solid #f3ebe0;
-                                                                        transition: background 0.15s ease, color 0.15s ease;
+                                                                        border-bottom: 1px solid #ebdcc8;
+                                                                        transition: background 0.15s ease;
                                                                     }
                                                                     .nosleira-select-item:last-child {
                                                                         border-bottom: none;
                                                                     }
                                                                     .nosleira-select-item:hover {
-                                                                        background: #fef7ec !important;
-                                                                        color: #92400e !important;
+                                                                        background: #f6ede0 !important;
                                                                     }
                                                                     .nosleira-select-item.selected {
-                                                                        background: #faecd8 !important;
-                                                                        font-weight: 700 !important;
+                                                                        background: #ecdcc6 !important;
                                                                     }
-                                                                    .nosleira-price-val {
-                                                                        color: #047857 !important;
+                                                                    /* Layout em 2 linhas: cabeçalho e rodapé de preço */
+                                                                    .nosleira-select-item-content {
+                                                                        display: flex;
+                                                                        flex-direction: column;
+                                                                        gap: 4px;
+                                                                        width: 100%;
+                                                                    }
+                                                                    /* Linha 1: estrela + nome do plano + duração */
+                                                                    .nosleira-select-top {
+                                                                        display: flex;
+                                                                        align-items: center;
+                                                                        gap: 6px;
+                                                                    }
+                                                                    /* Linha 2: preços + badge alinhados à esquerda */
+                                                                    .nosleira-select-bottom {
+                                                                        display: flex;
+                                                                        align-items: center;
+                                                                        gap: 8px;
+                                                                        padding-left: 20px;
+                                                                    }
+                                                                    .nosleira-star-icon {
+                                                                        color: #926425;
+                                                                        font-size: 13px;
+                                                                        line-height: 1;
+                                                                        flex-shrink: 0;
+                                                                    }
+                                                                    .nosleira-plan-title {
+                                                                        color: #2b1704;
+                                                                        font-weight: 700;
+                                                                        font-size: 13.5px;
+                                                                        font-family: 'Cinzel', serif;
+                                                                        letter-spacing: 0.2px;
+                                                                    }
+                                                                    .nosleira-plan-days {
+                                                                        color: #7d6954;
+                                                                        font-size: 11.5px;
+                                                                        font-weight: 500;
+                                                                    }
+                                                                    .nosleira-plan-price {
+                                                                        color: #3b1e06;
+                                                                        font-weight: 800;
+                                                                        font-size: 13.5px;
+                                                                        letter-spacing: 0.2px;
+                                                                    }
+                                                                    .nosleira-badge-soft {
+                                                                        font-size: 10px;
+                                                                        font-weight: 700;
+                                                                        color: #5c3814;
+                                                                        background: #eedfc8;
+                                                                        border: 1px solid #cbb291;
+                                                                        padding: 2px 6px;
+                                                                        border-radius: 3px;
+                                                                        white-space: nowrap;
+                                                                        letter-spacing: 0.2px;
+                                                                    }
+                                                                    /* Preço original riscado (antes do desconto PIX) */
+                                                                    .nosleira-price-original {
+                                                                        color: #9b7b5a;
+                                                                        font-weight: 500;
+                                                                        font-size: 11.5px;
+                                                                        text-decoration: line-through;
+                                                                        letter-spacing: 0.1px;
+                                                                        opacity: 0.8;
+                                                                    }
+                                                                    /* Preço com desconto PIX — verde escuro sóbrio */
+                                                                    .nosleira-price-discount {
+                                                                        color: #1a6035 !important;
                                                                         font-weight: 800 !important;
-                                                                    }
-                                                                    .nosleira-coins-val {
-                                                                        color: #ea580c !important;
-                                                                        font-weight: 800 !important;
-                                                                    }
-                                                                    .nosleira-tc-val {
-                                                                        color: #ca8a04 !important;
-                                                                        font-weight: 800 !important;
-                                                                    }
-                                                                    @keyframes badgeBlink {
-                                                                        0%, 100% {
-                                                                            opacity: 1;
-                                                                            transform: scale(1);
-                                                                        }
-                                                                        50% {
-                                                                            opacity: 0.3;
-                                                                            transform: scale(0.96);
-                                                                        }
-                                                                    }
-                                                                    .badge-blink {
-                                                                        display: inline-block;
-                                                                        animation: badgeBlink 1s infinite ease-in-out;
                                                                     }
                                                                     .btn-donate-continue-action {
                                                                         min-width: 220px;
@@ -1778,76 +1833,58 @@ function changeLanguage(lang) {
                                                         </tr>
 
                                                         <tr bgcolor="<?php echo $config['darkborder']; ?>">
-                                                            <td style="font-weight: bold; font-size: 16px; padding: 10px 16px; font-family: 'Cinzel', serif; color: #3d1c02; text-shadow: 0 1px 0 rgba(255,255,255,0.4);">
+                                                            <td style="font-weight: bold; font-size: 15px; padding: 10px 16px; font-family: 'Cinzel', serif; color: #3d1c02; text-shadow: 0 1px 0 rgba(255,255,255,0.4);">
                                                                 <div style="display: flex; align-items: center; gap: 10px;">
-                                                                    <div style="background: linear-gradient(180deg, #f59e0b 0%, #b45309 100%); color: #ffffff; padding: 4px 10px; border-radius: 6px; font-size: 12px; border: 1px solid #78350f; box-shadow: 0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4); display: flex; align-items: center; gap: 4px;">
-                                                                         <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 16px; width: 16px; vertical-align: middle;">
-                                                                        <span style="font-weight: 800; letter-spacing: 0.5px;">MOEDA VIRTUAL</span>
+                                                                    <div style="background: linear-gradient(180deg, #d97706 0%, #92400e 100%); color: #ffffff; padding: 4px 10px; border-radius: 4px; font-size: 11px; border: 1px solid #78350f; box-shadow: 0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.3); display: flex; align-items: center; gap: 4px;">
+                                                                        <span style="font-weight: 800; letter-spacing: 0.5px;">PREMIUM ACCOUNT</span>
                                                                     </div>
-                                                                    <span>Pacote de <b style="color: #b45309; font-size: 17px; text-shadow: 0 1px 1px rgba(255,255,255,0.6);">NosleiraCoins</b></span>
+                                                                    <span>Planos de <b style="color: #4a2505; font-size: 16px;">Premium Account (PA)</b></span>
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
-                                                            <td style="padding: 16px;">
-                                                                <!-- Banner Promocional de Bônus (Exclusivo PIX) -->
-                                                                <div id="bonus_promo_banner" style="background: linear-gradient(90deg, #ecfdf5 0%, #d1fae5 100%); border: 1px solid #10b981; border-left: 4px solid #059669; border-radius: 5px; padding: 10px 14px; margin-bottom: 14px; display: <?php echo ($payment_method === 'pix') ? 'flex' : 'none'; ?>; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                                                                    <div style="display: flex; align-items: center; gap: 8px;">
-                                                                        <span style="font-size: 20px;">⚡</span>
-                                                                        <div>
-                                                                            <span style="font-weight: 800; font-size: 13px; color: #065f46;">BENEFÍCIO EXCLUSIVO PIX:</span>
-                                                                            <span style="font-size: 12px; color: #047857; margin-left: 4px;">Pagamentos via <b>PIX</b> contam com <b>5% de desconto automático</b> em todos os pacotes!</span>
-                                                                        </div>
+                                                            <td style="padding: 18px 16px;">
+                                                                <!-- Banner Informativo Sóbrio e Clássico -->
+                                                                <div id="bonus_promo_banner" style="background: linear-gradient(90deg, #fbf7ee 0%, #f4ebd9 100%); border: 1px solid #cbb291; border-left: 4px solid #926425; border-radius: 4px; padding: 10px 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                                                                    <span style="font-size: 16px; color: #926425;">🛡️</span>
+                                                                    <div>
+                                                                        <span style="font-weight: 700; font-size: 12.5px; color: #3d1c02;">Ativação Instantânea:</span>
+                                                                        <span style="font-size: 12px; color: #5a422b; margin-left: 4px;">Sua <b>Premium Account</b> é creditada de forma automática na conta logo após a confirmação do pagamento.</span>
                                                                     </div>
-                                                                    <span class="badge-blink" style="font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 12px; letter-spacing: 0.5px; background: #059669; color: #ffffff; border: 1px solid #047857; white-space: nowrap;">5% DE DESCONTO</span>
                                                                 </div>
 
-                                                                <form action="?subtopic=donate&action=checkout" method="post" style="display: flex; flex-direction: column; align-items: center; gap: 16px; width: 100%; margin: 8px 0;">
+                                                                <!-- Banner de Desconto PIX — aparece somente quando PIX está selecionado -->
+                                                                <div id="pix_discount_banner" style="background: linear-gradient(90deg, #f0faf4 0%, #e6f4ec 100%); border: 1px solid #9fcdb3; border-left: 4px solid #1a7a3f; border-radius: 4px; padding: 10px 14px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                                                                    <span style="font-size: 17px;">💰</span>
+                                                                    <div>
+                                                                        <span style="font-weight: 700; font-size: 12.5px; color: #1a4a2e;">5% de desconto pagando via PIX.</span>
+                                                                        <span style="font-size: 12px; color: #2d6b47; margin-left: 4px;">Desconto aplicado automaticamente — preço já exibido com o desconto no plano selecionado.</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <form action="?subtopic=donate&action=checkout" method="post" style="display: flex; flex-direction: column; align-items: center; gap: 18px; width: 100%; margin: 8px 0;">
                                                                     <input type="hidden" name="accept_terms" value="1">
                                                                     <input type="hidden" id="payment_method_input" name="payment_method" value="<?php echo htmlspecialchars($payment_method); ?>">
                                                                     
                                                                     <div style="display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; width: 100%;">
-                                                                        <label style="font-weight: 700; font-size: 13px; color: #4a1c00; font-family: 'Cinzel', serif; white-space: nowrap;">
-                                                                            Selecione o pacote de <span style="color: #ea580c; font-weight: 800;">NosleiraCoins</span>:
+                                                                        <label style="font-weight: 700; font-size: 13px; color: #3d1c02; font-family: 'Cinzel', serif; white-space: nowrap;">
+                                                                            Selecione o plano de <span style="color: #6d4214; font-weight: 800;">Premium Account</span>:
                                                                         </label>
 
                                                                         <!-- Select nativo em segundo plano para envio de formulário padrão -->
                                                                         <select id="points_package_select" name="points_package" style="display: none;">
-                                                                            <?php if ($payment_method === 'tibia_coins'): ?>
-                                                                                <option value="50" <?php echo ($points_package == '50') ? 'selected' : ''; ?>>250 TC ➔ 50 NosleiraCoins (taxa de 5% inclusa)</option>
-                                                                                <option value="100" <?php echo ($points_package == '100') ? 'selected' : ''; ?>>500 TC ➔ 100 NosleiraCoins (taxa de 5% inclusa)</option>
-                                                                                <option value="200" <?php echo ($points_package == '200') ? 'selected' : ''; ?>>1.000 TC ➔ 200 NosleiraCoins (taxa de 5% inclusa)</option>
-                                                                                <option value="500" <?php echo ($points_package == '500') ? 'selected' : ''; ?>>2.500 TC ➔ 500 NosleiraCoins (taxa de 5% inclusa)</option>
-                                                                            <?php elseif ($payment_method === 'pix'): ?>
-                                                                                <option value="25">R$ 23,75 - 25 NosleiraCoins (5% de desconto no PIX)</option>
-                                                                                <option value="50">R$ 47,50 - 50 NosleiraCoins (5% de desconto no PIX)</option>
-                                                                                <option value="75">R$ 71,25 - 75 NosleiraCoins (5% de desconto no PIX)</option>
-                                                                                <option value="100">R$ 95,00 - 100 NosleiraCoins (5% de desconto no PIX)</option>
-                                                                                <option value="150">R$ 142,50 - 150 NosleiraCoins (5% de desconto no PIX)</option>
-                                                                                <option value="200">R$ 190,00 - 200 NosleiraCoins (5% de desconto no PIX)</option>
-                                                                                <option value="250">R$ 237,50 - 250 NosleiraCoins (5% de desconto no PIX)</option>
-                                                                                <option value="500">R$ 475,00 - 500 NosleiraCoins (5% de desconto no PIX)</option>
-                                                                                <option value="1000">R$ 950,00 - 1.000 NosleiraCoins (5% de desconto no PIX)</option>
-                                                                            <?php else: ?>
-                                                                                <option value="25">R$ 25,00 - 25 NosleiraCoins</option>
-                                                                                <option value="50">R$ 50,00 - 50 NosleiraCoins</option>
-                                                                                <option value="75">R$ 75,00 - 75 NosleiraCoins</option>
-                                                                                <option value="100">R$ 100,00 - 100 NosleiraCoins</option>
-                                                                                <option value="150">R$ 150,00 - 150 NosleiraCoins</option>
-                                                                                <option value="200">R$ 200,00 - 200 NosleiraCoins</option>
-                                                                                <option value="250">R$ 250,00 - 250 NosleiraCoins</option>
-                                                                                <option value="500">R$ 500,00 - 500 NosleiraCoins</option>
-                                                                                <option value="1000">R$ 1.000,00 - 1000 NosleiraCoins</option>
-                                                                            <?php endif; ?>
+                                                                            <option value="3" <?php echo ($points_package == '3') ? 'selected' : ''; ?>>PA 3 Meses (90 Dias) - R$ 468,00</option>
+                                                                            <option value="6" <?php echo ($points_package == '6') ? 'selected' : ''; ?>>PA 6 Meses (180 Dias) - R$ 872,00</option>
+                                                                            <option value="12" <?php echo ($points_package == '12') ? 'selected' : ''; ?>>PA 12 Meses (Anual - 360 Dias) - R$ 1.621,00</option>
                                                                         </select>
 
-                                                                        <!-- Dropdown Personalizado Profissional com Ícone Oficial Golden N NosleiraCoin -->
+                                                                        <!-- Dropdown Personalizado Profissional Nobre -->
                                                                         <div class="nosleira-custom-select-wrap" id="nosleira_select_wrap">
                                                                             <div id="nosleira_select_trigger" class="nosleira-select-trigger" onclick="toggleNosleiraDropdown(event)">
-                                                                                <div id="nosleira_select_display" style="display: flex; align-items: center; gap: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                                                <div id="nosleira_select_display" style="width: 100%; overflow: hidden;">
                                                                                     <!-- Conteúdo renderizado pelo JS -->
                                                                                 </div>
-                                                                                <span id="nosleira_select_arrow" style="font-size: 10px; color: #78350f; margin-left: 8px; transition: transform 0.2s ease;">▼</span>
+                                                                                <span id="nosleira_select_arrow" style="font-size: 11px; color: #6d4214; margin-left: 10px; transition: transform 0.2s ease;">▼</span>
                                                                             </div>
                                                                             <div id="nosleira_select_dropdown" class="nosleira-select-dropdown">
                                                                                 <!-- Opções renderizadas pelo JS -->
@@ -1856,62 +1893,58 @@ function changeLanguage(lang) {
                                                                     </div>
 
                                                                     <!-- Botão Continuar Centralizado -->
-                                                                    <div style="width: 100%; display: flex; justify-content: center; margin-top: 4px;">
+                                                                    <div style="width: 100%; display: flex; justify-content: center; margin-top: 6px;">
                                                                         <button type="submit" class="btn-donate-continue-action">
                                                                             <span>Continuar</span>
-                                                                            <span style="font-size: 14px; font-weight: bold; margin-left: 4px;">➔</span>
+                                                                            <span style="font-size: 13px; font-weight: bold; margin-left: 4px;">➔</span>
                                                                         </button>
                                                                     </div>
                                                                 </form>
 
                                                                 <script type="text/javascript">
-                                                                var nosleiraCoinSvgUrl = '<?php echo BASE_URL; ?>images/nosleira_coin.svg';
-
                                                                 var nosleiraPackages = {
-                                                                    'tibia_coins': [
-                                                                        { value: '50',  lead: '250 TC ➔ 50 NosleiraCoins',   note: 'taxa de 5% inclusa' },
-                                                                        { value: '100', lead: '500 TC ➔ 100 NosleiraCoins',  note: 'taxa de 5% inclusa' },
-                                                                        { value: '200', lead: '1.000 TC ➔ 200 NosleiraCoins', note: 'taxa de 5% inclusa' },
-                                                                        { value: '500', lead: '2.500 TC ➔ 500 NosleiraCoins', note: 'taxa de 5% inclusa' }
-                                                                    ],
+                                                                    /* PIX: 5% de desconto aplicado — preço original fica riscado */
                                                                     'pix': [
-                                                                        { value: '25',   lead: 'R$ 23,75 ➔ 25 NosleiraCoins',   note: '5% de desconto no PIX' },
-                                                                        { value: '50',   lead: 'R$ 47,50 ➔ 50 NosleiraCoins',   note: '5% de desconto no PIX' },
-                                                                        { value: '75',   lead: 'R$ 71,25 ➔ 75 NosleiraCoins',   note: '5% de desconto no PIX' },
-                                                                        { value: '100',  lead: 'R$ 95,00 ➔ 100 NosleiraCoins',  note: '5% de desconto no PIX' },
-                                                                        { value: '150',  lead: 'R$ 142,50 ➔ 150 NosleiraCoins', note: '5% de desconto no PIX' },
-                                                                        { value: '200',  lead: 'R$ 190,00 ➔ 200 NosleiraCoins', note: '5% de desconto no PIX' },
-                                                                        { value: '250',  lead: 'R$ 237,50 ➔ 250 NosleiraCoins', note: '5% de desconto no PIX' },
-                                                                        { value: '500',  lead: 'R$ 475,00 ➔ 500 NosleiraCoins', note: '5% de desconto no PIX' },
-                                                                        { value: '1000', lead: 'R$ 950,00 ➔ 1.000 NosleiraCoins', note: '5% de desconto no PIX' }
+                                                                        { value: '3',  title: 'PA 3 Meses',        duration: '90 Dias',  price: 'R$ 444,60', priceOriginal: 'R$ 468,00', badge: '5% OFF no PIX' },
+                                                                        { value: '6',  title: 'PA 6 Meses',        duration: '180 Dias', price: 'R$ 828,40', priceOriginal: 'R$ 872,00', badge: '5% OFF no PIX' },
+                                                                        { value: '12', title: 'PA 12 Meses (Anual)', duration: '360 Dias', price: 'R$ 1.539,95', priceOriginal: 'R$ 1.621,00', badge: 'Melhor Custo-Benefício' }
                                                                     ],
                                                                     'stripe': [
-                                                                        { value: '25',   lead: 'R$ 25,00 ➔ 25 NosleiraCoins',   note: '' },
-                                                                        { value: '50',   lead: 'R$ 50,00 ➔ 50 NosleiraCoins',   note: '' },
-                                                                        { value: '75',   lead: 'R$ 75,00 ➔ 75 NosleiraCoins',   note: '' },
-                                                                        { value: '100',  lead: 'R$ 100,00 ➔ 100 NosleiraCoins', note: '' },
-                                                                        { value: '150',  lead: 'R$ 150,00 ➔ 150 NosleiraCoins', note: '' },
-                                                                        { value: '200',  lead: 'R$ 200,00 ➔ 200 NosleiraCoins', note: '' },
-                                                                        { value: '250',  lead: 'R$ 250,00 ➔ 250 NosleiraCoins', note: '' },
-                                                                        { value: '500',  lead: 'R$ 500,00 ➔ 500 NosleiraCoins', note: '' },
-                                                                        { value: '1000', lead: 'R$ 1.000,00 ➔ 1000 NosleiraCoins', note: '' }
+                                                                        { value: '3',  title: 'PA 3 Meses',        duration: '90 Dias',  price: 'R$ 468,00', priceOriginal: '', badge: '' },
+                                                                        { value: '6',  title: 'PA 6 Meses',        duration: '180 Dias', price: 'R$ 872,00', priceOriginal: '', badge: '' },
+                                                                        { value: '12', title: 'PA 12 Meses (Anual)', duration: '360 Dias', price: 'R$ 1.621,00', priceOriginal: '', badge: 'Melhor Custo-Benefício' }
+                                                                    ],
+                                                                    'tibia_coins': [
+                                                                        { value: '3',  title: 'PA 3 Meses',        duration: '90 Dias',  price: '2.500 TC',  priceOriginal: '', badge: '' },
+                                                                        { value: '6',  title: 'PA 6 Meses',        duration: '180 Dias', price: '5.000 TC',  priceOriginal: '', badge: '' },
+                                                                        { value: '12', title: 'PA 12 Meses (Anual)', duration: '360 Dias', price: '10.000 TC', priceOriginal: '', badge: 'Melhor Custo-Benefício' }
                                                                     ]
                                                                 };
 
                                                                 function formatNosleiraItemHtml(item) {
-                                                                    var coinIcon = '<img src="' + nosleiraCoinSvgUrl + '" alt="N" style="height: 16px; width: 16px; vertical-align: middle; margin: 0 4px 1px 4px; display: inline-block;">';
-                                                                    var noteBadge = '';
-                                                                    if (item.note) {
-                                                                        if (item.note.indexOf('+20%') !== -1) {
-                                                                            noteBadge = ' <span style="font-size: 11px; font-weight: 800; color: #9a3412; background: #ffedd5; border: 1px solid #ea580c; padding: 1px 6px; border-radius: 4px; margin-left: 6px;">' + item.note + '</span>';
-                                                                        } else {
-                                                                            noteBadge = ' <span style="font-size: 11px; font-weight: 700; color: #047857; background: #ecfdf5; border: 1px solid #10b981; padding: 1px 6px; border-radius: 4px; margin-left: 6px;">(' + item.note + ')</span>';
-                                                                        }
+                                                                    var badgeHtml = '';
+                                                                    if (item.badge) {
+                                                                        badgeHtml = '<span class="nosleira-badge-soft">' + item.badge + '</span>';
                                                                     }
-                                                                    var formattedLead = item.lead.replace(/(R\$\s*[\d\.,]+)/g, '<span class="nosleira-price-val" style="color: #047857; font-weight: 800;">$1</span>');
-                                                                    formattedLead = formattedLead.replace(/([\d\.,]+)(\s*TC)/g, '<span class="nosleira-tc-val" style="color: #ca8a04; font-weight: 800;">$1</span>$2');
-                                                                    formattedLead = formattedLead.replace(/([\d\.,]+)(\s*NosleiraCoins)/g, '<span class="nosleira-coins-val" style="color: #ea580c; font-weight: 800;">$1</span>$2');
-                                                                    return '<span style="white-space: nowrap;">' + formattedLead + '</span>' + coinIcon + noteBadge;
+                                                                    /* Preço: se houver priceOriginal, exibe riscado + preço com desconto em verde */
+                                                                    var priceHtml = '';
+                                                                    if (item.priceOriginal) {
+                                                                        priceHtml = '<span class="nosleira-price-original">' + item.priceOriginal + '</span>' +
+                                                                                    '<span class="nosleira-plan-price nosleira-price-discount">' + item.price + '</span>';
+                                                                    } else {
+                                                                        priceHtml = '<span class="nosleira-plan-price">' + item.price + '</span>';
+                                                                    }
+                                                                    return '<div class="nosleira-select-item-content">' +
+                                                                        '\u003cdiv class="nosleira-select-top"\u003e' +
+                                                                            '\u003cspan class="nosleira-star-icon"\u003e\u2605\u003c/span\u003e' +
+                                                                            '\u003cspan class="nosleira-plan-title"\u003e' + item.title + '\u003c/span\u003e' +
+                                                                            '\u003cspan class="nosleira-plan-days"\u003e(' + item.duration + ')\u003c/span\u003e' +
+                                                                        '\u003c/div\u003e' +
+                                                                        '\u003cdiv class="nosleira-select-bottom"\u003e' +
+                                                                            priceHtml +
+                                                                            badgeHtml +
+                                                                        '\u003c/div\u003e' +
+                                                                    '</div>';
                                                                 }
 
                                                                 function toggleNosleiraDropdown(e) {
@@ -1954,7 +1987,7 @@ function changeLanguage(lang) {
                                                                 }
 
                                                                 function renderNosleiraCustomSelect(method, selectedVal) {
-                                                                    var list = nosleiraPackages[method] || nosleiraPackages['stripe'];
+                                                                    var list = nosleiraPackages[method] || nosleiraPackages['pix'];
                                                                     var nativeSelect = document.getElementById('points_package_select');
                                                                     var dropdown = document.getElementById('nosleira_select_dropdown');
                                                                     var display = document.getElementById('nosleira_select_display');
@@ -1969,7 +2002,7 @@ function changeLanguage(lang) {
                                                                     if (nativeSelect) {
                                                                         var optionsHtml = '';
                                                                         list.forEach(function(item) {
-                                                                            var rawText = item.lead + (item.note ? ' (' + item.note + ')' : '');
+                                                                            var rawText = item.title + ' (' + item.duration + ') - ' + item.price + (item.badge ? ' [' + item.badge + ']' : '');
                                                                             optionsHtml += '<option value="' + item.value + '"' + (item.value === selectedVal ? ' selected' : '') + '>' + rawText + '</option>';
                                                                         });
                                                                         nativeSelect.innerHTML = optionsHtml;
@@ -2018,9 +2051,10 @@ function changeLanguage(lang) {
                                                                         input.value = method;
                                                                     }
 
-                                                                    var banner = document.getElementById('bonus_promo_banner');
-                                                                    if (banner) {
-                                                                        banner.style.display = (method === 'pix') ? 'flex' : 'none';
+                                                                    /* Exibir banner de desconto PIX apenas quando PIX estiver ativo */
+                                                                    var pixBanner = document.getElementById('pix_discount_banner');
+                                                                    if (pixBanner) {
+                                                                        pixBanner.style.display = (method === 'pix') ? 'flex' : 'none';
                                                                     }
 
                                                                     renderNosleiraCustomSelect(method);
@@ -2036,17 +2070,27 @@ function changeLanguage(lang) {
                                                                     }
                                                                 }
 
+                                                                /* Controla visibilidade inicial do banner PIX na carga da página */
+                                                                function initPixBannerVisibility(method) {
+                                                                    var pixBanner = document.getElementById('pix_discount_banner');
+                                                                    if (pixBanner) {
+                                                                        pixBanner.style.display = (method === 'pix') ? 'flex' : 'none';
+                                                                    }
+                                                                }
+
                                                                 // Inicialização no carregamento
                                                                 if (document.readyState === 'loading') {
                                                                     document.addEventListener('DOMContentLoaded', function() {
                                                                         var curMethod = '<?php echo htmlspecialchars($payment_method); ?>';
                                                                         var curPkg = '<?php echo htmlspecialchars($points_package); ?>';
                                                                         renderNosleiraCustomSelect(curMethod, curPkg);
+                                                                        initPixBannerVisibility(curMethod);
                                                                     });
                                                                 } else {
                                                                     var curMethod = '<?php echo htmlspecialchars($payment_method); ?>';
                                                                     var curPkg = '<?php echo htmlspecialchars($points_package); ?>';
                                                                     renderNosleiraCustomSelect(curMethod, curPkg);
+                                                                    initPixBannerVisibility(curMethod);
                                                                 }
                                                                 </script>
                                                             </td>

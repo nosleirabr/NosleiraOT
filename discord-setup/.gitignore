@@ -1,9 +1,0 @@
-# Ignorar arquivos de ambiente sensível
-.env
-
-# Ignorar logs e caches
-*.log
-.DS_Store
-
-# Ignorar pastas de node_modules
-node_modules/

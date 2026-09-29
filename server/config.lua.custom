@@ -67,7 +67,7 @@ mapAuthor = "ond"
 -- MySQL
 mysqlHost = "mysql"
 mysqlUser = "ot74"
-mysqlPass = "mv%ybJvh^^ZQ14rPoRYVZw!baT0G8%RI"
+mysqlPass = os.getenv("MYSQL_PASSWORD") or "TROQUE_POR_SENHA_FORTE"
 mysqlDatabase = "ot74"
 mysqlPort = 3306
 mysqlSock = ""
@@ -112,6 +112,7 @@ ownerName = ""
 ownerEmail = ""
 url = "https://otland.net/"
 location = "Sweden"
+
 
 
 

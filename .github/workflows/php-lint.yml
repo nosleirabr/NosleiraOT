@@ -32,7 +32,7 @@ jobs:
           phpcs \
             --standard=PSR12 \
             --extensions=php \
-            --ignore=site/engine/,site/system/,site/vendor/,site/install_backup/,site/tools/,site/common.php,site/custom/ \
+            --ignore=site/engine/,site/system/,site/vendor/,site/tools/,site/common.php,site/custom/ \
             --warning-severity=0 \
             site/ \
 

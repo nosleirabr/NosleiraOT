@@ -26,6 +26,10 @@ tmp
 config.local.php
 config2.local.php
 
+# segredos locais (ver config.php.example) — nunca versionar
+config.php
+settings.txt
+
 # all custom templates
 templates/*
 !templates/tibiacom
