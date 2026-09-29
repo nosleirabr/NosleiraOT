@@ -519,7 +519,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 										[<a href="?subtopic=downloads">Downloads</a>] 
 										[<a href="?subtopic=highscores">Highscores</a>] 
 										[<a href="?subtopic=outfits">Outfits</a>] 
-										[<a href="<?php echo getLink('Regras/security'); ?>">Security</a>]
+										[<a href="<?php echo getLink('regras/security'); ?>">Security</a>]
 									</b>
 								</center>
 								<hr style="border: 0; border-bottom: 1px dashed #5a2800; margin: 10px -5px;">

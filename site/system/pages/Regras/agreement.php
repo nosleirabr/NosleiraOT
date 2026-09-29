@@ -1,4 +1,4 @@
-﻿<!-- Google Translate Widget (Oculto) -->
+<!-- Google Translate Widget (Oculto) -->
 <div id="google_translate_element" style="display:none !important;"></div>
 
 <script type="text/javascript">
@@ -184,7 +184,7 @@ $title = 'Service Agreement';
     <div class="CaptionContainer">
         <div class="CaptionInnerContainer agreement-header-caption">
             <div class="agreement-header-right">
-                <a href="<?php echo (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) ? htmlspecialchars($_SERVER['HTTP_REFERER']) : getLink('Regras/rules'); ?>" class="btn-agreement-back">&larr; VOLTAR</a>
+                <a href="<?php echo (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) ? htmlspecialchars($_SERVER['HTTP_REFERER']) : getLink('regras/rules'); ?>" class="btn-agreement-back">&larr; VOLTAR</a>
                 <div class="agreement-flags">
                     <img src="<?php echo BASE_URL; ?>images/flags/br.gif" alt="Português" title="Português (BR)" class="flag-icon" onclick="changeLanguage('pt');" />
                     <img src="<?php echo BASE_URL; ?>images/flags/us.gif" alt="English" title="English (US)" class="flag-icon" onclick="changeLanguage('en');" />
