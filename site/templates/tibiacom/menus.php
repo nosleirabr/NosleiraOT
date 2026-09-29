@@ -26,7 +26,8 @@ return [
 	],
 	MENU_CATEGORY_SUPPORT => [
 		"Support List" => "team",
-		"Server Rules" => "rules",
+		"Legal Documents" => "legal",
+		"Server Rules" => "legal/rules",
 	],
 	MENU_CATEGORY_LIBRARY => [
 		"Monsters" => "monsters",

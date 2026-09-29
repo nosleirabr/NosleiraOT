@@ -423,14 +423,14 @@ DELIMITER ;
 
 -- =============================================================
 -- Dados iniciais — conta god e personagens padrão
--- Conta: 1  |  Senha: admin123
+-- Conta: 1  |  Senha: 1
 -- =============================================================
 
 -- Conta god (type 5 = god, premdays 65535 = vitalício)
 INSERT INTO `accounts` (`id`, `name`, `password`, `type`, `premdays`, `lastday`, `email`, `creation`) VALUES
-(1, '1', 'f865b53623b121fd34ee5426c792e5c33af8c227', 5, 65535, 0, 'god@nosleira.local', 0);
+(1, '1', '356a192b7913b04c54574d18c28d46e6395428ab', 5, 65535, 0, 'god@nosleira.local', 0);
 
--- Personagem 1: God Nosleir (group_id 6 = god, looktype 75 = citizen male)
+-- Personagem 1: [GOD] Nosleira (group_id 6 = god, looktype 75 = citizen male)
 --   Posição: Thais temple clássico (x=160, y=54, z=7)
 INSERT INTO `players` (
   `id`, `name`, `group_id`, `account_id`, `level`, `vocation`,
@@ -446,7 +446,7 @@ INSERT INTO `players` (
   `skill_dist`, `skill_dist_tries`, `skill_shielding`, `skill_shielding_tries`,
   `skill_fishing`, `skill_fishing_tries`
 ) VALUES (
-  1, '[ADM] Nós', 6, 1, 1, 0,
+  1, '[GOD] Nosleira', 6, 1, 1, 0,
   1000, 1000, 0,
   0, 0, 0, 0, 75, 0,
   0, 0, 0, 0, 100,

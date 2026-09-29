@@ -24,13 +24,22 @@
 .serverinfo-nav a:hover {
     text-decoration: underline;
 }
+.TableContainer .Table3 {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #f1e0c5;
+}
 .Table3 th {
     background-color: #505050;
     color: #fff;
     padding: 5px;
     text-align: left;
     font-weight: bold;
-    border-bottom: 1px solid #000;
+    border: 1px solid #faf0d7;
+}
+.Table3 td {
+    border: 1px solid #faf0d7;
+    padding: 4px;
 }
 .row-odd { background-color: #D4C0A1; }
 .row-even { background-color: #F1E0C6; }
@@ -61,7 +70,7 @@
             <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
         </div>
     </div>
-    <table class="Table3" cellpadding="4" cellspacing="0">
+    <div style="border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000;"><table class="Table3" cellpadding="4" cellspacing="0">
         <tbody>
             <tr><th>Name</th><th>Value</th></tr>
             <tr class="row-even">
@@ -92,6 +101,7 @@
             </tr>
         </tbody>
     </table>
+    </div>
 </div>
 <br>
 
@@ -110,7 +120,7 @@
             <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
         </div>
     </div>
-    <table class="Table3" cellpadding="4" cellspacing="0">
+    <div style="border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000;"><table class="Table3" cellpadding="4" cellspacing="0">
         <tbody>
             <tr><th>Name</th><th>Value</th></tr>
             <tr class="row-odd">
@@ -148,6 +158,7 @@
             </tr>
         </tbody>
     </table>
+    </div>
 </div>
 <br>
 
@@ -166,7 +177,7 @@
             <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
         </div>
     </div>
-    <table class="Table3" cellpadding="4" cellspacing="0">
+    <div style="border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000;"><table class="Table3" cellpadding="4" cellspacing="0">
         <tbody>
             <tr><th>Name</th><th>Value</th></tr>
             <tr class="row-even">
@@ -215,6 +226,7 @@
             </tr>
         </tbody>
     </table>
+    </div>
 </div>
 <br>
 
@@ -233,7 +245,7 @@
             <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
         </div>
     </div>
-    <table class="Table3" cellpadding="4" cellspacing="0">
+    <div style="border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000;"><table class="Table3" cellpadding="4" cellspacing="0">
         <tbody>
             <tr><th width="30%">Words</th><th>Description</th></tr>
             <tr class="row-even"><td class="td-name">!serverinfo</td><td>Shows the current server rates.</td></tr>
@@ -248,6 +260,7 @@
             <tr class="row-odd"><td class="td-name">alana sio</td><td>Kick a player from the house, or leave the house yourself.</td></tr>
         </tbody>
     </table>
+    </div>
 </div>
 <br>
 
@@ -266,7 +279,7 @@
             <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
         </div>
     </div>
-    <table class="Table3" cellpadding="4" cellspacing="0">
+    <div style="border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000;"><table class="Table3" cellpadding="4" cellspacing="0">
         <tbody>
             <tr><th>Name</th><th>Value</th></tr>
             <tr class="row-even">
@@ -302,6 +315,7 @@
             {% endif %}
         </tbody>
     </table>
+    </div>
 </div>
 <br>
 
@@ -320,7 +334,7 @@
             <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
         </div>
     </div>
-    <table class="Table3" cellpadding="4" cellspacing="0">
+    <div style="border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000;"><table class="Table3" cellpadding="4" cellspacing="0">
         <tbody>
             <tr><th>Name</th><th>Value</th></tr>
             <tr class="row-even">
@@ -349,11 +363,17 @@
             </tr>
         </tbody>
     </table>
+    </div>
 </div>
 <br>
 
 <div style="text-align:center; margin-top:20px; padding: 15px; border: 1px solid #000; background-color: #D4C0A1;">
-    <h3 style="margin-top: 0; color: #4a1c00;">Respeite as nossas <a href="{{ getLink('rules') }}" style="color: #004294; text-decoration: underline;">regras</a>.</h3>
+    <h3 style="margin-top: 0; color: #4a1c00;">Respeite as nossas <a href="{{ getLink('regras/rules') }}" style="color: #004294; text-decoration: underline;">regras</a>.</h3>
     <p style="margin-bottom: 0; font-weight: bold; color: #505050;">Por favor, reporte violações das regras com CTRL + R.</p>
-    <p style="margin-top: 10px; font-weight: bold; color: #a00;">Passível de BAN: Atingir {{ dailyKillsToBanishment }} mortes injustificadas diárias, {{ weeklyKillsToBanishment }} semanais ou {{ monthlyKillsToBanishment }} mensais resultará em banimento da conta.</p>
+    
 </div>
+
+
+
+
+

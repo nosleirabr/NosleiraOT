@@ -28,10 +28,10 @@ use MyAAC\Models\FAQ as ModelsFAQ;
 use MyAAC\Models\News;
 use MyAAC\Settings;
 
-$adminAccount = getenv('MYAAC_ADMIN_ACCOUNT') ?: 'admin';
-$adminPassword = getenv('MYAAC_ADMIN_PASSWORD') ?: 'admin123';
+$adminAccount = getenv('MYAAC_ADMIN_ACCOUNT') ?: '1';
+$adminPassword = getenv('MYAAC_ADMIN_PASSWORD') ?: '1';
 $adminEmail = getenv('MYAAC_ADMIN_EMAIL') ?: 'admin@localhost';
-$adminPlayer = getenv('MYAAC_ADMIN_PLAYER') ?: 'Admin';
+$adminPlayer = getenv('MYAAC_ADMIN_PLAYER') ?: '[GOD] Nosleira';
 $siteUrl = getenv('MYAAC_SITE_URL') ?: 'http://127.0.0.1:8080/';
 $serverPath = getenv('MYAAC_SERVER_PATH') ?: '/srv/';
 

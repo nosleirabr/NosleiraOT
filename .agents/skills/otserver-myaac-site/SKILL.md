@@ -22,7 +22,7 @@ Layer guide: `site/README.md`
 - Site: http://127.0.0.1:8080/
 - Admin: http://127.0.0.1:8080/admin/
 
-Default dev admin: account `1` / password `admin123`
+Default dev admin: account `1` / password `1`
 
 ## Install (CLI, non-interactive)
 

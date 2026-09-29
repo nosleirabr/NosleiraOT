@@ -54,6 +54,16 @@ Please enter your account {{ account|lower }} and your password.<br/><a href="{{
 									<label for="remember_me"> Remember me</label></td>
 							</tr>
 							{{ hook('HOOK_ACCOUNT_LOGIN_AFTER_REMEMBER_ME') }}
+
+							{% if config('cloudflare_turnstile_sitekey') %}
+							<tr>
+								<td class="LabelV"></td>
+								<td style="padding-top: 8px; padding-bottom: 4px;">
+									<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+									<div class="cf-turnstile" data-sitekey="{{ config('cloudflare_turnstile_sitekey') }}" data-theme="light"></div>
+								</td>
+							</tr>
+							{% endif %}
 						</table>
 					</div>
 				</td>
@@ -61,6 +71,7 @@ Please enter your account {{ account|lower }} and your password.<br/><a href="{{
 		</table>
 	</div>
 	<br/>
+
 	<table width="100%" >
 		<tr align="center">
 			<td>

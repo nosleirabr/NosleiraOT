@@ -85,21 +85,26 @@ if($save)
 	}
 
 	if(!config('account_login_by_email')) {
-		$account_db_check = new OTS_Account();
-		if(USE_ACCOUNT_NAME) {
-			$account_id = mt_rand(100000, 999999);
-			while($account_db_check->find((string)$account_id)->isLoaded()) {
-				$account_id = mt_rand(100000, 999999);
+		if(isset($_POST['account'])) {
+			$posted_account = trim($_POST['account']);
+			
+			// Validate if it is numbers only and at least 6 digits
+			if (!preg_match('/^[0-9]+$/', $posted_account)) {
+				$errors['account'] = 'Seu Account Number (Login) deve conter APENAS NÚMEROS! Nenhuma letra é permitida.';
+			} elseif (strlen($posted_account) < 6) {
+				$errors['account'] = 'Seu Account Number (Login) precisa ter no mínimo 6 números.';
 			}
-			$account_name = (string)$account_id;
-			$_POST['account'] = $account_name;
-		}
-		else {
-			$account_id = mt_rand(100000, 999999);
-			while($account_db_check->load($account_id)->isLoaded()) {
-				$account_id = mt_rand(100000, 999999);
+
+			if(USE_ACCOUNT_NAME) {
+				$account_name = $posted_account;
+				$_POST['account'] = $account_name;
 			}
-			$_POST['account'] = $account_id;
+			else {
+				$account_id = (int)$posted_account;
+				$_POST['account'] = $account_id;
+			}
+		} else {
+			$errors['account'] = 'Por favor, insira um Account Number.';
 		}
 	}
 
@@ -174,11 +179,11 @@ if($save)
 		}
 	}
 
-	if(!isset($_POST['accept_rules']) || $_POST['accept_rules'] !== 'true')
-		$errors['accept_rules'] = 'You have to agree to the ' . $config['lua']['serverName'] . ' Rules in order to create an account!';
-
 	if(!isset($_POST['accept_age']) || $_POST['accept_age'] !== 'true')
 		$errors['accept_age'] = 'Você precisa confirmar que tem 18 anos ou mais para criar uma conta!';
+
+	if(!isset($_POST['accept_rules']) || $_POST['accept_rules'] !== 'true')
+		$errors['accept_rules'] = 'Você precisa aceitar as Regras do Jogo, Termos de Serviço e Política de Privacidade para criar uma conta!';
 
 	$params = array(
 		'account' => $account_db,
@@ -401,6 +406,7 @@ $params = array(
 	'countries' => isset($countries) ? $countries : null,
 	'accept_rules' => isset($_POST['accept_rules']) ? $_POST['accept_rules'] : false,
 	'accept_age' => isset($_POST['accept_age']) ? $_POST['accept_age'] : false,
+
 	'country_recognized' => $country_recognized,
 	'country' => isset($country) ? $country : null,
 	'errors' => $errors,

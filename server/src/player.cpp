@@ -1891,7 +1891,7 @@ void Player::death(Creature* _lastHitCreature)
 		sendSkills();
 
 		if (client) {
-			// client->sendDeathWindow();
+			client->sendDeathWindow();
 		}
 
 		health = healthMax;
@@ -1933,7 +1933,7 @@ void Player::death(Creature* _lastHitCreature)
 		}
 
 		if (client) {
-			// client->sendDeathWindow();
+			client->sendDeathWindow();
 		}
 
 		health = healthMax;

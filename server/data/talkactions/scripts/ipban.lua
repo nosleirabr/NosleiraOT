@@ -1,43 +1,73 @@
+--[[
+	Talkaction: /ipban
+	Aplica banimento por IP do jogador informado.
+	Apenas GMs (4), CMs (5) e GODs (6) podem executar este comando.
+]]
+
 local defaultIpBanDays = 7
 
+local function trim(s)
+	return (s:gsub("^%s*(.-)%s*$", "%1"))
+end
+
+local function splitTrimmed(str, sep)
+	local result = {}
+	if not str then return result end
+	for match in string.gmatch(str, "([^" .. (sep or ",") .. "]+)") do
+		table.insert(result, trim(match))
+	end
+	return result
+end
+
 -- Tabela de regras baseada nas regras do site
--- O GM pode usar: /ipban Player, id_da_regra
 local siteRules = {
-	[1] = {days = 3, reason = "Comentar sobre Reset's"},
-	[2] = {days = 7, reason = "Fazer free itens"},
-	[3] = {days = 3, reason = "Bloquear a hunt ou respawn"},
-	[4] = {days = 3, reason = "Bloquear acessos a Quests ou atrapalhar team"},
-	[5] = {days = 7, reason = "Ofender tutores ou desrespeitar GM/CM"},
-	[6] = {days = 7, reason = "Conduta abusiva perante jogador novato (Abuso de poder)"},
-	[7] = {days = 30, reason = "Ofertas fraudulentas no Trade OFF"},
-	[8] = {days = 30, reason = "Anuncios de outros servidores"},
-	[9] = {days = 7, reason = "Uso de MC para beneficios no PvP"},
-	[13] = {days = 30, reason = "Venda ou anuncio de scripts para BOT"},
-	[14] = {days = 999, reason = "Venda de personagens/itens por dinheiro real"},
+	[1]  = {days = 15,   name = "Regra 1 - Comentarios sobre Reset"},
+	[2]  = {days = 60,   name = "Regra 2 - Free Itens Massivo"},
+	[3]  = {days = 15,   name = "Regra 3 - Bloqueio de Hunts e Respawn"},
+	[4]  = {days = 15,   name = "Regra 4 - Bloqueio de Quests"},
+	[5]  = {days = 30,   name = "Regra 5 - Desrespeito a Staff e Tutores"},
+	[6]  = {days = 15,   name = "Regra 6 - Abuso contra Novatos"},
+	[7]  = {days = 9999, name = "Regra 7 - Bug Abuse e Duplicacao (Dupes)"},
+	[8]  = {days = 9999, name = "Regra 8 - Divulgacao de outros Servidores"},
+	[9]  = {days = 9999, name = "Regra 9 - Abuso de MC no PvP ou Trap"},
+	[10] = {days = 9999, name = "Regra 10 - Fraude em Doacoes e Estorno"},
+	[11] = {days = 9999, name = "Regra 11 - Comercio de Scripts de Bot"},
+	[12] = {days = 9999, name = "Regra 12 - RMT e Comercio In-Game"},
+	[13] = {days = 9999, name = "Regra 13 - Trocas entre Servidores"},
+	[14] = {days = 9999, name = "Regra 14 - Trapacas no PvP (Magebomb/Nav)"},
+	[15] = {days = 90,   name = "Regra 15 - Uso de Low Level em Battle"},
+	[16] = {days = 90,   name = "Regra 16 - Abuso no Guild Chat (/guildbc)"},
+	[17] = {days = 9999, name = "Regra 17 - Uso de Bots e Programas Externos"},
+	[18] = {days = 9999, name = "Regra 18 - Tentativa de Roubo de Contas"},
+	[19] = {days = 7,    name = "Regra 19 - Nome Invalido / Ofensivo (Namelock)"},
 }
 
 function onSay(player, words, param)
-	if not player:getGroup():getAccess() then
-		return true
+	local gid = player:getGroup():getId()
+	if gid < 4 and not player:getGroup():getAccess() then
+		player:sendCancelMessage("Apenas GMs, CMs e GODs tem permissao para aplicar banimentos por IP.")
+		return false
 	end
 
-	local name = param
-	local reason = ''
+	local params = splitTrimmed(param, ",")
+	local name = params[1]
 
-	local separatorPos = param:find(',')
-	if separatorPos ~= nil then
-		name = string.trim(param:sub(0, separatorPos - 1))
-		reason = string.trim(param:sub(separatorPos + 1))
-	end
-
-	if name == '' then
-		player:sendCancelMessage("Command param required. Example: /ipban PlayerName, RuleID")
+	if not name or name == "" then
+		player:sendTextMessage(MESSAGE_STATUS_CONSOLE_BLUE, "Uso do comando /ipban (IP Ban):")
+		player:sendTextMessage(MESSAGE_STATUS_CONSOLE_BLUE, "/ipban NomeDoPlayer (Padrao: 7 dias, Violacao das regras)")
+		player:sendTextMessage(MESSAGE_STATUS_CONSOLE_BLUE, "/ipban NomeDoPlayer, NumeroDaRegra (Ex: /ipban Frodo, 1)")
+		player:sendTextMessage(MESSAGE_STATUS_CONSOLE_BLUE, "/ipban NomeDoPlayer, Dias, Motivo (Ex: /ipban Frodo, 7, Motivo Escrito)")
+		player:sendTextMessage(MESSAGE_STATUS_CONSOLE_ORANGE, "--- LISTA DE REGRAS E PUNICOES ---")
+		for id, r in ipairs(siteRules) do
+			local dStr = (r.days >= 999 or r.days <= 0) and "Permanente" or (r.days .. " dias")
+			player:sendTextMessage(MESSAGE_STATUS_CONSOLE_ORANGE, string.format("[%d] %s (%s)", id, r.name, dStr))
+		end
 		return false
 	end
 
 	local resultId = db.storeQuery("SELECT `account_id`, `lastip` FROM `players` WHERE `name` = " .. db.escapeString(name))
 	if resultId == false then
-		player:sendCancelMessage("Player " .. name .. " does not exist.")
+		player:sendCancelMessage("Jogador " .. name .. " nao encontrado.")
 		return false
 	end
 
@@ -47,40 +77,70 @@ function onSay(player, words, param)
 	local targetPlayer = Player(name)
 	if targetPlayer then
 		targetIp = targetPlayer:getIp()
+		local tpos = targetPlayer:getPosition()
+		tpos:sendMagicEffect(CONST_ME_FIREAREA)
+		tpos:sendMagicEffect(CONST_ME_EXPLOSIONHIT)
 		targetPlayer:remove()
 	end
 
-	if targetIp == 0 then
+	if not targetIp or targetIp == 0 then
+		player:sendCancelMessage("Nao foi possivel obter o IP do jogador " .. name .. ".")
 		return false
 	end
 
 	resultId = db.storeQuery("SELECT 1 FROM `ip_bans` WHERE `ip` = " .. targetIp)
 	if resultId ~= false then
 		result.free(resultId)
-		player:sendCancelMessage("IP of player " .. name .. " is already banned.")
+		player:sendCancelMessage("O IP do jogador " .. name .. " ja esta banido.")
 		return false
 	end
 
-	-- Verificar se 'reason' é um ID de regra
-	local ruleId = tonumber(reason)
 	local banDays = defaultIpBanDays
+	local reason = "Violacao das regras do servidor (IP Ban)"
 
-	if ruleId and siteRules[ruleId] then
-		banDays = siteRules[ruleId].days
-		reason = "Regra " .. ruleId .. " - " .. siteRules[ruleId].reason
-	elseif reason == '' then
-		reason = "Violacao das regras do servidor (IP Ban)"
+	if #params >= 3 then
+		banDays = tonumber(params[2]) or defaultIpBanDays
+		reason = params[3]
+	elseif #params == 2 then
+		local ruleNum = tonumber(params[2])
+		if ruleNum and siteRules[ruleNum] then
+			banDays = siteRules[ruleNum].days
+			reason = siteRules[ruleNum].name
+		else
+			reason = params[2]
+		end
 	end
 
 	local timeNow = os.time()
-	db.query("INSERT INTO `ip_bans` (`ip`, `reason`, `banned_at`, `expires_at`, `banned_by`) VALUES (" ..
-			targetIp .. ", " .. db.escapeString(reason) .. ", " .. timeNow .. ", " .. timeNow + (banDays * 86400) .. ", " .. player:getGuid() .. ")")
+	local isPermanent = (banDays <= 0 or banDays >= 999)
+	local timeExpire = isPermanent and -1 or (timeNow + (banDays * 86400))
 
-	-- Transmissão global do banimento informando GM, player, dias e motivo
-	local gmName = player:getName()
-	local broadcastMessage = string.format("O GM %s aplicou um IP Ban no jogador %s por %d dias. Motivo: %s", gmName, name, banDays, reason)
-	Game.broadcastMessage(broadcastMessage, MESSAGE_EVENT_ADVANCE)
+	db.query("INSERT INTO `ip_bans` (`ip`, `reason`, `banned_at`, `expires_at`, `banned_by`) VALUES (" ..
+			targetIp .. ", " .. db.escapeString(reason) .. ", " .. timeNow .. ", " .. timeExpire .. ", " .. player:getGuid() .. ")")
+
+	local durationText = ""
+	if isPermanent then
+		durationText = "permanentemente"
+	elseif banDays == 1 then
+		durationText = "por 1 dia"
+	else
+		durationText = string.format("por %d dias", banDays)
+	end
+
+	-- Mensagem de anuncio para todo o servidor em destaque e laranja (sem caracteres especiais)
+	local broadcastMsg = string.format("Punicao: %s aplicou um IP Ban no jogador %s %s. Motivo: %s.", player:getName(), name, durationText, reason)
+
+	Game.broadcastMessage(broadcastMsg, MESSAGE_STATUS_CONSOLE_ORANGE)
+	Game.broadcastMessage(broadcastMsg, MESSAGE_STATUS_WARNING)
+
+	-- Repetir para permanecer cerca de 10 segundos na tela de todos
+	addEvent(function()
+		Game.broadcastMessage(broadcastMsg, MESSAGE_STATUS_WARNING)
+	end, 3500)
+
+	addEvent(function()
+		Game.broadcastMessage(broadcastMsg, MESSAGE_STATUS_WARNING)
+	end, 7000)
 
 	return false
 end
-

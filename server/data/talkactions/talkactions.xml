@@ -19,6 +19,9 @@
 	<!-- Gamemasters -->
 	<talkaction words="/gmbp" script="gm_bp.lua" />
 	<talkaction words="/ban" separator=" " script="ban.lua" />
+	<talkaction words="/playerban" separator=" " script="ban.lua" />
+	<talkaction words="/accban" separator=" " script="accban.lua" />
+	<talkaction words="/banacc" separator=" " script="accban.lua" />
 	<talkaction words="/ipban" separator=" " script="ipban.lua" />
 	<talkaction words="/unban" separator=" " script="unban.lua" />
 	<talkaction words="/up" script="up.lua" />
@@ -47,8 +50,24 @@
 	<talkaction words="!leavehouse" script="leavehouse.lua" />
 	<talkaction words="!deathlist" script="deathlist.lua" />
 	<talkaction words="!kills" script="kills.lua" />
+	<talkaction words="!frags" script="kills.lua" />
 	<talkaction words="!serverinfo" script="serverinfo.lua" />
 	<talkaction words="!pz" script="pz.lua" />
+	<talkaction words="!comment" separator=" " script="comment.lua" />
+
+	<!-- Staff Help & Rules Guide -->
+	<talkaction words="/god" script="god_help.lua" />
+	<talkaction words="!god" script="god_help.lua" />
+	<talkaction words="/staff" script="god_help.lua" />
+	<talkaction words="!staff" script="god_help.lua" />
+	<talkaction words="/gm" script="god_help.lua" />
+	<talkaction words="!gm" script="god_help.lua" />
+	<talkaction words="/rules" script="god_help.lua" />
+	<talkaction words="!rules" script="god_help.lua" />
+	<talkaction words="/regras" script="god_help.lua" />
+	<talkaction words="!regras" script="god_help.lua" />
+	<talkaction words="/punicoes" script="god_help.lua" />
+	<talkaction words="!punicoes" script="god_help.lua" />
 
 	<!-- test talkactions -->
 	<talkaction words="!z" separator=" " script="magiceffect.lua" />

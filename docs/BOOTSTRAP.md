@@ -39,7 +39,7 @@ dotnet exec $otmap build --from-source
 docker compose up -d --build
 ```
 
-Login de dev: account `1` / `admin123` / character `Admin`.
+Login de dev: account `1` / `1` / character `[GOD] Nosleira`.
 
 ## 4. Viewer
 

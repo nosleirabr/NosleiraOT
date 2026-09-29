@@ -20,6 +20,48 @@ if($logged || !isset($_POST['account_login']) || !isset($_POST['password_login']
 
 csrfProtect();
 
+// Validação Cloudflare Turnstile — protege contra bots de força bruta
+if(!function_exists('verifyCloudflareTurnstile')) {
+	function verifyCloudflareTurnstile($secret, $response, $ip = null) {
+		if(empty($secret) || empty($response)) {
+			return false;
+		}
+		$url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+		$data = [
+			'secret' => $secret,
+			'response' => $response,
+		];
+		if(!empty($ip)) {
+			$data['remoteip'] = $ip;
+		}
+
+		$options = [
+			'http' => [
+				'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+				'method'  => 'POST',
+				'content' => http_build_query($data),
+				'timeout' => 5
+			]
+		];
+		$context  = stream_context_create($options);
+		$result = @file_get_contents($url, false, $context);
+		if($result === false) {
+			return false;
+		}
+		$json = json_decode($result, true);
+		return isset($json['success']) && $json['success'] === true;
+	}
+}
+
+$turnstileSecret = config('cloudflare_turnstile_secret');
+if (!empty($turnstileSecret)) {
+	$turnstileToken = $_POST['cf-turnstile-response'] ?? '';
+	if (empty($turnstileToken) || !verifyCloudflareTurnstile($turnstileSecret, $turnstileToken, get_browser_real_ip())) {
+		$errors[] = 'Verificação de segurança inválida. Por favor, tente novamente.';
+		return;
+	}
+}
+
 $login_account = $_POST['account_login'];
 $login_password = $_POST['password_login'];
 $remember_me = isset($_POST['remember_me']);

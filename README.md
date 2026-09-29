@@ -49,8 +49,8 @@ docker compose up -d --build
 
 **Credenciais padrão para testes:**
 - **Conta:** `1`
-- **Senha:** `admin123`
-- **Personagem God:** `Admin`
+- **Senha:** `1`
+- **Personagem God:** `[GOD] Nosleira`
 
 ---
 

@@ -112,7 +112,7 @@
 
 	<tr>
 		<td class="LabelV150"><b>Location Datacenter:</b></td>
-		<td>Brazil - São Paulo VPS <small>(Server date & time: - {{ "now"|date("d/m/Y H:i:s") }})</small></td>
+		<td>Brazil - São Paulo VPS <small>(Server date &amp; time: - {{ "now"|date("d/m/Y H:i:s") }})</small></td>
 	</tr>
 	<tr>
 		<td class="LabelV150"><b>PvP Type:</b></td>
@@ -136,20 +136,19 @@
 {% set title = 'Players Online' %}
 {% set tableClass = 'Table2' %}
 {% set content %}
-<table width="100%" class="myaac-table">
+<table width="100%" class="myaac-table" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
 
-	<tr class="LabelH" style="z-index: 20;">
-		{% if setting('core.online_outfit') %}
-			<td style="width: 32px;"><b>Outfit</b></td>
-		{% endif %}
-		<td style="text-align:left;">Name&#160;&#160;
+	{# — cabeçalho da tabela de jogadores online — #}
+	<tr class="LabelH" style="height: 24px;">
+		<td style="text-align:left; padding: 4px 8px; font-weight: bold;">Name&#160;&#160;
 			<small style="font-weight:normal">[<a href="{{ getLink('online')}}?order=name_{{ order == 'name_asc' ? 'desc' : 'asc' }}">sort</a>]</small>
-			<img class="sortarrow" src="images/{{ order == 'name_asc' ? 'order_desc' : (order == 'name_desc' ? 'order_asc' : 'news/blank') }}.gif"/></td>
-		<td style="text-align:left;width:10%">Level&#160;&#160;
+			<img class="sortarrow" src="images/{{ order == 'name_asc' ? 'order_desc' : (order == 'name_desc' ? 'order_asc' : 'news/blank') }}.gif"/>
+		</td>
+		<td style="text-align:right; width:12%; padding: 4px 12px 4px 4px; font-weight: bold;">Level&#160;&#160;
 			<small style="font-weight:normal">[<a href="{{ getLink('online')}}?order=level_{{ order == 'level_asc' ? 'desc' : 'asc' }}">sort</a>]</small>
 			<img class="sortarrow" src="images/{{ order == 'level_asc' ? 'order_desc' : (order == 'level_desc' ? 'order_asc' : 'news/blank') }}.gif"/>
 		</td>
-		<td style="text-align:left;width:20%">Vocation&#160;&#160;
+		<td style="text-align:right; width:25%; padding: 4px 12px 4px 4px; font-weight: bold;">Vocation&#160;&#160;
 			<small style="font-weight:normal">[<a href="{{ getLink('online')}}?order=vocation_{{ order == 'vocation_asc' ? 'desc' : 'asc' }}">sort</a>]</small>
 			<img class="sortarrow" src="images/{{ order == 'vocation_asc' ? 'order_desc' : (order == 'vocation_desc' ? 'order_asc' : 'news/blank') }}.gif"/>
 		</td>
@@ -159,19 +158,17 @@
 	{% for player in players %}
 		{% set i = i + 1 %}
 
-		<tr style="text-align: right; height: 40px;">
-			{% if setting('core.online_outfit') %}
-				<td style="text-align: center; vertical-align: middle; width: 64px;"><img style="vertical-align: middle; max-width: 64px; max-height: 64px; display: inline-block;" src="{{ player.outfit }}" alt="player outfit"/></td>
-			{% endif %}
-
-			<td style="text-align:left">
-				{{ player.name|raw }}{{ player.skull|raw }}
+		{# — linha com contraste alternado estilo Tibia (Kaldrox) — #}
+		<tr style="height: 24px; background-color: {{ i is odd ? '#D4C0A1' : '#F1E0C6' }};">
+			<td style="text-align:left; vertical-align: middle; padding: 2px 8px; font-size: 11px;">
 				{% if setting('core.account_country') %}
-					{{ player.country_image|raw }}
+					<span style="display: inline-block; vertical-align: middle; margin-right: 4px;">{{ player.country_image|raw }}</span>
 				{% endif %}
+				<span style="font-weight: bold;">{{ player.name|raw }}</span>{{ player.skull|raw }}
 			</td>
-			<td>{{ player.level }}</td>
-			<td>{{ player.vocation }}</td>
+
+			<td style="text-align:right; vertical-align: middle; padding-right: 14px; font-size: 11px; color: #201000;">{{ player.level }}</td>
+			<td style="text-align:right; vertical-align: middle; padding-right: 14px; font-size: 11px; color: #201000;">{{ player.vocation }}</td>
 		</tr>
 	{% endfor %}
 </table>

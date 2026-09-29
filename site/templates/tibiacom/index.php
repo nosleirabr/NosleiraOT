@@ -49,23 +49,37 @@ if(isset($config['boxes']))
 		var menus = '';
 		var loginStatus="<?php echo ($logged ? 'true' : 'false'); ?>";
 		<?php
-			if(PAGE !== 'news') {
-				$tmp = str_replace('/', '_', isset($_REQUEST['subtopic']) ? escapeHtml($_REQUEST['subtopic']) :  PAGE);
-				$exp = explode('/', PAGE);
-				if(PAGE !== 'account/create' && PAGE !== 'account/lost' && isset($exp[1])) {
-					if ($exp[0] === 'account' && $exp[1] === 'lost') {
-						$tmp = 'account_lost';
-					} elseif ($exp[0] === 'account') {
-						$tmp = 'account_manage';
-					} else if ($exp[0] === 'news' && $exp[1] === 'archive') {
-						$tmp = 'news_archive';
-					}
-					else if (in_array($exp[0], ['characters', 'highscores', 'guilds', 'forum'])) {
-						$tmp = $exp[0];
-					}
-				}
+			$rawPage = PAGE;
+			if(isset($_REQUEST['subtopic'])) {
+				$rawPage = escapeHtml($_REQUEST['subtopic']);
 			}
-			else {
+
+			if($rawPage !== 'news' && $rawPage !== '') {
+				$tmp = str_replace('/', '_', $rawPage);
+				$exp = explode('/', $rawPage);
+
+				if (in_array($rawPage, ['rules', 'regras/rules', 'legal/rules', 'regras/servrules', 'servrules'])) {
+					$tmp = 'rules';
+				} elseif (in_array($rawPage, ['legal', 'regras', 'regras/agreement', 'regras/adesao', 'regras/security', 'security', 'privacy'])) {
+					$tmp = 'legal';
+				} elseif ($rawPage === 'donate' || strpos($rawPage, 'donate') === 0) {
+					$tmp = 'donate';
+				} elseif ($rawPage === 'gifts' || strpos($rawPage, 'gifts') === 0) {
+					$tmp = ($rawPage === 'gifts/history' ? 'gifts_history' : 'gifts');
+				} elseif ($exp[0] === 'account') {
+					if (isset($exp[1]) && $exp[1] === 'create') {
+						$tmp = 'account_create';
+					} elseif (isset($exp[1]) && $exp[1] === 'lost') {
+						$tmp = 'account_lost';
+					} else {
+						$tmp = 'account_manage';
+					}
+				} elseif ($exp[0] === 'news' && isset($exp[1]) && $exp[1] === 'archive') {
+					$tmp = 'news_archive';
+				} elseif (in_array($exp[0], ['characters', 'highscores', 'guilds', 'forum', 'houses', 'bans', 'last-kills', 'downloads', 'serverinfo', 'faq', 'gallery', 'spells', 'monsters', 'commands', 'exp-table', 'team', 'online'])) {
+					$tmp = $exp[0];
+				}
+			} else {
 				$tmp = 'news';
 			}
 		?>
@@ -147,13 +161,39 @@ if(isset($config['boxes']))
 		// load the menu and set the active submenu item by using the variable 'activeSubmenuItem'
 		function LoadMenu()
 		{
-		  document.getElementById("submenu_"+activeSubmenuItem).style.color = "white";
-		  document.getElementById("ActiveSubmenuItemIcon_"+activeSubmenuItem).style.visibility = "visible";
 		  menus = localStorage.getItem('menus');
 		  if(menus == null || menus.lastIndexOf("&") === -1) {
 			  menus = "<?= $menuInitStr ?>";
 		  }
 		  FillMenuArray();
+
+		  if (activeSubmenuItem) {
+		    var activeSub = document.getElementById("submenu_" + activeSubmenuItem);
+		    if (!activeSub) {
+		      if (activeSubmenuItem === 'rules' || activeSubmenuItem === 'legal_rules') {
+		        activeSub = document.getElementById("submenu_rules") || document.getElementById("submenu_legal_rules");
+		      }
+		    }
+		    var activeIcon = activeSub ? activeSub.querySelector('.ActiveSubmenuItemIcon') : document.getElementById("ActiveSubmenuItemIcon_" + activeSubmenuItem);
+
+		    if (activeSub) {
+		      activeSub.style.backgroundColor = "#14433F";
+		      var label = activeSub.querySelector('.SubmenuitemLabel');
+		      if (label) {
+		        label.style.color = "white";
+		      }
+		      var parentSub = activeSub.closest('.Submenu');
+		      if (parentSub && parentSub.id) {
+		        var catName = parentSub.id.replace('_Submenu', '');
+		        menu[0][catName] = "1";
+		      }
+		    }
+
+		    if (activeIcon) {
+		      activeIcon.style.visibility = "visible";
+		    }
+		  }
+
 		  InitializeMenu();
 		}
 
@@ -265,10 +305,42 @@ if(isset($config['boxes']))
 		function MouseOverSubmenuItem(source)
 		{
 		  source.style.backgroundColor = "#14433F";
+		  var icon = source.querySelector('.ActiveSubmenuItemIcon');
+		  if (icon) {
+		    icon.style.visibility = "visible";
+		  }
+		  var label = source.querySelector('.SubmenuitemLabel');
+		  if (label) {
+		    if (label.dataset.origColor === undefined) {
+		      label.dataset.origColor = label.style.color || '';
+		    }
+		    label.style.color = "white";
+		  }
 		}
 		function MouseOutSubmenuItem(source)
 		{
-		  source.style.backgroundColor = "#0D2E2B";
+		  var isCurrentActive = (source.id === "submenu_" + activeSubmenuItem);
+		  if (!isCurrentActive) {
+		    source.style.backgroundColor = "#0D2E2B";
+		    var icon = source.querySelector('.ActiveSubmenuItemIcon');
+		    if (icon) {
+		      icon.style.visibility = "hidden";
+		    }
+		    var label = source.querySelector('.SubmenuitemLabel');
+		    if (label) {
+		      label.style.color = (label.dataset.origColor !== undefined ? label.dataset.origColor : '');
+		    }
+		  } else {
+		    source.style.backgroundColor = "#14433F";
+		    var icon = source.querySelector('.ActiveSubmenuItemIcon');
+		    if (icon) {
+		      icon.style.visibility = "visible";
+		    }
+		    var label = source.querySelector('.SubmenuitemLabel');
+		    if (label) {
+		      label.style.color = "white";
+		    }
+		  }
 		}
 	</script>
 	<?php echo template_place_holder('head_end'); ?>
@@ -519,7 +591,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 										[<a href="?subtopic=downloads">Downloads</a>] 
 										[<a href="?subtopic=highscores">Highscores</a>] 
 										[<a href="?subtopic=outfits">Outfits</a>] 
-										[<a href="?subtopic=security">Security</a>]
+										[<a href="<?php echo getLink('regras/security'); ?>">Security</a>]
 									</b>
 								</center>
 								<hr style="border: 0; border-bottom: 1px dashed #5a2800; margin: 10px -5px;">
@@ -565,7 +637,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 	<?php
 	$headline = $template_path.'/images/header/headline-' . PAGE . '.gif';
 	if(!file_exists($headline))
-		$headline = $template_path . '/headline.php?t=' . ucfirst($title);
+		$headline = $template_path . '/headline.php?t=' . urlencode($title);
 ?>
 	<img class="Title" src="<?php echo $headline; ?>" alt="Contentbox headline" />
     <div class="Border_2">

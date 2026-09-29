@@ -155,8 +155,17 @@ $twig->addFunction($function);
 $filter = new TwigFilter('urlencode', function ($s) {
 	return urlencode($s);
 });
-
 $twig->addFilter($filter);
+
+$filter = new TwigFilter('date_br', function ($timestamp, $include_time = false, $with_year = true) {
+	return format_date_br($timestamp, $include_time, $with_year);
+});
+$twig->addFilter($filter);
+
+$function = new TwigFunction('date_br', function ($timestamp, $include_time = false, $with_year = true) {
+	return format_date_br($timestamp, $include_time, $with_year);
+});
+$twig->addFunction($function);
 unset($function, $filter);
 
 $hooks->trigger(HOOK_TWIG, ['twig' => $twig, 'twig_loader' => $twig_loader]);

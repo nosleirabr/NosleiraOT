@@ -19,8 +19,8 @@ Full learning: `docs/learnings/wiki/login-numeric-accounts-7-4.md`
 | Field | Value |
 |-------|-------|
 | Account | `1` |
-| Password | `admin123` |
-| Character | `Admin` |
+| Password | `1` |
+| Character | `[GOD] Nosleira` |
 
 ## Diagnosis flow
 
@@ -57,8 +57,8 @@ MyAAC defaults may create **string** account names. For 7.4:
 
 1. `docker compose up -d`
 2. Client ℧ 127.0.0.1:7171
-3. Account `1`, password `admin123`
-4. Character list shows `Admin`
+3. Account `1`, password `1`
+4. Character list shows `[GOD] Nosleira`
 
 ## DB inspect (inside mysql container)
 

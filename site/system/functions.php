@@ -572,11 +572,11 @@ function template_footer(): string
 		$footer[] = generateLink(ADMIN_URL, 'Admin Panel', true);
 	}
 
-	$footer[] = 'Copyright &copy; ' . date('Y') . ' <a href="' . BASE_URL . '" style="color: #cfa600; font-weight: bold; text-decoration: none;">NosleiraOT</a>. Todos os direitos reservados.<br/><span style="font-size: 10px; color: #a3a3a3;">Tibia is a registered trademark of CipSoft GmbH.</span>';
+	$footer[] = 'Copyright &copy; ' . date('Y') . ' <a href="' . BASE_URL . '" style="color: #ff8800; font-weight: bold; text-decoration: none;">NosleiraOT</a>. Todos os direitos reservados.<br/><span style="font-size: 10px;">Tibia is a registered trademark of CipSoft GmbH.</span>';
 
 	global $hooks, $visitors;
 	if(setting('core.visitors_counter') && isset($visitors)) {
-		$footer[] = '<span style="font-size: 11px; color: #cfa600; font-weight: bold;">Visitors Online: ' . (int)$visitors->getAmountVisitors() . '</span>';
+		$footer[] = '<span style="font-size: 11px;">Visitors <span style="color: #00cc44; font-weight: bold;">Online</span>: ' . (int)$visitors->getAmountVisitors() . '</span>';
 	}
 	$hooks->triggerFilter(HOOK_FILTER_THEME_FOOTER, $footer);
 
@@ -2025,6 +2025,47 @@ function revert_fraudulent_donation($donation_id, $reason = 'Estorno / Chargebac
 	}
 
 	return true;
+}
+
+/**
+ * Formata um timestamp UNIX no padrão brasileiro por extenso (ex: 28 de setembro de 2026).
+ *
+ * @param int|string $timestamp Timestamp UNIX ou string de data.
+ * @param bool $include_time Se deve incluir o horário (ex: às 22:13:01).
+ * @param bool $with_year Se deve incluir o ano.
+ * @return string Data formatada em português.
+ */
+function format_date_br($timestamp, $include_time = false, $with_year = true) {
+	if (empty($timestamp)) {
+		return '';
+	}
+	if (!is_numeric($timestamp)) {
+		$timestamp = strtotime($timestamp);
+		if (!$timestamp) {
+			return '';
+		}
+	}
+
+	$meses = [
+		1 => 'janeiro', 2 => 'fevereiro', 3 => 'março', 4 => 'abril',
+		5 => 'maio', 6 => 'junho', 7 => 'julho', 8 => 'agosto',
+		9 => 'setembro', 10 => 'outubro', 11 => 'novembro', 12 => 'dezembro'
+	];
+
+	$dia = (int)date('j', $timestamp);
+	$mesNum = (int)date('n', $timestamp);
+	$mesNome = $meses[$mesNum] ?? date('F', $timestamp);
+	$ano = date('Y', $timestamp);
+
+	$texto = $dia . ' de ' . $mesNome;
+	if ($with_year) {
+		$texto .= ' de ' . $ano;
+	}
+	if ($include_time) {
+		$texto .= ' às ' . date('H:i:s', $timestamp);
+	}
+
+	return $texto;
 }
 
 

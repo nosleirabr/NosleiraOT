@@ -14,3 +14,4 @@ Canonical doc: `docs/CODING.md`. Skill: `otserver-developer`.
 - No machine-absolute paths in versioned docs/skills (`C:\Users\...`, `C:\Projetos\...`). Use repo-relative paths.
 - Project brain is only `docs/learnings/` (shared via Git) — not a per-user home brain.
 - External tools only under gitignored paths (`tools/vendor/`, `tools/external/`). Exception: `tools/rme-bin/` is tracked.
+- **Encoding & Acentuação:** Todos os arquivos em UTF-8 sem BOM. Textos em português devem ter acentuação completa e impecável (`ã`, `é`, `ê`, `í`, `ó`, `ô`, `ú`, `ç`). Geradores de imagem/headline devem suportar caracteres acentuados sem exibir caixas ausentes (`[]`).

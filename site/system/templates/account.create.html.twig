@@ -20,10 +20,25 @@
 								{{ hook('HOOK_ACCOUNT_CREATE_AFTER_ACCOUNT') }}
 								<tr>
 									<td class="LabelV" style="width: 150px">
+										<span{% if errors.account is defined %} class="red"{% endif %}>Account Number:</span>
+									</td>
+									<td>
+										<input type="text" name="account" id="account" size="30" maxlength="30" value="{{ account }}" autofocus/>
+										<img id="account_indicator" src="images/global/general/{% if not save or errors.account is defined %}n{% endif %}ok.gif" style="display: none;" />
+										<div style="font-size: 11px; font-weight: bold; color: #5a2800; margin-top: 5px;">
+											Apenas números (mínimo de 6 dígitos).
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td></td><td><span id="account_error" class="FormFieldError">{% if errors.account is defined %}{{ errors.account }}{% endif %}</span></td>
+								</tr>
+								<tr>
+									<td class="LabelV" style="width: 150px">
 										<span{% if errors.email is defined %} class="red"{% endif %}>Email Address:</span>
 									</td>
 									<td>
-										<input type="text" name="email" id="email" size="30" maxlength="50" value="{{ email }}" autofocus/>
+										<input type="text" name="email" id="email" size="30" maxlength="50" value="{{ email }}"/>
 										<img id="email_indicator" src="images/global/general/{% if not save or errors.email is defined %}n{% endif %}ok.gif" style="display: none;" />
 									</td>
 								</tr>
@@ -120,9 +135,34 @@
 									<td>
 										<input id="character_name" name="name" size="{{ setting('core.create_character_name_max_length') }}" maxlength="{{ setting('core.create_character_name_max_length') }}" value="{{ name }}"/>
 										<img id="character_indicator" src="images/global/general/{% if not save or errors.name is defined %}n{% endif %}ok.gif" style="display: none;" />
+										<input type="button" value="Suggest Name" class="btn btn-default" onclick="suggestName()" style="margin-left: 5px; font-size: 11px; padding: 2px 5px; cursor: pointer;" />
 										<br>
 									</td>
 								</tr>
+								
+								<script>
+								function suggestName() {
+									const prefixes = ["Sir", "Lord", "King", "Duke", "Master", "Prince", "Saint", "Holy", "Dark", "Light", "Mystic", "Shadow"];
+									const roots = ["Arthur", "Lancelot", "Merlin", "Gandalf", "Aragorn", "Legolas", "Gimli", "Frodo", "Thorin", "Dorian", "Valerius", "Zephyr", "Ragnar", "Leon", "Aldric", "Gareth", "Tristan"];
+									const suffixes = ["the Great", "of the North", "the Brave", "the Wise", "of the Light", "the Swift", "Lionheart", "the Strong"];
+									
+									const type = Math.floor(Math.random() * 3);
+									let name = "";
+									
+									if (type === 0) { // Root only
+										name = roots[Math.floor(Math.random() * roots.length)];
+									} else if (type === 1) { // Prefix + Root
+										name = prefixes[Math.floor(Math.random() * prefixes.length)] + " " + roots[Math.floor(Math.random() * roots.length)];
+									} else { // Root + Suffix
+										name = roots[Math.floor(Math.random() * roots.length)] + " " + suffixes[Math.floor(Math.random() * suffixes.length)];
+									}
+									
+									document.getElementById('character_name').value = name;
+									if(typeof checkName === 'function') {
+										checkName();
+									}
+								}
+								</script>
 								<tr>
 									<td></td>
 									<td>
@@ -252,32 +292,24 @@
 							<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
 								<tbody>
 								<tr>
-									<td colspan="2" ><b>Please select the following check box:</b></td>
-								</tr>
-								<tr>
-									<td colspan="2" >
-										<span><input type="checkbox" id="accept_rules" name="accept_rules" value="true"{% if accept_rules %}checked{% endif %}/> <label for="accept_rules">I agree to the <a href="?subtopic=rules" target="_blank">{{ config.lua.serverName }} Rules</a>.</label></span>
+									<td colspan="2" style="padding: 12px 14px;">
+										<div style="margin-bottom: 8px;">
+											<input type="checkbox" id="accept_age" name="accept_age" value="true"{% if accept_age %} checked="checked"{% endif %} style="vertical-align: middle; margin-right: 8px; cursor: pointer;"/>
+											<label for="accept_age" style="font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #3d2208; cursor: pointer;">Confirmo que tenho 18 anos ou mais.</label>
+										</div>
+										{% if errors.accept_age is defined %}
+											<div style="margin-bottom: 8px; margin-left: 24px;"><span class="FormFieldError">{{ errors.accept_age }}</span></div>
+										{% endif %}
+										<div>
+											<input type="checkbox" id="accept_rules" name="accept_rules" value="true"{% if accept_rules %} checked="checked"{% endif %} style="vertical-align: middle; margin-right: 8px; cursor: pointer;"/>
+											<label for="accept_rules" style="font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #3d2208; cursor: pointer;">Li e aceito as <a href="{{ getLink('regras/rules') }}" target="_blank" style="color: #005596; text-decoration: underline; font-weight: 500;">Regras do Jogo</a>, <a href="{{ getLink('regras/agreement') }}" target="_blank" style="color: #005596; text-decoration: underline; font-weight: 500;">Termos de Serviço</a> e <a href="{{ getLink('regras/agreement') }}#privacidade" target="_blank" style="color: #005596; text-decoration: underline; font-weight: 500;">Política de Privacidade</a></label>
+										</div>
+										{% if errors.accept_rules is defined %}
+											<div style="margin-top: 4px; margin-left: 24px;"><span class="FormFieldError">{{ errors.accept_rules }}</span></div>
+										{% endif %}
 									</td>
 								</tr>
-								{% if errors.accept_rules is defined %}
-									<tr>
-										<td colspan="2">
-											<span class="FormFieldError">{{ errors.accept_rules }}</span>
-										</td>
-									</tr>
-								{% endif %}
-								<tr>
-									<td colspan="2" >
-										<span><input type="checkbox" id="accept_age" name="accept_age" value="true"{% if accept_age %}checked{% endif %}/> <label for="accept_age">Confirmo que tenho <b style="color: red;">18 Anos +</b></label></span>
-									</td>
-								</tr>
-								{% if errors.accept_age is defined %}
-									<tr>
-										<td colspan="2">
-											<span class="FormFieldError">{{ errors.accept_age }}</span>
-										</td>
-									</tr>
-								{% endif %}
+
 								</tbody>
 							</table>
 						</div>
