@@ -1,7 +1,7 @@
 <?php
 /**
- * Ponte para adesao.php — arquivo real fica em regras/
- * Contrato de Adesão Eletrônico do NosleiraOT
+ * Ponte para adesao.php — arquivo real fica em legal/
+ * Contrato de Adesão Eletrônico
  */
 defined('MYAAC') or die('Direct access not allowed!');
-require __DIR__ . '/regras/adesao.php';
+require __DIR__ . '/legal/adesao.php';

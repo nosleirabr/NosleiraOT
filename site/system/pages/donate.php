@@ -847,130 +847,43 @@ function changeLanguage(lang) {
     border: 1px solid rgba(180, 83, 9, 0.2);
 }
 
-.terms-agreement-card {
-    background: linear-gradient(180deg, #ffffff 0%, #fbf6ee 100%);
-    border: 1.5px solid #cbb290;
-    border-radius: 8px;
-    padding: 16px 20px;
-    margin: 10px auto;
-    max-width: 680px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
-    transition: all 0.2s ease-in-out;
-}
-
-.terms-agreement-card:hover {
-    border-color: #059669;
-    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.12);
-}
-
-.custom-checkbox-container {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    cursor: pointer;
-    user-select: none;
-    text-align: left;
-    margin: 0;
-}
-
-.custom-checkbox-container input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-    cursor: pointer;
-}
-
-.custom-checkbox-checkmark {
-    width: 24px;
-    height: 24px;
-    min-width: 24px;
-    background-color: #ffffff;
-    border: 2px solid #a0825a;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-    transition: all 0.2s ease;
-    position: relative;
-}
-
-.custom-checkbox-container:hover .custom-checkbox-checkmark {
-    border-color: #059669;
-    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
-}
-
-.custom-checkbox-container input[type="checkbox"]:checked ~ .custom-checkbox-checkmark {
-    background: linear-gradient(135deg, #10b981 0%, #047857 100%);
-    border-color: #065f46;
-    box-shadow: 0 2px 5px rgba(4, 120, 87, 0.4);
-}
-
-.custom-checkbox-checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-    width: 6px;
-    height: 11px;
-    border: solid #ffffff;
-    border-width: 0 2.5px 2.5px 0;
-    transform: rotate(45deg) translate(-1px, -1px);
-}
-
-.custom-checkbox-container input[type="checkbox"]:checked ~ .custom-checkbox-checkmark:after {
-    display: block;
-}
-
-.terms-agreement-text {
-    font-family: 'Inter', -apple-system, sans-serif;
-    font-size: 13.5px;
-    color: #2b1704;
-    line-height: 1.5;
-}
-
-.terms-agreement-text strong {
-    color: #065f46;
-}
-
-.btn-donate-continue {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+.terms-pillars-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 10px;
-    padding: 12px 42px;
-    font-family: 'Cinzel', serif;
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    color: #ffffff;
-    background: linear-gradient(180deg, #34d399 0%, #059669 45%, #047857 100%);
-    border: 1px solid #064e3b;
-    border-radius: 6px;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(4, 120, 87, 0.35), inset 0 1px 0 rgba(255,255,255,0.4);
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-    transition: all 0.2s ease-in-out;
+    margin: 12px 0 4px 0;
 }
 
-.btn-donate-continue:hover {
-    background: linear-gradient(180deg, #4ade80 0%, #10b981 45%, #059669 100%);
-    box-shadow: 0 6px 16px rgba(4, 120, 87, 0.45), inset 0 1px 0 rgba(255,255,255,0.6);
-    transform: translateY(-2px);
+.terms-pillar-item {
+    background: #fbf6ee;
+    border: 1px solid #d8c2a7;
+    border-radius: 5px;
+    padding: 10px 12px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 3px rgba(0,0,0,0.04);
 }
 
-.btn-donate-continue:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 6px rgba(4, 120, 87, 0.3);
+.terms-pillar-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Cinzel', 'Georgia', serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #4a1c00;
+    margin-bottom: 6px;
+    border-bottom: 1px dashed rgba(160, 130, 90, 0.4);
+    padding-bottom: 4px;
 }
 
-.btn-donate-continue .btn-arrow {
-    font-size: 16px;
-    transition: transform 0.2s ease;
+.terms-pillar-icon {
+    font-size: 14px;
 }
 
-.btn-donate-continue:hover .btn-arrow {
-    transform: translateX(4px);
+.terms-pillar-body {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 11.5px;
+    color: #432810;
+    line-height: 1.5;
 }
 </style>
 
@@ -2458,17 +2371,42 @@ function changeLanguage(lang) {
                                                                  <td style="padding: 14px 18px; line-height: 1.65;">
                                                                      <div class="terms-main-title">
                                                                          <span>🛡️</span>
-                                                                         <span>Termos e Condições de Apoio ao Projeto</span>
+                                                                         <span>Apoio ao Projeto &amp; Diretrizes Oficiais</span>
                                                                      </div>
-                                                                     <p style="margin: 0 0 10px 0; font-family: 'Inter', sans-serif; font-size: 13.5px; color: #2b1704;">
-                                                                         Antes de prosseguir, solicitamos que leia e concorde com as nossas diretrizes oficiais de apoio ao servidor.
+                                                                     <p style="margin: 0 0 12px 0; font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #2b1704; line-height: 1.6;">
+                                                                         O <strong>Nosleira OT 7.4</strong> é mantido através do suporte e da colaboração da nossa comunidade. Toda contribuição possui caráter <strong>estritamente voluntário</strong> e é integralmente destinada à manutenção de uma infraestrutura robusta, segura e estável.
                                                                      </p>
-                                                                     <p style="margin: 0 0 10px 0; font-family: 'Inter', sans-serif; font-size: 13px; color: #3d230d;">
-                                                                         Sua contribuição é fundamental para a sustentabilidade do servidor: todo o valor arrecadado é revertido diretamente na manutenção da infraestrutura, hospedagem de alta performance, proteção avançada contra ataques DDoS e no desenvolvimento contínuo de novidades.
-                                                                     </p>
-                                                                     <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 13px; color: #3d230d;">
-                                                                         Como forma de agradecimento pelo seu apoio, creditaremos <strong>NosleiraCoins</strong> <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 17px; width: 17px; vertical-align: middle; margin: 0 2px;"> em sua conta, que podem ser utilizadas em nossa loja do jogo para adquirir itens e benefícios exclusivos para o seu personagem.
-                                                                     </p>
+                                                                     <div class="terms-pillars-container">
+                                                                         <div class="terms-pillar-item">
+                                                                             <div class="terms-pillar-header">
+                                                                                 <span class="terms-pillar-icon">🌐</span>
+                                                                                 <span>Infraestrutura &amp; Estabilidade</span>
+                                                                             </div>
+                                                                             <div class="terms-pillar-body">
+                                                                                 Os valores arrecadados cobrem servidores dedicados de baixa latência, hospedagem de alta performance e mitigação avançada contra ataques DDoS.
+                                                                             </div>
+                                                                         </div>
+
+                                                                         <div class="terms-pillar-item">
+                                                                             <div class="terms-pillar-header">
+                                                                                 <span class="terms-pillar-icon">🪙</span>
+                                                                                 <span>Gratificação em Coins</span>
+                                                                             </div>
+                                                                             <div class="terms-pillar-body">
+                                                                                 Como agradecimento pelo seu suporte, você recebe <strong style="color: #ea580c;">NosleiraCoins</strong> <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="" style="height: 15px; width: 15px; vertical-align: -2px;"> na sua conta, utilizáveis na Store do jogo para benefícios exclusivos.
+                                                                             </div>
+                                                                         </div>
+
+                                                                         <div class="terms-pillar-item">
+                                                                             <div class="terms-pillar-header">
+                                                                                 <span class="terms-pillar-icon">📜</span>
+                                                                                 <span>Transparência &amp; Diretrizes</span>
+                                                                             </div>
+                                                                             <div class="terms-pillar-body">
+                                                                                 Para assegurar total conformidade e transparência comunitária, solicitamos a leitura atenta das 7 diretrizes detalhadas abaixo antes de efetuar seu apoio.
+                                                                             </div>
+                                                                         </div>
+                                                                     </div>
                                                                  </td>
                                                             </tr>
                                                             <tr bgcolor="<?php echo $config['lightborder']; ?>">
@@ -2626,27 +2564,51 @@ function changeLanguage(lang) {
 
                                                                 </td>
                                                             </tr>
-                                                            <tr bgcolor="<?php echo $config['lightborder']; ?>">
-                                                                <td style="padding: 24px 16px; text-align: center;">
-                                                                    <div class="terms-agreement-card">
-                                                                        <label class="custom-checkbox-container" for="accept_terms_checkbox">
-                                                                            <input type="checkbox" name="accept_terms" value="1" required id="accept_terms_checkbox">
-                                                                            <span class="custom-checkbox-checkmark"></span>
-                                                                            <span class="terms-agreement-text">
-                                                                                Declaro que <strong>li, compreendi e concordo integralmente</strong> com todos os <strong>Termos e Condições de Apoio ao Projeto</strong> acima descritos.
-                                                                            </span>
-                                                                        </label>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="TableShadowContainer">
+                                                <div class="TableBottomShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bm.gif);">
+                                                    <div class="TableBottomLeftShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bl.gif);"></div>
+                                                    <div class="TableBottomRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-br.gif);"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- CAIXA DE ACEITE DOS TERMOS (ESTILO CRIAR CONTA) -->
+                                    <tr>
+                                        <td>
+                                            <div class="TableShadowContainerRightTop">
+                                                <div class="TableShadowRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rt.gif);"></div>
+                                            </div>
+                                            <div class="TableContentAndRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rm.gif);">
+                                                <div class="TableContentContainer">
+                                                    <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td colspan="2" style="padding: 12px 14px; text-align: left;">
+                                                                    <div style="margin-bottom: 8px;">
+                                                                        <input type="checkbox" id="accept_age" name="accept_age" value="true" required style="vertical-align: middle; margin-right: 8px; cursor: pointer;"/>
+                                                                        <label for="accept_age" style="font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #3d2208; cursor: pointer;">Confirmo que tenho 18 anos ou mais.</label>
                                                                     </div>
-                                                                    <div style="margin-top: 20px;">
-                                                                        <button type="submit" class="btn-donate-continue">
-                                                                            <span>Concordar e Prosseguir para Doação</span>
-                                                                            <span class="btn-arrow">&#10148;</span>
-                                                                        </button>
+                                                                    <div>
+                                                                        <input type="checkbox" id="accept_terms_checkbox" name="accept_terms" value="1" required style="vertical-align: middle; margin-right: 8px; cursor: pointer;"/>
+                                                                        <label for="accept_terms_checkbox" style="font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #3d2208; cursor: pointer;">
+                                                                            Li e aceito as <a href="<?php echo getLink('regras/rules'); ?>" target="_blank" style="color: #005596; text-decoration: underline; font-weight: 500;">Regras do Jogo</a>, os <a href="<?php echo getLink('regras/agreement'); ?>" target="_blank" style="color: #005596; text-decoration: underline; font-weight: 500;">Termos de Serviço</a> e os <strong>Termos e Condições de Doação</strong> acima descritos.
+                                                                        </label>
                                                                     </div>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                </div>
+                                            </div>
+                                            <div class="TableShadowContainer">
+                                                <div class="TableBottomShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bm.gif);">
+                                                    <div class="TableBottomLeftShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bl.gif);"></div>
+                                                    <div class="TableBottomRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-br.gif);"></div>
                                                 </div>
                                             </div>
                                         </td>
@@ -2659,6 +2621,26 @@ function changeLanguage(lang) {
             </tbody>
         </table>
     </div>
+
+    <!-- BOTÃO CONTINUAR PADRÃO TIBIA -->
+    <table width="100%" style="margin-top: 15px;">
+        <tr align="center">
+            <td>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td style="border:0px;">
+                            <div class="BigButton" style="background-image:url(<?php echo $template_path; ?>/images/global/buttons/sbutton.gif)">
+                                <div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);">
+                                    <div class="BigButtonOver" style="background-image:url(<?php echo $template_path; ?>/images/global/buttons/sbutton_over.gif);"></div>
+                                    <input class="BigButtonText" type="submit" value="Continuar">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </form>
 
 <?php endif; ?>

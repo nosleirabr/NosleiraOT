@@ -1,7 +1,7 @@
 <?php
 /**
- * Ponte para rules.php — arquivo real fica em regras/
- * Reorganizado para manter os scripts de regras centralizados na pasta regras/
+ * Ponte para rules.php — arquivo real fica em legal/
+ * Reorganizado para manter os documentos legais centralizados na pasta legal/
  */
 defined('MYAAC') or die('Direct access not allowed!');
-require __DIR__ . '/regras/rules.php';
+require __DIR__ . '/legal/rules.php';
