@@ -243,7 +243,7 @@ function changeLanguage(lang) {
                                                                 </div>
                                                                 
                                                                 <div class="rule-alert-box">
-                                                                    📜 <a href="<?php echo getLink('servrules'); ?>" style="font-weight:bold; color: #7f0000; text-decoration: underline;">Regra 10 do servidor</a>: todos os jogadores são responsáveis por suas contas e seus itens. A administração não se responsabiliza por perdas ou roubos causados por descuido do jogador.
+                                                                    📜 <a href="<?php echo getLink('Regras/servrules'); ?>" style="font-weight:bold; color: #7f0000; text-decoration: underline;">Regra 10 do servidor</a>: todos os jogadores são responsáveis por suas contas e seus itens. A administração não se responsabiliza por perdas ou roubos causados por descuido do jogador.
                                                                 </div>
                                                                 
                                                                 <div class="security-rules-list">

@@ -92,6 +92,12 @@ O cérebro do projeto é **somente** [`docs/learnings/`](learnings/README.md) (v
 - Não refatore arquivos não relacionados à tarefa.
 - Aplique `otserver-74-fidelity` em mudanças de gameplay/conteúdo.
 
+## Encoding e Acentuação (obrigatório)
+
+- **UTF-8 sem BOM:** Todos os arquivos de texto e código (PHP, Lua, Twig, HTML, XML, Markdown) devem ser salvos em **UTF-8 sem BOM**.
+- **Acentuação correta em português:** Todos os textos e comentários em português devem conter as acentuações corretas (`ã`, `õ`, `á`, `é`, `í`, `ó`, `ú`, `ç`, `ê`, `ô`), sem caracteres corrompidos ou substituições quebradas.
+- **Geradores visuais e fontes:** Todo gerador dinâmico de texto/imagem (ex.: `headline.php`) deve usar fontes com suporte nativo ao conjunto latino estendido (ex.: `uncial.ttf`), garantindo que nenhum título exiba caixas de caractere ausente (`[]`).
+
 ## Ferramentas externas
 
 Binários baixados **não** entram no Git. Use paths gitignored (`tools/vendor/`, `tools/external/`, …). **Exceção:** `tools/rme-bin/` é versionado.

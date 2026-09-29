@@ -519,7 +519,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 										[<a href="?subtopic=downloads">Downloads</a>] 
 										[<a href="?subtopic=highscores">Highscores</a>] 
 										[<a href="?subtopic=outfits">Outfits</a>] 
-										[<a href="<?php echo getLink('security'); ?>">Security</a>]
+										[<a href="<?php echo getLink('Regras/security'); ?>">Security</a>]
 									</b>
 								</center>
 								<hr style="border: 0; border-bottom: 1px dashed #5a2800; margin: 10px -5px;">
@@ -565,7 +565,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 	<?php
 	$headline = $template_path.'/images/header/headline-' . PAGE . '.gif';
 	if(!file_exists($headline))
-		$headline = $template_path . '/headline.php?t=' . ucfirst($title);
+		$headline = $template_path . '/headline.php?t=' . urlencode($title);
 ?>
 	<img class="Title" src="<?php echo $headline; ?>" alt="Contentbox headline" />
     <div class="Border_2">

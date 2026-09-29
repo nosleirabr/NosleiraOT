@@ -1,4 +1,4 @@
-<!-- Google Translate Widget (Oculto) -->
+﻿<!-- Google Translate Widget (Oculto) -->
 <div id="google_translate_element" style="display:none !important;"></div>
 
 <script type="text/javascript">
@@ -45,7 +45,7 @@ function changeLanguage(lang) {
 </script>
 <?php
 defined('MYAAC') or die('Direct access not allowed!');
-$title = 'Contrato de Serviço — NosleiraOT';
+$title = 'Service Agreement';
 ?>
 
 <style>
@@ -88,7 +88,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
     color: #7f0000;
 }
 
-/* Header com Botão Voltar e Bandeiras */
+/* Header com BotÃ£o Voltar e Bandeiras */
 .agreement-header-caption {
     position: relative !important;
 }
@@ -178,17 +178,17 @@ $title = 'Contrato de Serviço — NosleiraOT';
 </style>
 
 <!-- ================================================================= -->
-<!-- HEADER PRINCIPAL: CONTRATO DE SERVIÇO NOSLEIRAOT                 -->
+<!-- HEADER PRINCIPAL: CONTRATO DE SERVIÃ‡O <b>NosleiraOT</b>                 -->
 <!-- ================================================================= -->
 <div class="TableContainer" style="margin-bottom: 16px;">
     <div class="CaptionContainer">
         <div class="CaptionInnerContainer agreement-header-caption">
             <div class="agreement-header-right">
-                <a href="<?php echo (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) ? htmlspecialchars($_SERVER['HTTP_REFERER']) : getLink('rules'); ?>" class="btn-agreement-back">← VOLTAR</a>
+                <a href="<?php echo (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) ? htmlspecialchars($_SERVER['HTTP_REFERER']) : getLink('Regras/rules'); ?>" class="btn-agreement-back">â† VOLTAR</a>
                 <div class="agreement-flags">
-                    <img src="<?php echo BASE_URL; ?>images/flags/br.gif" alt="Português" title="Português (BR)" class="flag-icon" onclick="changeLanguage('pt');" />
+                    <img src="<?php echo BASE_URL; ?>images/flags/br.gif" alt="PortuguÃªs" title="PortuguÃªs (BR)" class="flag-icon" onclick="changeLanguage('pt');" />
                     <img src="<?php echo BASE_URL; ?>images/flags/us.gif" alt="English" title="English (US)" class="flag-icon" onclick="changeLanguage('en');" />
-                    <img src="<?php echo BASE_URL; ?>images/flags/es.gif" alt="Español" title="Español (ES)" class="flag-icon" onclick="changeLanguage('es');" />
+                    <img src="<?php echo BASE_URL; ?>images/flags/es.gif" alt="EspaÃ±ol" title="EspaÃ±ol (ES)" class="flag-icon" onclick="changeLanguage('es');" />
                     <img src="<?php echo BASE_URL; ?>images/flags/pl.gif" alt="Polski" title="Polski (PL)" class="flag-icon" onclick="changeLanguage('pl');" />
                 </div>
             </div>
@@ -196,7 +196,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">CONTRATO DE SERVIÇO NOSLEIRAOT</div>
+            <div class="Text">CONTRATO DE SERVIÃ‡O <b>NosleiraOT</b></div>
             <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
@@ -206,7 +206,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
 </div>
 
 <!-- ================================================================= -->
-<!-- SEÇÃO 1: INTRODUÇÃO                                               -->
+<!-- SEÃ‡ÃƒO 1: INTRODUÃ‡ÃƒO                                               -->
 <!-- ================================================================= -->
 <div class="TableContainer section-spacer">
     <div class="CaptionContainer">
@@ -215,7 +215,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">1 - INTRODUÇÃO</div>
+            <div class="Text">1 - INTRODUÃ‡ÃƒO</div>
             <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
@@ -242,19 +242,19 @@ $title = 'Contrato de Serviço — NosleiraOT';
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 16px 18px;">
                                                                 <div class="agreement-warning-box">
-                                                                    <span class="agreement-clause-num">1.0. ⚠️ AVISO DE CONTEÚDO ADULTO:</span> "NosleiraOT" é um jogo destinado exclusivamente para usuários com 18 anos ou mais. Ao acessar ou usar este serviço, você confirma que tem 18 anos ou mais.
+                                                                    <span class="agreement-clause-num">1.0. âš ï¸ AVISO DE CONTEÃšDO ADULTO:</span> "<b>NosleiraOT</b>" Ã© um jogo destinado exclusivamente para usuÃ¡rios com 18 anos ou mais. Ao acessar ou usar este serviÃ§o, vocÃª confirma que tem 18 anos ou mais.
                                                                 </div>
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">1.1.</span> Ao acessar ou utilizar o site da <b>NosleiraOT Soluções Digitais LTDA</b> e/ou registrar uma conta para o jogo "NosleiraOT", você concorda com estes Termos de Serviço e todas as políticas e regulamentos do jogo, incluindo nossa Política de Privacidade e regras específicas.
+                                                                    <span class="agreement-clause-num">1.1.</span> Ao acessar ou utilizar o site da <b>NosleiraOT Soluções Digitais LTDA</b> e/ou registrar uma conta para o jogo "<b>NosleiraOT</b>", vocÃª concorda com estes Termos de ServiÃ§o e todas as polÃ­ticas e regulamentos do jogo, incluindo nossa PolÃ­tica de Privacidade e regras especÃ­ficas.
                                                                 </div>
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">1.2.</span> Este documento estabelece os termos sob os quais a <b>NosleiraOT Soluções Digitais LTDA</b> fornece acesso a uma conta para você jogar o RPG online "NosleiraOT".
+                                                                    <span class="agreement-clause-num">1.2.</span> Este documento estabelece os termos sob os quais a <b>NosleiraOT Soluções Digitais LTDA</b> fornece acesso a uma conta para vocÃª jogar o RPG online "<b>NosleiraOT</b>".
                                                                 </div>
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">1.3.</span> Se você não concordar com estes Termos, não utilize o site ou o jogo "NosleiraOT". A aceitação ou uso contínuo do site ou jogo implica aceitação irrestrita, mesmo que tácita, de todos os termos e condições descritos abaixo.
+                                                                    <span class="agreement-clause-num">1.3.</span> Se vocÃª nÃ£o concordar com estes Termos, nÃ£o utilize o site ou o jogo "<b>NosleiraOT</b>". A aceitaÃ§Ã£o ou uso contÃ­nuo do site ou jogo implica aceitaÃ§Ã£o irrestrita, mesmo que tÃ¡cita, de todos os termos e condiÃ§Ãµes descritos abaixo.
                                                                 </div>
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">1.4.</span> Estes Termos podem ser atualizados pela <b>NosleiraOT Soluções Digitais LTDA</b> devido a alterações na legislação aplicável, requisitos regulatórios ou por decisão própria. A versão atualizada estará disponível no site, e o uso contínuo do jogo ou site após as alterações constituirá aceitação dessas mudanças.
+                                                                    <span class="agreement-clause-num">1.4.</span> Estes Termos podem ser atualizados pela <b>NosleiraOT Soluções Digitais LTDA</b> devido a alteraÃ§Ãµes na legislaÃ§Ã£o aplicÃ¡vel, requisitos regulatÃ³rios ou por decisÃ£o prÃ³pria. A versÃ£o atualizada estarÃ¡ disponÃ­vel no site, e o uso contÃ­nuo do jogo ou site apÃ³s as alteraÃ§Ãµes constituirÃ¡ aceitaÃ§Ã£o dessas mudanÃ§as.
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -280,7 +280,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
 </div>
 
 <!-- ================================================================= -->
-<!-- SEÇÃO 2: USO CONSCIENTE E SAÚDE                                   -->
+<!-- SEÃ‡ÃƒO 2: USO CONSCIENTE E SAÃšDE                                   -->
 <!-- ================================================================= -->
 <div class="TableContainer section-spacer">
     <div class="CaptionContainer">
@@ -289,7 +289,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">2 - USO CONSCIENTE E SAÚDE</div>
+            <div class="Text">2 - USO CONSCIENTE E SAÃšDE</div>
             <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
@@ -316,7 +316,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 16px 18px;">
                                                                 <div class="agreement-warning-box">
-                                                                    <span class="agreement-clause-num">2.1. ⚠️ AVISO DE USO COMPULSIVO:</span> A exposição prolongada a videogames pode causar efeitos adversos na saúde física e mental. Recomendamos fazer pausas regulares, manter hábitos saudáveis de jogo e buscar ajuda profissional se você ou alguém que você conhece mostrar sinais de vício em jogos.
+                                                                    <span class="agreement-clause-num">2.1. âš ï¸ AVISO DE USO COMPULSIVO:</span> A exposiÃ§Ã£o prolongada a videogames pode causar efeitos adversos na saÃºde fÃ­sica e mental. Recomendamos fazer pausas regulares, manter hÃ¡bitos saudÃ¡veis de jogo e buscar ajuda profissional se vocÃª ou alguÃ©m que vocÃª conhece mostrar sinais de vÃ­cio em jogos.
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -342,7 +342,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
 </div>
 
 <!-- ================================================================= -->
-<!-- SEÇÃO 3: ISENÇÃO DE RESPONSABILIDADE                              -->
+<!-- SEÃ‡ÃƒO 3: ISENÃ‡ÃƒO DE RESPONSABILIDADE                              -->
 <!-- ================================================================= -->
 <div class="TableContainer section-spacer">
     <div class="CaptionContainer">
@@ -351,7 +351,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">3 - ISENÇÃO DE RESPONSABILIDADE</div>
+            <div class="Text">3 - ISENÃ‡ÃƒO DE RESPONSABILIDADE</div>
             <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
@@ -378,13 +378,13 @@ $title = 'Contrato de Serviço — NosleiraOT';
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 16px 18px;">
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">3.1.</span> O jogo "NosleiraOT" é fornecido "como está", sem garantias de operação contínua, ausência de erros ou vulnerabilidades. A <b>NosleiraOT Soluções Digitais LTDA</b> não oferece garantias expressas ou implícitas de qualquer tipo, incluindo, mas não se limitando a garantias de título, conformidade, comercialização ou adequação a um propósito específico.
+                                                                    <span class="agreement-clause-num">3.1.</span> O jogo "<b>NosleiraOT</b>" Ã© fornecido "como estÃ¡", sem garantias de operaÃ§Ã£o contÃ­nua, ausÃªncia de erros ou vulnerabilidades. A <b>NosleiraOT Soluções Digitais LTDA</b> nÃ£o oferece garantias expressas ou implÃ­citas de qualquer tipo, incluindo, mas nÃ£o se limitando a garantias de tÃ­tulo, conformidade, comercializaÃ§Ã£o ou adequaÃ§Ã£o a um propÃ³sito especÃ­fico.
                                                                 </div>
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">3.2.</span> O uso do software é de sua exclusiva responsabilidade. A <b>NosleiraOT Soluções Digitais LTDA</b> não garante que o software, o jogo ou sua conta funcionará de forma ininterrupta, sem erros, de forma segura ou livre de vírus.
+                                                                    <span class="agreement-clause-num">3.2.</span> O uso do software Ã© de sua exclusiva responsabilidade. A <b>NosleiraOT Soluções Digitais LTDA</b> nÃ£o garante que o software, o jogo ou sua conta funcionarÃ¡ de forma ininterrupta, sem erros, de forma segura ou livre de vÃ­rus.
                                                                 </div>
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">3.3.</span> A <b>NosleiraOT Soluções Digitais LTDA</b> não é responsável por eventos imprevisíveis ou de força maior que interfiram no jogo, como falhas técnicas, ataques de terceiros (por exemplo, hacking ou DDoS), interrupções de serviço de internet ou outros fatores além do controle da Empresa.
+                                                                    <span class="agreement-clause-num">3.3.</span> A <b>NosleiraOT Soluções Digitais LTDA</b> nÃ£o Ã© responsÃ¡vel por eventos imprevisÃ­veis ou de forÃ§a maior que interfiram no jogo, como falhas tÃ©cnicas, ataques de terceiros (por exemplo, hacking ou DDoS), interrupÃ§Ãµes de serviÃ§o de internet ou outros fatores alÃ©m do controle da Empresa.
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -410,7 +410,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
 </div>
 
 <!-- ================================================================= -->
-<!-- SEÇÃO 4: LIMITAÇÃO DE RESPONSABILIDADE                            -->
+<!-- SEÃ‡ÃƒO 4: LIMITAÃ‡ÃƒO DE RESPONSABILIDADE                            -->
 <!-- ================================================================= -->
 <div class="TableContainer section-spacer">
     <div class="CaptionContainer">
@@ -419,7 +419,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">4 - LIMITAÇÃO DE RESPONSABILIDADE</div>
+            <div class="Text">4 - LIMITAÃ‡ÃƒO DE RESPONSABILIDADE</div>
             <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
@@ -446,10 +446,10 @@ $title = 'Contrato de Serviço — NosleiraOT';
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 16px 18px;">
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">4.1.</span> A <b>NosleiraOT Soluções Digitais LTDA</b> não é responsável por qualquer perda de lucros, dados, danos especiais, incidentais ou consequentes decorrentes do uso ou incapacidade de uso do jogo, incluindo a perda de itens, contas ou personagens devido a erros, manutenção do sistema ou alterações na jogabilidade.
+                                                                    <span class="agreement-clause-num">4.1.</span> A <b>NosleiraOT Soluções Digitais LTDA</b> nÃ£o Ã© responsÃ¡vel por qualquer perda de lucros, dados, danos especiais, incidentais ou consequentes decorrentes do uso ou incapacidade de uso do jogo, incluindo a perda de itens, contas ou personagens devido a erros, manutenÃ§Ã£o do sistema ou alteraÃ§Ãµes na jogabilidade.
                                                                 </div>
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">4.2.</span> De acordo com o Artigo 927 do Código Civil Brasileiro, a responsabilidade da <b>NosleiraOT Soluções Digitais LTDA</b> por danos só se aplica em casos de dolo ou culpa grave, que não se enquadram na natureza do serviço prestado. O usuário assume todos os riscos inerentes ao uso do jogo.
+                                                                    <span class="agreement-clause-num">4.2.</span> De acordo com o Artigo 927 do CÃ³digo Civil Brasileiro, a responsabilidade da <b>NosleiraOT Soluções Digitais LTDA</b> por danos sÃ³ se aplica em casos de dolo ou culpa grave, que nÃ£o se enquadram na natureza do serviÃ§o prestado. O usuÃ¡rio assume todos os riscos inerentes ao uso do jogo.
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -475,7 +475,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
 </div>
 
 <!-- ================================================================= -->
-<!-- SEÇÃO 5: OBRIGAÇÕES DO USUÁRIO                                    -->
+<!-- SEÃ‡ÃƒO 5: OBRIGAÃ‡Ã•ES DO USUÃRIO                                    -->
 <!-- ================================================================= -->
 <div class="TableContainer section-spacer">
     <div class="CaptionContainer">
@@ -484,7 +484,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">5 - OBRIGAÇÕES DO USUÁRIO</div>
+            <div class="Text">5 - OBRIGAÃ‡Ã•ES DO USUÃRIO</div>
             <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
@@ -511,7 +511,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 16px 18px;">
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">5.1.</span> O usuário deve cumprir todas as regras do "NosleiraOT", disponíveis no site oficial do jogo. O descumprimento dessas regras pode resultar em suspensão ou exclusão da conta, sem direito a reembolso ou compensação. As obrigações contratuais do usuário estão sujeitas aos Artigos 421 e 422 do Código Civil Brasileiro, que tratam dos princípios da boa-fé e da função social do contrato.
+                                                                    <span class="agreement-clause-num">5.1.</span> O usuÃ¡rio deve cumprir todas as regras do "<b>NosleiraOT</b>", disponÃ­veis no site oficial do jogo. O descumprimento dessas regras pode resultar em suspensÃ£o ou exclusÃ£o da conta, sem direito a reembolso ou compensaÃ§Ã£o. As obrigaÃ§Ãµes contratuais do usuÃ¡rio estÃ£o sujeitas aos Artigos 421 e 422 do CÃ³digo Civil Brasileiro, que tratam dos princÃ­pios da boa-fÃ© e da funÃ§Ã£o social do contrato.
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -537,7 +537,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
 </div>
 
 <!-- ================================================================= -->
-<!-- SEÇÃO 6: PROTEÇÃO DE DADOS E PRIVACIDADE                          -->
+<!-- SEÃ‡ÃƒO 6: PROTEÃ‡ÃƒO DE DADOS E PRIVACIDADE                          -->
 <!-- ================================================================= -->
 <div class="TableContainer section-spacer" id="privacidade">
     <div class="CaptionContainer">
@@ -546,7 +546,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">6 - PROTEÇÃO DE DADOS E PRIVACIDADE</div>
+            <div class="Text">6 - PROTEÃ‡ÃƒO DE DADOS E PRIVACIDADE</div>
             <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
@@ -573,10 +573,10 @@ $title = 'Contrato de Serviço — NosleiraOT';
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 16px 18px;">
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">6.1.</span> A <b>NosleiraOT Soluções Digitais LTDA</b> está em conformidade com a legislação brasileira de proteção de dados, incluindo a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018). Os dados pessoais dos usuários serão coletados, armazenados e processados exclusivamente para fins relacionados ao serviço e à melhoria da experiência no jogo "NosleiraOT".
+                                                                    <span class="agreement-clause-num">6.1.</span> A <b>NosleiraOT Soluções Digitais LTDA</b> estÃ¡ em conformidade com a legislaÃ§Ã£o brasileira de proteÃ§Ã£o de dados, incluindo a Lei Geral de ProteÃ§Ã£o de Dados (LGPD - Lei nÂº 13.709/2018). Os dados pessoais dos usuÃ¡rios serÃ£o coletados, armazenados e processados exclusivamente para fins relacionados ao serviÃ§o e Ã  melhoria da experiÃªncia no jogo "<b>NosleiraOT</b>".
                                                                 </div>
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">6.2.</span> A <b>NosleiraOT Soluções Digitais LTDA</b> não é responsável por danos resultantes de violações de segurança causadas por terceiros ou pela negligência do usuário na proteção de seus dados de acesso, conforme previsto no Artigo 43 da LGPD.
+                                                                    <span class="agreement-clause-num">6.2.</span> A <b>NosleiraOT Soluções Digitais LTDA</b> nÃ£o Ã© responsÃ¡vel por danos resultantes de violaÃ§Ãµes de seguranÃ§a causadas por terceiros ou pela negligÃªncia do usuÃ¡rio na proteÃ§Ã£o de seus dados de acesso, conforme previsto no Artigo 43 da LGPD.
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -602,7 +602,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
 </div>
 
 <!-- ================================================================= -->
-<!-- SEÇÃO 7: RESOLUÇÃO DE CONFLITOS                                   -->
+<!-- SEÃ‡ÃƒO 7: RESOLUÃ‡ÃƒO DE CONFLITOS                                   -->
 <!-- ================================================================= -->
 <div class="TableContainer section-spacer">
     <div class="CaptionContainer">
@@ -611,7 +611,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">7 - RESOLUÇÃO DE CONFLITOS</div>
+            <div class="Text">7 - RESOLUÃ‡ÃƒO DE CONFLITOS</div>
             <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
@@ -638,7 +638,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 16px 18px;">
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">7.1.</span> A <b>NosleiraOT Soluções Digitais LTDA</b> não se compromete a participar de procedimentos de conciliação, mediação ou arbitragem fora do Judiciário. Quaisquer disputas decorrentes destes Termos serão resolvidas no Foro de São Paulo/SP, e as partes renunciam expressamente a qualquer outro foro, por mais privilegiado que seja.
+                                                                    <span class="agreement-clause-num">7.1.</span> A <b>NosleiraOT Soluções Digitais LTDA</b> nÃ£o se compromete a participar de procedimentos de conciliaÃ§Ã£o, mediaÃ§Ã£o ou arbitragem fora do JudiciÃ¡rio. Quaisquer disputas decorrentes destes Termos serÃ£o resolvidas no Foro de Curitiba/PR, e as partes renunciam expressamente a qualquer outro foro, por mais privilegiado que seja.
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -664,7 +664,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
 </div>
 
 <!-- ================================================================= -->
-<!-- SEÇÃO 8: DISPOSIÇÕES FINAIS                                       -->
+<!-- SEÃ‡ÃƒO 8: DISPOSIÃ‡Ã•ES FINAIS                                       -->
 <!-- ================================================================= -->
 <div class="TableContainer section-spacer">
     <div class="CaptionContainer">
@@ -673,7 +673,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
             <span class="CaptionEdgeRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             <span class="CaptionBorderTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionVerticalLeft" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">8 - DISPOSIÇÕES FINAIS</div>
+            <div class="Text">8 - DISPOSIÃ‡Ã•ES FINAIS</div>
             <span class="CaptionVerticalRight" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-vertical.gif);"></span>
             <span class="CaptionBorderBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/table-headline-border.gif);"></span>
             <span class="CaptionEdgeLeftBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
@@ -700,13 +700,13 @@ $title = 'Contrato de Serviço — NosleiraOT';
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 16px 18px;">
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">8.1.</span> Ao criar uma conta ou usar o site, o usuário concorda com os Termos de Serviço e o Contrato de Licença de Usuário Final do "NosleiraOT".
+                                                                    <span class="agreement-clause-num">8.1.</span> Ao criar uma conta ou usar o site, o usuÃ¡rio concorda com os Termos de ServiÃ§o e o Contrato de LicenÃ§a de UsuÃ¡rio Final do "<b>NosleiraOT</b>".
                                                                 </div>
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">8.2.</span> Estes Termos representam o acordo integral entre as partes e substituem qualquer outro acordo, verbal ou escrito, relativo ao uso do jogo "NosleiraOT" e aos serviços oferecidos.
+                                                                    <span class="agreement-clause-num">8.2.</span> Estes Termos representam o acordo integral entre as partes e substituem qualquer outro acordo, verbal ou escrito, relativo ao uso do jogo "<b>NosleiraOT</b>" e aos serviÃ§os oferecidos.
                                                                 </div>
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">8.3.</span> A <b>NosleiraOT Soluções Digitais LTDA</b> reserva-se o direito de tomar medidas legais em caso de descumprimento destes Termos pelo usuário.
+                                                                    <span class="agreement-clause-num">8.3.</span> A <b>NosleiraOT Soluções Digitais LTDA</b> reserva-se o direito de tomar medidas legais em caso de descumprimento destes Termos pelo usuÃ¡rio.
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -732,7 +732,7 @@ $title = 'Contrato de Serviço — NosleiraOT';
 </div>
 
 <!-- ================================================================= -->
-<!-- SEÇÃO 9: AVISO LEGAL                                              -->
+<!-- SEÃ‡ÃƒO 9: AVISO LEGAL                                              -->
 <!-- ================================================================= -->
 <div class="TableContainer section-spacer">
     <div class="CaptionContainer">
@@ -768,10 +768,10 @@ $title = 'Contrato de Serviço — NosleiraOT';
                                                         <tr bgcolor="<?php echo $config['lightborder']; ?>">
                                                             <td style="padding: 16px 18px;">
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">9.1.</span> O jogo "NosleiraOT" é um serviço de entretenimento, e o usuário reconhece que qualquer perda ou dano decorrente do uso do jogo não pode ser atribuído à <b>NosleiraOT Soluções Digitais LTDA</b> ou seus operadores.
+                                                                    <span class="agreement-clause-num">9.1.</span> O jogo "<b>NosleiraOT</b>" Ã© um serviÃ§o de entretenimento, e o usuÃ¡rio reconhece que qualquer perda ou dano decorrente do uso do jogo nÃ£o pode ser atribuÃ­do Ã  <b>NosleiraOT Soluções Digitais LTDA</b> ou seus operadores.
                                                                 </div>
                                                                 <div class="agreement-paragraph">
-                                                                    <span class="agreement-clause-num">9.2.</span> Todos os usuários aceitam integralmente os riscos associados ao uso do serviço, renunciando expressamente a qualquer reivindicação de compensação contra a <b>NosleiraOT Soluções Digitais LTDA</b>, seus representantes ou parceiros.
+                                                                    <span class="agreement-clause-num">9.2.</span> Todos os usuÃ¡rios aceitam integralmente os riscos associados ao uso do serviÃ§o, renunciando expressamente a qualquer reivindicaÃ§Ã£o de compensaÃ§Ã£o contra a <b>NosleiraOT Soluções Digitais LTDA</b>, seus representantes ou parceiros.
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -795,3 +795,4 @@ $title = 'Contrato de Serviço — NosleiraOT';
         </tbody>
     </table>
 </div>
+

@@ -302,7 +302,7 @@
 										{% endif %}
 										<div>
 											<input type="checkbox" id="accept_rules" name="accept_rules" value="true"{% if accept_rules %} checked="checked"{% endif %} style="vertical-align: middle; margin-right: 8px; cursor: pointer;"/>
-											<label for="accept_rules" style="font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #3d2208; cursor: pointer;">Li e aceito as <a href="{{ getLink('rules') }}" target="_blank" style="color: #005596; text-decoration: underline; font-weight: 500;">Regras do Jogo</a>, <a href="{{ getLink('agreement') }}" target="_blank" style="color: #005596; text-decoration: underline; font-weight: 500;">Termos de Serviço</a> e <a href="{{ getLink('agreement') }}#privacidade" target="_blank" style="color: #005596; text-decoration: underline; font-weight: 500;">Política de Privacidade</a></label>
+											<label for="accept_rules" style="font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #3d2208; cursor: pointer;">Li e aceito as <a href="{{ getLink('Regras/rules') }}" target="_blank" style="color: #005596; text-decoration: underline; font-weight: 500;">Regras do Jogo</a>, <a href="{{ getLink('Regras/agreement') }}" target="_blank" style="color: #005596; text-decoration: underline; font-weight: 500;">Termos de Serviço</a> e <a href="{{ getLink('Regras/agreement') }}#privacidade" target="_blank" style="color: #005596; text-decoration: underline; font-weight: 500;">Política de Privacidade</a></label>
 										</div>
 										{% if errors.accept_rules is defined %}
 											<div style="margin-top: 4px; margin-left: 24px;"><span class="FormFieldError">{{ errors.accept_rules }}</span></div>
