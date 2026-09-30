@@ -18,8 +18,8 @@ module "firewall" {
 
 # DNS só quando domain_name informado (dev pode ficar sem domínio).
 module "dns" {
-  count      = var.domain_name != "" ? 1 : 0
-  source     = "../modules/dns"
+  count       = var.domain_name != "" ? 1 : 0
+  source      = "../modules/dns"
   domain_name = var.domain_name
   droplet_ip  = module.compute.droplet_ip
 }
