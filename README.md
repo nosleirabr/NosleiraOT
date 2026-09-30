@@ -22,10 +22,10 @@ Servidor **Tibia 7.4** clássico com realmap autêntico (TibiCAM), fidelidade to
 
 ## 🎯 Foco Atual (O que estamos fazendo)
 
-Atualmente estamos trabalhando no Milestone **M2 (Paridade de conteúdo 7.4)**. As frentes de trabalho recentes incluem:
-- 🐛 Revisão de fórmulas de combate e mecânicas clássicas (Runas, Breakchance de Spears).
-- 🧪 Correção de visuais clássicos (HMM, LMM) e fluidos (Life/Mana fluid).
-- 🗺️ Auditoria de NPCs, Quests e actions de portas/baús.
+Atualmente estamos trabalhando nos Milestones **M5 (Infra nuvem e segurança) e M6 (Release base estável)**. As frentes de trabalho recentes incluem:
+- ☁️ Terraform/Terragrunt multi-env (`#43` aberta) — único blocker de M5/M6.
+- 🔒 Hardening, antibot e logs estruturados (já fechados `#44`, `#45`, `#46`).
+- 📦 Checklist de release, docs de fork e templates por perfil (já fechados `#48`, `#49`, `#50`, `#51`).
 
 ---
 
@@ -63,10 +63,10 @@ Acompanhe nossa jornada de desenvolvimento até o lançamento da base estável.
 | **M0** - Fundação do stack | Concluído (100%) ✅ |
 | **M1** - Jogabilidade núcleo | Concluído (100%) ✅ |
 | **M2** - Paridade de conteúdo 7.4 | Concluído (100%) ✅ |
-| **M3** - Server testável CI | Em andamento (50%) 🔧 |
+| **M3** - Server testável CI | Concluído (100%) ✅ |
 | **M4** - Client com código-fonte | Concluído (100%) ✅ |
-| **M5** - Infra nuvem e segurança | Planejado (17%) ⏳ |
-| **M6** - Release base estável | Planejado (40%) ⏳ |
+| **M5** - Infra nuvem e segurança | Em andamento (67%) 🔧 |
+| **M6** - Release base estável | Em andamento (80%) 🔧 |
 
 ---
 
