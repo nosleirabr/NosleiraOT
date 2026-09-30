@@ -34,10 +34,12 @@ jobs:
           done
 
       - name: Setup Terragrunt
-        uses: gruntwork-io/terragrunt-action@v2
-        with:
-          tg_version: "0.70.0"
-          tf_version: "1.9.8"
+        run: |
+          TG_VERSION="0.70.0"
+          curl -sL "https://github.com/gruntwork-io/terragrunt/releases/download/v${TG_VERSION}/terragrunt_linux_amd64" -o terragrunt
+          chmod +x terragrunt
+          sudo mv terragrunt /usr/local/bin/terragrunt
+          terragrunt --version
 
       - name: Terragrunt plan (todos os envs)
         working-directory: infra/live
