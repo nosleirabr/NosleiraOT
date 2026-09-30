@@ -1,7 +1,7 @@
 local config = {
     warningIntervals = {15, 10, 5, 3, 1},
-    finalMessage = "O servidor est\225 sendo reiniciado agora. At\233 logo!",
-    broadcastPrefix = "[REIN\199CIO PROGRAMADO] "
+    finalMessage = "[REINÍCIO PROGRAMADO] O Servidor Está Sendo Reiniciado Agora. Até Logo!",
+    broadcastPrefix = "[REINÍCIO PROGRAMADO] "
 }
 
 local restartTask = nil
@@ -56,9 +56,9 @@ local function countdown()
         if minutes == interval then
             local reasonText = reason ~= "" and (" Motivo: " .. reason) or ""
             if minutes == 1 then
-                broadcast(string.format("O servidor ser\225 reiniciado em %d minuto!%s", minutes, reasonText))
+                broadcast(string.format("O Servidor Será Reiniciado em %d Minuto!%s", minutes, reasonText))
             else
-                broadcast(string.format("O servidor ser\225 reiniciado em %d minutos!%s", minutes, reasonText))
+                broadcast(string.format("O Servidor Será Reiniciado em %d Minutos!%s", minutes, reasonText))
             end
             break
         end
@@ -69,32 +69,32 @@ end
 
 local function startRestart(minutes, msg)
     if restartTask then
-        return false, "J\225 existe um rein\237cio agendado. Use /cancelrestart para cancelar."
+        return false, "Já existe um reinício agendado. Use /cancelrestart para cancelar."
     end
 
     if minutes < 1 then
-        return false, "Tempo m\237nimo: 1 minuto."
+        return false, "Tempo mínimo: 1 minuto."
     end
 
     shutdownTime = os.time() + (minutes * 60)
-    reason = msg or "Manuten\231\195o programada"
+    reason = msg or "Manutenção programada"
     restartTask = addEvent(countdown, 1000)
 
     local reasonText = reason ~= "" and (" Motivo: " .. reason) or ""
-    broadcastOrange(string.format("Aten\199\195o! O servidor ser\225 reiniciado em %d minutos.%s", minutes, reasonText))
-    return true, string.format("Rein\237cio agendado para daqui a %d minutos.", minutes)
+    broadcastOrange(string.format("Atenção! O Servidor Será Reiniciado em %d Minutos.%s", minutes, reasonText))
+    return true, string.format("Reinício agendado para daqui a %d minutos.", minutes)
 end
 
 local function cancelRestart()
     if not restartTask then
-        return false, "Nenhum rein\237cio agendado."
+        return false, "Nenhum reinício agendado."
     end
     stopEvent(restartTask)
     restartTask = nil
     shutdownTime = 0
     reason = ""
-    broadcastOrange("Rein\237cio programado CANCELADO pelo staff.")
-    return true, "Rein\237cio cancelado."
+    broadcastOrange("Reinício programado CANCELADO pelo staff.")
+    return true, "Reinício cancelado."
 end
 
 local function handleRestart(player, words, param)
@@ -107,7 +107,7 @@ local function handleRestart(player, words, param)
     local minutes = tonumber(params[1])
     if not minutes then
         player:sendTextMessage(MESSAGE_STATUS_CONSOLE_BLUE, "Uso: " .. words .. " <minutos> [motivo]")
-        player:sendTextMessage(MESSAGE_STATUS_CONSOLE_BLUE, "Exemplo: " .. words .. " 15 Atualiza\199\195o de mapa")
+        player:sendTextMessage(MESSAGE_STATUS_CONSOLE_BLUE, "Exemplo: " .. words .. " 15 Atualização de Mapa e Correção de Quests")
         return false
     end
 
@@ -135,7 +135,7 @@ local function handleShutdown(player, words, param)
         msg = table.concat(params, " ", 2)
     end
     if msg == "" then
-        msg = "EMERG\202NCIA: Rein\237cio urgente solicitado pela staff."
+        msg = "EMERGÊNCIA: Reinício urgente solicitado pela staff."
     end
 
     local ok, res = startRestart(minutes, msg)
