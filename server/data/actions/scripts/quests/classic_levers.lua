@@ -92,11 +92,11 @@ local levers = {
         exactPlayers = 4,
         players = {
             -- Druid (North)
-            {relPos = {x = 0, y = -1, z = 0}, newPos = Position(32672, 32070, 8), vocations = {2, 6}, sacrifice = {relPos = {x = 0, y = -3, z = 0}, itemid = 2175}},
+            {relPos = {x = 0, y = -1, z = 0}, newPos = Position(32672, 32070, 8), vocations = {2, 6}, sacrifice = {relPos = {x = 0, y = -3, z = 0}, itemid = 2674}},
             -- Paladin (East)
             {relPos = {x = 6, y = 3, z = 0}, newPos = Position(32672, 32069, 8), vocations = {3, 7}, sacrifice = {relPos = {x = 8, y = 3, z = 0}, itemid = 2455}},
             -- Sorcerer (South)
-            {relPos = {x = 0, y = 7, z = 0}, newPos = Position(32671, 32070, 8), vocations = {1, 5}, sacrifice = {relPos = {x = 0, y = 9, z = 0}, itemid = 2674}},
+            {relPos = {x = 0, y = 7, z = 0}, newPos = Position(32671, 32070, 8), vocations = {1, 5}, sacrifice = {relPos = {x = 0, y = 9, z = 0}, itemid = 2175}},
             -- Knight (West)
             {relPos = {x = -6, y = 3, z = 0}, newPos = Position(32671, 32069, 8), vocations = {4, 8}, sacrifice = {relPos = {x = -8, y = 3, z = 0}, itemid = 2376}}
         }
