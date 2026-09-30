@@ -22,10 +22,13 @@ Servidor **Tibia 7.4** clássico com realmap autêntico (TibiCAM), fidelidade to
 
 ## 🎯 Foco Atual (O que estamos fazendo)
 
-Atualmente estamos trabalhando nos Milestones **M5 (Infra nuvem e segurança) e M6 (Release base estável)**. As frentes de trabalho recentes incluem:
-- ☁️ Terraform/Terragrunt multi-env (`#43` aberta) — único blocker de M5/M6.
-- 🔒 Hardening, antibot e logs estruturados (já fechados `#44`, `#45`, `#46`).
-- 📦 Checklist de release, docs de fork e templates por perfil (já fechados `#48`, `#49`, `#50`, `#51`).
+**M5 (Infra nuvem e segurança) e M6 (Release base estável) CONCLUÍDOS ✅**. Todas as issues fechadas:
+- ☁️ Terraform/Terragrunt multi-env (`#43` fechada)
+- 🔒 Hardening, antibot e logs estruturados (`#44`, `#45`, `#46`)
+- 📦 Checklist de release, docs de fork e templates por perfil (`#48`, `#49`, `#50`, `#51`)
+- 🗺️ Mapa/quests: Black Knight key 5010 (`uid 10065`) corrigido — CI 100% verde
+
+Base estável pronta para tag/release e criação de variantes.
 
 ---
 
@@ -65,8 +68,8 @@ Acompanhe nossa jornada de desenvolvimento até o lançamento da base estável.
 | **M2** - Paridade de conteúdo 7.4 | Concluído (100%) ✅ |
 | **M3** - Server testável CI | Concluído (100%) ✅ |
 | **M4** - Client com código-fonte | Concluído (100%) ✅ |
-| **M5** - Infra nuvem e segurança | Em andamento (67%) 🔧 |
-| **M6** - Release base estável | Em andamento (80%) 🔧 |
+| **M5** - Infra nuvem e segurança | Concluído (100%) ✅ |
+| **M6** - Release base estável | Concluído (100%) ✅ |
 
 ---
 
