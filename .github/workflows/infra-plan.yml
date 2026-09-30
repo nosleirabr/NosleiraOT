@@ -1,0 +1,53 @@
+name: Infra Plan
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths: ["infra/**"]
+  push:
+    branches: ["main"]
+    paths: ["infra/**"]
+
+jobs:
+  plan:
+    name: Terraform fmt + validate + plan (sem apply)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+
+      - name: Check formatting
+        run: terraform fmt -check -recursive infra
+
+      - name: Validate modules (sem backend)
+        run: |
+          for mod in modules/compute modules/firewall modules/dns modules/backups root; do
+            echo "== validate infra/$mod =="
+            terraform -chdir="infra/$mod" init -backend=false -input=false
+            terraform -chdir="infra/$mod" validate -no-color
+          done
+
+      - name: Setup Terragrunt
+        uses: gruntwork-io/terragrunt-action@v2
+        with:
+          terragrunt_version: "0.70.0"
+
+      - name: Terragrunt plan (todos os envs)
+        working-directory: infra/live
+        env:
+          DIGITALOCEAN_TOKEN: ${{ secrets.DIGITALOCEAN_TOKEN }}
+          SPACES_ACCESS_ID: ${{ secrets.SPACES_ACCESS_ID }}
+          SPACES_SECRET_KEY: ${{ secrets.SPACES_SECRET_KEY }}
+          TF_STATE_BUCKET: ${{ secrets.TF_STATE_BUCKET }}
+        run: |
+          if [ -z "$DIGITALOCEAN_TOKEN" ]; then
+            echo "Sem DIGITALOCEAN_TOKEN: fmt + validate já cobrem o PR; plan exige secret."
+            exit 0
+          fi
+          terragrunt run-all plan --non-interactive --terragrunt-non-interactive

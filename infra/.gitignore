@@ -1,0 +1,13 @@
+# Estado local e credenciais nunca vão para o Git.
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+!.example.tfvars
+terragrunt-debug.tfvars.json
+
+# O .gitignore da raiz ignora "Backup*/" (regra do Visual Studio) e isso
+# esconderia o módulo abaixo; as negações re-incluem diretório e arquivos.
+!modules/backups/
+!modules/backups/**
