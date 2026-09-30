@@ -11,8 +11,10 @@ patches:
     aid: 2000
     uid: 10017 # Crown Shield
   - at: [32781, 32327, 7]
+    id: 2720
     aid: 2000
-    uid: 10065 # Key 5010
+    uid: 10065 # Key 5010 (Black Knight tree)
+    match: [2720, 2709, 2710, 2711, 2712, 2713, 2714, 2715, 2716, 2717, 2718, 2719]
   - at: [32980, 31727, 9]
     aid: 2000
     uid: 10011 # Fire Sword
