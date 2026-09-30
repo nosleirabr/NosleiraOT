@@ -28,6 +28,12 @@ jobs:
     - name: Build Map from Source
       run: dotnet run --project tools/map-editor/Ot74.Map.Cli -- build --from-source
 
+    - name: Sync Built Map Files
+      run: |
+        mkdir -p server/data/world
+        cp maps/build/world.otbm server/data/world/world.otbm
+        cp maps/build/world.otbm maps/world.otbm
+
     - name: Run Map Toolchain Tests (L2)
       run: dotnet test tools/map-editor/tests/Ot74.Map.Tests/Ot74.Map.Tests.csproj
 
