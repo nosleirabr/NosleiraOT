@@ -8,8 +8,37 @@ local restartTask = nil
 local shutdownTime = 0
 local reason = ""
 
+local function trim(s)
+    return (s:gsub("^%s*(.-)%s*$", "%1"))
+end
+
+local function splitTrimmed(str, sep)
+    local result = {}
+    if not str then return result end
+    for match in string.gmatch(str, "([^" .. (sep or ",") .. "]+)") do
+        table.insert(result, trim(match))
+    end
+    return result
+end
+
 local function broadcast(msg)
-    Game.broadcastMessage(config.broadcastPrefix .. msg, MESSAGE_EVENT_ADVANCE)
+    Game.broadcastMessage(config.broadcastPrefix .. msg, MESSAGE_STATUS_WARNING)
+    addEvent(function()
+        Game.broadcastMessage(config.broadcastPrefix .. msg, MESSAGE_STATUS_WARNING)
+    end, 3500)
+    addEvent(function()
+        Game.broadcastMessage(config.broadcastPrefix .. msg, MESSAGE_STATUS_WARNING)
+    end, 7000)
+end
+
+local function broadcastOrange(msg)
+    Game.broadcastMessage(config.broadcastPrefix .. msg, MESSAGE_STATUS_CONSOLE_ORANGE)
+    addEvent(function()
+        Game.broadcastMessage(config.broadcastPrefix .. msg, MESSAGE_STATUS_CONSOLE_ORANGE)
+    end, 3500)
+    addEvent(function()
+        Game.broadcastMessage(config.broadcastPrefix .. msg, MESSAGE_STATUS_CONSOLE_ORANGE)
+    end, 7000)
 end
 
 local function countdown()
@@ -18,8 +47,7 @@ local function countdown()
     if remaining <= 0 then
         Game.saveGameState()
         broadcast(config.finalMessage)
-        Game.setGameState(GAME_STATE_CLOSED)
-        addEvent(function() os.exit(0) end, 5000)
+        Game.setGameState(GAME_STATE_SHUTDOWN)
         return
     end
 
@@ -53,7 +81,7 @@ local function startRestart(minutes, msg)
     restartTask = addEvent(countdown, 1000)
 
     local reasonText = reason ~= "" and (" Motivo: " .. reason) or ""
-    broadcast(string.format("Atenção! O servidor será reiniciado em %d minutos.%s", minutes, reasonText))
+    broadcastOrange(string.format("Atenção! O servidor será reiniciado em %d minutos.%s", minutes, reasonText))
     return true, string.format("Reinício agendado para daqui a %d minutos.", minutes)
 end
 
@@ -65,45 +93,75 @@ local function cancelRestart()
     restartTask = nil
     shutdownTime = 0
     reason = ""
-    broadcast("Reinício programado CANCELADO pelo staff.")
+    broadcastOrange("Reinício programado CANCELADO pelo staff.")
     return true, "Reinício cancelado."
 end
 
-function onSay(player, words, param)
-    if player:getGroup():getAccess() < 4 then return false end
-
-    local parts = param:split(" ")
-    local minutes = tonumber(parts[1])
-    if not minutes then
-        player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Uso: /restart <minutos> [motivo]")
+local function handleRestart(player, words, param)
+    if player:getAccountType() < ACCOUNT_TYPE_GOD then
+        player:sendCancelMessage("Apenas GODs podem usar este comando.")
         return false
     end
 
-    local msg = table.concat(parts, " ", 2)
+    local params = splitTrimmed(param, " ")
+    local minutes = tonumber(params[1])
+    if not minutes then
+        player:sendTextMessage(MESSAGE_STATUS_CONSOLE_BLUE, "Uso: " .. words .. " <minutos> [motivo]")
+        player:sendTextMessage(MESSAGE_STATUS_CONSOLE_BLUE, "Exemplo: " .. words .. " 15 Atualização de mapa")
+        return false
+    end
+
+    local msg = ""
+    if #params >= 2 then
+        msg = table.concat(params, " ", 2)
+    end
     if msg == "" then msg = nil end
 
     local ok, res = startRestart(minutes, msg)
-    player:sendTextMessage(MESSAGE_EVENT_ADVANCE, res)
+    player:sendTextMessage(MESSAGE_STATUS_CONSOLE_BLUE, res)
     return false
 end
 
-function onSayShutdown(player, words, param)
-    if player:getGroup():getAccess() < 4 then return false end
+local function handleShutdown(player, words, param)
+    if player:getAccountType() < ACCOUNT_TYPE_GOD then
+        player:sendCancelMessage("Apenas GODs podem usar este comando.")
+        return false
+    end
 
-    local parts = param:split(" ")
-    local minutes = tonumber(parts[1]) or 1
-    local msg = table.concat(parts, " ", 2)
-    if msg == "" then msg = "EMERGÊNCIA: Reinício urgente solicitado pela staff." end
+    local params = splitTrimmed(param, " ")
+    local minutes = tonumber(params[1]) or 1
+    local msg = ""
+    if #params >= 2 then
+        msg = table.concat(params, " ", 2)
+    end
+    if msg == "" then
+        msg = "EMERGÊNCIA: Reinício urgente solicitado pela staff."
+    end
 
     local ok, res = startRestart(minutes, msg)
-    player:sendTextMessage(MESSAGE_EVENT_ADVANCE, res)
+    player:sendTextMessage(MESSAGE_STATUS_CONSOLE_BLUE, res)
     return false
 end
 
-function onSayCancel(player, words, param)
-    if player:getGroup():getAccess() < 4 then return false end
+local function handleCancel(player, words, param)
+    if player:getAccountType() < ACCOUNT_TYPE_GOD then
+        player:sendCancelMessage("Apenas GODs podem usar este comando.")
+        return false
+    end
 
     local ok, res = cancelRestart()
-    player:sendTextMessage(MESSAGE_EVENT_ADVANCE, res)
+    player:sendTextMessage(MESSAGE_STATUS_CONSOLE_BLUE, res)
+    return false
+end
+
+function onSay(player, words, param)
+    -- Detecta qual comando foi chamado pelo parâmetro 'words'
+    if words == "/restart" then
+        return handleRestart(player, words, param)
+    elseif words == "/shutdown" then
+        return handleShutdown(player, words, param)
+    elseif words == "/cancelrestart" then
+        return handleCancel(player, words, param)
+    end
     return false
 end
