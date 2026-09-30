@@ -161,3 +161,9 @@ gitlog.txt
 
 # Cliente extraido (artefato local, nao versionar)
 client_old_extracted/
+
+# Scripts de debug temporarios (nunca versionar)
+check_account.php
+reset_key.php
+test_*.php
+debug_*.php
