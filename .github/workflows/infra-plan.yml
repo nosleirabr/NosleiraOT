@@ -37,6 +37,7 @@ jobs:
         uses: gruntwork-io/terragrunt-action@v2
         with:
           terragrunt_version: "0.70.0"
+          tf_version: "1.9.8"
 
       - name: Terragrunt plan (todos os envs)
         working-directory: infra/live
