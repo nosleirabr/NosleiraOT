@@ -49,8 +49,10 @@ local function addFluidBackpack(mainBp, bpId, fluidType, amount)
 end
 
 function onSay(player, words, param)
-	if not player:getGroup():getAccess() then
-		return true
+	-- Intenção: apenas Administrador (group_id 6) pode usar /gmbp — GM e CM são bloqueados
+	if player:getGroup():getId() < 6 then
+		player:sendCancelMessage("Apenas Administradores podem usar este comando.")
+		return false
 	end
 
 	-- Tenta colocar no inventario do jogador; se estiver cheio, cria direto no chao aos pes
