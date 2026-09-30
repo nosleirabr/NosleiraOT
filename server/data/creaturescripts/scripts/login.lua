@@ -1,7 +1,8 @@
 -- Ordered as in creaturescripts.xml
 local events = {
 	'PlayerDeath',
-	'DropLoot'
+	'DropLoot',
+	'autosave_events'
 }
 
 -- Formatação de data em português para a mensagem de boas-vindas

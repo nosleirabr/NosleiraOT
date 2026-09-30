@@ -11,6 +11,9 @@
 	<talkaction words="/hide" script="hide.lua" />
 	<talkaction words="/mccheck" script="mccheck.lua" />
 	<talkaction words="/openserver" script="openserver.lua" />
+	<talkaction words="/restart" separator=" " script="admin_restart.lua" />
+	<talkaction words="/shutdown" separator=" " script="admin_restart.lua" />
+	<talkaction words="/cancelrestart" script="admin_restart.lua" />
 	<talkaction words="/owner" separator=" " script="owner.lua" />
 	<talkaction words="/m" separator=" " script="place_monster.lua" />
 	<talkaction words="/s" separator=" " script="place_npc.lua" />
