@@ -65,7 +65,7 @@ Acompanhe nossa jornada de desenvolvimento até o lançamento da base estável.
 | **M2** - Paridade de conteúdo 7.4 | Concluído (100%) ✅ |
 | **M3** - Server testável CI | Concluído (100%) ✅ |
 | **M4** - Client com código-fonte | Concluído (100%) ✅ |
-| **M5** - Infra nuvem e segurança | Em andamento (67%) 🔧 |
+| **M5** - Infra nuvem e segurança | Concluído (100%) ✅ |
 | **M6** - Release base estável | Em andamento (80%) 🔧 |
 
 ---
