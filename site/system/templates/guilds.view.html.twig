@@ -1,18 +1,15 @@
-<div class="Border_2">
-	<div class="Border_3">
-		<div class="BoxContent">
-			{{ hook('HOOK_GUILDS_BEFORE_GUILD_HEADER') }}
+{{ hook('HOOK_GUILDS_BEFORE_GUILD_HEADER') }}
 			<table border="0" width="100%">
 				<tbody>
 				<tr>
 					<td width="64">
-						<img src="{{ constant('GUILD_IMAGES_DIR') }}{{ logo }}" width="64" height="64">
+						<img src="{{ constant('BASE_URL') }}{{ constant('GUILD_IMAGES_DIR') }}{{ logo }}" width="64" height="64">
 					</td>
 
 					<td align="center" width="100%"><h1>{{ guild_name }}</h1></td>
 
 					<td width="64">
-						<img src="{{ constant('GUILD_IMAGES_DIR') }}{{ logo }}" width="64" height="64">
+						<img src="{{ constant('BASE_URL') }}{{ constant('GUILD_IMAGES_DIR') }}{{ logo }}" width="64" height="64">
 					</td>
 				</tr>
 				</tbody>
@@ -94,34 +91,34 @@
 
 													<td>
 														{% set playerName = player.getName() %}
-														<form action="{{ getLink('guilds') }}?action=change_nick&name={{ playerName }}&guild={{ guild_name }}" method="post">
-															{{ csrf() }}
-															{{ getPlayerLink(playerName, true)|raw }}
+														{{ getPlayerLink(playerName, true)|raw }}
 
-															{% set showGuildNick = false %}
-															{% if player.getGuildNick() is not empty %}
-																{% set showGuildNick = true %}
-																{% set guildNickRaw = player.getGuildNick()|raw %}
-															{% endif %}
+														{% set showGuildNick = false %}
+														{% if player.getGuildNick() is not empty %}
+															{% set showGuildNick = true %}
+															{% set guildNickRaw = player.getGuildNick()|raw %}
+														{% endif %}
 
-															{% if logged %}
-																{% if player.getId() in players_from_account_ids %}
+														{% if logged %}
+															{% if player.getId() in players_from_account_ids %}
+																<form action="{{ getLink('guilds') }}?action=change_nick&name={{ playerName }}&guild={{ guild_name }}" method="post" style="display: inline; margin: 0; padding: 0;">
+																	{{ csrf() }}
 																	(<input type="text" name="nick" value="{{ guildNickRaw }}"><input type="submit" value="Change">)
-																{% else %}
-																	{% if showGuildNick %} ({{ guildNickRaw }}){% endif %}
-																{% endif %}
-
-																{% if level_in_guild > rank.rank_level or isLeader %}
-																	{% if guildOwnerName != playerName %}
-																		<span style="font-size: 10px; float: right">
-																			{<a href="{{ getLink('guilds') }}?action=kick_player&guild={{ guild_name|url_encode }}&name={{ playerName|url_encode }}">KICK</a>}
-																		</span>
-																	{% endif %}
-																{% endif %}
+																</form>
 															{% else %}
 																{% if showGuildNick %} ({{ guildNickRaw }}){% endif %}
 															{% endif %}
-														</form>
+
+															{% if level_in_guild > rank.rank_level or isLeader %}
+																{% if guildOwnerName != playerName %}
+																	<span style="font-size: 10px; float: right">
+																		{<a href="{{ getLink('guilds') }}?action=kick_player&guild={{ guild_name|url_encode }}&name={{ playerName|url_encode }}">KICK</a>}
+																	</span>
+																{% endif %}
+															{% endif %}
+														{% else %}
+															{% if showGuildNick %} ({{ guildNickRaw }}){% endif %}
+														{% endif %}
 													</td>
 
 													<td>{{ player.getVocationName() }}</td>
@@ -288,6 +285,3 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
-	</div>
-</div>
