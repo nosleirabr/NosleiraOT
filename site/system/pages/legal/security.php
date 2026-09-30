@@ -4,8 +4,13 @@ $title = 'Security';
 
 // Handle redirect parameter
 $redirect_url = isset($_GET['redirect']) ? urldecode($_GET['redirect']) : '';
-if ($redirect_url && str_starts_with($redirect_url, BASE_URL)) {
-    $_SESSION['security_redirect'] = $redirect_url;
+if ($redirect_url) {
+    // Accept both full URLs and relative paths
+    if (str_starts_with($redirect_url, BASE_URL)) {
+        $_SESSION['security_redirect'] = $redirect_url;
+    } elseif (str_starts_with($redirect_url, '/')) {
+        $_SESSION['security_redirect'] = BASE_URL . ltrim($redirect_url, '/');
+    }
 }
 ?>
 

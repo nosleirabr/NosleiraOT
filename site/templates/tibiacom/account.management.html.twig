@@ -74,7 +74,7 @@
 				<table border="0" cellspacing="0" cellpadding="0" style="margin-left: auto; margin-right: auto;">
 					<tr>
 						<td style="border:0;">
-							<a href="{{ getLink('regras/security') }}?redirect={{ getLink('account/register')|url_encode }}">
+							<a href="{{ getLink('regras/security') }}?redirect={{ getLink('account/register')|urlencode }}">
 								{{ include('buttons.register_account.html.twig') }}
 							</a>
 						</td>
@@ -235,7 +235,7 @@
 						<table border="0" cellspacing="0" cellpadding="0">
 							<tr>
 								<td style="border:0;">
-									<a href="{{ getLink('regras/security') }}?redirect={{ getLink('account/register')|url_encode }}">
+<a href="{{ getLink('regras/security') }}?redirect={{ getLink('account/register')|urlencode }}">
 										{{ include('buttons.register_account.html.twig') }}
 									</a>
 								</td>
