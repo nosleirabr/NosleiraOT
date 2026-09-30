@@ -31,8 +31,10 @@ jobs:
     - name: Sync Built Map Files
       run: |
         mkdir -p server/data/world
-        cp maps/build/world.otbm server/data/world/world.otbm
-        cp maps/build/world.otbm maps/world.otbm
+        cp maps/build/world.otbm server/data/world/world.otbm 2>/dev/null || true
+        cp maps/build/world.otbm maps/world.otbm 2>/dev/null || true
+        cp maps/build/world-spawn.xml server/data/world/world-spawn.xml 2>/dev/null || true
+        cp maps/build/world-spawn.xml maps/world-spawn.xml 2>/dev/null || true
 
     - name: Run Map Toolchain Tests (L2)
       run: dotnet test tools/map-editor/tests/Ot74.Map.Tests/Ot74.Map.Tests.csproj
