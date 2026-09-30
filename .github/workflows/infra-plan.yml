@@ -36,7 +36,7 @@ jobs:
       - name: Setup Terragrunt
         uses: gruntwork-io/terragrunt-action@v2
         with:
-          terragrunt_version: "0.70.0"
+          tg_version: "0.70.0"
           tf_version: "1.9.8"
 
       - name: Terragrunt plan (todos os envs)
