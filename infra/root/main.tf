@@ -1,12 +1,12 @@
 # Compõe compute + firewall + dns (opcional) + backups.
 module "compute" {
-  source          = "../modules/compute"
-  env             = var.env
-  region          = var.region
-  droplet_size    = var.droplet_size
-  ssh_key_name    = var.ssh_key_name
-  ssh_public_key  = var.ssh_public_key
-  tags            = ["ot74", "env:${var.env}"]
+  source         = "../modules/compute"
+  env            = var.env
+  region         = var.region
+  droplet_size   = var.droplet_size
+  ssh_key_name   = var.ssh_key_name
+  ssh_public_key = var.ssh_public_key
+  tags           = ["ot74", "env:${var.env}"]
 }
 
 module "firewall" {
