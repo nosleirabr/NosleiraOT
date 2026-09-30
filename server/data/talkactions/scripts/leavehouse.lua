@@ -1,4 +1,8 @@
 function onSay(player, words, param)
+	if not player:getGroup():getAccess() then
+		return true
+	end
+
 	local position = player:getPosition()
 	local tile = Tile(position)
 	local house = tile and tile:getHouse()

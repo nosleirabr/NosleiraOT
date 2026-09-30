@@ -81,8 +81,14 @@ class OTS_ServerInfo
 			// reads respond
 			//$data = stream_get_contents($socket);
 			$data = '';
-			while (!feof($socket))
+			while (!feof($socket)) {
 				$data .= fgets($socket, 1024);
+				// Intenção: não prender a página se o login server aceitar e nunca responder (quebra no timeout de leitura)
+				$meta = stream_get_meta_data($socket);
+				if (!empty($meta['timed_out'])) {
+					break;
+				}
+			}
 
 			// closing connection to current server
 			fclose($socket);

@@ -109,8 +109,15 @@
 				</td>
 			</tr>
 			<tr style="background-color: {{ config.lightborder }};" >
-				<td>NosleiraCoins:</td>
-				<td style="width:90%; font-weight: bold; color: #b45309;"><span style="color: #006600;">{{ account_coins }}</span> NosleiraCoins <img src="{{ config.site_url }}/images/nosleira_coin.svg" alt="NosleiraCoin" style="height: 18px; width: 18px; vertical-align: middle; margin-left: 4px;"></td>
+				<td>Premium Account:</td>
+				<td style="width:90%;">
+					{% if is_premium_account is defined and is_premium_account %}
+						<span style="display: inline-block; font-weight: 800; font-size: 12px; color: #15803d; background: #dcfce7; border: 1px solid #22c55e; padding: 3px 10px; border-radius: 12px;">● PREMIUM ACCOUNT</span>
+						<span style="font-weight: 700; color: #15803d; margin-left: 6px;">{{ premium_remaining }} {{ premium_remaining == 1 ? 'dia restante' : 'dias restantes' }}{% if premium_expires_br is defined and premium_expires_br %} • expira em {{ premium_expires_br }}{% endif %}</span>
+					{% else %}
+						<span style="display: inline-block; font-weight: 800; font-size: 12px; color: #991b1b; background: #fef2f2; border: 1px solid #ef4444; padding: 3px 10px; border-radius: 12px;">● FREE ACCOUNT</span>
+					{% endif %}
+				</td>
 			</tr>
 			<tr style="background-color: {{ config.darkborder }};" >
 				<td>Created:</td>

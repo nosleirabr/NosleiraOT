@@ -117,6 +117,8 @@ function updateStatus() {
 	$serverInfo->setTimeout(setting('core.status_timeout'));
 
 	$serverStatus = $serverInfo->status();
+	// Intenção: registrar a tentativa mesmo com falha para não queimar o timeout em todo pageview (nova tentativa só após o intervalo)
+	$status['lastCheck'] = time();
 	if(!$serverStatus)
 	{
 		$status['online'] = false;
@@ -125,8 +127,6 @@ function updateStatus() {
 	}
 	else
 	{
-		$status['lastCheck'] = time(); // this should be set only if server respond
-
 		$status['online'] = true;
 		$status['players'] = $serverStatus->getOnlinePlayers(); // counts all players logged in-game, or only connected clients (if enabled on server side)
 		$status['playersMax'] = $serverStatus->getMaxPlayers();

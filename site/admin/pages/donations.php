@@ -21,24 +21,30 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
     $order = $db->query("SELECT * FROM `myaac_donations` WHERE `id` = " . $order_id)->fetch();
     if ($order) {
         if ($act === 'approve') {
-            // Intenção: Aprovar pedido e creditar NosleiraCoins com registro no livro razão
+            // Intenção: Aprovar pedido e creditar dias de Premium com registro no livro razão
+            $premium_days = 0;
+            if (function_exists('get_donation_premium_days')) {
+                $premium_days = get_donation_premium_days($order);
+            }
+            if ($premium_days <= 0) {
+                $premium_days = 90;
+            }
             $db->query("UPDATE `myaac_donations` SET `status` = 'completed', `updated_at` = " . time() . " WHERE `id` = " . $order_id);
-            $db->query("UPDATE `accounts` SET `premium_points` = `premium_points` + " . (int)$order['coins'] . " WHERE `id` = " . (int)$order['account_id']);
-            
-            if (function_exists('trace_coin_movement')) {
-                trace_coin_movement($order['account_id'], $order['coins'], 'DONATION_CREDIT', $order_id, 'Aprovação Manual via Painel Administrativo');
+            if (function_exists('credit_premium_account')) {
+                credit_premium_account((int)$order['account_id'], $premium_days, $order_id, 'Aprovação Manual via Painel Administrativo');
             }
+            
             if (function_exists('log_donation_event')) {
-                log_donation_event($order_id, $order['account_id'], 'MANUAL_APPROVAL', 'Pedido #' . $order_id . ' aprovado manualmente no Admin');
+                log_donation_event($order_id, $order['account_id'], 'MANUAL_APPROVAL', 'Pedido #' . $order_id . ' aprovado manualmente no Admin - ' . $premium_days . ' dias Premium creditados');
             }
             
-            echo '<div class="alert alert-success"><strong>Sucesso!</strong> Pedido #' . $order_id . ' aprovado. ' . (int)$order['coins'] . ' NosleiraCoins foram creditadas na conta ID ' . (int)$order['account_id'] . '.</div>';
+            echo '<div class="alert alert-success"><strong>Sucesso!</strong> Pedido #' . $order_id . ' aprovado. ' . (int)$premium_days . ' dias de Premium Account foram creditados na conta ID ' . (int)$order['account_id'] . '.</div>';
         } elseif ($act === 'revert_chargeback') {
             // Intenção: Acionar estorno e punição em cadeia
             if (function_exists('revert_fraudulent_donation')) {
                 revert_fraudulent_donation($order_id, 'Estorno Solicitado Manualmente via Painel Admin');
             }
-            echo '<div class="alert alert-danger"><strong>Estorno Executado!</strong> O pedido #' . $order_id . ' foi estornado. O saldo/itens vinculados foram deduzidos/revertidos e a conta foi banida permanentemente.</div>';
+            echo '<div class="alert alert-danger"><strong>Estorno Executado!</strong> O pedido #' . $order_id . ' foi estornado. Os dias de Premium vinculados foram removidos e a conta foi banida permanentemente.</div>';
         } elseif ($act === 'cancel') {
             $db->query("UPDATE `myaac_donations` SET `status` = 'canceled', `updated_at` = " . time() . " WHERE `id` = " . $order_id);
             if (function_exists('log_donation_event')) {
@@ -62,36 +68,43 @@ if (!empty($search_query)) {
 $all_donations = $db->query("SELECT * FROM `myaac_donations` ORDER BY `id` DESC")->fetchAll();
 
 $total_approved_val = 0.0;
-$total_approved_coins = 0;
+$total_approved_days = 0;
 $total_estornado_val = 0.0;
-$total_estornado_coins = 0;
+$total_estornado_days = 0;
 $count_completed = 0;
 $count_chargedback = 0;
 $count_pending = 0;
 
 $stats_method = array(
-    'pix' => array('val' => 0.0, 'coins' => 0, 'count' => 0),
-    'stripe' => array('val' => 0.0, 'coins' => 0, 'count' => 0, 'brands' => array(), 'installments' => array()),
-    'tibia_coins' => array('coins' => 0, 'count' => 0)
+    'pix' => array('val' => 0.0, 'days' => 0, 'coins' => 0, 'count' => 0),
+    'stripe' => array('val' => 0.0, 'days' => 0, 'coins' => 0, 'count' => 0, 'brands' => array(), 'installments' => array()),
+    'tibia_coins' => array('days' => 0, 'coins' => 0, 'count' => 0)
 );
 
 if (!empty($all_donations)) {
     foreach ($all_donations as $d) {
         $price_clean = (float)str_replace(array('R$', ' ', '.'), array('', '', ''), str_replace(',', '.', $d['price']));
         $coins = (int)$d['coins'];
+        // Intenção: estatísticas em dias de Premium (com fallback para pedidos legados em coins)
+        $days_row = function_exists('get_donation_premium_days') ? (int)get_donation_premium_days($d) : $coins;
+        if ($days_row <= 0 && $coins > 0 && $coins <= 360) {
+            $days_row = $coins;
+        }
         $m = $d['payment_method'];
 
         if ($d['status'] === 'completed') {
             $total_approved_val += $price_clean;
-            $total_approved_coins += $coins;
+            $total_approved_days += $days_row;
             $count_completed++;
 
             if ($m === 'pix') {
                 $stats_method['pix']['val'] += $price_clean;
+                $stats_method['pix']['days'] += $days_row;
                 $stats_method['pix']['coins'] += $coins;
                 $stats_method['pix']['count']++;
             } elseif ($m === 'stripe') {
                 $stats_method['stripe']['val'] += $price_clean;
+                $stats_method['stripe']['days'] += $days_row;
                 $stats_method['stripe']['coins'] += $coins;
                 $stats_method['stripe']['count']++;
 
@@ -101,12 +114,13 @@ if (!empty($all_donations)) {
                 $stats_method['stripe']['brands'][$b] = isset($stats_method['stripe']['brands'][$b]) ? $stats_method['stripe']['brands'][$b] + 1 : 1;
                 $stats_method['stripe']['installments'][$inst] = isset($stats_method['stripe']['installments'][$inst]) ? $stats_method['stripe']['installments'][$inst] + 1 : 1;
             } elseif ($m === 'tibia_coins') {
+                $stats_method['tibia_coins']['days'] += $days_row;
                 $stats_method['tibia_coins']['coins'] += $coins;
                 $stats_method['tibia_coins']['count']++;
             }
         } elseif ($d['status'] === 'charged_back') {
             $total_estornado_val += $price_clean;
-            $total_estornado_coins += $coins;
+            $total_estornado_days += $days_row;
             $count_chargedback++;
         } elseif ($d['status'] === 'pending') {
             $count_pending++;
@@ -144,8 +158,8 @@ if ($db->hasTable('myaac_item_traces')) {
     <div class="col-md-3">
         <div class="small-box bg-aqua" style="background-color: #2980b9 !important; color: #fff; padding: 15px; border-radius: 8px;">
             <div class="inner">
-                <h3><?php echo number_format($total_approved_coins, 0, ',', '.'); ?></h3>
-                <p>NosleiraCoins Entregues</p>
+                <h3><?php echo number_format($total_approved_days, 0, ',', '.'); ?></h3>
+                <p>Dias de Premium Entregues</p>
             </div>
             <div class="icon" style="font-size: 30px; opacity: 0.3;"><i class="fa fa-coins"></i></div>
         </div>
@@ -174,20 +188,20 @@ if ($db->hasTable('myaac_item_traces')) {
 <div class="row" style="margin-bottom: 20px;">
     <div class="col-md-4">
         <div class="box box-success" style="border-top: 3px solid #27ae60;">
-            <div class="box-header with-border"><h4 class="box-title">⚡ Pagamentos em PIX</h4></div>
+            <div class="box-header with-border"><h4 class="box-title">⚡ Pagamentos em PIX (Premium Account)</h4></div>
             <div class="box-body">
                 <p><strong>Total Recebido:</strong> R$ <?php echo number_format($stats_method['pix']['val'], 2, ',', '.'); ?></p>
-                <p><strong>Coins Creditadas:</strong> <?php echo number_format($stats_method['pix']['coins'], 0, ',', '.'); ?> Coins</p>
+                <p><strong>Dias Premium Entregues:</strong> <?php echo number_format($stats_method['pix']['days'], 0, ',', '.'); ?> dias</p>
                 <p><strong>Vendas Concluídas:</strong> <?php echo $stats_method['pix']['count']; ?> pedidos</p>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="box box-info" style="border-top: 3px solid #2980b9;">
-            <div class="box-header with-border"><h4 class="box-title">💳 Cartão de Crédito (Mercado Pago)</h4></div>
+            <div class="box-header with-border"><h4 class="box-title">💳 Cartão de Crédito (Premium Account)</h4></div>
             <div class="box-body">
                 <p><strong>Total Recebido:</strong> R$ <?php echo number_format($stats_method['stripe']['val'], 2, ',', '.'); ?></p>
-                <p><strong>Coins Creditadas:</strong> <?php echo number_format($stats_method['stripe']['coins'], 0, ',', '.'); ?> Coins</p>
+                <p><strong>Dias Premium Entregues:</strong> <?php echo number_format($stats_method['stripe']['days'], 0, ',', '.'); ?> dias</p>
                 <p><strong>Vendas Concluídas:</strong> <?php echo $stats_method['stripe']['count']; ?> pedidos</p>
                 <hr style="margin: 10px 0;">
                 <small><strong>Parcelamento:</strong> 
@@ -209,10 +223,11 @@ if ($db->hasTable('myaac_item_traces')) {
     </div>
     <div class="col-md-4">
         <div class="box box-warning" style="border-top: 3px solid #f39c12;">
-            <div class="box-header with-border"><h4 class="box-title"><img src="../images/nosleira_coin.svg" alt="N" style="height: 18px; width: 18px; vertical-align: middle; margin-right: 4px;"> Tibia Coins (Troca Direct)</h4></div>
+            <div class="box-header with-border"><h4 class="box-title">🪙 Tibia Coins → Premium Account (3k / 6k / 10k TC)</h4></div>
             <div class="box-body">
-                <p><strong>NosleiraCoins Entregues:</strong> <?php echo number_format($stats_method['tibia_coins']['coins'], 0, ',', '.'); ?> Coins</p>
+                <p><strong>Dias Premium Entregues:</strong> <?php echo number_format($stats_method['tibia_coins']['days'], 0, ',', '.'); ?> dias</p>
                 <p><strong>Vendas Concluídas:</strong> <?php echo $stats_method['tibia_coins']['count']; ?> pedidos</p>
+                <p style="margin:0;"><small class="text-muted">PA 3 Meses = 3.000 TC • PA 6 Meses = 6.000 TC • PA 12 Meses = 10.000 TC</small></p>
             </div>
         </div>
     </div>
@@ -246,7 +261,7 @@ if ($db->hasTable('myaac_item_traces')) {
                     <th>Ref #</th>
                     <th>Conta / Pagador</th>
                     <th>Método / Detalhes</th>
-                    <th>Pacote Coins</th>
+                    <th>Pacote Premium</th>
                     <th>Valor</th>
                     <th>IP & E-mail</th>
                     <th>Data</th>
@@ -256,7 +271,10 @@ if ($db->hasTable('myaac_item_traces')) {
             </thead>
             <tbody>
                 <?php if (!empty($donations)): ?>
-                    <?php foreach ($donations as $don): ?>
+                    <?php foreach ($donations as $don):
+                        $row_days = function_exists('get_donation_premium_days') ? (int)get_donation_premium_days($don) : (int)$don['coins'];
+                        $row_pkg = function_exists('get_donation_package_name') ? get_donation_package_name($don) : ('PA (' . (int)$don['coins'] . ' dias)');
+                    ?>
                     <tr style="<?php echo $don['status'] === 'charged_back' ? 'background-color: #fce4e4;' : ''; ?>">
                         <td><strong>#<?php echo $don['id']; ?></strong></td>
                         <td>
@@ -265,7 +283,7 @@ if ($db->hasTable('myaac_item_traces')) {
                         </td>
                         <td>
                             <?php if ($don['payment_method'] === 'tibia_coins'): ?>
-                                <span class="label label-warning"><img src="../images/nosleira_coin.svg" alt="N" style="height: 14px; width: 14px; vertical-align: middle; margin-right: 2px;"> Tibia Coins</span><br>
+                                <span class="label label-warning">🪙 Tibia Coins</span><br>
                                 <small>Char: <?php echo htmlspecialchars($don['tibia_char_name']); ?></small>
                             <?php elseif ($don['payment_method'] === 'pix'): ?>
                                 <span class="label label-success">⚡ PIX</span>
@@ -277,7 +295,7 @@ if ($db->hasTable('myaac_item_traces')) {
                                 <br><small><strong>Bandeira:</strong> <?php echo !empty($don['card_brand']) ? strtoupper($don['card_brand']) : 'Cartão'; ?> (<?php echo isset($don['installments']) ? (int)$don['installments'] : 1; ?>x)</small>
                             <?php endif; ?>
                         </td>
-                        <td><strong style="color: #27ae60;"><?php echo (int)$don['coins']; ?> Coins</strong></td>
+                        <td><strong style="color: #15803d;"><?php echo htmlspecialchars($row_pkg); ?></strong><br><small class="text-muted"><?php echo $row_days; ?> dias de Premium</small></td>
                         <td><strong><?php echo htmlspecialchars($don['price']); ?></strong></td>
                         <td>
                             <small>IP: <?php echo !empty($don['payer_ip']) ? htmlspecialchars($don['payer_ip']) : '127.0.0.1'; ?></small><br>
@@ -286,7 +304,7 @@ if ($db->hasTable('myaac_item_traces')) {
                         <td><?php echo date('d/m/Y H:i', $don['created_at']); ?></td>
                         <td>
                             <?php if ($don['status'] === 'completed'): ?>
-                                <span class="label label-success">✓ Aprovado</span>
+                                <span class="label label-success">✓ Premium Ativo</span>
                             <?php elseif ($don['status'] === 'charged_back'): ?>
                                 <span class="label label-danger">🚫 ESTORNADO / BANIDO</span>
                             <?php elseif ($don['status'] === 'canceled'): ?>
@@ -296,13 +314,16 @@ if ($db->hasTable('myaac_item_traces')) {
                             <?php endif; ?>
                         </td>
                         <td>
+                            <?php
+                            $approve_days = $row_days > 0 ? $row_days : 90;
+                            ?>
                             <?php if ($don['status'] === 'pending'): ?>
-                                <a href="<?php echo ADMIN_URL; ?>?p=donations&action=approve&id=<?php echo $don['id']; ?>" class="btn btn-xs btn-success" onclick="return confirm('Deseja aprovar e creditar <?php echo $don['coins']; ?> NosleiraCoins nesta conta?');">✓ Aprovar</a>
+                                <a href="<?php echo ADMIN_URL; ?>?p=donations&action=approve&id=<?php echo $don['id']; ?>" class="btn btn-xs btn-success" onclick="return confirm('Deseja aprovar e creditar <?php echo $approve_days; ?> dias de Premium nesta conta?');">✓ Aprovar +<?php echo $approve_days; ?>d</a>
                                 <a href="<?php echo ADMIN_URL; ?>?p=donations&action=cancel&id=<?php echo $don['id']; ?>" class="btn btn-xs btn-default" onclick="return confirm('Deseja cancelar este pedido?');">✗ Cancelar</a>
                             <?php endif; ?>
 
                             <?php if ($don['status'] !== 'charged_back'): ?>
-                                <a href="<?php echo ADMIN_URL; ?>?p=donations&action=revert_chargeback&id=<?php echo $don['id']; ?>" class="btn btn-xs btn-danger" onclick="return confirm('ATENÇÃO: Deseja estornar este pedido, deduzir as NosleiraCoins/itens comprados e BANIR PERMANENTEMENTE a conta ID <?php echo $don['account_id']; ?>?');">🚫 Estornar & Banir em Cadeia</a>
+                                <a href="<?php echo ADMIN_URL; ?>?p=donations&action=revert_chargeback&id=<?php echo $don['id']; ?>" class="btn btn-xs btn-danger" onclick="return confirm('ATENÇÃO: Deseja estornar este pedido, remover <?php echo $approve_days; ?> dias de Premium e BANIR PERMANENTEMENTE a conta ID <?php echo $don['account_id']; ?>?');">🚫 Estornar & Banir em Cadeia</a>
                             <?php else: ?>
                                 <span class="text-danger"><strong>Conta Banida</strong></span>
                             <?php endif; ?>

@@ -8,24 +8,26 @@ $points_package = isset($_POST['points_package']) ? $_POST['points_package'] : '
 $tibia_char_name = isset($_POST['tibia_char_name']) ? trim($_POST['tibia_char_name']) : '';
 
 // Intenção: Estruturar detalhes e precificação dos planos oficiais de Premium Account (PA)
+// Pacotes: PA 3 Meses (90 dias) = 3.000 TC | PA 6 Meses (180 dias) = 6.000 TC | PA 12 Meses (360 dias) = 10.000 TC
+// Coluna `coins` agora guarda dias de Premium (fonte da verdade); `premium_days` espelha o mesmo valor.
 if (!function_exists('get_nosleira_package_details')) {
     function get_nosleira_package_details($pkg) {
         $key = (string)$pkg;
         $map = array(
-            '3' => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'price_brl' => 468.00, 'price_str' => 'R$ 468,00', 'tc' => '2.500 TC', 'coins' => 468, 'badge' => ''),
-            '6' => array('id' => 6, 'name' => 'PA 6 Meses', 'duration' => '180 Dias', 'price_brl' => 872.00, 'price_str' => 'R$ 872,00', 'tc' => '5.000 TC', 'coins' => 872, 'badge' => ''),
-            '12' => array('id' => 12, 'name' => 'PA 12 Meses (Anual)', 'duration' => '360 Dias', 'price_brl' => 1621.00, 'price_str' => 'R$ 1.621,00', 'tc' => '10.000 TC', 'coins' => 1621, 'badge' => 'Melhor Custo-Benefício'),
-            // Compatibilidade com chaves alternativas
-            '90' => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'price_brl' => 468.00, 'price_str' => 'R$ 468,00', 'tc' => '2.500 TC', 'coins' => 468, 'badge' => ''),
-            '180' => array('id' => 6, 'name' => 'PA 6 Meses', 'duration' => '180 Dias', 'price_brl' => 872.00, 'price_str' => 'R$ 872,00', 'tc' => '5.000 TC', 'coins' => 872, 'badge' => ''),
-            '360' => array('id' => 12, 'name' => 'PA 12 Meses (Anual)', 'duration' => '360 Dias', 'price_brl' => 1621.00, 'price_str' => 'R$ 1.621,00', 'tc' => '10.000 TC', 'coins' => 1621, 'badge' => 'Melhor Custo-Benefício'),
-            '25' => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'price_brl' => 468.00, 'price_str' => 'R$ 468,00', 'tc' => '2.500 TC', 'coins' => 468, 'badge' => ''),
-            '50' => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'price_brl' => 468.00, 'price_str' => 'R$ 468,00', 'tc' => '2.500 TC', 'coins' => 468, 'badge' => ''),
-            '100' => array('id' => 6, 'name' => 'PA 6 Meses', 'duration' => '180 Dias', 'price_brl' => 872.00, 'price_str' => 'R$ 872,00', 'tc' => '5.000 TC', 'coins' => 872, 'badge' => ''),
-            '200' => array('id' => 12, 'name' => 'PA 12 Meses (Anual)', 'duration' => '360 Dias', 'price_brl' => 1621.00, 'price_str' => 'R$ 1.621,00', 'tc' => '10.000 TC', 'coins' => 1621, 'badge' => 'Melhor Custo-Benefício'),
-            '468' => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'price_brl' => 468.00, 'price_str' => 'R$ 468,00', 'tc' => '2.500 TC', 'coins' => 468, 'badge' => ''),
-            '872' => array('id' => 6, 'name' => 'PA 6 Meses', 'duration' => '180 Dias', 'price_brl' => 872.00, 'price_str' => 'R$ 872,00', 'tc' => '5.000 TC', 'coins' => 872, 'badge' => ''),
-            '1621' => array('id' => 12, 'name' => 'PA 12 Meses (Anual)', 'duration' => '360 Dias', 'price_brl' => 1621.00, 'price_str' => 'R$ 1.621,00', 'tc' => '10.000 TC', 'coins' => 1621, 'badge' => 'Melhor Custo-Benefício')
+            '3' => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'premium_days' => 90, 'price_brl' => 468.00, 'price_str' => 'R$ 468,00', 'tc' => '3.000 TC', 'tc_cost' => 3000, 'coins' => 90, 'badge' => ''),
+            '6' => array('id' => 6, 'name' => 'PA 6 Meses', 'duration' => '180 Dias', 'premium_days' => 180, 'price_brl' => 872.00, 'price_str' => 'R$ 872,00', 'tc' => '6.000 TC', 'tc_cost' => 6000, 'coins' => 180, 'badge' => ''),
+            '12' => array('id' => 12, 'name' => 'PA 12 Meses (Anual)', 'duration' => '360 Dias', 'premium_days' => 360, 'price_brl' => 1621.00, 'price_str' => 'R$ 1.621,00', 'tc' => '10.000 TC', 'tc_cost' => 10000, 'coins' => 360, 'badge' => 'Melhor Custo-Benefício'),
+            // Compatibilidade com chaves alternativas (dias e valores legados resolvem para o pacote PA correto)
+            '90' => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'premium_days' => 90, 'price_brl' => 468.00, 'price_str' => 'R$ 468,00', 'tc' => '3.000 TC', 'tc_cost' => 3000, 'coins' => 90, 'badge' => ''),
+            '180' => array('id' => 6, 'name' => 'PA 6 Meses', 'duration' => '180 Dias', 'premium_days' => 180, 'price_brl' => 872.00, 'price_str' => 'R$ 872,00', 'tc' => '6.000 TC', 'tc_cost' => 6000, 'coins' => 180, 'badge' => ''),
+            '360' => array('id' => 12, 'name' => 'PA 12 Meses (Anual)', 'duration' => '360 Dias', 'premium_days' => 360, 'price_brl' => 1621.00, 'price_str' => 'R$ 1.621,00', 'tc' => '10.000 TC', 'tc_cost' => 10000, 'coins' => 360, 'badge' => 'Melhor Custo-Benefício'),
+            '25' => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'premium_days' => 90, 'price_brl' => 468.00, 'price_str' => 'R$ 468,00', 'tc' => '3.000 TC', 'tc_cost' => 3000, 'coins' => 90, 'badge' => ''),
+            '50' => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'premium_days' => 90, 'price_brl' => 468.00, 'price_str' => 'R$ 468,00', 'tc' => '3.000 TC', 'tc_cost' => 3000, 'coins' => 90, 'badge' => ''),
+            '100' => array('id' => 6, 'name' => 'PA 6 Meses', 'duration' => '180 Dias', 'premium_days' => 180, 'price_brl' => 872.00, 'price_str' => 'R$ 872,00', 'tc' => '6.000 TC', 'tc_cost' => 6000, 'coins' => 180, 'badge' => ''),
+            '200' => array('id' => 12, 'name' => 'PA 12 Meses (Anual)', 'duration' => '360 Dias', 'premium_days' => 360, 'price_brl' => 1621.00, 'price_str' => 'R$ 1.621,00', 'tc' => '10.000 TC', 'tc_cost' => 10000, 'coins' => 360, 'badge' => 'Melhor Custo-Benefício'),
+            '468' => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'premium_days' => 90, 'price_brl' => 468.00, 'price_str' => 'R$ 468,00', 'tc' => '3.000 TC', 'tc_cost' => 3000, 'coins' => 90, 'badge' => ''),
+            '872' => array('id' => 6, 'name' => 'PA 6 Meses', 'duration' => '180 Dias', 'premium_days' => 180, 'price_brl' => 872.00, 'price_str' => 'R$ 872,00', 'tc' => '6.000 TC', 'tc_cost' => 6000, 'coins' => 180, 'badge' => ''),
+            '1621' => array('id' => 12, 'name' => 'PA 12 Meses (Anual)', 'duration' => '360 Dias', 'premium_days' => 360, 'price_brl' => 1621.00, 'price_str' => 'R$ 1.621,00', 'tc' => '10.000 TC', 'tc_cost' => 10000, 'coins' => 360, 'badge' => 'Melhor Custo-Benefício')
         );
         return isset($map[$key]) ? $map[$key] : $map['3'];
     }
@@ -134,7 +136,7 @@ if (!isset($logged) || !$logged || !isset($account_logged) || !$account_logged |
                                             Login Necess&aacute;rio para Doa&ccedil;&atilde;o
                                         </h2>
                                         <p style="font-family: 'Inter', -apple-system, sans-serif; font-size: 13px; color: #6e543b; margin: 0; line-height: 1.55;">
-                                            Para sua total seguran&ccedil;a, o acesso &agrave; &aacute;rea de doa&ccedil;&otilde;es e ao mercado de <strong>NosleiraCoins</strong> exige login pr&eacute;vio. Suas moedas ser&atilde;o creditadas diretamente na conta autenticada.
+                                            Para sua total seguran&ccedil;a, o acesso &agrave; &aacute;rea de doa&ccedil;&otilde;es e aos planos de <strong>Premium Account</strong> exige login pr&eacute;vio. Seus dias de premium ser&atilde;o creditados diretamente na conta autenticada.
                                         </p>
                                     </div>
 
@@ -220,14 +222,14 @@ if (function_exists('ensure_donation_audit_tables')) {
     ensure_donation_audit_tables();
 }
 
-// Mapeamento de pacotes Tibia Coins para planos de Premium Account
+// Mapeamento de pacotes Tibia Coins para planos de Premium Account (PA 90/180/360 dias)
 $tc_products = array(
-    '3'    => array('product' => 'PA 3 Meses (90 Dias)', 'price' => '2.500 TC'),
-    '6'    => array('product' => 'PA 6 Meses (180 Dias)', 'price' => '5.000 TC'),
+    '3'    => array('product' => 'PA 3 Meses (90 Dias)', 'price' => '3.000 TC'),
+    '6'    => array('product' => 'PA 6 Meses (180 Dias)', 'price' => '6.000 TC'),
     '12'   => array('product' => 'PA 12 Meses (Anual - 360 Dias)', 'price' => '10.000 TC'),
     // Compatibilidade com seleções legadas
-    '50'   => array('product' => 'PA 3 Meses (90 Dias)', 'price' => '2.500 TC'),
-    '100'  => array('product' => 'PA 6 Meses (180 Dias)', 'price' => '5.000 TC'),
+    '50'   => array('product' => 'PA 3 Meses (90 Dias)', 'price' => '3.000 TC'),
+    '100'  => array('product' => 'PA 6 Meses (180 Dias)', 'price' => '6.000 TC'),
     '200'  => array('product' => 'PA 12 Meses (Anual)', 'price' => '10.000 TC'),
     '500'  => array('product' => 'PA 12 Meses (Anual)', 'price' => '10.000 TC')
 );
@@ -327,10 +329,21 @@ if ($action === 'process_card' && !empty($_POST['card_token'])) {
 
                 if (isset($card_payment_result['status']) && $card_payment_result['status'] === 'approved') {
                     $mp_card_id = isset($card_payment_result['id']) ? (string)$card_payment_result['id'] : '';
-                    // Intenção: Atualizar status no banco e registrar auditoria de sucesso
+                    // Intenção: Aprovar pedido e creditar dias de Premium direto na conta
                     $db->query("UPDATE `myaac_donations` SET `status` = 'completed', `updated_at` = " . time() . ", `mp_payment_id` = " . $db->quote($mp_card_id) . ", `installments` = " . (int)$installments . ", `card_brand` = " . $db->quote($payment_method_id) . ", `payer_email` = " . $db->quote($payer_email) . " WHERE `id` = " . $order_id);
+                    $card_pkg_days = 0;
+                    if (function_exists('get_donation_premium_days')) {
+                        $card_pkg_days = get_donation_premium_days($don);
+                        if ($card_pkg_days <= 0 && function_exists('get_nosleira_package_details')) {
+                            $tmp_pkg = get_nosleira_package_details(isset($don['points_package']) ? $don['points_package'] : $points_package);
+                            $card_pkg_days = (int)$tmp_pkg['premium_days'];
+                        }
+                    }
+                    if ($card_pkg_days > 0 && function_exists('credit_premium_account')) {
+                        credit_premium_account((int)$don['account_id'], $card_pkg_days, $order_id, 'Crédito via Cartão de Crédito (' . strtoupper($payment_method_id) . ' ' . $installments . 'x) - MP ID: ' . $mp_card_id);
+                    }
                     if (function_exists('log_donation_event')) {
-                        log_donation_event($order_id, $acc_id, 'PAYMENT_APPROVED', 'Aprovado via Cartão de Crédito (' . strtoupper($payment_method_id) . ' ' . $installments . 'x) - MP ID: ' . $mp_card_id);
+                        log_donation_event($order_id, $acc_id, 'PAYMENT_APPROVED', 'Aprovado via Cartão de Crédito (' . strtoupper($payment_method_id) . ' ' . $installments . 'x) - MP ID: ' . $mp_card_id . ' - ' . $card_pkg_days . ' dias Premium creditados');
                     }
                 } elseif (isset($card_payment_result['message'])) {
                     $card_error_msg = $card_payment_result['message'];
@@ -354,23 +367,46 @@ if (isset($logged) && $logged && isset($account_logged) && method_exists($accoun
 }
 
 if ($action === 'confirm_tc' && !empty($tibia_char_name)) {
-    $db->query("INSERT INTO `myaac_donations` (`account_id`, `account_name`, `payment_method`, `points_package`, `coins`, `price`, `tibia_char_name`, `status`, `created_at`, `updated_at`, `payer_ip`, `payer_email`) VALUES (
-        " . (int)$acc_id . ",
-        " . $db->quote($acc_name) . ",
-        'tibia_coins',
-        " . (int)$points_package . ",
-        " . (int)$points_package . ",
-        " . $db->quote($price_label) . ",
-        " . $db->quote($tibia_char_name) . ",
-        'pending',
-        " . time() . ",
-        " . time() . ",
-        " . $db->quote($client_ip) . ",
-        " . $db->quote($u_email) . "
-    )");
+    // Intenção: pedido Tibia Coins vira dias de Premium (3k/6k/10k TC -> 90/180/360 dias)
+    $tc_pkg = get_nosleira_package_details($points_package);
+    $tc_pkg_id = (int)$tc_pkg['id'];
+    $tc_premium_days = (int)$tc_pkg['premium_days'];
+    $has_premium_col = ($db->hasColumn('myaac_donations', 'premium_days'));
+    if ($has_premium_col) {
+        $db->query("INSERT INTO `myaac_donations` (`account_id`, `account_name`, `payment_method`, `points_package`, `coins`, `premium_days`, `price`, `tibia_char_name`, `status`, `created_at`, `updated_at`, `payer_ip`, `payer_email`) VALUES (
+            " . (int)$acc_id . ",
+            " . $db->quote($acc_name) . ",
+            'tibia_coins',
+            " . $tc_pkg_id . ",
+            " . $tc_premium_days . ",
+            " . $tc_premium_days . ",
+            " . $db->quote($price_label) . ",
+            " . $db->quote($tibia_char_name) . ",
+            'pending',
+            " . time() . ",
+            " . time() . ",
+            " . $db->quote($client_ip) . ",
+            " . $db->quote($u_email) . "
+        )");
+    } else {
+        $db->query("INSERT INTO `myaac_donations` (`account_id`, `account_name`, `payment_method`, `points_package`, `coins`, `price`, `tibia_char_name`, `status`, `created_at`, `updated_at`, `payer_ip`, `payer_email`) VALUES (
+            " . (int)$acc_id . ",
+            " . $db->quote($acc_name) . ",
+            'tibia_coins',
+            " . $tc_pkg_id . ",
+            " . $tc_premium_days . ",
+            " . $db->quote($price_label) . ",
+            " . $db->quote($tibia_char_name) . ",
+            'pending',
+            " . time() . ",
+            " . time() . ",
+            " . $db->quote($client_ip) . ",
+            " . $db->quote($u_email) . "
+        )");
+    }
     $order_id = $db->lastInsertId();
     if (function_exists('log_donation_event')) {
-        log_donation_event($order_id, $acc_id, 'ORDER_CREATED', 'Criado pedido Tibia Coins (Char: ' . $tibia_char_name . ', Package: ' . $points_package . ' coins)');
+        log_donation_event($order_id, $acc_id, 'ORDER_CREATED', 'Criado pedido Premium Tibia Coins (' . $tc_pkg['name'] . ' - ' . $tc_premium_days . ' dias por ' . $price_label . ', Char: ' . $tibia_char_name . ')');
     }
 } elseif ($action === 'checkout' && isset($_POST['payment_method'])) {
     if ($payment_method === 'pix' || $payment_method === 'stripe') {
@@ -379,26 +415,48 @@ if ($action === 'confirm_tc' && !empty($tibia_char_name)) {
         $price_str = $pkg_details['price_str'];
         $card_inst = isset($_POST['installments']) ? (int)$_POST['installments'] : 1;
         $card_b = isset($_POST['payment_method_id']) ? trim($_POST['payment_method_id']) : null;
+        $premium_days_new = (int)$pkg_details['premium_days'];
 
-        $db->query("INSERT INTO `myaac_donations` (`account_id`, `account_name`, `payment_method`, `points_package`, `coins`, `price`, `tibia_char_name`, `status`, `created_at`, `updated_at`, `payer_ip`, `payer_email`, `installments`, `card_brand`) VALUES (
-            " . (int)$acc_id . ",
-            " . $db->quote($acc_name) . ",
-            " . $db->quote($payment_method) . ",
-            " . (int)$pkg_details['id'] . ",
-            " . (int)$pkg_details['coins'] . ",
-            " . $db->quote($price_str) . ",
-            '',
-            'pending',
-            " . time() . ",
-            " . time() . ",
-            " . $db->quote($client_ip) . ",
-            " . $db->quote($u_email) . ",
-            " . (int)$card_inst . ",
-            " . ($card_b ? $db->quote($card_b) : "NULL") . "
-        )");
+        $has_premium_col = ($db->hasColumn('myaac_donations', 'premium_days'));
+        if ($has_premium_col) {
+            $db->query("INSERT INTO `myaac_donations` (`account_id`, `account_name`, `payment_method`, `points_package`, `coins`, `premium_days`, `price`, `tibia_char_name`, `status`, `created_at`, `updated_at`, `payer_ip`, `payer_email`, `installments`, `card_brand`) VALUES (
+                " . (int)$acc_id . ",
+                " . $db->quote($acc_name) . ",
+                " . $db->quote($payment_method) . ",
+                " . (int)$pkg_details['id'] . ",
+                " . $premium_days_new . ",
+                " . $premium_days_new . ",
+                " . $db->quote($price_str) . ",
+                '',
+                'pending',
+                " . time() . ",
+                " . time() . ",
+                " . $db->quote($client_ip) . ",
+                " . $db->quote($u_email) . ",
+                " . (int)$card_inst . ",
+                " . ($card_b ? $db->quote($card_b) : "NULL") . "
+            )");
+        } else {
+            $db->query("INSERT INTO `myaac_donations` (`account_id`, `account_name`, `payment_method`, `points_package`, `coins`, `price`, `tibia_char_name`, `status`, `created_at`, `updated_at`, `payer_ip`, `payer_email`, `installments`, `card_brand`) VALUES (
+                " . (int)$acc_id . ",
+                " . $db->quote($acc_name) . ",
+                " . $db->quote($payment_method) . ",
+                " . (int)$pkg_details['id'] . ",
+                " . $premium_days_new . ",
+                " . $db->quote($price_str) . ",
+                '',
+                'pending',
+                " . time() . ",
+                " . time() . ",
+                " . $db->quote($client_ip) . ",
+                " . $db->quote($u_email) . ",
+                " . (int)$card_inst . ",
+                " . ($card_b ? $db->quote($card_b) : "NULL") . "
+            )");
+        }
         $order_id = $db->lastInsertId();
         if (function_exists('log_donation_event')) {
-            log_donation_event($order_id, $acc_id, 'ORDER_CREATED', 'Criado pedido ' . strtoupper($payment_method) . ' (' . $pkg_details['name'] . ' - ' . $price_str . ')');
+            log_donation_event($order_id, $acc_id, 'ORDER_CREATED', 'Criado pedido Premium ' . strtoupper($payment_method) . ' (' . $pkg_details['name'] . ' - ' . $premium_days_new . ' dias - ' . $price_str . ')');
         }
 
         // GERAR COBRANÇA PIX REAL VIA MERCADO PAGO API
@@ -947,7 +1005,7 @@ function changeLanguage(lang) {
                                                             <td style="font-weight: bold; font-size: 16px; padding: 12px 16px; font-family: 'Cinzel', serif; color: #3d1c02; text-shadow: 0 1px 0 rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: space-between;">
                                                                 <div style="display: flex; align-items: center; gap: 8px;">
                                                                     <span style="color: #22c55e;">✓</span>
-                                                                    <span>Pedido de Doação Registrado com Sucesso!</span>
+                                                                    <span>Pedido de Premium Account Registrado com Sucesso!</span>
                                                                 </div>
                                                                 <?php if ($order_id > 0): ?>
                                                                 <span style="font-size: 13px; color: #b45309; font-weight: 800;">Ref: #<?php echo $order_id; ?></span>
@@ -1209,7 +1267,7 @@ function changeLanguage(lang) {
                                                                                         clearInterval(checkInterval);
                                                                                         document.getElementById('live_status_box').style.background = '#dcfce7';
                                                                                         document.getElementById('live_status_box').style.borderColor = '#22c55e';
-                                                                                        document.getElementById('live_status_box').innerHTML = '<span style="color: #15803d; font-size: 15px;">🎉 Pagamento Aprovado! Seus NosleiraCoins já foram entregues na sua conta!</span>';
+                                                                                        document.getElementById('live_status_box').innerHTML = '<span style="color: #15803d; font-size: 15px;">🎉 Premium Account Ativada! Seus dias de premium já foram creditados na sua conta!</span>';
                                                                                     }
                                                                                 });
                                                                         }, 3000);
@@ -1234,7 +1292,7 @@ function changeLanguage(lang) {
 
                                                                     <div style="background: linear-gradient(180deg, #fdf9f3 0%, #f4ead8 100%); border: 1px solid #d8c6af; border-left: 4px solid #8b521b; border-radius: 6px; padding: 22px 26px; margin-bottom: 20px; text-align: center; color: #3d1c02; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
                                                                         <div style="font-size: 24px; margin-bottom: 6px;">🎉</div>
-                                                                        <div style="font-size: 17px; font-weight: 800; color: #4a2505; margin-bottom: 8px; font-family: 'Cinzel', serif;">Pagamento Aprovado com Sucesso!</div>
+                                                                        <div style="font-size: 17px; font-weight: 800; color: #4a2505; margin-bottom: 8px; font-family: 'Cinzel', serif;">Premium Account Ativada com Sucesso!</div>
                                                                         <p style="font-size: 14px; margin-bottom: 12px;">Seu pagamento no valor de <b style="color: #4a2505;"><?php echo htmlspecialchars($price_str); ?></b> via Cartão de Crédito foi processado.</p>
                                                                         <p style="font-size: 14px; font-weight: 700; color: #4a2505; background: #ffffff; display: inline-block; padding: 8px 18px; border-radius: 20px; border: 1px solid #d4c0a5;">
                                                                             Sua <b><?php echo htmlspecialchars($pkg_details['name']); ?></b> já foi ativada com sucesso em sua conta!
@@ -1915,8 +1973,8 @@ function changeLanguage(lang) {
                                                                         { value: '12', title: 'PA 12 Meses (Anual)', duration: '360 Dias', price: 'R$ 1.621,00', priceOriginal: '', badge: 'Melhor Custo-Benefício' }
                                                                     ],
                                                                     'tibia_coins': [
-                                                                        { value: '3',  title: 'PA 3 Meses',        duration: '90 Dias',  price: '2.500 TC',  priceOriginal: '', badge: '' },
-                                                                        { value: '6',  title: 'PA 6 Meses',        duration: '180 Dias', price: '5.000 TC',  priceOriginal: '', badge: '' },
+                                                                        { value: '3',  title: 'PA 3 Meses',        duration: '90 Dias',  price: '3.000 TC',  priceOriginal: '', badge: '' },
+                                                                        { value: '6',  title: 'PA 6 Meses',        duration: '180 Dias', price: '6.000 TC', priceOriginal: '', badge: '' },
                                                                         { value: '12', title: 'PA 12 Meses (Anual)', duration: '360 Dias', price: '10.000 TC', priceOriginal: '', badge: 'Melhor Custo-Benefício' }
                                                                     ]
                                                                 };
@@ -2165,7 +2223,7 @@ function changeLanguage(lang) {
                                                                  <div class="history-tabs-nav">
                                                                      <button type="button" class="history-tab-btn <?php echo $active_history_tab === 'tab_stripe' ? 'active' : ''; ?>" data-tab="tab_stripe" onclick="openHistoryTab('tab_stripe', this)">💳 Cartão de Crédito</button>
                                                                      <button type="button" class="history-tab-btn <?php echo $active_history_tab === 'tab_pix' ? 'active' : ''; ?>" data-tab="tab_pix" onclick="openHistoryTab('tab_pix', this)">⚡ PIX</button>
-                                                                     <button type="button" class="history-tab-btn <?php echo $active_history_tab === 'tab_tibia_coins' ? 'active' : ''; ?>" data-tab="tab_tibia_coins" onclick="openHistoryTab('tab_tibia_coins', this)"><img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="N" style="height: 15px; width: 15px; vertical-align: middle; margin-right: 4px;">Tibia Coins</button>
+                                                                      <button type="button" class="history-tab-btn <?php echo $active_history_tab === 'tab_tibia_coins' ? 'active' : ''; ?>" data-tab="tab_tibia_coins" onclick="openHistoryTab('tab_tibia_coins', this)">🪙 Tibia Coins → PA</button>
                                                                  </div>
 
                                                                  <!-- ABA CARTÃO DE CRÉDITO -->
@@ -2180,7 +2238,7 @@ function changeLanguage(lang) {
                                                                                  <tr style="background: linear-gradient(180deg, #5c3d1a 0%, #3a2208 100%); color: #f5e6c8; font-weight: 700; border-bottom: 2px solid #d4a853; font-family: 'Cinzel', serif; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
                                                                                      <th style="padding: 10px 8px; text-align: center; width: 50px; white-space: nowrap;">Ref #</th>
                                                                                      <th style="padding: 10px 8px; text-align: center; width: 110px; white-space: nowrap;">Data</th>
-                                                                                     <th style="padding: 10px 10px; text-align: left; width: 160px; white-space: nowrap;">Pacote</th>
+                                                                                     <th style="padding: 10px 10px; text-align: left; width: 160px; white-space: nowrap;">Pacote Premium</th>
                                                                                      <th style="padding: 10px 8px; text-align: center; width: 100px; white-space: nowrap;">Valor</th>
                                                                                      <th style="padding: 10px 8px; text-align: center; width: 110px; white-space: nowrap;">Status</th>
                                                                                  </tr>
@@ -2190,11 +2248,15 @@ function changeLanguage(lang) {
                                                                                  <tr style="border-bottom: 1px solid #e2d2bc; background: rgba(255,255,255,0.7); vertical-align: middle;">
                                                                                      <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #b45309; white-space: nowrap;">#<?php echo $don['id']; ?></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; color: #5a422b; white-space: nowrap; font-size: 11.5px;"><?php echo date('d/m/Y', $don['created_at']); ?><br><span style="font-size: 10.5px; color: #7a6249;"><?php echo date('H:i', $don['created_at']); ?></span></td>
-                                                                                     <td style="padding: 8px 10px; font-weight: 700; color: #2b1704; white-space: nowrap;"><?php echo htmlspecialchars($don['coins']); ?> NosleiraCoins <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="N" style="height: 15px; width: 15px; vertical-align: middle; margin-left: 2px;"></td>
+                                                                                     <td style="padding: 8px 10px; font-weight: 700; color: #2b1704; white-space: nowrap;"><?php
+                                                                                      $hist_days = function_exists('get_donation_premium_days') ? (int)get_donation_premium_days($don) : (int)$don['coins'];
+                                                                                      $hist_pkg = function_exists('get_donation_package_name') ? get_donation_package_name($don) : ('PA (' . (int)$don['coins'] . ' dias)');
+                                                                                      echo htmlspecialchars($hist_pkg) . ' • ' . $hist_days . ' dias';
+                                                                                      ?></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #00875a; white-space: nowrap;"><?php echo htmlspecialchars($don['price']); ?></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; white-space: nowrap;">
                                                                                          <?php if ($don['status'] === 'completed'): ?>
-                                                                                             <span class="status-badge-completed">Concluído ✅</span>
+                                                                                             <span class="status-badge-completed">Premium Ativo ✅</span>
                                                                                          <?php elseif ($don['status'] === 'canceled'): ?>
                                                                                              <span class="status-badge-canceled">Cancelado ❌</span>
                                                                                          <?php else: ?>
@@ -2207,7 +2269,7 @@ function changeLanguage(lang) {
                                                                          </table>
                                                                      </div>
                                                                      <?php else: ?>
-                                                                     <p style="color: #6e543b; font-size: 13px; margin: 10px 0;">Nenhuma doação registrada via Cartão de Crédito nesta conta ainda.</p>
+                                                                      <p style="color: #6e543b; font-size: 13px; margin: 10px 0;">Nenhum pedido de Premium via Cartão de Crédito nesta conta ainda.</p>
                                                                      <?php endif; ?>
                                                                  </div>
 
@@ -2223,7 +2285,7 @@ function changeLanguage(lang) {
                                                                                  <tr style="background: linear-gradient(180deg, #5c3d1a 0%, #3a2208 100%); color: #f5e6c8; font-weight: 700; border-bottom: 2px solid #d4a853; font-family: 'Cinzel', serif; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
                                                                                      <th style="padding: 10px 8px; text-align: center; width: 50px; white-space: nowrap;">Ref #</th>
                                                                                      <th style="padding: 10px 8px; text-align: center; width: 110px; white-space: nowrap;">Data</th>
-                                                                                     <th style="padding: 10px 10px; text-align: left; width: 160px; white-space: nowrap;">Pacote</th>
+                                                                                     <th style="padding: 10px 10px; text-align: left; width: 160px; white-space: nowrap;">Pacote Premium</th>
                                                                                      <th style="padding: 10px 8px; text-align: center; width: 100px; white-space: nowrap;">Valor</th>
                                                                                      <th style="padding: 10px 8px; text-align: center; width: 110px; white-space: nowrap;">Status</th>
                                                                                  </tr>
@@ -2233,11 +2295,15 @@ function changeLanguage(lang) {
                                                                                  <tr style="border-bottom: 1px solid #e2d2bc; background: rgba(255,255,255,0.7); vertical-align: middle;">
                                                                                      <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #00875a; white-space: nowrap;">#<?php echo $don['id']; ?></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; color: #5a422b; white-space: nowrap; font-size: 11.5px;"><?php echo date('d/m/Y', $don['created_at']); ?><br><span style="font-size: 10.5px; color: #7a6249;"><?php echo date('H:i', $don['created_at']); ?></span></td>
-                                                                                     <td style="padding: 8px 10px; font-weight: 700; color: #2b1704; white-space: nowrap;"><?php echo htmlspecialchars($don['coins']); ?> NosleiraCoins <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="N" style="height: 15px; width: 15px; vertical-align: middle; margin-left: 2px;"></td>
+                                                                                     <td style="padding: 8px 10px; font-weight: 700; color: #2b1704; white-space: nowrap;"><?php
+                                                                                      $hist_days = function_exists('get_donation_premium_days') ? (int)get_donation_premium_days($don) : (int)$don['coins'];
+                                                                                      $hist_pkg = function_exists('get_donation_package_name') ? get_donation_package_name($don) : ('PA (' . (int)$don['coins'] . ' dias)');
+                                                                                      echo htmlspecialchars($hist_pkg) . ' • ' . $hist_days . ' dias';
+                                                                                      ?></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #00875a; white-space: nowrap;"><?php echo htmlspecialchars($don['price']); ?></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; white-space: nowrap;">
                                                                                          <?php if ($don['status'] === 'completed'): ?>
-                                                                                             <span class="status-badge-completed">Concluído ✅</span>
+                                                                                             <span class="status-badge-completed">Premium Ativo ✅</span>
                                                                                          <?php elseif ($don['status'] === 'canceled'): ?>
                                                                                              <span class="status-badge-canceled">Cancelado ❌</span>
                                                                                          <?php else: ?>
@@ -2249,12 +2315,12 @@ function changeLanguage(lang) {
                                                                              </tbody>
                                                                          </table>
                                                                      </div>
-                                                                     <?php else: ?>
-                                                                     <p style="color: #6e543b; font-size: 13px; margin: 10px 0;">Nenhuma doação registrada via PIX nesta conta ainda.</p>
-                                                                     <?php endif; ?>
-                                                                 </div>
+                                                                      <?php else: ?>
+                                                                      <p style="color: #6e543b; font-size: 13px; margin: 10px 0;">Nenhum pedido de Premium via PIX nesta conta ainda.</p>
+                                                                      <?php endif; ?>
+                                                                  </div>
 
-                                                                 <!-- ABA TIBIA COINS -->
+                                                                  <!-- ABA TIBIA COINS -->
                                                                  <div id="tab_tibia_coins" class="history-tab-content <?php echo $active_history_tab === 'tab_tibia_coins' ? 'active' : ''; ?>" style="display: <?php echo $active_history_tab === 'tab_tibia_coins' ? 'block' : 'none'; ?>;">
                                                                      <?php
                                                                      $tc_donations = $db->query("SELECT * FROM `myaac_donations` WHERE (`account_id` = " . (int)$acc_id . " OR `account_name` = " . $db->quote($acc_name) . ") AND `payment_method` = 'tibia_coins' ORDER BY `id` DESC LIMIT 20")->fetchAll();
@@ -2266,7 +2332,7 @@ function changeLanguage(lang) {
                                                                                  <tr style="background: linear-gradient(180deg, #5c3d1a 0%, #3a2208 100%); color: #f5e6c8; font-weight: 700; border-bottom: 2px solid #d4a853; font-family: 'Cinzel', serif; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
                                                                                      <th style="padding: 10px 6px; text-align: center; width: 45px; white-space: nowrap;">Ref #</th>
                                                                                      <th style="padding: 10px 6px; text-align: center; width: 100px; white-space: nowrap;">Data</th>
-                                                                                     <th style="padding: 10px 8px; text-align: left; width: 140px; white-space: nowrap;">Pacote</th>
+                                                                                     <th style="padding: 10px 8px; text-align: left; width: 140px; white-space: nowrap;">Pacote Premium</th>
                                                                                      <th style="padding: 10px 6px; text-align: center; width: 80px; white-space: nowrap;">Valor</th>
                                                                                      <th style="padding: 10px 8px; text-align: left; width: 110px; white-space: nowrap;">Personagem</th>
                                                                                      <th style="padding: 10px 8px; text-align: left; width: 90px; white-space: nowrap;">Destino</th>
@@ -2278,13 +2344,17 @@ function changeLanguage(lang) {
                                                                                  <tr style="border-bottom: 1px solid #e2d2bc; background: rgba(255,255,255,0.7); vertical-align: middle;">
                                                                                      <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #b45309; white-space: nowrap;">#<?php echo $don['id']; ?></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; color: #5a422b; white-space: nowrap; font-size: 11.5px;"><?php echo date('d/m/Y', $don['created_at']); ?><br><span style="font-size: 10.5px; color: #7a6249;"><?php echo date('H:i', $don['created_at']); ?></span></td>
-                                                                                     <td style="padding: 8px; font-weight: 700; color: #2b1704; white-space: nowrap;"><?php echo htmlspecialchars($don['coins']); ?> NosleiraCoins <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="N" style="height: 15px; width: 15px; vertical-align: middle; margin-left: 2px;"></td>
+                                                                                     <td style="padding: 8px; font-weight: 700; color: #2b1704; white-space: nowrap;"><?php
+                                                                                      $hist_days = function_exists('get_donation_premium_days') ? (int)get_donation_premium_days($don) : (int)$don['coins'];
+                                                                                      $hist_pkg = function_exists('get_donation_package_name') ? get_donation_package_name($don) : ('PA (' . (int)$don['coins'] . ' dias)');
+                                                                                      echo htmlspecialchars($hist_pkg) . ' • ' . $hist_days . ' dias';
+                                                                                      ?></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #7c3aed; white-space: nowrap;"><?php echo htmlspecialchars($don['price']); ?></td>
                                                                                      <td style="padding: 8px; font-weight: 600; color: #4a1c00; white-space: nowrap;"><?php echo htmlspecialchars($don['tibia_char_name']); ?></td>
                                                                                      <td style="padding: 8px; font-weight: 700; color: #b45309; white-space: nowrap;">roxzorde</td>
                                                                                      <td style="padding: 8px 6px; text-align: center; white-space: nowrap;">
                                                                                          <?php if ($don['status'] === 'completed'): ?>
-                                                                                             <span class="status-badge-completed">Entregue ✅</span>
+                                                                                             <span class="status-badge-completed">Premium Ativo ✅</span>
                                                                                          <?php elseif ($don['status'] === 'canceled'): ?>
                                                                                              <span class="status-badge-canceled">Cancelado ❌</span>
                                                                                          <?php else: ?>
@@ -2297,7 +2367,7 @@ function changeLanguage(lang) {
                                                                          </table>
                                                                      </div>
                                                                      <?php else: ?>
-                                                                     <p style="color: #6e543b; font-size: 13px; margin: 10px 0;">Nenhuma doação registrada por Tibia Coins nesta conta ainda.</p>
+                                                                      <p style="color: #6e543b; font-size: 13px; margin: 10px 0;">Nenhum pedido de Premium via Tibia Coins nesta conta ainda.</p>
                                                                      <?php endif; ?>
                                                                  </div>
 
@@ -2431,15 +2501,15 @@ function changeLanguage(lang) {
                                                                              </div>
                                                                          </div>
 
-                                                                         <div class="terms-pillar-item">
-                                                                             <div class="terms-pillar-header">
-                                                                                 <span class="terms-pillar-icon">🪙</span>
-                                                                                 <span>Gratificação em Coins</span>
-                                                                             </div>
-                                                                             <div class="terms-pillar-body">
-                                                                                 Como agradecimento pelo seu suporte, você recebe <strong style="color: #ea580c;">NosleiraCoins</strong> <img src="<?php echo BASE_URL; ?>images/nosleira_coin.svg" alt="" style="height: 15px; width: 15px; vertical-align: -2px;"> na sua conta, utilizáveis na Store do jogo para benefícios exclusivos.
-                                                                             </div>
-                                                                         </div>
+                                                                          <div class="terms-pillar-item">
+                                                                              <div class="terms-pillar-header">
+                                                                                  <span class="terms-pillar-icon">⭐</span>
+                                                                                  <span>Premium Account</span>
+                                                                              </div>
+                                                                              <div class="terms-pillar-body">
+                                                                                  Todo apoio é convertido em <strong style="color: #15803d;">Premium Account</strong> ativada diretamente na sua conta, sem moedas intermediárias e sem precisar de troca manual.
+                                                                              </div>
+                                                                          </div>
 
                                                                          <div class="terms-pillar-item">
                                                                              <div class="terms-pillar-header">
@@ -2493,7 +2563,7 @@ function changeLanguage(lang) {
                                                                                 <div class="rule-icon-box">&#9660;</div>
                                                                                 <div class="rule-title-group">
                                                                                     <span class="rule-accordion-title">2. Tempo de Entrega</span>
-                                                                                    <span class="rule-accordion-brief">Os pontos são geralmente entregues automaticamente pelo sistema...</span>
+                                                                                    <span class="rule-accordion-brief">A Premium é geralmente ativada automaticamente pelo sistema...</span>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="rule-action-badge">
@@ -2502,7 +2572,7 @@ function changeLanguage(lang) {
                                                                             </div>
                                                                         </summary>
                                                                         <div class="rule-accordion-body">
-                                                                            Os pontos são geralmente entregues automaticamente pelo sistema. No entanto, se houver alguma falha ou instabilidade, temos um prazo máximo de 24 horas para que os pontos sejam entregues na sua conta.
+                                                                            A Premium é geralmente ativada automaticamente pelo sistema. No entanto, se houver alguma falha ou instabilidade, temos um prazo máximo de 24 horas para que os dias de Premium sejam creditados na sua conta.
                                                                         </div>
                                                                     </details>
 

@@ -47,10 +47,24 @@ $dayOrDays = ($premDays == 1 ? 'day' : 'days');
 $vipSystemEnabled = isset($config['lua']['vipSystemEnabled']) && getBoolean($config['lua']['vipSystemEnabled']);
 $premiumLabel = $vipSystemEnabled ? 'VIP' : 'Premium Account';
 
-if (!$account_logged->isPremium() || $premDays <= 0 || $premDays == OTS_Account::GRATIS_PREMIUM_DAYS) {
+// Intenção: resumo Premium centralizado (dias restantes, expiração, status verde/vermelho)
+$premium_summary = function_exists('get_account_premium_summary') ? get_account_premium_summary($account_logged->getId()) : array('is_premium' => false, 'remaining' => 0, 'premdays' => 0, 'expires_at' => 0);
+$is_premium_account = !empty($premium_summary['is_premium']);
+$prem_remaining = isset($premium_summary['remaining']) ? (int)$premium_summary['remaining'] : (int)$premDays;
+$prem_expires_at = isset($premium_summary['expires_at']) ? (int)$premium_summary['expires_at'] : 0;
+if ($prem_remaining <= 0) {
+	$prem_remaining = (int)$premDays;
+	$is_premium_account = ($account_logged->isPremium() && $premDays > 0 && $premDays != OTS_Account::GRATIS_PREMIUM_DAYS);
+}
+$dayOrDaysRemaining = ($prem_remaining == 1 ? 'dia' : 'dias');
+
+if (!$is_premium_account) {
 	$account_status = '<b><span style="color: red">Free Account</span></b>';
+	$premium_status_class = 'free';
 } else {
-	$account_status = '<b><span style="color: green">' . $premiumLabel . ', ' . $premDays . ' ' . $dayOrDays . ' left</span></b>';
+	$expiry_text = $prem_expires_at > 0 ? ' • expira em ' . date('d/m/Y', $prem_expires_at) : '';
+	$account_status = '<b><span style="color: green">' . $premiumLabel . ' • ' . $prem_remaining . ' ' . $dayOrDaysRemaining . ' restantes' . $expiry_text . '</span></b>';
+	$premium_status_class = 'premium';
 }
 
 $account_coins = (int)$account_logged->getCustomField('premium_points');
@@ -61,6 +75,22 @@ $acc_name = (USE_ACCOUNT_NAME ? $account_logged->getName() : (USE_ACCOUNT_NUMBER
 $stripe_donations = $db->query("SELECT * FROM `myaac_donations` WHERE (`account_id` = " . $acc_id . " OR `account_name` = " . $db->quote($acc_name) . ") AND `payment_method` = 'stripe' ORDER BY `id` DESC LIMIT 20")->fetchAll();
 $pix_donations = $db->query("SELECT * FROM `myaac_donations` WHERE (`account_id` = " . $acc_id . " OR `account_name` = " . $db->quote($acc_name) . ") AND `payment_method` = 'pix' ORDER BY `id` DESC LIMIT 20")->fetchAll();
 $tc_donations = $db->query("SELECT * FROM `myaac_donations` WHERE (`account_id` = " . $acc_id . " OR `account_name` = " . $db->quote($acc_name) . ") AND `payment_method` = 'tibia_coins' ORDER BY `id` DESC LIMIT 20")->fetchAll();
+
+// Intenção: enriquecer histórico com nome do pacote PA e dias de Premium (organizado)
+$enrich_premium_history = function($rows) {
+	if (empty($rows) || !is_array($rows)) {
+		return array();
+	}
+	foreach ($rows as &$r) {
+		$r['premium_days_display'] = function_exists('get_donation_premium_days') ? (int)get_donation_premium_days($r) : (int)$r['coins'];
+		$r['package_name_display'] = function_exists('get_donation_package_name') ? get_donation_package_name($r) : ('PA (' . (int)$r['coins'] . ' dias)');
+	}
+	unset($r);
+	return $rows;
+};
+$stripe_donations = $enrich_premium_history($stripe_donations);
+$pix_donations = $enrich_premium_history($pix_donations);
+$tc_donations = $enrich_premium_history($tc_donations);
 
 $recovery_key = $account_logged->getCustomField('key');
 if(empty($recovery_key))
@@ -123,6 +153,12 @@ $twig->display('account.management.html.twig', array(
 	'account_coins' => $account_coins,
 	'account_created' => $account_created,
 	'account_status' => $account_status,
+	'is_premium_account' => $is_premium_account,
+	'premium_status_class' => $premium_status_class,
+	'premium_remaining' => $prem_remaining,
+	'premium_expires_at' => $prem_expires_at,
+	'premium_expires_br' => $prem_expires_at > 0 ? date('d/m/Y', $prem_expires_at) : '',
+	'premium_label' => $premiumLabel,
 	'account_registered' => $account_registered,
 	'account_rlname' => $account_rlname,
 	'account_location' => $account_location,

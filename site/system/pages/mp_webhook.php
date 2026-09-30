@@ -1,7 +1,7 @@
 <?php
 /**
  * Mercado Pago Webhook Handler
- * Recebe notificações automáticas de pagamento e entrega moedas instantaneamente
+ * Recebe notificações automáticas de pagamento e entrega dias de Premium instantaneamente
  */
 
 // Permitir acesso via callback do Mercado Pago
@@ -43,21 +43,30 @@ if (!empty($payment_id) && !empty($token)) {
         $order_id = (int)$paymentData['external_reference'];
 
         if ($order_id > 0) {
-            // Intenção: Tratar pagamento aprovado creditando NosleiraCoins e registrando no livro razão
+            // Intenção: Tratar pagamento aprovado creditando dias de Premium e registrando no livro razão
             if ($status === 'approved') {
-                $order = $db->query("SELECT `account_id`, `coins`, `status` FROM `myaac_donations` WHERE `id` = " . $order_id)->fetch();
+                $order = $db->query("SELECT * FROM `myaac_donations` WHERE `id` = " . $order_id)->fetch();
                 if ($order && $order['status'] !== 'completed') {
                     $installments = isset($paymentData['installments']) ? (int)$paymentData['installments'] : 1;
                     $card_brand = isset($paymentData['payment_method_id']) ? $paymentData['payment_method_id'] : null;
 
-                    // Atualizar status -> Ativa o Trigger no MySQL que credita NosleiraCoins instantaneamente
+                    // Atualizar status para completed
                     $db->query("UPDATE `myaac_donations` SET `status` = 'completed', `updated_at` = " . time() . ", `mp_payment_id` = " . $db->quote($payment_id) . ", `installments` = " . (int)$installments . ", `card_brand` = " . ($card_brand ? $db->quote($card_brand) : "NULL") . " WHERE `id` = " . $order_id);
 
-                    if (function_exists('trace_coin_movement')) {
-                        trace_coin_movement($order['account_id'], $order['coins'], 'DONATION_CREDIT', $order_id, 'Crédito via Mercado Pago Webhook (Pagamento #' . $payment_id . ')');
+                    // Creditar dias de Premium direto na conta (corrige bug: compra sem ativação)
+                    $premium_days = 0;
+                    if (function_exists('get_donation_premium_days')) {
+                        $premium_days = get_donation_premium_days($order);
                     }
+                    if ($premium_days <= 0) {
+                        $premium_days = 90;
+                    }
+                    if (function_exists('credit_premium_account')) {
+                        credit_premium_account((int)$order['account_id'], $premium_days, $order_id, 'Crédito via Mercado Pago Webhook (Pagamento #' . $payment_id . ')');
+                    }
+
                     if (function_exists('log_donation_event')) {
-                        log_donation_event($order_id, $order['account_id'], 'PAYMENT_APPROVED', 'Aprovado via Webhook Mercado Pago - Payment ID: ' . $payment_id);
+                        log_donation_event($order_id, $order['account_id'], 'PAYMENT_APPROVED', 'Aprovado via Webhook Mercado Pago - Payment ID: ' . $payment_id . ' - ' . $premium_days . ' dias Premium creditados');
                     }
                 }
             }

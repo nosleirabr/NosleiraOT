@@ -1828,7 +1828,9 @@ function ensure_donation_audit_tables() {
 			'card_brand' => "ALTER TABLE `myaac_donations` ADD `card_brand` VARCHAR(32) DEFAULT NULL",
 			'mp_payment_id' => "ALTER TABLE `myaac_donations` ADD `mp_payment_id` VARCHAR(64) DEFAULT NULL",
 			'payer_ip' => "ALTER TABLE `myaac_donations` ADD `payer_ip` VARCHAR(45) DEFAULT NULL",
-			'payer_email' => "ALTER TABLE `myaac_donations` ADD `payer_email` VARCHAR(255) DEFAULT NULL"
+			'payer_email' => "ALTER TABLE `myaac_donations` ADD `payer_email` VARCHAR(255) DEFAULT NULL",
+			// Intenção: guardar dias de Premium Account creditados pelo pedido (fonte da verdade para PA)
+			'premium_days' => "ALTER TABLE `myaac_donations` ADD `premium_days` INT NOT NULL DEFAULT 0"
 		);
 		foreach ($cols as $col => $sql) {
 			try {
@@ -1897,6 +1899,26 @@ function ensure_donation_audit_tables() {
 				KEY `account_id` (`account_id`),
 				KEY `player_id` (`player_id`),
 				KEY `status` (`status`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+		}
+	} catch (Exception $e) {}
+
+	// Intenção: livro razão de dias Premium (histórico organizado por conta/pedido)
+	try {
+		if (!$db->hasTable('myaac_premium_ledger')) {
+			$db->query("CREATE TABLE IF NOT EXISTS `myaac_premium_ledger` (
+				`id` INT(11) NOT NULL AUTO_INCREMENT,
+				`account_id` INT(11) NOT NULL,
+				`donation_id` INT(11) DEFAULT NULL,
+				`days` INT(11) NOT NULL,
+				`balance_after` INT(11) NOT NULL DEFAULT 0,
+				`type` VARCHAR(50) NOT NULL,
+				`details` TEXT DEFAULT NULL,
+				`created_at` BIGINT(20) NOT NULL,
+				PRIMARY KEY (`id`),
+				KEY `account_id` (`account_id`),
+				KEY `donation_id` (`donation_id`),
+				KEY `type` (`type`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 		}
 	} catch (Exception $e) {}
@@ -1971,6 +1993,196 @@ function trace_item_purchase($donation_id, $account_id, $player_id, $player_name
 	return true;
 }
 
+// Intenção: catálogo único de pacotes Premium Account (PA 90/180/360 dias)
+function get_premium_packages() {
+	return array(
+		3 => array('id' => 3, 'name' => 'PA 3 Meses', 'duration' => '90 Dias', 'premium_days' => 90, 'tc_cost' => 3000, 'tc' => '3.000 TC'),
+		6 => array('id' => 6, 'name' => 'PA 6 Meses', 'duration' => '180 Dias', 'premium_days' => 180, 'tc_cost' => 6000, 'tc' => '6.000 TC'),
+		12 => array('id' => 12, 'name' => 'PA 12 Meses (Anual)', 'duration' => '360 Dias', 'premium_days' => 360, 'tc_cost' => 10000, 'tc' => '10.000 TC'),
+	);
+}
+
+// Intenção: resolver pacote PA pelo id do pedido (3/6/12), com fallback para legados
+function get_premium_package_by_id($pkg_id) {
+	$all = get_premium_packages();
+	$id = (int)$pkg_id;
+	if (isset($all[$id])) {
+		return $all[$id];
+	}
+	if ($id === 90 || $id === 25 || $id === 50 || $id === 468) {
+		return $all[3];
+	}
+	if ($id === 180 || $id === 100 || $id === 872) {
+		return $all[6];
+	}
+	if ($id === 360 || $id === 200 || $id === 500 || $id === 1621) {
+		return $all[12];
+	}
+	return $all[3];
+}
+
+// Intenção: extrair dias de Premium de uma linha myaac_donations (novo + legado)
+function get_donation_premium_days($don) {
+	if (isset($don['premium_days']) && (int)$don['premium_days'] > 0) {
+		return (int)$don['premium_days'];
+	}
+	if (isset($don['points_package'])) {
+		$pkg = get_premium_package_by_id($don['points_package']);
+		if (!empty($pkg['premium_days'])) {
+			return (int)$pkg['premium_days'];
+		}
+	}
+	if (isset($don['coins'])) {
+		$c = (int)$don['coins'];
+		if (in_array($c, array(90, 180, 360), true)) {
+			return $c;
+		}
+	}
+	return 0;
+}
+
+// Intenção: nome do pacote PA para exibição no histórico (ex: "PA 3 Meses (90 Dias)")
+function get_donation_package_name($don) {
+	$pkg_id = isset($don['points_package']) ? (int)$don['points_package'] : 0;
+	$pkg = get_premium_package_by_id($pkg_id);
+	return $pkg['name'] . ' (' . $pkg['duration'] . ')';
+}
+
+// Intenção: resumo Premium da conta (status verde/vermelho, dias restantes, expiração)
+function get_account_premium_summary($account_id) {
+	global $db;
+	$now = time();
+	$summary = array(
+		'is_premium' => false,
+		'remaining' => 0,
+		'premdays' => 0,
+		'lastday' => 0,
+		'expires_at' => 0,
+	);
+	if (!$db || (int)$account_id <= 0) {
+		return $summary;
+	}
+	try {
+		$row = $db->query("SELECT `premdays`, `lastday` FROM `accounts` WHERE `id` = " . (int)$account_id)->fetch();
+	} catch (Exception $e) {
+		return $summary;
+	}
+	if (!$row) {
+		return $summary;
+	}
+	$prem = (int)$row['premdays'];
+	$last = (int)$row['lastday'];
+	$summary['premdays'] = $prem;
+	$summary['lastday'] = $last;
+	if ($prem === 65535) {
+		$summary['is_premium'] = true;
+		$summary['remaining'] = 65535;
+		return $summary;
+	}
+	if ($prem > 0 && $last > 0) {
+		$elapsed = (int)floor(($now - $last) / 86400);
+		if ($elapsed < 0) {
+			$elapsed = 0;
+		}
+		$remaining = $prem - $elapsed;
+		if ($remaining > 0) {
+			$summary['is_premium'] = true;
+			$summary['remaining'] = $remaining;
+			$summary['expires_at'] = $last + ($prem * 86400);
+		}
+	}
+	return $summary;
+}
+
+// Intenção: creditar dias de Premium direto na conta (soma se ativa, reinicia se expirada)
+function credit_premium_account($account_id, $days, $donation_id = null, $details = '') {
+	global $db;
+	$days = (int)$days;
+	$account_id = (int)$account_id;
+	if (!$db || $account_id <= 0 || $days <= 0) {
+		return false;
+	}
+	ensure_donation_audit_tables();
+	$row = $db->query("SELECT `premdays`, `lastday` FROM `accounts` WHERE `id` = " . $account_id)->fetch();
+	if (!$row) {
+		return false;
+	}
+	$prem = (int)$row['premdays'];
+	$last = (int)$row['lastday'];
+	$now = time();
+	if ($prem === 65535) {
+		if (function_exists('log_donation_event') && $donation_id) {
+			log_donation_event($donation_id, $account_id, 'PREMIUM_SKIPPED_LIFETIME', 'Conta vitalícia, crédito de ' . $days . ' dias ignorado. ' . $details);
+		}
+		return true;
+	}
+	$elapsed = ($last > 0) ? (int)floor(($now - $last) / 86400) : PHP_INT_MAX;
+	$remaining = $prem - $elapsed;
+	$is_expired = ($prem <= 0 || $last <= 0 || $remaining <= 0);
+	if ($is_expired) {
+		$db->query("UPDATE `accounts` SET `premdays` = " . $days . ", `lastday` = " . $now . " WHERE `id` = " . $account_id);
+		$balance_after = $days;
+	} else {
+		$db->query("UPDATE `accounts` SET `premdays` = `premdays` + " . $days . " WHERE `id` = " . $account_id);
+		$balance_after = $remaining + $days;
+	}
+	try {
+		if ($db->hasTable('myaac_premium_ledger')) {
+			$db->query("INSERT INTO `myaac_premium_ledger` (`account_id`, `donation_id`, `days`, `balance_after`, `type`, `details`, `created_at`) VALUES (" .
+				$account_id . ", " .
+				($donation_id ? (int)$donation_id : "NULL") . ", " .
+				$days . ", " .
+				(int)$balance_after . ", " .
+				$db->quote('PREMIUM_CREDIT') . ", " .
+				$db->quote($details) . ", " .
+				$now .
+			")");
+		}
+	} catch (Exception $e) {}
+	if (function_exists('log_donation_event') && $donation_id) {
+		log_donation_event($donation_id, $account_id, 'PREMIUM_CREDITED', $days . ' dias de Premium creditados. Saldo após: ' . $balance_after . ' dias. ' . $details);
+	}
+	return true;
+}
+
+// Intenção: remover dias de Premium em caso de estorno (nunca abaixo de zero)
+function deduct_premium_account($account_id, $days, $donation_id = null, $details = '') {
+	global $db;
+	$days = (int)$days;
+	$account_id = (int)$account_id;
+	if (!$db || $account_id <= 0 || $days <= 0) {
+		return false;
+	}
+	$row = $db->query("SELECT `premdays` FROM `accounts` WHERE `id` = " . $account_id)->fetch();
+	if (!$row) {
+		return false;
+	}
+	$prem = (int)$row['premdays'];
+	if ($prem === 65535) {
+		return true;
+	}
+	$deduct = min($prem, $days);
+	if ($deduct > 0) {
+		$db->query("UPDATE `accounts` SET `premdays` = `premdays` - " . $deduct . " WHERE `id` = " . $account_id);
+	}
+	try {
+		if ($db->hasTable('myaac_premium_ledger')) {
+			$after = $db->query("SELECT `premdays` FROM `accounts` WHERE `id` = " . $account_id)->fetch();
+			$balance_after = $after ? (int)$after['premdays'] : 0;
+			$db->query("INSERT INTO `myaac_premium_ledger` (`account_id`, `donation_id`, `days`, `balance_after`, `type`, `details`, `created_at`) VALUES (" .
+				$account_id . ", " .
+				($donation_id ? (int)$donation_id : "NULL") . ", " .
+				(-$deduct) . ", " .
+				(int)$balance_after . ", " .
+				$db->quote('PREMIUM_CHARGEBACK') . ", " .
+				$db->quote($details) . ", " .
+				time() .
+			")");
+		}
+	} catch (Exception $e) {}
+	return true;
+}
+
 // Intenção: Processar estorno e punição em cadeia para doações fraudadas
 function revert_fraudulent_donation($donation_id, $reason = 'Estorno / Chargeback de Doação no Cartão de Crédito') {
 	global $db;
@@ -1986,20 +2198,27 @@ function revert_fraudulent_donation($donation_id, $reason = 'Estorno / Chargebac
 
 	$account_id = (int)$donation['account_id'];
 	$coins = (int)$donation['coins'];
+	$premium_days = get_donation_premium_days($donation);
 
 	// 1. Atualizar status da doação para estornada
 	$db->query("UPDATE `myaac_donations` SET `status` = 'charged_back', `updated_at` = " . time() . " WHERE `id` = " . (int)$donation_id);
 
-	// 2. Deduzir coins da conta se ainda tiver saldo e registrar no livro razão
+	// 2. Deduzir dias de Premium da conta e registrar no livro razão
 	if ($account_id > 0) {
-		$accQuery = $db->query("SELECT `premium_points` FROM `accounts` WHERE `id` = " . $account_id)->fetch();
-		if ($accQuery) {
-			$current_points = (int)$accQuery['premium_points'];
-			$deduct = min($current_points, $coins);
-			if ($deduct > 0) {
-				$db->query("UPDATE `accounts` SET `premium_points` = `premium_points` - " . $deduct . " WHERE `id` = " . $account_id);
+		if ($premium_days > 0) {
+			deduct_premium_account($account_id, $premium_days, $donation_id, 'Dedução automática por estorno de doação #' . $donation_id);
+		}
+		// Legado: deduzir NosleiraCoins de pedidos antigos que ainda usavam premium_points
+		if ($db->hasColumn('accounts', 'premium_points') && $coins > 0 && $coins <= 5000) {
+			$accQuery = $db->query("SELECT `premium_points` FROM `accounts` WHERE `id` = " . $account_id)->fetch();
+			if ($accQuery) {
+				$current_points = (int)$accQuery['premium_points'];
+				$deduct = min($current_points, $coins);
+				if ($deduct > 0) {
+					$db->query("UPDATE `accounts` SET `premium_points` = `premium_points` - " . $deduct . " WHERE `id` = " . $account_id);
+				}
+				trace_coin_movement($account_id, -$deduct, 'CHARGEBACK_DEDUCTION', $donation_id, 'Dedução legada por estorno de doação #' . $donation_id);
 			}
-			trace_coin_movement($account_id, -$deduct, 'CHARGEBACK_DEDUCTION', $donation_id, 'Dedução automática por estorno de doação #' . $donation_id);
 		}
 
 		// 3. Invalidar itens rastreados vinculados à doação
@@ -2021,7 +2240,7 @@ function revert_fraudulent_donation($donation_id, $reason = 'Estorno / Chargebac
 
 		// 5. Registrar logs de auditoria
 		log_donation_event($donation_id, $account_id, 'PAYMENT_CHARGED_BACK', 'Estorno/Chargeback processado para doação #' . $donation_id);
-		log_donation_event($donation_id, $account_id, 'ACCOUNT_BANNED', 'Conta ID ' . $account_id . ' banida permanentemente e saldo/itens revertidos.');
+		log_donation_event($donation_id, $account_id, 'ACCOUNT_BANNED', 'Conta ID ' . $account_id . ' banida permanentemente e premium/itens revertidos.');
 	}
 
 	return true;

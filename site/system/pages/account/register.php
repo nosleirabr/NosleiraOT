@@ -13,6 +13,11 @@ defined('MYAAC') or die('Direct access not allowed!');
 $title = 'Register Account';
 require __DIR__ . '/base.php';
 
+// Clear security redirect after successful registration flow
+if (isset($_SESSION['security_redirect'])) {
+    unset($_SESSION['security_redirect']);
+}
+
 if(!$logged) {
 	return;
 }

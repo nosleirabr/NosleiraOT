@@ -145,7 +145,6 @@
 	<house name="Central Plaza 1" houseid="143" entryx="32345" entryy="31812" entryz="7" rent="1200" townid="2" size="8" />
 	<house name="Park Lane 1a" houseid="144" entryx="32335" entryy="31767" entryz="7" rent="2340" townid="2" size="20" />
 	<house name="Park Lane 1b" houseid="145" entryx="32329" entryy="31763" entryz="6" rent="2660" townid="2" size="25" />
-	<house name="Park Lane 3b" houseid="146" entryx="32329" entryy="31764" entryz="6" rent="2100" townid="2" size="19" />
 	<house name="Park Lane 3a" houseid="147" entryx="32326" entryy="31767" entryz="7" rent="2340" townid="2" size="20" />
 	<house name="Park Lane 4" houseid="148" entryx="32327" entryy="31768" entryz="7" rent="1860" townid="2" size="16" />
 	<house name="Park Lane 2" houseid="149" entryx="32335" entryy="31768" entryz="7" rent="1860" townid="2" size="16" />
@@ -701,7 +700,6 @@
 	<house name="Botham III g" houseid="699" entryx="33201" entryy="32863" entryz="7" rent="3200" townid="8" size="25" />
 	<house name="Botham III h" houseid="700" entryx="33189" entryy="32875" entryz="7" rent="7300" townid="8" size="61" />
 	<house name="Botham IV a" houseid="701" entryx="33175" entryy="32853" entryz="5" rent="2700" townid="8" size="20" />
-	<house name="Botham IV b" houseid="702" entryx="33169" entryy="32855" entryz="6" rent="1700" townid="8" size="13" />
 	<house name="Botham IV c" houseid="703" entryx="33181" entryy="32855" entryz="6" rent="1700" townid="8" size="13" />
 	<house name="Botham IV d" houseid="704" entryx="33173" entryy="32863" entryz="6" rent="1700" townid="8" size="13" />
 	<house name="Botham IV e" houseid="705" entryx="33181" entryy="32860" entryz="6" rent="1700" townid="8" size="13" />
@@ -818,47 +816,4 @@
 	<house name="Darashia 3, Flat 05" houseid="816" entryx="33230" entryy="32442" entryz="7" rent="2000" townid="6" size="21" />
 	<house name="Darashia 3, Flat 11" houseid="817" entryx="33228" entryy="32445" entryz="6" rent="2000" townid="6" size="18" />
 	<house name="Darashia 3, Flat 12" houseid="818" entryx="33227" entryy="32446" entryz="6" rent="4800" townid="6" size="41" />
-	<house name="Darashia 3, Flat 13" houseid="819" entryx="33232" entryy="32449" entryz="6" rent="2100" townid="6" size="20" />
-	<house name="Darashia 3, Flat 14" houseid="820" entryx="33232" entryy="32449" entryz="6" rent="4600" townid="6" size="45" />
-	<house name="Darashia 4, Flat 01" houseid="821" entryx="33250" entryy="32424" entryz="7" rent="2000" townid="6" size="21" />
-	<house name="Darashia 4, Flat 02" houseid="822" entryx="33244" entryy="32422" entryz="7" rent="3460" townid="6" size="35" />
-	<house name="Darashia 4, Flat 03" houseid="823" entryx="33241" entryy="32425" entryz="7" rent="2000" townid="6" size="21" />
-	<house name="Darashia 4, Flat 04" houseid="824" entryx="33244" entryy="32427" entryz="7" rent="3460" townid="6" size="35" />
-	<house name="Darashia 4, Flat 05" houseid="825" entryx="33250" entryy="32425" entryz="7" rent="2100" townid="6" size="20" />
-	<house name="Darashia 4, Flat 11" houseid="826" entryx="33242" entryy="32422" entryz="6" rent="2000" townid="6" size="21" />
-	<house name="Darashia 4, Flat 12" houseid="827" entryx="33241" entryy="32423" entryz="6" rent="4920" townid="6" size="49" />
-	<house name="Darashia 4, Flat 13" houseid="828" entryx="33246" entryy="32427" entryz="6" rent="3460" townid="6" size="35" />
-	<house name="Darashia 4, Flat 14" houseid="829" entryx="33246" entryy="32427" entryz="6" rent="3460" townid="6" size="35" />
-	<house name="Darashia 5, Flat 01" houseid="830" entryx="33256" entryy="32409" entryz="7" rent="2000" townid="6" size="21" />
-	<house name="Darashia 5, Flat 02" houseid="831" entryx="33254" entryy="32403" entryz="7" rent="3140" townid="6" size="31" />
-	<house name="Darashia 5, Flat 03" houseid="832" entryx="33256" entryy="32401" entryz="7" rent="2000" townid="6" size="22" />
-	<house name="Darashia 5, Flat 04" houseid="833" entryx="33259" entryy="32403" entryz="7" rent="3140" townid="6" size="31" />
-	<house name="Darashia 5, Flat 05" houseid="834" entryx="33257" entryy="32409" entryz="7" rent="2000" townid="6" size="21" />
-	<house name="Darashia 5, Flat 11" houseid="835" entryx="33255" entryy="32401" entryz="6" rent="3460" townid="6" size="35" />
-	<house name="Darashia 5, Flat 12" houseid="836" entryx="33254" entryy="32402" entryz="6" rent="3140" townid="6" size="31" />
-	<house name="Darashia 5, Flat 13" houseid="837" entryx="33259" entryy="32405" entryz="6" rent="3460" townid="6" size="35" />
-	<house name="Darashia 5, Flat 14" houseid="838" entryx="33259" entryy="32405" entryz="6" rent="3140" townid="6" size="31" />
-	<house name="Darashia 6a" houseid="839" entryx="33273" entryy="32405" entryz="7" rent="6130" townid="6" size="58" />
-	<house name="Darashia 6b" houseid="840" entryx="33273" entryy="32406" entryz="7" rent="6760" townid="6" size="66" />
-	<house name="Darashia 7, Flat 01" houseid="841" entryx="33259" entryy="32424" entryz="7" rent="2250" townid="6" size="21" />
-	<house name="Darashia 7, Flat 02" houseid="842" entryx="33265" entryy="32422" entryz="7" rent="2250" townid="6" size="18" />
-	<house name="Darashia 7, Flat 03" houseid="843" entryx="33267" entryy="32425" entryz="7" rent="5610" townid="6" size="43" />
-	<house name="Darashia 7, Flat 04" houseid="844" entryx="33265" entryy="32427" entryz="7" rent="2250" townid="6" size="21" />
-	<house name="Darashia 7, Flat 05" houseid="845" entryx="33259" entryy="32425" entryz="7" rent="2350" townid="6" size="19" />
-	<house name="Darashia 7, Flat 11" houseid="846" entryx="33263" entryy="32422" entryz="6" rent="2250" townid="6" size="21" />
-	<house name="Darashia 7, Flat 12" houseid="847" entryx="33262" entryy="32423" entryz="6" rent="5610" townid="6" size="44" />
-	<house name="Darashia 7, Flat 13" houseid="848" entryx="33267" entryy="32427" entryz="6" rent="2250" townid="6" size="18" />
-	<house name="Darashia 7, Flat 14" houseid="849" entryx="33267" entryy="32427" entryz="6" rent="5610" townid="6" size="47" />
-	<house name="Darashia 8, Flat 01" houseid="850" entryx="33251" entryy="32442" entryz="7" rent="4870" townid="6" size="47" />
-	<house name="Darashia 8, Flat 02" houseid="851" entryx="33249" entryy="32447" entryz="7" rent="6670" townid="6" size="66" />
-	<house name="Darashia 8, Flat 03" houseid="852" entryx="33252" entryy="32449" entryz="7" rent="9200" townid="6" size="88" />
-	<house name="Darashia 8, Flat 04" houseid="853" entryx="33254" entryy="32447" entryz="7" rent="5590" townid="6" size="56" />
-	<house name="Darashia 8, Flat 05" houseid="854" entryx="33252" entryy="32442" entryz="7" rent="5230" townid="6" size="52" />
-	<house name="Darashia, Villa" houseid="855" entryx="33266" entryy="32453" entryz="7" rent="10470" townid="6" size="86" />
-	<house name="Darashia, Western Guildhall" houseid="856" entryx="33228" entryy="32470" entryz="7" rent="19570" guildhall="true" townid="6" size="144" />
-	<house name="Darashia, Eastern Guildhall" houseid="857" entryx="33232" entryy="32470" entryz="7" rent="23820" guildhall="true" townid="6" size="188" />
-	<house name="Darashia 8, Flat 11" houseid="858" entryx="33250" entryy="32445" entryz="6" rent="3880" townid="6" size="35" />
-	<house name="Darashia 8, Flat 12" houseid="859" entryx="33249" entryy="32446" entryz="6" rent="3520" townid="6" size="28" />
-	<house name="Darashia 8, Flat 13" houseid="860" entryx="33254" entryy="32449" entryz="6" rent="3880" townid="6" size="32" />
-	<house name="Darashia 8, Flat 14" houseid="861" entryx="33254" entryy="32449" entryz="6" rent="3520" townid="6" size="31" />
 </houses>

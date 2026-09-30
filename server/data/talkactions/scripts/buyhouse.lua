@@ -1,4 +1,8 @@
 function onSay(player, words, param)
+	if not player:getGroup():getAccess() then
+		return true
+	end
+
 	local housePrice = configManager.getNumber(configKeys.HOUSE_PRICE)
 	if housePrice == -1 then
 		return true

@@ -1,6 +1,12 @@
 <?php
 defined('MYAAC') or die('Direct access not allowed!');
 $title = 'Security';
+
+// Handle redirect parameter
+$redirect_url = isset($_GET['redirect']) ? urldecode($_GET['redirect']) : '';
+if ($redirect_url && str_starts_with($redirect_url, BASE_URL)) {
+    $_SESSION['security_redirect'] = $redirect_url;
+}
 ?>
 
 <!-- Google Translate Widget (Oculto) -->
@@ -313,10 +319,18 @@ function changeLanguage(lang) {
                                                                     </div>
                                                                 </div>
                                                                 
-                                                                <div align="center" style="font-family: 'Martel', Georgia, 'Times New Roman', serif; font-size: 13px; font-weight: bold; color: #4a2505; padding: 12px 18px; background: linear-gradient(180deg, #f8f1e5 0%, #ebdcc7 100%); border: 1px solid #c4ab84; border-left: 4px solid #7f0000; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); margin-top: 18px;">
-                                                                    ⚠️ <b>Importante:</b> se algo parecer suspeito, não clique, não baixe arquivos e não forneça dados. Tire uma captura de tela e abra um ticket pelo site oficial. Agir rapidamente pode evitar a perda da conta e dos itens.
-                                                                </div>
-                                                            </td>
+<div align="center" style="font-family: 'Martel', Georgia, 'Times New Roman', serif; font-size: 13px; font-weight: bold; color: #4a2505; padding: 12px 18px; background: linear-gradient(180deg, #f8f1e5 0%, #ebdcc7 100%); border: 1px solid #c4ab84; border-left: 4px solid #7f0000; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); margin-top: 18px;">
+                                                                     ⚠️ <b>Importante:</b> se algo parecer suspeito, não clique, não baixe arquivos e não forneça dados. Tire uma captura de tela e abra um ticket pelo site oficial. Agir rapidamente pode evitar a perda da conta e dos itens.
+                                                                 </div>
+
+                                                                 <?php if (!empty($_SESSION['security_redirect'])): ?>
+                                                                 <div align="center" style="margin-top: 20px;">
+                                                                     <a href="<?php echo htmlspecialchars($_SESSION['security_redirect']); ?>" style="display: inline-block; padding: 12px 28px; background: linear-gradient(180deg, #5c9e38 0%, #3d6e24 100%); color: #ffffff; font-family: 'Cinzel', serif; font-weight: 700; font-size: 14px; text-decoration: none; border: 1px solid #294c18; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); text-shadow: 0 1px 2px rgba(0,0,0,0.4); transition: all 0.2s;">
+                                                                         ✓ Li as regras de segurança &rarr; Continuar para registro
+                                                                     </a>
+                                                                 </div>
+                                                                 <?php endif; ?>
+                                                             </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
