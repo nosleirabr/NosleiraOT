@@ -116,9 +116,21 @@ if (!isset($logged) || !$logged || !isset($account_logged) || !$account_logged |
                 <span class="CaptionEdgeRightBottom" style="background-image:url(<?php echo $template_path; ?>/images/content/box-frame-edge.gif);"></span>
             </div>
         </div>
-        <div class="TableContentAndHeaderContainer">
-            <div class="TableContentContainer">
-                <table class="TableContent" width="100%" style="border: 1px solid #cbb290; background-color: #f1e0c6;">
+            <table class="Table3" cellpadding="0" cellspacing="0">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="InnerTableContainer">
+                        <table style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="TableShadowContainerRightTop">
+                                            <div class="TableShadowRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rt.gif);"></div>
+                                        </div>
+                                        <div class="TableContentAndRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rm.gif);">
+                                            <div class="TableContentContainer">
+                                                <table class="TableContent" width="100%" style="border: 1px solid #cbb290; background-color: #f1e0c6;">
                     <tbody>
                         <tr>
                             <td style="padding: 30px 20px; text-align: center;">
@@ -209,10 +221,25 @@ if (!isset($logged) || !$logged || !isset($account_logged) || !$account_logged |
                             </td>
                         </tr>
                     </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="TableShadowContainer">
+                                            <div class="TableBottomShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bm.gif);">
+                                                <div class="TableBottomLeftShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bl.gif);"></div>
+                                                <div class="TableBottomRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-br.gif);"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
     <?php
     return;
 }
@@ -2800,4 +2827,6 @@ function changeLanguage(lang) {
 </form>
 
 <?php endif; ?>
+
+
 

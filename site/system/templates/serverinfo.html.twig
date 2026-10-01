@@ -24,23 +24,9 @@
 .serverinfo-nav a:hover {
     text-decoration: underline;
 }
-.TableContainer .Table3 {
-    width: 100%;
-    border-collapse: collapse;
-    border: 2px solid #f1e0c5;
-}
-.Table3 th {
-    background-color: #505050;
-    color: #fff;
-    padding: 5px;
-    text-align: left;
-    font-weight: bold;
-    border: 1px solid #faf0d7;
-}
-.Table3 td {
-    border: 1px solid #faf0d7;
-    padding: 4px;
-}
+
+.TableContent th { background-color: #505050; color: #fff; padding: 5px; text-align: left; font-weight: bold; border: 1px solid #faf0d7; }
+
 .row-odd { background-color: #D4C0A1; }
 .row-even { background-color: #F1E0C6; }
 .td-name { width: 40%; font-weight: normal; color: #4a1c00; }
@@ -57,20 +43,8 @@
 
 <!-- STATUS -->
 <a name="status"></a>
-<div class="TableContainer">
-    <div class="CaptionContainer">
-        <div class="CaptionInnerContainer">
-            <span class="CaptionEdgeLeftTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">Status</div>
-            <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-        </div>
-    </div>
-    <div style="border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000;"><table class="Table3" cellpadding="4" cellspacing="0">
+{% set stat_content %}
+
         <tbody>
             <tr><th>Name</th><th>Value</th></tr>
             <tr class="row-even">
@@ -100,27 +74,18 @@
                 <td>{{ npcsCount }}</td>
             </tr>
         </tbody>
-    </table>
-    </div>
-</div>
+    
+{% endset %}
+{% set stat_shadowbox %}
+    {% include 'tables.shadowbox.html.twig' with {'content': stat_content} %}
+{% endset %}
+{% include 'tables.headline.html.twig' with {'title': 'Status', 'content': stat_shadowbox} %}
 <br>
 
 <!-- RATES -->
 <a name="rates"></a>
-<div class="TableContainer">
-    <div class="CaptionContainer">
-        <div class="CaptionInnerContainer">
-            <span class="CaptionEdgeLeftTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">Rates</div>
-            <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-        </div>
-    </div>
-    <div style="border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000;"><table class="Table3" cellpadding="4" cellspacing="0">
+{% set rate_content %}
+
         <tbody>
             <tr><th>Name</th><th>Value</th></tr>
             <tr class="row-odd">
@@ -157,27 +122,18 @@
                 <td><span style="font-weight:bold; color:#004294;">{{ rateSpawn|default('1') }}x</span></td>
             </tr>
         </tbody>
-    </table>
-    </div>
-</div>
+    
+{% endset %}
+{% set rate_shadowbox %}
+    {% include 'tables.shadowbox.html.twig' with {'content': rate_content} %}
+{% endset %}
+{% include 'tables.headline.html.twig' with {'title': 'Rates', 'content': rate_shadowbox} %}
 <br>
 
 <!-- INFO SERVER -->
 <a name="infoserver"></a>
-<div class="TableContainer">
-    <div class="CaptionContainer">
-        <div class="CaptionInnerContainer">
-            <span class="CaptionEdgeLeftTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">Info Server</div>
-            <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-        </div>
-    </div>
-    <div style="border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000;"><table class="Table3" cellpadding="4" cellspacing="0">
+{% set info_content %}
+
         <tbody>
             <tr><th>Name</th><th>Value</th></tr>
             <tr class="row-even">
@@ -225,27 +181,18 @@
                 <td>{{ dbStats.guilds }}</td>
             </tr>
         </tbody>
-    </table>
-    </div>
-</div>
+    
+{% endset %}
+{% set info_shadowbox %}
+    {% include 'tables.shadowbox.html.twig' with {'content': info_content} %}
+{% endset %}
+{% include 'tables.headline.html.twig' with {'title': 'Info Server', 'content': info_shadowbox} %}
 <br>
 
 <!-- COMMANDS -->
 <a name="commands"></a>
-<div class="TableContainer">
-    <div class="CaptionContainer">
-        <div class="CaptionInnerContainer">
-            <span class="CaptionEdgeLeftTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">Commands</div>
-            <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-        </div>
-    </div>
-    <div style="border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000;"><table class="Table3" cellpadding="4" cellspacing="0">
+{% set comm_content %}
+
         <tbody>
             <tr><th width="30%">Words</th><th>Description</th></tr>
             <tr class="row-even"><td class="td-name">!serverinfo</td><td>Shows the current server rates.</td></tr>
@@ -259,27 +206,18 @@
             <tr class="row-even"><td class="td-name">aleta grav</td><td>Edit door permission list.</td></tr>
             <tr class="row-odd"><td class="td-name">alana sio</td><td>Kick a player from the house, or leave the house yourself.</td></tr>
         </tbody>
-    </table>
-    </div>
-</div>
+    
+{% endset %}
+{% set comm_shadowbox %}
+    {% include 'tables.shadowbox.html.twig' with {'content': comm_content} %}
+{% endset %}
+{% include 'tables.headline.html.twig' with {'title': 'Commands', 'content': comm_shadowbox} %}
 <br>
 
 <!-- FRAGS -->
 <a name="frags"></a>
-<div class="TableContainer">
-    <div class="CaptionContainer">
-        <div class="CaptionInnerContainer">
-            <span class="CaptionEdgeLeftTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">Frags</div>
-            <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-        </div>
-    </div>
-    <div style="border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000;"><table class="Table3" cellpadding="4" cellspacing="0">
+{% set frag_content %}
+
         <tbody>
             <tr><th>Name</th><th>Value</th></tr>
             <tr class="row-even">
@@ -314,27 +252,18 @@
             </tr>
             {% endif %}
         </tbody>
-    </table>
-    </div>
-</div>
+    
+{% endset %}
+{% set frag_shadowbox %}
+    {% include 'tables.shadowbox.html.twig' with {'content': frag_content} %}
+{% endset %}
+{% include 'tables.headline.html.twig' with {'title': 'Frags', 'content': frag_shadowbox} %}
 <br>
 
 <!-- OTHER INFORMATION -->
 <a name="other"></a>
-<div class="TableContainer">
-    <div class="CaptionContainer">
-        <div class="CaptionInnerContainer">
-            <span class="CaptionEdgeLeftTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">Other Information</div>
-            <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-        </div>
-    </div>
-    <div style="border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000;"><table class="Table3" cellpadding="4" cellspacing="0">
+{% set othe_content %}
+
         <tbody>
             <tr><th>Name</th><th>Value</th></tr>
             <tr class="row-even">
@@ -362,9 +291,12 @@
                 <td>Enabled</td>
             </tr>
         </tbody>
-    </table>
-    </div>
-</div>
+    
+{% endset %}
+{% set othe_shadowbox %}
+    {% include 'tables.shadowbox.html.twig' with {'content': othe_content} %}
+{% endset %}
+{% include 'tables.headline.html.twig' with {'title': 'Other Information', 'content': othe_shadowbox} %}
 <br>
 
 <div style="text-align:center; margin-top:20px; padding: 15px; border: 1px solid #000; background-color: #D4C0A1;">
@@ -372,6 +304,7 @@
     <p style="margin-bottom: 0; font-weight: bold; color: #505050;">Por favor, reporte violações das regras com CTRL + R.</p>
     
 </div>
+
 
 
 
