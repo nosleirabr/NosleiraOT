@@ -40,3 +40,11 @@ Sempre que for criar ou refatorar uma aba, script ou tabela, utilize a estrutura
 Originalmente o MyAAC usa bordas cinzas/azuladas grossas (2px solid #55636c nas tabelas do layout 1 ao 5) e #5F4D41 no container interno.
 Para manter o **"Padrão Tibia ShadowBox Preto"** exigido (o risquinho preto puro de 1px), o arquivo asic.css global do template 	ibiacom foi alterado. 
 **Nunca use bordas grossas cinzas ou azuis** nas caixas de conteúdo. Todas as tabelas herdam order: 1px solid #000; por padrão das classes Table1 a Table5 e .TableContentContainer. A borda superior externa (order-top: none;) foi removida propositalmente para que a tabela junte perfeitamente com o *CaptionContainer* acima dela (que já tem a linha inferior decorativa).
+
+### Gatilho de Comando (Como o usuário pede)
+**ATENÇÃO AGENTE:** O usuário frequentemente irá mandar um *print/screenshot* de uma tabela defeituosa (com bordas cinzas, sem sombra, ou sem o cabeçalho) junto com o print de uma tabela correta, e dirá frases como: 
+* *"Coloca esse detalhe em tal lugar que eu quero"*
+* *"Deixe esse detalhe igual a esse daqui em tal lugar"*
+* *"Faça esse daí para todos os lugares que estão com esse erro, substitui"*
+
+Sempre que o usuário falar isso apontando para as bordas/sombras de caixas do site, **ele está pedindo para aplicar o Padrão Tibia Headline + Tibia ShadowBox** na página em questão (ou em todas as páginas com o defeito). Identifique a página e refatore o código Twig/PHP para usar os includes 	ables.headline.html.twig e 	ables.shadowbox.html.twig.
