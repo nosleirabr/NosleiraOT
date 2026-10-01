@@ -4,12 +4,7 @@
 {# Compensa o margin-left:3px do .InnerTableContainer (Table3 do tibiacom): sem isso o conteudo vaza na borda direita. O margin-right:6px deixa 3px de respiro igual ao lado esquerdo. #}
 <div style="margin-right: 6px;">
 <style>
-.TableContainer .Table3 {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #000;
-}
-.Table3 th {
+.TableContent th {
     background-color: #505050;
     color: #fff;
     padding: 5px;
@@ -17,7 +12,7 @@
     font-weight: bold;
     border: 1px solid #faf0d7;
 }
-.Table3 td {
+.TableContent td {
     border: 1px solid #faf0d7;
     padding: 4px;
 }
@@ -25,41 +20,32 @@
 .row-even td { background-color: #F1E0C6; }
 </style>
 
-<div style="background-color: #f1e2c3; border: 1px solid #7E3B00; border-radius: 0; padding: 15px; margin-bottom: 15px; text-align: center; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); box-sizing: border-box;">
-	<h2 style="color: #A65200; font-size: 16px; margin: 0 0 10px 0; font-family: Tahoma, sans-serif;">
-		<img src="{{ template_path }}/images/content/headline-bracer-left.gif" style="vertical-align: middle;"> CENTRAL DE SUPORTE & ADMINISTRAÇÃO <img src="{{ template_path }}/images/content/headline-bracer-right.gif" style="vertical-align: middle;">
-	</h2>
-	<style>
-		@keyframes piscar { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
-		.st-online-banner { color: #00B400; font-weight: bold; animation: piscar 1.2s infinite; }
-	</style>
-	<p style="margin: 0; font-size: 11px; color: #333; line-height: 1.4; font-family: Tahoma, sans-serif;">
-		Bem-vindo à página oficial de suporte do <b>NosleiraOT</b>!<br>
-		Nossa equipe de <b>Administração, Community Managers, Gamemasters e Tutores</b> trabalha dedicada e continuamente para garantir uma experiência de jogo equilibrada, segura, transparente e divertida para toda a nossa comunidade.<br><br>
-		<i style="color: #555;">💡 Precisa de assistência in-game? Envie um Report/Help no canal oficial ou contate um membro da equipe com status <span class="st-online-banner">Online</span>.</i>
-	</p>
-</div>
+{% set banner_content %}
+	<tr>
+		<td style="padding: 15px; text-align: center; background-color: #f1e2c3;">
+			<h2 style="color: #A65200; font-size: 16px; margin: 0 0 10px 0; font-family: Tahoma, sans-serif;">
+				<img src="{{ template_path }}/images/content/headline-bracer-left.gif" style="vertical-align: middle;"> CENTRAL DE SUPORTE & ADMINISTRAÇÃO <img src="{{ template_path }}/images/content/headline-bracer-right.gif" style="vertical-align: middle;">
+			</h2>
+			<style>
+				@keyframes piscar { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+				.st-online-banner { color: #00B400; font-weight: bold; animation: piscar 1.2s infinite; }
+			</style>
+			<p style="margin: 0; font-size: 11px; color: #333; line-height: 1.4; font-family: Tahoma, sans-serif;">
+				Bem-vindo à página oficial de suporte do <b>NosleiraOT</b>!<br>
+				Nossa equipe de <b>Administração, Community Managers, Gamemasters e Tutores</b> trabalha dedicada e continuamente para garantir uma experiência de jogo equilibrada, segura, transparente e divertida para toda a nossa comunidade.<br><br>
+				<i style="color: #555;">💡 Precisa de assistência in-game? Envie um Report/Help no canal oficial ou contate um membro da equipe com status <span class="st-online-banner">Online</span>.</i>
+			</p>
+		</td>
+	</tr>
+{% endset %}
+{% include 'tables.shadowbox.html.twig' with {'content': banner_content} %}
+<br>
 
 {% for group in groupmember|reverse %}
 	{% if group.members is not empty %}
 	
-<div class="TableContainer" style="margin-bottom: 15px;">
-    <div class="CaptionContainer">
-        <div class="CaptionInnerContainer">
-            <span class="CaptionEdgeLeftTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionEdgeRightTop" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionBorderTop" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionVerticalLeft" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <div class="Text">{{ group.group_name|capitalize }}</div>
-            <span class="CaptionVerticalRight" style="background-image:url({{ template_path }}/images/content/box-frame-vertical.gif);"></span>
-            <span class="CaptionBorderBottom" style="background-image:url({{ template_path }}/images/content/table-headline-border.gif);"></span>
-            <span class="CaptionEdgeLeftBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-            <span class="CaptionEdgeRightBottom" style="background-image:url({{ template_path }}/images/content/box-frame-edge.gif);"></span>
-        </div>
-    </div>
-
-	<table class="Table3" cellpadding="4" cellspacing="0" style="width: 100%; border-collapse: collapse;">
-    <tr>
+{% set group_content %}
+		<tr>
         <th width="30%">Group</th>
         <th width="30%">Name</th>
         <th width="15%">World</th>
@@ -144,8 +130,12 @@
 			</td>
 		</tr>
 		{% endfor %}
-	</table>
-	</div>
+	{% endset %}
+	{% set group_shadowbox %}
+		{% include 'tables.shadowbox.html.twig' with {'content': group_content} %}
+	{% endset %}
+	{% include 'tables.headline.html.twig' with {'title': group.group_name|capitalize, 'content': group_shadowbox} %}
+	<br>
 	{% endif %}
 {% endfor %}
 
