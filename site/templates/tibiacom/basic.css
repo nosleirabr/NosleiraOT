@@ -1277,7 +1277,7 @@ body {
 }
 /* TABLE CONTENT */
 .TableContentContainer {
-  border: 1px solid #5F4D41;
+  border: 1px solid #000;
   position: relative;
   margin-right: 4px;
   height: 100%;
