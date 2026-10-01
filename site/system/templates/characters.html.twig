@@ -68,8 +68,12 @@
 				{% endfor %}
 			</div>
 		{% endif %}
-		<div class="tibia-inner-frame">
-			<table border="0" cellspacing="1" cellpadding="4" width="100%">
+				<div class="TableShadowContainerRightTop">
+			<div class="TableShadowRightTop" style="background-image:url({{ template_path }}/images/content/table-shadow-rt.gif);"></div>
+		</div>
+		<div class="TableContentAndRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-rm.gif);">
+			<div class="TableContentContainer">
+				<table class="TableContent" width="100%">
 				{% set rows = rows + 1 %}
 				<tr bgcolor="{{ getStyle(rows) }}">
 					<td width="20%">Name:</td>
@@ -225,8 +229,14 @@
 				{% endif %}
 
 
-			</table>
+							</table>
+			</div>
 		</div>
+		<div class="TableShadowContainer">
+			<div class="TableBottomShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bm.gif);">
+				<div class="TableBottomLeftShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bl.gif);"></div>
+				<div class="TableBottomRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-br.gif);"></div>
+			</div>
 		</div>
 		{% endset %}
 
@@ -249,8 +259,12 @@
 		{% if quests_enabled %}
 		<br/>
 		{% set quests_html %}
-		<div class="tibia-inner-frame">
-			<table border="0" cellspacing="1" cellpadding="4" width="100%">
+				<div class="TableShadowContainerRightTop">
+			<div class="TableShadowRightTop" style="background-image:url({{ template_path }}/images/content/table-shadow-rt.gif);"></div>
+		</div>
+		<div class="TableContentAndRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-rm.gif);">
+			<div class="TableContentContainer">
+				<table class="TableContent" width="100%">
 				{% set i = 0 %}
 				{% for name, done in quests %}
 				{% set i = i + 1 %}
@@ -268,7 +282,12 @@
 		<!-- FRAGS LIST -->
 		<br/>
 		{% set frags_html %}
-		<div class="tibia-inner-frame" style="padding: 3px; background-color: {{ config.lightborder }};">
+				<div class="TableShadowContainerRightTop">
+			<div class="TableShadowRightTop" style="background-image:url({{ template_path }}/images/content/table-shadow-rt.gif);"></div>
+		</div>
+		<div class="TableContentAndRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-rm.gif);">
+			<div class="TableContentContainer">
+				<table class="TableContent" width="100%"><tr><td style="padding: 3px;">
 			{# Frags Justified Bar #}
 			<div style="margin-bottom: 4px;">
 				<div class="frag-header" onclick="toggleFrags('justified')" style="background: linear-gradient(to bottom, #4E4E4E, #2E2E2E); color: #FFFFFF; font-weight: bold; font-size: 11px; padding: 4px 8px; border: 1px solid #111; cursor: pointer; display: flex; align-items: center; user-select: none;">
@@ -319,9 +338,16 @@
 						{% endif %}
 					</table>
 				</div>
+			</td></tr>
+				</table>
 			</div>
 		</div>
-
+		<div class="TableShadowContainer">
+			<div class="TableBottomShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bm.gif);">
+				<div class="TableBottomLeftShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bl.gif);"></div>
+				<div class="TableBottomRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-br.gif);"></div>
+			</div>
+		</div>
 		<script type="text/javascript">
 		function toggleFrags(type) {
 			var content = document.getElementById('frag_' + type + '_content');
@@ -345,8 +371,12 @@
 		<!-- DEATHS -->
 		<br/>
 		{% set deaths_html %}
-		<div class="tibia-inner-frame">
-			<table border="0" cellspacing="1" cellpadding="4" width="100%">
+				<div class="TableShadowContainerRightTop">
+			<div class="TableShadowRightTop" style="background-image:url({{ template_path }}/images/content/table-shadow-rt.gif);"></div>
+		</div>
+		<div class="TableContentAndRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-rm.gif);">
+			<div class="TableContentContainer">
+				<table class="TableContent" width="100%">
 				{% set i = 0 %}
 				{% for death in deaths %}
 				{% set i = i + 1 %}
@@ -366,8 +396,12 @@
 		<!-- EXP HISTORY -->
 		<br/>
 		{% set exp_hist_html %}
-		<div class="tibia-inner-frame">
-			<table border="0" cellspacing="1" cellpadding="4" width="100%">
+				<div class="TableShadowContainerRightTop">
+			<div class="TableShadowRightTop" style="background-image:url({{ template_path }}/images/content/table-shadow-rt.gif);"></div>
+		</div>
+		<div class="TableContentAndRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-rm.gif);">
+			<div class="TableContentContainer">
+				<table class="TableContent" width="100%">
 				{% set i = 0 %}
 				{% for exp in exp_history %}
 				{% set i = i + 1 %}
@@ -391,12 +425,26 @@
 
 		<br/>
 		{% set exp_graph_html %}
-		<div class="tibia-inner-frame" style="padding: 10px; background-color: {{ config.lightborder }}; box-sizing: border-box; max-width: 530px; overflow: hidden; margin: 0 auto;">
+				<div class="TableShadowContainerRightTop">
+			<div class="TableShadowRightTop" style="background-image:url({{ template_path }}/images/content/table-shadow-rt.gif);"></div>
+		</div>
+		<div class="TableContentAndRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-rm.gif);">
+			<div class="TableContentContainer">
+				<table class="TableContent" width="100%"><tr><td align="center" style="padding: 10px; background-color: {{ config.lightborder }};">
 			<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 			<div style="width: 510px; max-width: 100%; height: 250px; position: relative; overflow: hidden; margin: 0 auto;">
 				<canvas id="exp_chart_canvas" style="width: 100% !important; height: 250px !important;"></canvas>
+			</td></tr>
+				</table>
 			</div>
+		</div>
+		<div class="TableShadowContainer">
+			<div class="TableBottomShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bm.gif);">
+				<div class="TableBottomLeftShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bl.gif);"></div>
+				<div class="TableBottomRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-br.gif);"></div>
+			</div>
+		</div>
 			<script type="text/javascript">
 			  document.addEventListener("DOMContentLoaded", function() {
 				var ctx = document.getElementById('exp_chart_canvas').getContext('2d');
@@ -483,8 +531,12 @@
 		<!-- ACCOUNT_INFORMATION -->
 		<br/><br/>
 		{% set acc_info_html %}
-		<div class="tibia-inner-frame">
-			<table border="0" cellspacing="0" cellpadding="4" width="100%">
+				<div class="TableShadowContainerRightTop">
+			<div class="TableShadowRightTop" style="background-image:url({{ template_path }}/images/content/table-shadow-rt.gif);"></div>
+		</div>
+		<div class="TableContentAndRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-rm.gif);">
+			<div class="TableContentContainer">
+				<table class="TableContent" width="100%">
 				{% set realName = account.getRLName() %}
 				{% if realName is not empty %}
 				{% set rows = rows + 1 %}
@@ -544,8 +596,12 @@
 		<!-- CHARACTERS_LIST -->
 		<br/><br/>
 		{% set chars_list_html %}
-		<div class="tibia-inner-frame">
-			<table border="0" cellspacing="1" cellpadding="4" width="100%">
+				<div class="TableShadowContainerRightTop">
+			<div class="TableShadowRightTop" style="background-image:url({{ template_path }}/images/content/table-shadow-rt.gif);"></div>
+		</div>
+		<div class="TableContentAndRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-rm.gif);">
+			<div class="TableContentContainer">
+				<table class="TableContent" width="100%">
 				<tr bgcolor="{{ config.darkborder }}">
 					<td width="64px" align="center"><b>Outfit</b></td>
 					<td width="40%"><b>Name</b></td>

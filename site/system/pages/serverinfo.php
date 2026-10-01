@@ -64,13 +64,9 @@ if(isset($redSkullLength))
 
 $blackSkull = false;
 $blackSkullLength = NULL;
-if(isset($config['lua']['useBlackSkull']) && getBoolean($config['lua']['useBlackSkull']))
+if(isset($config['lua']['killsToBlackSkull']) || isset($config['lua']['blackSkullLength']) || (isset($config['lua']['useBlackSkull']) && getBoolean($config['lua']['useBlackSkull'])))
 {
-    $blackSkullLength = $config['lua']['blackSkullLength'];
-    $blackSkull = true;
-}
-else if(isset($config['lua']['black_skull_duration'])) {
-    $blackSkullLength = eval('return ' . $config['lua']['blackSkullLength'] . ';');
+    $blackSkullLength = isset($config['lua']['blackSkullLength']) ? eval('return (' . $config['lua']['blackSkullLength'] . ');') : 45 * 24 * 60 * 60;
     $blackSkull = true;
 }
 

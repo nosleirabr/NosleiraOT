@@ -242,6 +242,9 @@ function changeLanguage(lang) {
                             <tbody>
                                 <tr>
                                     <td>
+                                        <div class="TableShadowContainerRightTop">
+                                            <div class="TableShadowRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rt.gif);"></div>
+                                        </div>
                                         <div class="TableContentAndRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rm.gif);">
                                             <div class="TableContentContainer">
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
@@ -261,6 +264,12 @@ function changeLanguage(lang) {
                                                         </tr>
                                                     </tbody>
                                                 </table>
+                                            </div>
+                                        </div>
+                                        <div class="TableShadowContainer">
+                                            <div class="TableBottomShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bm.gif);">
+                                                <div class="TableBottomLeftShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bl.gif);"></div>
+                                                <div class="TableBottomRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-br.gif);"></div>
                                             </div>
                                         </div>
                                     </td>
@@ -301,6 +310,9 @@ function changeLanguage(lang) {
                             <tbody>
                                 <tr>
                                     <td>
+                                        <div class="TableShadowContainerRightTop">
+                                            <div class="TableShadowRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rt.gif);"></div>
+                                        </div>
                                         <div class="TableContentAndRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rm.gif);">
                                             <div class="TableContentContainer">
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
@@ -350,6 +362,12 @@ function changeLanguage(lang) {
                                                 </table>
                                             </div>
                                         </div>
+                                        <div class="TableShadowContainer">
+                                            <div class="TableBottomShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bm.gif);">
+                                                <div class="TableBottomLeftShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bl.gif);"></div>
+                                                <div class="TableBottomRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-br.gif);"></div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -388,6 +406,9 @@ function changeLanguage(lang) {
                             <tbody>
                                 <tr>
                                     <td>
+                                        <div class="TableShadowContainerRightTop">
+                                            <div class="TableShadowRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rt.gif);"></div>
+                                        </div>
                                         <div class="TableContentAndRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rm.gif);">
                                             <div class="TableContentContainer">
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
@@ -409,6 +430,12 @@ function changeLanguage(lang) {
                                                 </table>
                                             </div>
                                         </div>
+                                        <div class="TableShadowContainer">
+                                            <div class="TableBottomShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bm.gif);">
+                                                <div class="TableBottomLeftShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bl.gif);"></div>
+                                                <div class="TableBottomRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-br.gif);"></div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -419,3 +446,5 @@ function changeLanguage(lang) {
         </tbody>
     </table>
 </div>
+
+

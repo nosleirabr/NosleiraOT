@@ -1028,6 +1028,7 @@ function load_config_lua($filename)
 					$value = trim($tmp_exp[1]);
 					if(str_contains($value, '--')) {// found some deep comment
 						$value = preg_replace('/--.*$/i', '', $value);
+						$value = trim($value);
 					}
 
 					if(is_numeric($value))

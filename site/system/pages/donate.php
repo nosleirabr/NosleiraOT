@@ -997,6 +997,9 @@ function changeLanguage(lang) {
                             <tbody>
                                 <tr>
                                     <td>
+                                        <div class="TableShadowContainerRightTop">
+                                            <div class="TableShadowRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rt.gif);"></div>
+                                        </div>
                                         <div class="TableContentAndRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rm.gif);">
                                             <div class="TableContentContainer">
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
@@ -1043,7 +1046,7 @@ function changeLanguage(lang) {
                                                                             </tr>
                                                                             <tr>
                                                                                 <td style="padding: 8px 0; font-weight: 700; color: #4a1c00;">Personagem de Destino (Staff):</td>
-                                                                                <td style="padding: 8px 0; color: #b45309; font-weight: 800; font-size: 15px; font-family: 'Cinzel', serif;">roxzorde</td>
+                                                                                <td style="padding: 8px 0; color: #b45309; font-weight: 800; font-size: 15px; font-family: 'Cinzel', serif;">Nosleiraot</td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
@@ -1054,8 +1057,8 @@ function changeLanguage(lang) {
                                                                             <span>Instruções Finais para Entrega:</span>
                                                                         </div>
                                                                         <ol style="margin: 0 0 0 18px; padding: 0; line-height: 1.7;">
-                                                                            <li>Transfira exatamente <b><?php echo htmlspecialchars($price_label); ?></b> no Tibia.com para o personagem <b>roxzorde</b>.</li>
-                                                                            <li><b style="color: #b45309;">Abra um ticket</b> em nosso suporte informando o nome do personagem (<b><?php echo htmlspecialchars($tibia_char_name); ?></b>) que enviou as moedas para o meu personagem (<b>roxzorde</b>).</li>
+                                                                            <li>Transfira exatamente <b><?php echo htmlspecialchars($price_label); ?></b> no Tibia.com para o personagem <b>Nosleiraot</b>.</li>
+                                                                            <li><b style="color: #b45309;">Abra um ticket</b> em nosso suporte informando o nome do personagem (<b><?php echo htmlspecialchars($tibia_char_name); ?></b>) que enviou as moedas para o meu personagem (<b>Nosleiraot</b>).</li>
                                                                             <li>Seus <b><?php echo htmlspecialchars($product_label); ?></b> serão creditados em sua conta em um prazo de <b>1 dia a 24 horas</b> após a validação do ticket.</li>
                                                                         </ol>
                                                                     </div>
@@ -1071,6 +1074,12 @@ function changeLanguage(lang) {
                                                         </tr>
                                                     </tbody>
                                                 </table>
+                                            </div>
+                                        </div>
+                                        <div class="TableShadowContainer">
+                                            <div class="TableBottomShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bm.gif);">
+                                                <div class="TableBottomLeftShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bl.gif);"></div>
+                                                <div class="TableBottomRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-br.gif);"></div>
                                             </div>
                                         </div>
                                     </td>
@@ -1117,6 +1126,9 @@ function changeLanguage(lang) {
                             <tbody>
                                 <tr>
                                     <td>
+                                        <div class="TableShadowContainerRightTop">
+                                            <div class="TableShadowRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rt.gif);"></div>
+                                        </div>
                                         <div class="TableContentAndRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rm.gif);">
                                             <div class="TableContentContainer">
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
@@ -1168,7 +1180,7 @@ function changeLanguage(lang) {
                                                                                 </tr>
                                                                                 <tr style="border-bottom: 1px solid rgba(160, 130, 90, 0.25);">
                                                                                     <td style="padding: 10px 0; font-weight: 700; color: #4a1c00;">Personagem de Destino (Staff):</td>
-                                                                                    <td style="padding: 10px 0; color: #b45309; font-weight: 800; font-size: 15px; font-family: 'Cinzel', serif;">roxzorde</td>
+                                                                                    <td style="padding: 10px 0; color: #b45309; font-weight: 800; font-size: 15px; font-family: 'Cinzel', serif;">Nosleiraot</td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td style="padding: 14px 0 4px 0; font-weight: 700; color: #4a1c00; vertical-align: middle;">Tibia.com - char name</td>
@@ -1179,7 +1191,7 @@ function changeLanguage(lang) {
                                                                                 <tr>
                                                                                     <td></td>
                                                                                     <td style="padding-top: 6px;">
-                                                                                        <span style="font-size: 12px; color: #7f5539; font-family: 'Inter', sans-serif; display: block; font-weight: 500;">Abra um ticket com o nome do personagem que foi enviado as contas para o nome do meu personagem: <b style="color: #b45309;">roxzorde</b>.</span>
+                                                                                        <span style="font-size: 12px; color: #7f5539; font-family: 'Inter', sans-serif; display: block; font-weight: 500;">Abra um ticket com o nome do personagem que foi enviado as coins para o nome do meu personagem: <b style="color: #b45309;">Nosleiraot</b>.</span>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -1553,6 +1565,12 @@ function changeLanguage(lang) {
                                                 </table>
                                             </div>
                                         </div>
+                                        <div class="TableShadowContainer">
+                                            <div class="TableBottomShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bm.gif);">
+                                                <div class="TableBottomLeftShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bl.gif);"></div>
+                                                <div class="TableBottomRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-br.gif);"></div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -1597,6 +1615,9 @@ function changeLanguage(lang) {
                             <tbody>
                                 <tr>
                                     <td>
+                                        <div class="TableShadowContainerRightTop">
+                                            <div class="TableShadowRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rt.gif);"></div>
+                                        </div>
                                         <div class="TableContentAndRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rm.gif);">
                                             <div class="TableContentContainer">
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
@@ -2157,6 +2178,12 @@ function changeLanguage(lang) {
                                                 </table>
                                             </div>
                                         </div>
+                                        <div class="TableShadowContainer">
+                                            <div class="TableBottomShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bm.gif);">
+                                                <div class="TableBottomLeftShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bl.gif);"></div>
+                                                <div class="TableBottomRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-br.gif);"></div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -2197,6 +2224,9 @@ function changeLanguage(lang) {
                             <tbody>
                                 <tr>
                                     <td>
+                                        <div class="TableShadowContainerRightTop">
+                                            <div class="TableShadowRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rt.gif);"></div>
+                                        </div>
                                         <div class="TableContentAndRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rm.gif);">
                                             <div class="TableContentContainer">
                                                 <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
@@ -2351,7 +2381,7 @@ function changeLanguage(lang) {
                                                                                       ?></td>
                                                                                      <td style="padding: 8px 6px; text-align: center; font-weight: 700; color: #7c3aed; white-space: nowrap;"><?php echo htmlspecialchars($don['price']); ?></td>
                                                                                      <td style="padding: 8px; font-weight: 600; color: #4a1c00; white-space: nowrap;"><?php echo htmlspecialchars($don['tibia_char_name']); ?></td>
-                                                                                     <td style="padding: 8px; font-weight: 700; color: #b45309; white-space: nowrap;">roxzorde</td>
+                                                                                     <td style="padding: 8px; font-weight: 700; color: #b45309; white-space: nowrap;">Nosleiraot</td>
                                                                                      <td style="padding: 8px 6px; text-align: center; white-space: nowrap;">
                                                                                          <?php if ($don['status'] === 'completed'): ?>
                                                                                              <span class="status-badge-completed">Premium Ativo ✅</span>
@@ -2428,10 +2458,16 @@ function changeLanguage(lang) {
                                                              </td>
                                                          </tr>
                                                      </tbody>
-                                                 </table>
-                                             </div>
-                                         </div>
-                                     </td>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="TableShadowContainer">
+                                            <div class="TableBottomShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bm.gif);">
+                                                <div class="TableBottomLeftShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-bl.gif);"></div>
+                                                <div class="TableBottomRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-br.gif);"></div>
+                                            </div>
+                                        </div>
+                                    </td>
                                  </tr>
                              </tbody>
                          </table>
@@ -2477,7 +2513,10 @@ function changeLanguage(lang) {
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <div class="TableContentAndRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rm.gif);">
+                                            <div class="TableShadowContainerRightTop">
+                                            <div class="TableShadowRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rt.gif);"></div>
+                                        </div>
+                                        <div class="TableContentAndRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rm.gif);">
                                                 <div class="TableContentContainer">
                                                     <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
                                                         <tbody>
@@ -2697,7 +2736,10 @@ function changeLanguage(lang) {
                                             <div class="TableShadowContainerRightTop">
                                                 <div class="TableShadowRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rt.gif);"></div>
                                             </div>
-                                            <div class="TableContentAndRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rm.gif);">
+                                            <div class="TableShadowContainerRightTop">
+                                            <div class="TableShadowRightTop" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rt.gif);"></div>
+                                        </div>
+                                        <div class="TableContentAndRightShadow" style="background-image:url(<?php echo $template_path; ?>/images/content/table-shadow-rm.gif);">
                                                 <div class="TableContentContainer">
                                                     <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
                                                         <tbody>
@@ -2758,3 +2800,4 @@ function changeLanguage(lang) {
 </form>
 
 <?php endif; ?>
+

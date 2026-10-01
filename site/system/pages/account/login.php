@@ -54,7 +54,7 @@ if(!function_exists('verifyCloudflareTurnstile')) {
 }
 
 $turnstileSecret = config('cloudflare_turnstile_secret');
-if (!empty($turnstileSecret)) {
+if (!empty($turnstileSecret) && !defined('ADMIN_PANEL') && !defined('MYAAC_ADMIN')) {
 	$turnstileToken = $_POST['cf-turnstile-response'] ?? '';
 	if (empty($turnstileToken) || !verifyCloudflareTurnstile($turnstileSecret, $turnstileToken, get_browser_real_ip())) {
 		$errors[] = 'Verificação de segurança inválida. Por favor, tente novamente.';

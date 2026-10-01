@@ -293,24 +293,24 @@
             {% if killsToBlackSkull %}
             <tr class="row-even">
                 <td class="td-name"><img src="images/red_skull.gif" style="vertical-align:middle; margin-right:5px;" alt="Red Skull"/>Frags to Red Skull</td>
-                <td>{{ killsToRedSkull|default('3') }}</td>
+                <td>{{ killsToRedSkull|default('3') }} frags</td>
             </tr>
             <tr class="row-odd">
                 <td class="td-name"><img src="images/black_skull.gif" style="vertical-align:middle; margin-right:5px;" alt="Black Skull"/>Frags to Black Skull</td>
-                <td>{{ killsToBlackSkull }}</td>
+                <td>{{ killsToBlackSkull }} frags</td>
             </tr>
             <tr class="row-even">
-                <td class="td-name"><img src="images/yellow_skull.gif" style="vertical-align:middle; margin-right:5px;" alt="Skull"/>Frags para Banimento</td>
-                <td><b>Dia:</b> {{ dailyKillsToBanishment }} &nbsp;|&nbsp; <b>Semana:</b> {{ weeklyKillsToBanishment }} &nbsp;|&nbsp; <b>M&ecirc;s:</b> {{ monthlyKillsToBanishment }}</td>
+                <td class="td-name"><img src="images/yellow_skull.gif" style="vertical-align:middle; margin-right:5px;" alt="Skull"/>Frags para Autoban (7 Dias)</td>
+                <td><b>Dia:</b> {{ dailyKillsToBanishment|default('10') }} &nbsp;|&nbsp; <b>Semana:</b> {{ weeklyKillsToBanishment|default('15') }} &nbsp;|&nbsp; <b>M&ecirc;s:</b> {{ monthlyKillsToBanishment|default('25') }}</td>
             </tr>
             {% else %}
             <tr class="row-even">
                 <td class="td-name"><img src="images/red_skull.gif" style="vertical-align:middle; margin-right:5px;" alt="Red Skull"/>Frags to Red Skull</td>
-                <td>{{ killsToRedSkull|default('3') }}</td>
+                <td>{{ killsToRedSkull|default('3') }} frags</td>
             </tr>
             <tr class="row-odd">
-                <td class="td-name"><img src="images/yellow_skull.gif" style="vertical-align:middle; margin-right:5px;" alt="Skull"/>Frags para Banimento</td>
-                <td><b>Dia:</b> {{ dailyKillsToBanishment }} &nbsp;|&nbsp; <b>Semana:</b> {{ weeklyKillsToBanishment }} &nbsp;|&nbsp; <b>M&ecirc;s:</b> {{ monthlyKillsToBanishment }}</td>
+                <td class="td-name"><img src="images/yellow_skull.gif" style="vertical-align:middle; margin-right:5px;" alt="Skull"/>Frags para Autoban (7 Dias)</td>
+                <td><b>Dia:</b> {{ dailyKillsToBanishment|default('10') }} &nbsp;|&nbsp; <b>Semana:</b> {{ weeklyKillsToBanishment|default('15') }} &nbsp;|&nbsp; <b>M&ecirc;s:</b> {{ monthlyKillsToBanishment|default('25') }}</td>
             </tr>
             {% endif %}
         </tbody>
