@@ -21,7 +21,7 @@ $dev_mode = (config('env') === 'dev');
 $twig_loader = new Twig_FilesystemLoader(SYSTEM . 'templates');
 $twig = new MyAAC_Twig_EnvironmentBridge($twig_loader, array(
 	'cache' => CACHE . 'twig/',
-	'auto_reload' => $dev_mode,
+	'auto_reload' => true,
 	'debug' => $dev_mode
 ));
 
