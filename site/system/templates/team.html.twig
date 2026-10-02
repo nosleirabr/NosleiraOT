@@ -24,16 +24,16 @@
 	<tr>
 		<td style="padding: 15px; text-align: center; background-color: #f1e2c3;">
 			<h2 style="color: #A65200; font-size: 16px; margin: 0 0 10px 0; font-family: Tahoma, sans-serif;">
-				<img src="{{ template_path }}/images/content/headline-bracer-left.gif" style="vertical-align: middle;"> CENTRAL DE SUPORTE & ADMINISTRAÇÃO <img src="{{ template_path }}/images/content/headline-bracer-right.gif" style="vertical-align: middle;">
+				<img src="{{ template_path }}/images/content/headline-bracer-left.gif" style="vertical-align: middle;"> CENTRAL DE SUPORTE & ADMINISTRA&Ccedil;&Atilde;O <img src="{{ template_path }}/images/content/headline-bracer-right.gif" style="vertical-align: middle;">
 			</h2>
 			<style>
 				@keyframes piscar { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
 				.st-online-banner { color: #00B400; font-weight: bold; animation: piscar 1.2s infinite; }
 			</style>
 			<p style="margin: 0; font-size: 11px; color: #333; line-height: 1.4; font-family: Tahoma, sans-serif;">
-				Bem-vindo à página oficial de suporte do <b>NosleiraOT</b>!<br>
-				Nossa equipe de <b>Administração, Community Managers, Gamemasters e Tutores</b> trabalha dedicada e continuamente para garantir uma experiência de jogo equilibrada, segura, transparente e divertida para toda a nossa comunidade.<br><br>
-				<i style="color: #555;">💡 Precisa de assistência in-game? Envie um Report/Help no canal oficial ou contate um membro da equipe com status <span class="st-online-banner">Online</span>.</i>
+				Bem-vindo &agrave; p&aacute;gina oficial de suporte do <b>NosleiraOT</b>!<br>
+				Nossa equipe de <b>Administra&ccedil;&atilde;o, Community Managers, Gamemasters e Tutores</b> trabalha dedicada e continuamente para garantir uma experi&ecirc;ncia de jogo equilibrada, segura, transparente e divertida para toda a nossa comunidade.<br><br>
+				<i style="color: #555;">&#128161; Precisa de assist&ecirc;ncia in-game? Envie um Report/Help no canal oficial ou contate um membro da equipe com status <span class="st-online-banner">Online</span>.</i>
 			</p>
 		</td>
 	</tr>
@@ -58,22 +58,25 @@
 		<tr bgcolor="{{ getStyle(i) }}" style="height: 36px;">
 			<td style="padding-left: 10px; vertical-align: middle;">
 				<div style="display: flex; align-items: center;">
-					<div style="position: relative; width: 24px; height: 24px; overflow: hidden; border: 2px solid #FFCC00; border-radius: 0; box-shadow: 1px 1px 2px rgba(0,0,0,0.5); background: #3b3b3b; margin-right: 8px; flex-shrink: 0;">
-						<img style="position: absolute; top: -30px; left: -32px;" src="{{ member.outfit }}&anim=0" alt="player outfit"/>
+																									<div style="position: relative; width: 20px; height: 20px; margin-right: 8px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; box-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+						{% set staff_icon = 'tutor' %}
+						{% if group.group_id == 6 %} {% set staff_icon = 'admin' %}
+						{% elseif group.group_id == 5 %} {% set staff_icon = 'cm' %}
+						{% elseif group.group_id == 4 %} {% set staff_icon = 'gm' %}
+						{% elseif group.group_id == 3 %} {% set staff_icon = 'senior' %}
+						{% endif %}
+						<img src="images/staff/{{ staff_icon }}.gif" alt="staff icon" style="max-width: 100%; max-height: 100%; object-fit: none;" />
 					</div>
 					<div>
-						<style>
-							@keyframes piscar-grupo { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
-							.grp-blink { color: #00ee3c; font-weight: bold; }
-						</style>
+																		
 						{% if group.group_id == 6 %}
-							<span class="grp-blink">Administrador</span>
+							<span style="color: #00A800; font-weight: bold;">Administrador</span>
 						{% elseif group.group_id == 5 %}
 							<span style="color: #CC0000; font-weight: bold;">Community M...</span>
 						{% elseif group.group_id == 4 %}
 							<span style="color: #0044BB; font-weight: bold;">Gamemaster</span>
 						{% elseif group.group_id == 3 %}
-							<span style="color: #CD853F; font-weight: bold;">Senior Tutor</span>
+							<span style="color: #DA70D6; font-weight: bold;">Senior Tutor</span>
 						{% elseif group.group_id == 2 %}
 							<span style="color: #9933CC; font-weight: bold;">Tutor</span>
 						{% else %}
@@ -143,6 +146,13 @@
 
 {% endset %}
 {% include 'tables.headline.html.twig' with {'title': title, 'content': content} %}
+
+
+
+
+
+
+
 
 
 

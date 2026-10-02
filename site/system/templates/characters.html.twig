@@ -59,7 +59,7 @@
 				{% set char_info_html %}
 		<div style="position: relative;">
 		{% if staff_banner is not null %}
-			<img src="{{ staff_banner }}" alt="Staff" style="position: absolute; right: -12px; top: 45%; width: 130px; height: auto; z-index: 5;"/>
+			<img src="{{ staff_banner }}?v=2" alt="Staff" style="position: absolute; right: -20px; top: 45%; width: 130px; height: auto; z-index: 5;"/>
 		{% endif %}
 		{% if player_ranks is defined and player_ranks|length > 0 %}
 			<div style="position: absolute; right: 8px; top: 8px; z-index: 10; display: flex; flex-direction: column; gap: 8px;">
@@ -170,7 +170,7 @@
 				{% if guild.rank is not null %}
 				{% set rows = rows + 1 %}
 				<tr bgcolor="{{ getStyle(rows) }}">
-					<td>Guild Membership:</td>
+					<td style="white-space: nowrap;">Guild Membership:</td>
 					<td><b>{{ guild.rank }}</b> of the <b>{{ guild.link|raw }}</b></td>
 				</tr>
 				{% endif %}
@@ -274,6 +274,13 @@
 				</tr>
 				{% endfor %}
 			</table>
+		</div>
+		</div>
+		<div class="TableShadowContainer">
+			<div class="TableBottomShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bm.gif);">
+				<div class="TableBottomLeftShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bl.gif);"></div>
+				<div class="TableBottomRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-br.gif);"></div>
+			</div>
 		</div>
 		{% endset %}
 		{% include 'tables.headline.html.twig' with {'title': 'Quests', 'content': quests_html} %}
@@ -387,6 +394,13 @@
 				{% endfor %}
 			</table>
 		</div>
+		</div>
+		<div class="TableShadowContainer">
+			<div class="TableBottomShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bm.gif);">
+				<div class="TableBottomLeftShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bl.gif);"></div>
+				<div class="TableBottomRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-br.gif);"></div>
+			</div>
+		</div>
 		{% endset %}
 		{% include 'tables.headline.html.twig' with {'title': 'Character Deaths', 'content': deaths_html} %}
 		<!-- DEATHS_END -->
@@ -419,6 +433,13 @@
 				</tr>
 				{% endfor %}
 			</table>
+		</div>
+		</div>
+		<div class="TableShadowContainer">
+			<div class="TableBottomShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bm.gif);">
+				<div class="TableBottomLeftShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bl.gif);"></div>
+				<div class="TableBottomRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-br.gif);"></div>
+			</div>
 		</div>
 		{% endset %}
 		{% include 'tables.headline.html.twig' with {'title': 'Record of Daily Experiences', 'content': exp_hist_html} %}
@@ -554,15 +575,16 @@
 					<td>
 						{% set gname = group.getName()|lower %}
 						{% if gname == 'administrador' or gname == 'god' or gname == 'admin' %}
-							<span class="admin" style="color: #00A800 !important;">Administrador</span>
+							
+<span style="color: #00A800; font-weight: bold;">Administrador</span>
 						{% elseif gname == 'community manager' or gname == 'cm' %}
-							<span class="communitym" style="color: #E60000 !important;">Community Manager</span>
+							<span class="communitym" style="color: #CC0000; font-weight: bold;">Community Manager</span>
 						{% elseif gname == 'gamemaster' or gname == 'gm' %}
-							<span class="gms" style="color: #0066FF !important;">Gamemaster</span>
+							<span class="gms" style="color: #0044BB; font-weight: bold;">Gamemaster</span>
 						{% elseif gname == 'senior tutor' %}
-							<span class="seniortutor" style="color: #E6A100 !important;">Senior Tutor</span>
+							<span class="seniortutor" style="color: #DA70D6; font-weight: bold;">Senior Tutor</span>
 						{% elseif gname == 'tutor' %}
-							<span class="tutor" style="color: #9933FF !important;">Tutor</span>
+							<span class="tutor" style="color: #9933CC; font-weight: bold;">Tutor</span>
 						{% else %}
 							<span style="font-weight: bold;">{{ group.getName()|capitalize }}</span>
 						{% endif %}
@@ -587,6 +609,13 @@
 					</td>
 				</tr>
 			</table>
+		</div>
+		</div>
+		<div class="TableShadowContainer">
+			<div class="TableBottomShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bm.gif);">
+				<div class="TableBottomLeftShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bl.gif);"></div>
+				<div class="TableBottomRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-br.gif);"></div>
+			</div>
 		</div>
 		{% endset %}
 		{% include 'tables.headline.html.twig' with {'title': 'Account Information', 'content': acc_info_html} %}
@@ -615,7 +644,7 @@
 					{% set i = i + 1 %}
 				<tr bgcolor="{{ getStyle(i) }}">
 					<td align="center" style="vertical-align: middle; padding: 0;">
-						<img src="{{ p.outfit }}" alt="" style="vertical-align: middle;"/>
+						<div style="width: 44px; height: 44px; overflow: hidden; margin: 0 auto; position: relative;"><img src="{{ p.outfit }}" alt="" style="position: absolute; top: -10px; left: -10px; max-width: none;" /></div>
 					</td>
 					<td style="vertical-align: middle;">
 						<nobr>{{ i }}.&#160;{{ p.name }}{% if p.isDeleted %}<span style="color: red"> [DELETED]</span>{% endif %}</nobr>
@@ -633,6 +662,13 @@
 					{% endif %}
 				{% endfor %}
 			</table>
+		</div>
+		</div>
+		<div class="TableShadowContainer">
+			<div class="TableBottomShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bm.gif);">
+				<div class="TableBottomLeftShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-bl.gif);"></div>
+				<div class="TableBottomRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-br.gif);"></div>
+			</div>
 		</div>
 		{% endset %}
 		{% include 'tables.headline.html.twig' with {'title': 'Characters', 'content': chars_list_html} %}
@@ -687,3 +723,6 @@ function setGodCopied(btn) {
 	}, 1500);
 }
 </script>
+
+
+
