@@ -765,7 +765,7 @@
 					{% set i = i + 1 %}
 				<tr bgcolor="{{ getStyle(i) }}">
 					<td align="center" style="vertical-align: middle; padding: 0;">
-						<div style="width: 64px; height: 64px; margin: 0 auto; text-align: center; line-height: 64px;"><img src="{{ p.outfit }}" alt="" style="display: inline-block; vertical-align: middle;" /></div>
+						<img src="{{ p.outfit }}" alt="" />
 					</td>
 					<td style="vertical-align: middle;">
 						<nobr>{{ i }}.&#160;{{ p.name }}{% if p.isDeleted %}<span style="color: red"> [DELETED]</span>{% endif %}</nobr>
@@ -844,6 +844,7 @@ function setGodCopied(btn) {
 	}, 1500);
 }
 </script>
+
 
 
 
