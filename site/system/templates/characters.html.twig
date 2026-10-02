@@ -243,17 +243,17 @@
 								<div style="width: 176px; height: 232px; background: url('images/outfit.png') no-repeat; position: relative;">
 									{% set hp_percent = player.getHealthMax() > 0 ? (player.getHealth() / player.getHealthMax()) * 100 : 0 %}
 									{% set mana_percent = player.getManaMax() > 0 ? (player.getMana() / player.getManaMax()) * 100 : 0 %}
-									<div style="position: absolute; left: 44px; top: 16px; width: 92px; height: 11px;">
+									<div style="position: absolute; left: 27px; top: 16px; width: 135px; height: 11px;">
 										<div style="background: url('images/lifebarra.png'); height: 100%; width: {{ hp_percent }}%;"></div>
 									</div>
-									<div style="position: absolute; right: 10px; top: 14px; width: 60px; text-align: right; color: #fff; font-family: Tahoma, sans-serif; font-size: 10px; font-weight: bold;">
+									<div style="position: absolute; right: 14px; top: 15px; width: 60px; text-align: right; color: #fff; font-family: Tahoma, sans-serif; font-size: 10px; font-weight: bold;">
 										{{ player.getHealth() }}
 									</div>
 
-									<div style="position: absolute; left: 44px; top: 29px; width: 92px; height: 11px;">
+									<div style="position: absolute; left: 27px; top: 29px; width: 135px; height: 11px;">
 										<div style="background: url('images/manabar.png'); height: 100%; width: {{ mana_percent }}%;"></div>
 									</div>
-									<div style="position: absolute; right: 10px; top: 27px; width: 60px; text-align: right; color: #fff; font-family: Tahoma, sans-serif; font-size: 10px; font-weight: bold;">
+									<div style="position: absolute; right: 14px; top: 28px; width: 60px; text-align: right; color: #fff; font-family: Tahoma, sans-serif; font-size: 10px; font-weight: bold;">
 										{{ player.getMana() }}
 									</div>
 
@@ -284,11 +284,8 @@
 									</div>
 								</div>
 
-								<!-- Panel 2: Skills (Stamina removida - 7.4 nao usa) -->
+								<!-- Panel 2: Skills -->
 								<div style="width: 176px; height: 232px; background: url('images/skillsbackground.png') no-repeat; position: relative; color: #c0c0c0; font-family: Tahoma, sans-serif; font-size: 11px;">
-									<!-- Cobrir o texto Stamina com a cor do fundo cinza escuro -->
-									<div style="position: absolute; left: 8px; top: 99px; width: 120px; height: 14px; background-color: #434343;"></div>
-									
 									<!-- Valores: Experience, Level, HP, Mana, Soul, Capacity -->
 									<div style="position: absolute; right: 14px; top: 21px; width: 80px; text-align: right; font-weight: bold; font-size: 10px;">{{ player.getExperience()|number_format }}</div>
 									<div style="position: absolute; right: 14px; top: 34px; width: 80px; text-align: right; font-weight: bold;">{{ player.getLevel() }}</div>
@@ -296,38 +293,39 @@
 									<div style="position: absolute; right: 14px; top: 60px; width: 80px; text-align: right; font-weight: bold;">{{ player.getMana() }}</div>
 									<div style="position: absolute; right: 14px; top: 73px; width: 80px; text-align: right; font-weight: bold;">{{ player.getSoul() }}</div>
 									<div style="position: absolute; right: 14px; top: 86px; width: 80px; text-align: right; font-weight: bold;">{{ player.getCapacity() }}</div>
-									<!-- Stamina pulada - Magic Level sobe 1 linha -->
-									<div style="position: absolute; right: 14px; top: 99px; width: 80px; text-align: right; font-weight: bold;">{{ player.getMagLevel() }}</div>
+									
+									{% set stam = player.getStamina()|default(2520) %}
+									{% set stam_h = (stam / 60)|round(0, 'floor') %}
+									{% set stam_m = stam % 60 %}
+									<div style="position: absolute; right: 14px; top: 99px; width: 80px; text-align: right; font-weight: bold; color: orange;">{{ stam_h }}:{{ stam_m < 10 ? '0' : '' }}{{ stam_m }}</div>
+									
+									<div style="position: absolute; right: 14px; top: 112px; width: 80px; text-align: right; font-weight: bold;">{{ player.getMagLevel() }}</div>
 									
 									{% set skill_map = {} %}
 									{% for s in skills %}
 										{% set skill_map = skill_map|merge({ (s.skillid): s.value }) %}
 									{% endfor %}
 									
-									<!-- Skills de luta: pulam linha da Stamina, ficam 13px cada -->
-									<div style="position: absolute; right: 14px; top: 127px; width: 80px; text-align: right; font-weight: bold;">{{ skill_map[0]|default(10) }}</div>
-									<div style="position: absolute; right: 14px; top: 140px; width: 80px; text-align: right; font-weight: bold;">{{ skill_map[1]|default(10) }}</div>
-									<div style="position: absolute; right: 14px; top: 153px; width: 80px; text-align: right; font-weight: bold;">{{ skill_map[2]|default(10) }}</div>
-									<div style="position: absolute; right: 14px; top: 166px; width: 80px; text-align: right; font-weight: bold;">{{ skill_map[3]|default(10) }}</div>
-									<div style="position: absolute; right: 14px; top: 179px; width: 80px; text-align: right; font-weight: bold;">{{ skill_map[4]|default(10) }}</div>
-									<div style="position: absolute; right: 14px; top: 192px; width: 80px; text-align: right; font-weight: bold;">{{ skill_map[5]|default(10) }}</div>
-									<div style="position: absolute; right: 14px; top: 205px; width: 80px; text-align: right; font-weight: bold;">{{ skill_map[6]|default(10) }}</div>
+									<!-- Skills de luta: -->
+									<div style="position: absolute; right: 14px; top: 135px; width: 80px; text-align: right; font-weight: bold;">{{ skill_map[0]|default(10) }}</div>
+									<div style="position: absolute; right: 14px; top: 148px; width: 80px; text-align: right; font-weight: bold;">{{ skill_map[1]|default(10) }}</div>
+									<div style="position: absolute; right: 14px; top: 161px; width: 80px; text-align: right; font-weight: bold;">{{ skill_map[2]|default(10) }}</div>
+									<div style="position: absolute; right: 14px; top: 174px; width: 80px; text-align: right; font-weight: bold;">{{ skill_map[3]|default(10) }}</div>
+									<div style="position: absolute; right: 14px; top: 187px; width: 80px; text-align: right; font-weight: bold;">{{ skill_map[4]|default(10) }}</div>
+									<div style="position: absolute; right: 14px; top: 200px; width: 80px; text-align: right; font-weight: bold;">{{ skill_map[5]|default(10) }}</div>
+									<div style="position: absolute; right: 14px; top: 213px; width: 80px; text-align: right; font-weight: bold;">{{ skill_map[6]|default(10) }}</div>
 								</div>
 
 								<!-- Panel 3: Outfits -->
 								<div style="width: 178px; height: 232px; background: url('images/outfitbackgrounds.png') no-repeat; position: relative; color: #c0c0c0; font-family: Tahoma, sans-serif; font-size: 11px;">
-									{% set is_male = player.getSex() == 1 %}
-									{% set outfit_ids = is_male ? [128, 129, 130, 131, 132, 133, 134] : [136, 137, 138, 139, 140, 141, 142] %}
-									<div style="position: absolute; top: 6px; left: 10px;">Total outfits: {{ outfit_ids|length }}</div>
+									<div style="position: absolute; top: 6px; left: 10px;">Total outfits: 1</div>
 									<div style="position: absolute; top: 6px; right: 10px;">Outfits</div>
 									
 									<div style="position: absolute; top: 30px; left: 4px; right: 4px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding-top: 10px;">
-										{% for oid in outfit_ids %}
-											{% set url = config('outfit_images_url') ~ '?id=' ~ oid ~ '&head=' ~ player.getLookHead() ~ '&body=' ~ player.getLookBody() ~ '&legs=' ~ player.getLookLegs() ~ '&feet=' ~ player.getLookFeet() %}
-											<div style="width: 32px; height: 48px; overflow: hidden; position: relative;">
-												<img src="{{ url }}" alt="Outfit" style="position: absolute; margin-top: -50px; margin-left: -30px; max-width: none;" />
-											</div>
-										{% endfor %}
+										{% set url = config('outfit_images_url') ~ '?id=' ~ player.getLookType() ~ '&head=' ~ player.getLookHead() ~ '&body=' ~ player.getLookBody() ~ '&legs=' ~ player.getLookLegs() ~ '&feet=' ~ player.getLookFeet() %}
+										<div style="width: 32px; height: 48px; overflow: hidden; position: relative;">
+											<img src="{{ url }}" alt="Outfit" style="position: absolute; margin-top: -50px; margin-left: -30px; max-width: none;" />
+										</div>
 									</div>
 								</div>
 							</div>
@@ -767,7 +765,7 @@
 					{% set i = i + 1 %}
 				<tr bgcolor="{{ getStyle(i) }}">
 					<td align="center" style="vertical-align: middle; padding: 0;">
-						<div style="width: 32px; height: 48px; overflow: hidden; margin: 0 auto; position: relative;"><img src="{{ p.outfit }}" alt="" style="position: absolute; margin-top: -50px; margin-left: -30px;" /></div>
+						<div style="width: 44px; height: 64px; margin: 0 auto; display: flex; align-items: center; justify-content: center;"><img src="{{ p.outfit }}" alt="" style="max-height: 64px; max-width: 64px; width: auto; height: auto; display: block;" /></div>
 					</td>
 					<td style="vertical-align: middle;">
 						<nobr>{{ i }}.&#160;{{ p.name }}{% if p.isDeleted %}<span style="color: red"> [DELETED]</span>{% endif %}</nobr>
@@ -846,6 +844,7 @@ function setGodCopied(btn) {
 	}, 1500);
 }
 </script>
+
 
 
 
