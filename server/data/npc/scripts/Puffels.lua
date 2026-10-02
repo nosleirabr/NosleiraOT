@@ -27,6 +27,10 @@ keywordHandler:addKeyword({'edron'}, StdModule.say, {npcHandler = npcHandler, te
 keywordHandler:addKeyword({'beast'}, StdModule.say, {npcHandler = npcHandler, text = 'I don\'t know more about it.'})
 keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler, text = 'I have no use for such stuff.'})
 
+if registerVocationSpells74 then
+    registerVocationSpells74(keywordHandler, npcHandler, 'druid')
+end
+
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 shopModule:addBuyableItem({'blank'}, 2260, 10, 1, 'blank rune')

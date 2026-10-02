@@ -214,3 +214,33 @@ if (count($towns) <= 0) {
 
 config(['towns', $towns]);
 unset($towns);
+
+// Anti-Flood Guard: HTTP Request Rate Limiter per IP/Session
+if (!isset($_SESSION['anti_flood'])) {
+	$_SESSION['anti_flood'] = [
+		'post_requests' => [],
+		'get_requests' => [],
+	];
+}
+
+$now = time();
+$requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+
+$_SESSION['anti_flood']['post_requests'] = array_filter($_SESSION['anti_flood']['post_requests'] ?? [], function($t) use ($now) { return ($now - $t) < 10; });
+$_SESSION['anti_flood']['get_requests'] = array_filter($_SESSION['anti_flood']['get_requests'] ?? [], function($t) use ($now) { return ($now - $t) < 10; });
+
+if ($requestMethod === 'POST') {
+	$_SESSION['anti_flood']['post_requests'][] = $now;
+	if (count($_SESSION['anti_flood']['post_requests']) > 15) {
+		http_response_code(429);
+		header('Retry-After: 10');
+		die('<h1>429 Too Many Requests</h1><p>Proteção Anti-Flood do Servidor Ativa: Muitas requisições enviadas simultaneamente. Por favor, aguarde 10 segundos.</p>');
+	}
+} else {
+	$_SESSION['anti_flood']['get_requests'][] = $now;
+	if (count($_SESSION['anti_flood']['get_requests']) > 120) {
+		http_response_code(429);
+		header('Retry-After: 10');
+		die('<h1>429 Too Many Requests</h1><p>Proteção Anti-Flood do Servidor Ativa: Muitas requisições enviadas simultaneamente. Por favor, aguarde 10 segundos.</p>');
+	}
+}

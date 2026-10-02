@@ -58,12 +58,13 @@ if ($prem_remaining <= 0) {
 }
 $dayOrDaysRemaining = ($prem_remaining == 1 ? 'dia' : 'dias');
 
+// Intenção: resumo de Account Status organizado sem duplicar rótulo de Premium Account
 if (!$is_premium_account) {
-	$account_status = '<b><span style="color: red">Free Account</span></b>';
+	$account_status = '<b><span style="color: #991b1b;">Free Account</span></b>';
 	$premium_status_class = 'free';
 } else {
-	$expiry_text = $prem_expires_at > 0 ? ' • expira em ' . date('d/m/Y', $prem_expires_at) : '';
-	$account_status = '<b><span style="color: green">' . $premiumLabel . ' • ' . $prem_remaining . ' ' . $dayOrDaysRemaining . ' restantes' . $expiry_text . '</span></b>';
+	$expiry_text = $prem_expires_at > 0 ? ' • Expira em ' . date('d/m/Y', $prem_expires_at) : '';
+	$account_status = '<b><span style="color: #15803d;">' . $prem_remaining . ' ' . $dayOrDaysRemaining . ' restantes' . $expiry_text . '</span></b>';
 	$premium_status_class = 'premium';
 }
 

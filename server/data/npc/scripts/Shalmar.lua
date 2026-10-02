@@ -25,6 +25,11 @@ keywordHandler:addKeyword({'offer'}, StdModule.say, {npcHandler = npcHandler, te
 keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler, text = 'A strong mind and a pure soul has no need for such items.'})
 keywordHandler:addKeyword({'rune'}, StdModule.say, {npcHandler = npcHandler, text = 'I don\'t sell this anymore, it sort of kept on confusing me to do that much work. Please talk to my assistant Asima in the next room to purchase magic goods.'})
 
+if registerVocationSpells74 then
+    registerVocationSpells74(keywordHandler, npcHandler, 'sorcerer')
+    registerVocationSpells74(keywordHandler, npcHandler, 'druid')
+end
+
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 

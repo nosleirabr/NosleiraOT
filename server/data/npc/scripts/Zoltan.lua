@@ -28,6 +28,10 @@ keywordHandler:addKeyword({'edron'}, StdModule.say, {npcHandler = npcHandler, te
 keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler, text = 'You will need no weapon if you manipulate the essence of magic.'})
 keywordHandler:addKeyword({'visit'}, StdModule.say, {npcHandler = npcHandler, text = 'You should visit Eremo on his little island. Just ask Pemaret on Cormaya for passage.'})
 
+if registerVocationSpells74 then
+    registerVocationSpells74(keywordHandler, npcHandler, 'sorcerer')
+end
+
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 

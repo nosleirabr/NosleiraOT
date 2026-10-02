@@ -76,6 +76,33 @@ $errors = array();
 $save = isset($_POST['save']) && $_POST['save'] == 1;
 if($save)
 {
+	// Anti-Macro Rate Limiter for Account Creation: 30 seconds per IP/session
+	$accountCooldown = 30;
+	$lastAccCreated = 0;
+	if (isset($_SESSION['last_account_created_time'])) {
+		$lastAccCreated = (int)$_SESSION['last_account_created_time'];
+	}
+
+	global $db;
+	$userIp = get_browser_real_ip();
+	if (isset($db)) {
+		$stmt = $db->query('SELECT MAX(`created`) AS `last_created` FROM `accounts` WHERE `creation_ip` = ' . $db->quote($userIp));
+		if ($stmt && $row = $stmt->fetch()) {
+			$dbLastCreated = (int)$row['last_created'];
+			if ($dbLastCreated > $lastAccCreated) {
+				$lastAccCreated = $dbLastCreated;
+			}
+		}
+	}
+
+	if ($lastAccCreated > 0) {
+		$timePassed = time() - $lastAccCreated;
+		if ($timePassed < $accountCooldown) {
+			$secondsLeft = $accountCooldown - $timePassed;
+			$errors['ratelimit'] = 'Proteção Anti-Macro: Por favor, aguarde ' . $secondsLeft . ' segundo(s) antes de criar outra conta a partir deste IP.';
+		}
+	}
+
 	$turnstileSecret = config('cloudflare_turnstile_secret');
 	if(!empty($turnstileSecret)) {
 		$turnstileResponse = $_POST['cf-turnstile-response'] ?? '';
@@ -277,6 +304,8 @@ if($save)
 		if((HAS_ACCOUNT_COINS_TRANSFERABLE || HAS_ACCOUNT_TRANSFERABLE_COINS) && $accountDefaultCoinsTransferable > 0) {
 			$new_account->setCustomField(ACCOUNT_COINS_TRANSFERABLE_COLUMN, $accountDefaultCoinsTransferable);
 		}
+
+		$_SESSION['last_account_created_time'] = time();
 
 		$tmp_account = $email;
 		if (!config('account_login_by_email')) {

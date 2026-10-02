@@ -35,6 +35,10 @@ keywordHandler:addKeyword({'job'}, StdModule.say, {npcHandler = npcHandler, text
 keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'My name is Tothdral. They call me \'The Seeker Beyond the Grave\'.'})
 keywordHandler:addKeyword({'mortality'}, StdModule.say, {npcHandler = npcHandler, text = 'Mortality is your curse. When you are worthy the burden of mortality will be taken from your shoulders.'})
 
+if registerVocationSpells74 then
+    registerVocationSpells74(keywordHandler, npcHandler, 'sorcerer')
+end
+
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 

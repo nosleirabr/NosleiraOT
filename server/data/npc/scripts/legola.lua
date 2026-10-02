@@ -24,6 +24,10 @@ keywordHandler:addKeyword({'member'}, StdModule.say, {npcHandler = npcHandler, t
 keywordHandler:addKeyword({'paladin'}, StdModule.say, {npcHandler = npcHandler, text = 'Paladins are great warriors and able magicians. Besides we are deadly missile fighters. Many people in Tibia want to join us.'})
 keywordHandler:addKeyword({'missile'}, StdModule.say, {npcHandler = npcHandler, text = 'Paladins are missile fighters, unequaled in Tibia!'})
 
+if registerVocationSpells74 then
+    registerVocationSpells74(keywordHandler, npcHandler, 'paladin')
+end
+
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 shopModule:addBuyableItem({'bow'}, 2456, 400, 1, 'bow')

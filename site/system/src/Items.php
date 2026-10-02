@@ -21,7 +21,7 @@ class Items
 
 	public static function loadFromXML($show = false)
 	{
-		$file_path = config('data_path') . 'items/items.xml';
+		$file_path = \config('data_path') . 'items/items.xml';
 		if (!file_exists($file_path)) {
 			self::$error = 'Cannot load file ' . $file_path;
 			return false;
@@ -43,7 +43,7 @@ class Items
 			}
 		}
 
-		$cache_php = new CachePHP(config('cache_prefix'), CACHE . 'persistent/');
+		$cache_php = new CachePHP(\config('cache_prefix'), CACHE . 'persistent/');
 		$cache_php->set('items', $items, 5 * 365 * 24 * 60 * 60);
 		return true;
 	}
@@ -70,8 +70,12 @@ class Items
 			return;
 		}
 
-		$cache_php = new CachePHP(config('cache_prefix'), CACHE . 'persistent/');
+		$cache_php = new CachePHP(\config('cache_prefix'), CACHE . 'persistent/');
 		self::$items = $cache_php->get('items');
+		if(empty(self::$items)) {
+			self::loadFromXML();
+			self::$items = $cache_php->get('items');
+		}
 	}
 
 	public static function get($id) {

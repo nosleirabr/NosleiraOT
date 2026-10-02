@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Criado para o Tiquanda Port Hope - Nosleira OT 7.4 -->
+<monster name="Sibang" nameDescription="a sibang" race="blood" experience="105" speed="90" manacost="0">
+	<health now="225" max="225" />
+	<look type="117" head="0" body="0" legs="0" feet="0" corpse="4274" />
+	<targetchange interval="1000" chance="5" />
+	<targetstrategy nearest="70" weakest="0" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="1" />
+		<flag convinceable="0" />
+		<flag pushable="0" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="0" />
+		<flag targetdistance="4" />
+		<flag runonhealth="15" />
+	</flags>
+	<attacks attack="30" skill="35">
+		<attack name="physical" range="5" chance="20" min="-10" max="-40">
+			<attribute key="shootEffect" value="smallstone" />
+		</attack>
+	</attacks>
+	<defenses armor="12" defense="15" />
+	<loot><item id="2148" countmax="35" chance="70000" /><item id="2676" countmax="5" chance="40000" /></loot>
+</monster>

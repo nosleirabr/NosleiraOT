@@ -40,6 +40,10 @@ keywordHandler:addKeyword({'hero'}, StdModule.say, {npcHandler = npcHandler, tex
 keywordHandler:addKeyword({'spellbook'}, StdModule.say, {npcHandler = npcHandler, text = 'In a spellbook, your spells are listed. There you will find the pronunciation of each spell. If you want to buy one, visit Muriel, the sorcerer.'})
 keywordHandler:addKeyword({'vocation'}, StdModule.say, {npcHandler = npcHandler, text = 'Your vocation is your profession. There are four vocations in Tibia: Knights, paladins, sorcerers, and druids.'})
 
+if registerVocationSpells74 then
+    registerVocationSpells74(keywordHandler, npcHandler, 'knight')
+end
+
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 

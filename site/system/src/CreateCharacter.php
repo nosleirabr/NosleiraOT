@@ -116,7 +116,35 @@ class CreateCharacter
 		{
 			$number_of_players_on_account = $account->getPlayersList(true)->count();
 			if($number_of_players_on_account >= setting('core.characters_per_account'))
-				$errors[] = 'You have too many characters on your account <b>('.$number_of_players_on_account . '/' . setting('core.characters_per_account') . ')</b>!';
+				$errors[] = 'You cannot create more than ' . setting('core.characters_per_account') . ' characters on one account.';
+		}
+
+		if(empty($errors))
+		{
+			// Anti-Macro Protection: 30 seconds cooldown between creating characters on the same account
+			$cooldownSeconds = 30;
+			$lastCharCreated = 0;
+
+			global $db;
+			$accId = (int)$account->getId();
+			if ($accId > 0 && isset($db)) {
+				$stmt = $db->query('SELECT MAX(`created`) AS `last_created` FROM `players` WHERE `account_id` = ' . $accId);
+				if ($stmt && $row = $stmt->fetch()) {
+					$lastCharCreated = (int)$row['last_created'];
+				}
+			}
+
+			if (isset($_SESSION['last_char_created_time']) && $_SESSION['last_char_created_time'] > $lastCharCreated) {
+				$lastCharCreated = (int)$_SESSION['last_char_created_time'];
+			}
+
+			if ($lastCharCreated > 0) {
+				$timePassed = time() - $lastCharCreated;
+				if ($timePassed < $cooldownSeconds) {
+					$secondsLeft = $cooldownSeconds - $timePassed;
+					$errors[] = 'Proteção Anti-Macro: Aguarde ' . $secondsLeft . ' segundo(s) para criar outro personagem.';
+				}
+			}
 		}
 
 		if(empty($errors))
@@ -205,6 +233,7 @@ class CreateCharacter
 
 		$player->save();
 		$player->setCustomField('created', time());
+		$_SESSION['last_char_created_time'] = time();
 
 		$player = new \OTS_Player();
 		$player->find($name);

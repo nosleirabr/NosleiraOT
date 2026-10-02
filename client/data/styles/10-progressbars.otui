@@ -32,6 +32,10 @@ ProgressRect < UIProgressRect
 
 HealthBar < ProgressBar
   background-color: #ff4444
+  text-align: left
+  text-offset: 6 1
 
 ManaBar < ProgressBar
   background-color: #4444ff
+  text-align: left
+  text-offset: 6 1

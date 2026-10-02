@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Criado para o Tiquanda Port Hope - Nosleira OT 7.4 -->
+<monster name="Terrorbird" nameDescription="a terrorbird" race="blood" experience="150" speed="100" manacost="0">
+	<health now="300" max="300" />
+	<look type="122" head="0" body="0" legs="0" feet="0" corpse="4316" />
+	<targetchange interval="1000" chance="5" />
+	<targetstrategy nearest="70" weakest="0" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="1" />
+		<flag convinceable="0" />
+		<flag pushable="0" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="0" />
+		<flag targetdistance="1" />
+		<flag runonhealth="0" />
+	</flags>
+	<attacks attack="65" skill="45" />
+	<defenses armor="15" defense="20" />
+	<loot>
+		<item id="3031" countmax="35" chance="750" /> <!-- gold coin -->
+		<item id="3577" countmax="1" chance="400" /> <!-- meat -->
+	</loot>
+</monster>

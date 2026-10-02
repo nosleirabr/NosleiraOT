@@ -26,6 +26,10 @@ keywordHandler:addKeyword({'spell'}, StdModule.say, {npcHandler = npcHandler, te
 keywordHandler:addKeyword({'edron'}, StdModule.say, {npcHandler = npcHandler, text = 'Sciences are thriving on this isle.'})
 keywordHandler:addKeyword({'excalibug'}, StdModule.say, {npcHandler = npcHandler, text = 'A myth born out of some knights\' inferiority complex.'})
 
+if registerVocationSpells74 then
+    registerVocationSpells74(keywordHandler, npcHandler, 'druid')
+end
+
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 

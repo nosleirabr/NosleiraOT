@@ -167,3 +167,4 @@ check_account.php
 reset_key.php
 test_*.php
 debug_*.php
+client/data/things/nost_temp/

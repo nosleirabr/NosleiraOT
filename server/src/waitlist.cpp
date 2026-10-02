@@ -68,7 +68,7 @@ uint32_t WaitingList::getTimeout(uint32_t slot)
 
 bool WaitingList::clientLogin(const Player* player)
 {
-	if (player->hasFlag(PlayerFlag_CanAlwaysLogin) || player->getAccountType() >= ACCOUNT_TYPE_GAMEMASTER) {
+	if (player->hasFlag(PlayerFlag_CanAlwaysLogin) || player->getAccountType() >= ACCOUNT_TYPE_TUTOR || player->getGroupId() > 1) {
 		return true;
 	}
 
@@ -80,39 +80,58 @@ bool WaitingList::clientLogin(const Player* player)
 	WaitingList::cleanupList(priorityWaitList);
 	WaitingList::cleanupList(waitList);
 
-	uint32_t slot;
-
-	WaitListIterator it = findClient(player, slot);
-	if (it != waitList.end()) {
-		if ((g_game.getPlayersOnline() + slot) <= maxPlayers) {
-			//should be able to login now
-			waitList.erase(it);
-			return true;
+	uint32_t slot = 1;
+	for (auto it = priorityWaitList.begin(); it != priorityWaitList.end(); ++it) {
+		if (it->playerGUID == player->getGUID()) {
+			if ((g_game.getPlayersOnline() + slot) <= maxPlayers) {
+				priorityWaitList.erase(it);
+				return true;
+			}
+			it->timeout = OTSYS_TIME() + (getTimeout(slot) * 1000);
+			return false;
 		}
-
-		//let them wait a bit longer
-		it->timeout = OTSYS_TIME() + (getTimeout(slot) * 1000);
-		return false;
+		++slot;
 	}
 
-	slot = priorityWaitList.size();
+	for (auto it = waitList.begin(); it != waitList.end(); ++it) {
+		if (it->playerGUID == player->getGUID()) {
+			if ((g_game.getPlayersOnline() + slot) <= maxPlayers) {
+				waitList.erase(it);
+				return true;
+			}
+			it->timeout = OTSYS_TIME() + (getTimeout(slot) * 1000);
+			return false;
+		}
+		++slot;
+	}
+
 	if (player->isPremium()) {
-		priorityWaitList.emplace_back(OTSYS_TIME() + (getTimeout(slot + 1) * 1000), player->getGUID());
+		uint32_t prioSlot = priorityWaitList.size() + 1;
+		priorityWaitList.emplace_back(OTSYS_TIME() + (getTimeout(prioSlot) * 1000), player->getGUID());
 	} else {
-		slot += waitList.size();
-		waitList.emplace_back(OTSYS_TIME() + (getTimeout(slot + 1) * 1000), player->getGUID());
+		uint32_t totalSlot = priorityWaitList.size() + waitList.size() + 1;
+		waitList.emplace_back(OTSYS_TIME() + (getTimeout(totalSlot) * 1000), player->getGUID());
 	}
 	return false;
 }
 
 uint32_t WaitingList::getClientSlot(const Player* player)
 {
-	uint32_t slot;
-	WaitListIterator it = findClient(player, slot);
-	if (it == waitList.end()) {
-		return 0;
+	uint32_t slot = 1;
+	for (const auto& w : priorityWaitList) {
+		if (w.playerGUID == player->getGUID()) {
+			return slot;
+		}
+		++slot;
 	}
-	return slot;
+
+	for (const auto& w : waitList) {
+		if (w.playerGUID == player->getGUID()) {
+			return slot;
+		}
+		++slot;
+	}
+	return 0;
 }
 
 void WaitingList::cleanupList(WaitList& list)

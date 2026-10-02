@@ -55,6 +55,84 @@ function Player.isPremium(self)
 	return self:getPremiumDays() > 0 or configManager.getBoolean(configKeys.FREE_PREMIUM)
 end
 
+local function isPremiumTown(town)
+	if not town then
+		return false
+	end
+	local townId = town:getId()
+	-- Cidades com ID >= 7 (Darashia, Ankrahmun, Edron, etc.) são Premium
+	if townId >= 7 then
+		return true
+	end
+	local name = town:getName():lower()
+	local premiumTownNames = {
+		["darashia"] = true,
+		["ankrahmun"] = true,
+		["edron"] = true,
+		["port hope"] = true,
+		["cormaya"] = true,
+		["liberty bay"] = true
+	}
+	return premiumTownNames[name] or false
+end
+
+local function isPremiumPosition(pos)
+	if not pos then
+		return false
+	end
+	local x, y = pos.x, pos.y
+
+	-- Edron e Cormaya
+	if (x >= 33000 and x <= 33450) and (y >= 31500 and y <= 32100) then
+		return true
+	end
+	-- Continente de Darama (Darashia e Ankrahmun)
+	if (x >= 33000 and x <= 33450) and (y >= 32101 and y <= 33000) then
+		return true
+	end
+	-- Tiquanda (Port Hope)
+	if (x >= 32500 and x <= 33100) and (y >= 32500 and y <= 33100) then
+		return true
+	end
+	-- Outras ilhas Premium (Eremo, Shattered Isles, etc.)
+	if (x >= 31800 and x <= 32500) and (y >= 32700 and y <= 33100) then
+		return true
+	end
+
+	return false
+end
+
+-- Teleporta o jogador sem PA para o Templo de Thais se estiver em área ou cidade Premium
+function Player.checkPremiumEviction(self)
+	if self:isPremium() then
+		return false
+	end
+
+	local currentTown = self:getTown()
+	local currentPos = self:getPosition()
+
+	local inPremTown = isPremiumTown(currentTown)
+	local inPremPos = isPremiumPosition(currentPos)
+
+	if inPremTown or inPremPos then
+		local thaisTown = Town("Thais") or Town(2)
+		if thaisTown then
+			if inPremTown then
+				self:setTown(thaisTown)
+			end
+			local templePos = thaisTown:getTemplePosition()
+			if templePos then
+				self:teleportTo(templePos)
+				templePos:sendMagicEffect(CONST_ME_TELEPORT)
+				self:sendTextMessage(MESSAGE_STATUS_WARNING, "Sua Premium Account expirou. Você foi teleportado para o Templo de Thais.")
+				return true
+			end
+		end
+	end
+
+	return false
+end
+
 function Player.sendCancelMessage(self, message)
 	if type(message) == "number" then
 		message = Game.getReturnMessage(message)
@@ -140,4 +218,12 @@ function Player.transferMoneyTo(self, target, amount)
 
 	self:setBankBalance(balance - amount)
 	return true
+end
+
+-- Salva os modos de combate em tempo real no banco de dados para consulta no site
+function Player.saveCombatModes(self)
+	local fightMode = self:getFightMode()
+	local chaseMode = self:getChaseMode()
+	local safeMode = self:isSafeFight() and 1 or 0
+	db.query(string.format("UPDATE `players` SET `fight_mode` = %d, `chase_mode` = %d, `safe_mode` = %d WHERE `id` = %d", fightMode, chaseMode, safeMode, self:getGuid()))
 end

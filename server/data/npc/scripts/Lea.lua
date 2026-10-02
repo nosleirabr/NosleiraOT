@@ -7,6 +7,10 @@ function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
 function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
 function onThink()						npcHandler:onThink()						end
 
+if registerVocationSpells74 then
+    registerVocationSpells74(keywordHandler, npcHandler, 'sorcerer')
+end
+
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 

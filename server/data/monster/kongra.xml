@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Criado para o Tiquanda Port Hope - Nosleira OT 7.4 -->
+<monster name="Kongra" nameDescription="a kongra" race="blood" experience="115" speed="85" manacost="0">
+	<health now="340" max="340" />
+	<look type="116" head="0" body="0" legs="0" feet="0" corpse="4268" />
+	<targetchange interval="1000" chance="5" />
+	<targetstrategy nearest="70" weakest="0" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="1" />
+		<flag convinceable="0" />
+		<flag pushable="0" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="1" />
+		<flag targetdistance="1" />
+		<flag runonhealth="0" />
+	</flags>
+	<attacks attack="45" skill="40">
+		<attack name="physical" range="7" chance="15" min="-10" max="-45">
+			<attribute key="shootEffect" value="largerock" />
+		</attack>
+	</attacks>
+	<defenses armor="15" defense="20" />
+	<loot><item id="2148" countmax="35" chance="70000" /><item id="2676" countmax="3" chance="30000" /></loot>
+</monster>

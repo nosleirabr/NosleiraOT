@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Criado para o Tiquanda Port Hope - Nosleira OT 7.4 -->
+<monster name="Lizard Sentinel" nameDescription="a lizard sentinel" race="blood" experience="110" speed="75" manacost="0">
+	<health now="265" max="265" />
+	<look type="113" head="0" body="0" legs="0" feet="0" corpse="4259" />
+	<targetchange interval="1000" chance="5" />
+	<targetstrategy nearest="70" weakest="0" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="1" />
+		<flag convinceable="0" />
+		<flag pushable="0" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="0" />
+		<flag targetdistance="1" />
+		<flag runonhealth="0" />
+	</flags>
+	<attacks attack="45" skill="45">
+		<attack name="physical" range="4" chance="15" min="-10" max="-35">
+			<attribute key="shootEffect" value="spear" />
+		</attack>
+	</attacks>
+	<defenses armor="16" defense="18" />
+	<loot><item id="2148" countmax="40" chance="70000" /><item id="2666" countmax="2" chance="40000" /><item id="2387" chance="10000" /></loot>
+</monster>

@@ -161,6 +161,81 @@ function getItemNameById($id) {
 	return !empty($item['name']) ? $item['name'] : '';
 }
 
+function getItemTooltipHtml($id) {
+	\MyAAC\Items::load();
+	$item = \MyAAC\Items::get($id);
+	if (empty($item)) {
+		return '';
+	}
+
+	$name = ucwords(!empty($item['name']) ? $item['name'] : 'Item ' . $id);
+	$attr = $item['attributes'] ?? [];
+
+	$stats = [];
+	if (isset($attr['attack']) && (int)$attr['attack'] > 0) {
+		$stat = 'Atk: ' . $attr['attack'];
+		if (isset($attr['defense']) && (int)$attr['defense'] > 0) {
+			$stat .= ', Def: ' . $attr['defense'];
+		}
+		$stats[] = $stat;
+	} elseif (isset($attr['defense']) && (int)$attr['defense'] > 0) {
+		$stats[] = 'Def: ' . $attr['defense'];
+	}
+
+	if (isset($attr['armor']) && (int)$attr['armor'] > 0) {
+		$stats[] = 'Arm: ' . $attr['armor'];
+	}
+
+	if (isset($attr['range']) && (int)$attr['range'] > 0) {
+		$stats[] = 'Range: ' . $attr['range'];
+	}
+
+	if (isset($attr['hitchance']) && (int)$attr['hitchance'] > 0) {
+		$stats[] = 'Hit% +' . $attr['hitchance'];
+	}
+
+	if (isset($attr['speed']) && (int)$attr['speed'] > 0) {
+		$stats[] = 'Speed +' . $attr['speed'];
+	}
+
+	if (isset($attr['magiclevelpoints']) && (int)$attr['magiclevelpoints'] > 0) {
+		$stats[] = 'Magic Level +' . $attr['magiclevelpoints'];
+	}
+
+	foreach (['skillsword' => 'Sword', 'skillaxe' => 'Axe', 'skillclub' => 'Club', 'skilldist' => 'Distance', 'skillshield' => 'Shielding'] as $key => $skillName) {
+		if (isset($attr[$key]) && (int)$attr[$key] > 0) {
+			$stats[] = $skillName . ' +' . $attr[$key];
+		}
+	}
+
+	$lines = [];
+	if (!empty($stats)) {
+		$lines[] = '<span style="color: #90EE90; font-weight: bold;">(' . implode(', ', $stats) . ')</span>';
+	}
+
+	if (!empty($attr['description'])) {
+		$lines[] = htmlspecialchars($attr['description']);
+	}
+
+	if (isset($attr['weight']) && (int)$attr['weight'] > 0) {
+		$oz = number_format($attr['weight'] / 100, 2, '.', '');
+		$lines[] = '<span style="color: #A0A0A0;">It weighs ' . $oz . ' oz.</span>';
+	}
+
+	$itemImgUrl = config('item_images_url') . $id . '.gif';
+
+	$html = '<div style="display: flex; align-items: flex-start; gap: 8px; text-align: left; font-family: Tahoma, Verdana, Arial, sans-serif; min-width: 140px; max-width: 220px; padding: 2px;">';
+	$html .= '<img src="' . $itemImgUrl . '" style="width: 28px; height: 28px; flex-shrink: 0; background: rgba(0,0,0,0.3); border: 1px solid #444; border-radius: 3px; padding: 2px;" alt="" />';
+	$html .= '<div>';
+	$html .= '<div style="color: #FFD700; font-weight: bold; font-size: 11px; margin-bottom: 2px; text-shadow: 1px 1px 1px #000;">' . htmlspecialchars($name) . '</div>';
+	if (!empty($lines)) {
+		$html .= '<div style="color: #FFFFFF; font-size: 10px; line-height: 13px; text-shadow: 1px 1px 1px #000;">' . implode('<br/>', $lines) . '</div>';
+	}
+	$html .= '</div></div>';
+
+	return $html;
+}
+
 function getItemImage($id, $count = 1)
 {
 	$tooltip = '';

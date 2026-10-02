@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Criado para o Tiquanda Port Hope - Nosleira OT 7.4 -->
+<monster name="Lizard Templar" nameDescription="a lizard templar" race="blood" experience="155" speed="80" manacost="0">
+	<health now="410" max="410" />
+	<look type="114" head="0" body="0" legs="0" feet="0" corpse="4256" />
+	<targetchange interval="1000" chance="5" />
+	<targetstrategy nearest="70" weakest="0" mostdamage="30" random="0" />
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="1" />
+		<flag convinceable="0" />
+		<flag pushable="0" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="1" />
+		<flag targetdistance="1" />
+		<flag runonhealth="0" />
+	</flags>
+	<attacks attack="65" skill="50" />
+	<defenses armor="22" defense="25" />
+	<loot><item id="2148" countmax="40" chance="70000" /><item id="2666" countmax="2" chance="40000" /><item id="2376" chance="10000" /></loot>
+</monster>

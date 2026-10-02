@@ -18,6 +18,10 @@ keywordHandler:addKeyword({'time'}, StdModule.say, {npcHandler = npcHandler, tex
 keywordHandler:addKeyword({'name'}, StdModule.say, {npcHandler = npcHandler, text = 'I am Trisha Ironfist.'})
 keywordHandler:addKeyword({'vocation'}, StdModule.say, {npcHandler = npcHandler, text = 'Your vocation is your profession. There are four vocations in Tibia: Knights, paladins, sorcerers, and druids.'})
 
+if registerVocationSpells74 then
+    registerVocationSpells74(keywordHandler, npcHandler, 'knight')
+end
+
 local shopModule = ShopModule:new()
 npcHandler:addModule(shopModule)
 

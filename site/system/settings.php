@@ -775,7 +775,7 @@ Sent by MyAAC,<br/>
 			'name' => 'Characters per Account',
 			'type' => 'number',
 			'desc' => 'Max. number of characters per account',
-			'default' => 10,
+			'default' => 20,
 		],
 		'create_character' => [
 			'type' => 'section',
