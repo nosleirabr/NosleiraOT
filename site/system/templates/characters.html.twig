@@ -316,12 +316,18 @@
 
 								<!-- Panel 3: Outfits -->
 								<div style="width: 178px; height: 232px; background: url('images/outfitbackgrounds.png') no-repeat; position: relative; color: #c0c0c0; font-family: Tahoma, sans-serif; font-size: 11px;">
-									<div style="position: absolute; top: 6px; left: 10px;">Total outfits: 1</div>
+									{% set is_male = player.getSex() == 1 %}
+									{% set outfit_ids = is_male ? [128, 129, 130, 131, 132, 133, 134] : [136, 137, 138, 139, 140, 141, 142] %}
+									<div style="position: absolute; top: 6px; left: 10px;">Total outfits: {{ outfit_ids|length }}</div>
 									<div style="position: absolute; top: 6px; right: 10px;">Outfits</div>
 									
-									<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-										{% set outfit_url = config('outfit_images_url') ~ '?id=' ~ player.getLookType() ~ '&head=' ~ player.getLookHead() ~ '&body=' ~ player.getLookBody() ~ '&legs=' ~ player.getLookLegs() ~ '&feet=' ~ player.getLookFeet() %}
-										<img src="{{ outfit is not empty ? outfit : outfit_url }}" alt="Outfit" />
+									<div style="position: absolute; top: 30px; left: 4px; right: 4px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding-top: 10px;">
+										{% for oid in outfit_ids %}
+											{% set url = config('outfit_images_url') ~ '?id=' ~ oid ~ '&head=' ~ player.getLookHead() ~ '&body=' ~ player.getLookBody() ~ '&legs=' ~ player.getLookLegs() ~ '&feet=' ~ player.getLookFeet() %}
+											<div style="width: 32px; height: 48px; overflow: hidden; position: relative;">
+												<img src="{{ url }}" alt="Outfit" style="position: absolute; margin-top: -50px; margin-left: -30px; max-width: none;" />
+											</div>
+										{% endfor %}
 									</div>
 								</div>
 							</div>
@@ -761,7 +767,7 @@
 					{% set i = i + 1 %}
 				<tr bgcolor="{{ getStyle(i) }}">
 					<td align="center" style="vertical-align: middle; padding: 0;">
-						<div style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; margin: 0 auto; overflow: visible;"><img src="{{ p.outfit }}" alt="" style="max-width: 44px; max-height: 44px; object-fit: contain; display: block;" /></div>
+						<div style="width: 32px; height: 48px; overflow: hidden; margin: 0 auto; position: relative;"><img src="{{ p.outfit }}" alt="" style="position: absolute; margin-top: -50px; margin-left: -30px;" /></div>
 					</td>
 					<td style="vertical-align: middle;">
 						<nobr>{{ i }}.&#160;{{ p.name }}{% if p.isDeleted %}<span style="color: red"> [DELETED]</span>{% endif %}</nobr>
@@ -840,6 +846,8 @@ function setGodCopied(btn) {
 	}, 1500);
 }
 </script>
+
+
 
 
 
