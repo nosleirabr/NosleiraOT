@@ -567,17 +567,21 @@
 
 		<br/>
 		{% set exp_graph_html %}
-				<div class="TableShadowContainerRightTop">
+		<div class="TableShadowContainerRightTop">
 			<div class="TableShadowRightTop" style="background-image:url({{ template_path }}/images/content/table-shadow-rt.gif);"></div>
 		</div>
 		<div class="TableContentAndRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-rm.gif);">
 			<div class="TableContentContainer">
-				<table class="TableContent" width="100%"><tr><td align="center" style="padding: 10px; background-color: {{ config.lightborder }};">
-			<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-			<div style="width: 510px; max-width: 100%; height: 250px; position: relative; overflow: hidden; margin: 0 auto;">
-				<canvas id="exp_chart_canvas" style="width: 100% !important; height: 250px !important;"></canvas>
-			</td></tr>
+				<table class="TableContent" width="100%">
+					<tr>
+						<td align="center" style="padding: 6px; background-color: {{ config.darkborder }};">
+							<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+							<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+							<div style="width: 100%; height: 260px; position: relative;">
+								<canvas id="exp_chart_canvas" style="width: 100% !important; height: 260px !important;"></canvas>
+							</div>
+						</td>
+					</tr>
 				</table>
 			</div>
 		</div>
@@ -587,84 +591,122 @@
 				<div class="TableBottomRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-br.gif);"></div>
 			</div>
 		</div>
-			<script type="text/javascript">
-			  document.addEventListener("DOMContentLoaded", function() {
-				var ctx = document.getElementById('exp_chart_canvas').getContext('2d');
-				
-				var labels = [
-				  {% for exp in exp_history|reverse %}
-				  '{{ exp.date }}',
-				  {% endfor %}
-				];
-				
-				var dataPoints = [
-				  {% for exp in exp_history|reverse %}
-				  {{ exp.exp_diff }},
-				  {% endfor %}
-				];
+		<script type="text/javascript">
+		  document.addEventListener("DOMContentLoaded", function() {
+			var ctx = document.getElementById('exp_chart_canvas').getContext('2d');
+			
+			var labels = [
+			  {% for exp in exp_history|reverse %}
+			  {% if exp.date != 'Today' %}
+			  '{{ exp.date }}',
+			  {% endif %}
+			  {% endfor %}
+			];
+			
+			var dataPoints = [
+			  {% for exp in exp_history|reverse %}
+			  {% if exp.date != 'Today' %}
+			  {{ exp.exp_diff }},
+			  {% endif %}
+			  {% endfor %}
+			];
 
-				Chart.register(ChartDataLabels);
+			var minVal = Math.min.apply(null, dataPoints);
+			var maxVal = Math.max.apply(null, dataPoints);
+			var yMin = minVal < 0 ? minVal : 0;
+			var yMax = maxVal > 1 ? maxVal : 1;
+			var step = (maxVal <= 1 && minVal >= 0) ? 0.1 : undefined;
 
-				var chart = new Chart(ctx, {
-				  type: 'line',
-				  data: {
-					labels: labels,
-					datasets: [{
-					  label: 'Player Experience Graphic History',
-					  data: dataPoints,
-					  fill: false,
-					  pointBackgroundColor: function(context) {
-						var value = context.dataset.data[context.dataIndex];
-						return value < 0 ? 'red' : '#32CD32';
-					  },
-					  pointBorderColor: function(context) {
-						var value = context.dataset.data[context.dataIndex];
-						return value < 0 ? 'darkred' : 'darkgreen';
-					  },
-					  segment: {
-						borderColor: function(context) {
-						  return context.p1.parsed.y < 0 ? 'red' : '#32CD32';
-						}
-					  },
-					  backgroundColor: '#32CD32',
-					  borderColor: '#32CD32',
-					  borderWidth: 1.5,
-					  pointRadius: 4,
-					  pointHoverRadius: 6
-					}]
+			Chart.register(ChartDataLabels);
+
+			var chart = new Chart(ctx, {
+			  type: 'line',
+			  data: {
+				labels: labels,
+				datasets: [{
+				  label: 'Player Experience Graphic History',
+				  data: dataPoints,
+				  fill: false,
+				  pointBackgroundColor: function(context) {
+					var value = context.dataset.data[context.dataIndex];
+					return value < 0 ? 'red' : '#32CD32';
 				  },
-				  options: {
-					responsive: false,
-					maintainAspectRatio: false,
-					layout: {
-					  padding: { top: 30, bottom: 10, left: 10, right: 10 }
-					},
-					plugins: {
-					  legend: { position: 'top', labels: { color: '#666', font: { size: 12, family: 'Arial' }, boxWidth: 40 } },
-					  datalabels: {
-						align: function(context) { return context.dataset.data[context.dataIndex] < 0 ? 'bottom' : 'top'; },
-						offset: 4,
-						color: function(context) { return context.dataset.data[context.dataIndex] < 0 ? 'red' : 'green'; },
-						font: { weight: 'bold', size: 11 },
-						formatter: function(value) { return value.toLocaleString('pt-BR'); }
-					  },
-					  tooltip: {
-						callbacks: {
-						  label: function(context) { return ' Exp: ' + context.parsed.y.toLocaleString('pt-BR'); }
-						}
-					  }
-					},
-					scales: {
-					  y: { grid: { color: 'rgba(0, 0, 0, 0.05)' }, ticks: { color: '#666' } },
-					  x: { grid: { color: 'rgba(0, 0, 0, 0.05)' }, ticks: { color: '#666' } }
+				  pointBorderColor: function(context) {
+					var value = context.dataset.data[context.dataIndex];
+					return value < 0 ? 'darkred' : 'darkgreen';
+				  },
+				  segment: {
+					borderColor: function(context) {
+					  return context.p1.parsed.y < 0 ? 'red' : '#32CD32';
+					}
+				  },
+				  backgroundColor: '#32CD32',
+				  borderColor: '#32CD32',
+				  borderWidth: 1.5,
+				  pointRadius: 4,
+				  pointHoverRadius: 6
+				}]
+			  },
+			  options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				layout: {
+				  padding: { top: 30, bottom: 5, left: 10, right: 15 }
+				},
+				plugins: {
+				  legend: {
+					position: 'top',
+					labels: {
+					  color: '#666',
+					  font: { size: 12, family: 'Arial' },
+					  boxWidth: 40
+					}
+				  },
+				  datalabels: {
+					align: function(context) { return context.dataset.data[context.dataIndex] < 0 ? 'bottom' : 'top'; },
+					offset: 4,
+					color: function(context) { return context.dataset.data[context.dataIndex] < 0 ? 'red' : 'green'; },
+					font: { weight: 'bold', size: 11 },
+					formatter: function(value) { return value.toLocaleString('pt-BR'); }
+				  },
+				  tooltip: {
+					callbacks: {
+					  label: function(context) { return ' Exp: ' + context.parsed.y.toLocaleString('pt-BR'); }
 					}
 				  }
-				});
-			  });
-			</script>
-		</div>
+				},
+				scales: {
+				  y: {
+					min: yMin,
+					suggestedMax: yMax,
+					grid: { color: 'rgba(0, 0, 0, 0.05)' },
+					ticks: {
+					  stepSize: step,
+					  color: '#666',
+					  callback: function(value) {
+						if (value === 0) return '0';
+						if (value % 1 === 0 && Math.abs(value) >= 1) return value.toLocaleString('pt-BR');
+						return value.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+					  }
+					}
+				  },
+				  x: {
+					grid: { color: 'rgba(0, 0, 0, 0.05)' },
+					ticks: {
+					  color: '#666',
+					  maxRotation: 0,
+					  minRotation: 0,
+					  autoSkip: false,
+					  font: { size: 10 }
+					}
+				  }
+				}
+			  }
+			});
+		  });
+		</script>
 		{% endset %}
-		{% include 'tables.headline.html.twig' with {'title': 'General Experience Records Graph', 'content': exp_graph_html} %}
+		{% include 'tables.headline.html.twig' with {'title': 'General Experience Records Graph', 'content': exp_graph_html, 'background': config.darkborder} %}
 		<!-- EXP HISTORY_END -->
 		{% endif %}
 

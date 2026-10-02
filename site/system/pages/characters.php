@@ -564,7 +564,44 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 		}
 	}
 
+	$exp_history_data = array();
+	if($db->hasTable('player_experience')) {
+		$history_raw = $db->query("SELECT `experience`, `date` FROM `player_experience` WHERE `player_id` = " . $player->getId() . " ORDER BY `date` DESC LIMIT 10")->fetchAll();
+		$history_by_date = array();
+		foreach($history_raw as $h) {
+			$history_by_date[date('Y-m-d', $h['date'])] = $h['experience'];
+		}
+		
+		$current_exp = $player->getExperience();
+		$today_date = date('Y-m-d');
+		$today_start_exp = isset($history_by_date[$today_date]) ? $history_by_date[$today_date] : $current_exp;
+		$exp_today = $current_exp - $today_start_exp;
+		
+		$exp_history_data[] = array(
+			'date' => 'Today',
+			'exp_diff' => $exp_today
+		);
+		
+		for($i = 1; $i <= 7; $i++) {
+			$d1 = date('Y-m-d', strtotime("-$i days"));
+			$d2 = date('Y-m-d', strtotime("-" . ($i - 1) . " days"));
+			
+			$exp1 = isset($history_by_date[$d1]) ? $history_by_date[$d1] : 0;
+			$exp2 = isset($history_by_date[$d2]) ? $history_by_date[$d2] : 0;
+			
+			$diff = 0;
+			if($exp1 > 0 && $exp2 > 0) {
+				$diff = $exp2 - $exp1;
+			}
+			$exp_history_data[] = array(
+				'date' => date('d/m/Y', strtotime("-$i days")),
+				'exp_diff' => $diff
+			);
+		}
+	}
+
 	$twig->display('characters.html.twig', array(
+		'exp_history' => $exp_history_data,
 		'player_ranks' => $player_ranks,
 		'outfit' => isset($outfit) ? $outfit : null,
 		'player' => $player,
