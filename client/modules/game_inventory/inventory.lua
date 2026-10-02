@@ -282,6 +282,21 @@ function update()
     local pvpMode = g_game.getPVPMode()
     local pvpWidget = getPVPBoxByMode(pvpMode)
   end
+
+  sendCombatModesToServer()
+end
+
+function sendCombatModesToServer()
+  if not g_game.isOnline() then return end
+  local fightMode = g_game.getFightMode()
+  local chaseMode = g_game.getChaseMode()
+  local safeFight = g_game.isSafeFight() and 1 or 0
+  local data = {
+    fightMode = fightMode,
+    chaseMode = chaseMode,
+    safeMode = safeFight
+  }
+  g_game.sendExtendedOpcode(50, json.encode(data))
 end
 
 function check()
