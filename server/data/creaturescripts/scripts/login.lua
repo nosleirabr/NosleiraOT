@@ -61,7 +61,6 @@ function onLogin(player)
 
 	-- Verificar despejo de área Premium se a PA expirou
 	player:checkPremiumEviction()
-	player:saveCombatModes()
 
 	-- Events
 	for i = 1, #events do

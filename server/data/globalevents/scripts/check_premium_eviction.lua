@@ -5,7 +5,6 @@ function onThink(interval)
 		local player = onlinePlayers[i]
 		if player then
 			player:checkPremiumEviction()
-			player:saveCombatModes()
 		end
 	end
 	return true

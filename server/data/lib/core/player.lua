@@ -219,11 +219,3 @@ function Player.transferMoneyTo(self, target, amount)
 	self:setBankBalance(balance - amount)
 	return true
 end
-
--- Salva os modos de combate em tempo real no banco de dados para consulta no site
-function Player.saveCombatModes(self)
-	local fightMode = self:getFightMode()
-	local chaseMode = self:getChaseMode()
-	local safeMode = self:isSafeFight() and 1 or 0
-	db.query(string.format("UPDATE `players` SET `fight_mode` = %d, `chase_mode` = %d, `safe_mode` = %d WHERE `id` = %d", fightMode, chaseMode, safeMode, self:getGuid()))
-end
