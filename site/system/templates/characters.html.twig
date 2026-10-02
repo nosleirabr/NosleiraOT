@@ -321,11 +321,9 @@
 									<div style="position: absolute; top: 6px; left: 10px;">Total outfits: 1</div>
 									<div style="position: absolute; top: 6px; right: 10px;">Outfits</div>
 									
-									<div style="position: absolute; top: 30px; left: 4px; right: 4px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding-top: 10px;">
+									<div style="position: absolute; top: 30px; left: 0; width: 100%; height: 190px; display: flex; align-items: center; justify-content: center;">
 										{% set url = config('outfit_images_url') ~ '?id=' ~ player.getLookType() ~ '&head=' ~ player.getLookHead() ~ '&body=' ~ player.getLookBody() ~ '&legs=' ~ player.getLookLegs() ~ '&feet=' ~ player.getLookFeet() %}
-										<div style="width: 32px; height: 48px; overflow: hidden; position: relative;">
-											<img src="{{ url }}" alt="Outfit" style="position: absolute; margin-top: -50px; margin-left: -30px; max-width: none;" />
-										</div>
+										<img src="{{ url }}" alt="Outfit" style="display: block; max-width: 64px; max-height: 64px;" />
 									</div>
 								</div>
 							</div>
@@ -541,14 +539,20 @@
 				{% for exp in exp_history %}
 				{% set i = i + 1 %}
 				<tr bgcolor="{{ getStyle(i) }}">
-					<td width="25%" align="center"><b>{% if exp.date == 'Today' %}<span style="color: #5A2800">EXP Today</span>{% else %}{{ exp.date }}{% endif %}</b></td>
-					<td>
-						{% if exp.exp_diff > 0 %}
-							<span style="color: #008000; font-weight: bold;">+{{ exp.exp_diff|number_format(0, '.', '.') }} (Gain Experience)</span>
-						{% elseif exp.exp_diff < 0 %}
-							<span style="color: red; font-weight: bold;">{{ exp.exp_diff|number_format(0, '.', '.') }} (Lose Experience)</span>
+					<td width="22%" align="center" style="font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #5A2800;">
+						{% if exp.date == 'Today' %}
+							<b><u>EXP Today</u></b>
 						{% else %}
-							<span style="color: #5A2800;">not gain exp (No Experience)</span>
+							{{ exp.date }}
+						{% endif %}
+					</td>
+					<td style="font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #5A2800; padding-left: 10px;">
+						{% if exp.exp_diff > 0 %}
+							<span style="color: #008000; font-weight: bold;">+{{ exp.exp_diff|number_format(0, '.', '.') }}</span> (<b>G</b>ain <b>E</b>xperience)
+						{% elseif exp.exp_diff < 0 %}
+							<span style="color: #E60000; font-weight: bold;">{{ exp.exp_diff|number_format(0, '.', '.') }}</span> (<b>L</b>ose <b>E</b>xperience)
+						{% else %}
+							not gain exp (<b>N</b>o <b>E</b>xperience)
 						{% endif %}
 					</td>
 				</tr>
@@ -574,11 +578,11 @@
 			<div class="TableContentContainer">
 				<table class="TableContent" width="100%" style="table-layout: fixed;">
 					<tr>
-						<td align="center" style="padding: 6px; background-color: {{ config.darkborder }};">
+						<td align="center" style="padding: 6px; background-color: {{ config.lightborder }};">
 							<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 							<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-							<div style="width: 510px; max-width: 100%; height: 260px; position: relative; overflow: hidden; margin: 0 auto;">
-								<canvas id="exp_chart_canvas" width="510" height="260" style="display: block; width: 510px !important; height: 260px !important; margin: 0 auto;"></canvas>
+							<div style="width: 530px; max-width: 100%; height: 260px; position: relative; overflow: hidden; margin: 0 auto;">
+								<canvas id="exp_chart_canvas" width="530" height="260" style="display: block; width: 530px !important; height: 260px !important; margin: 0 auto;"></canvas>
 							</div>
 						</td>
 					</tr>
@@ -611,12 +615,6 @@
 			  {% endfor %}
 			];
 
-			var minVal = Math.min.apply(null, dataPoints);
-			var maxVal = Math.max.apply(null, dataPoints);
-			var yMin = minVal < 0 ? minVal : 0;
-			var yMax = maxVal > 1 ? maxVal : 1;
-			var step = (maxVal <= 1 && minVal >= 0) ? 0.1 : undefined;
-
 			Chart.register(ChartDataLabels);
 
 			var chart = new Chart(ctx, {
@@ -629,18 +627,18 @@
 				  fill: false,
 				  pointBackgroundColor: function(context) {
 					var value = context.dataset.data[context.dataIndex];
-					return value < 0 ? 'red' : '#32CD32';
+					return value < 0 ? '#E60000' : '#00B000';
 				  },
 				  pointBorderColor: function(context) {
 					var value = context.dataset.data[context.dataIndex];
-					return value < 0 ? 'darkred' : 'darkgreen';
+					return value < 0 ? '#CC0000' : '#009000';
 				  },
 				  segment: {
 					borderColor: function(context) {
-					  return context.p1.parsed.y < 0 ? 'red' : '#32CD32';
+					  return context.p1.parsed.y < 0 ? '#E60000' : '#32CD32';
 					}
 				  },
-				  backgroundColor: '#32CD32',
+				  backgroundColor: '#50C878',
 				  borderColor: '#32CD32',
 				  borderWidth: 1.5,
 				  pointRadius: 4,
@@ -657,47 +655,46 @@
 				  legend: {
 					position: 'top',
 					labels: {
-					  color: '#666',
-					  font: { size: 12, family: 'Arial' },
+					  color: '#555',
+					  font: { size: 12, family: 'Verdana, Arial, sans-serif' },
 					  boxWidth: 40
 					}
 				  },
 				  datalabels: {
-					align: function(context) { return context.dataset.data[context.dataIndex] < 0 ? 'bottom' : 'top'; },
+					align: 'top',
 					offset: 4,
-					color: function(context) { return context.dataset.data[context.dataIndex] < 0 ? 'red' : 'green'; },
-					font: { weight: 'bold', size: 11 },
-					formatter: function(value) { return value.toLocaleString('pt-BR'); }
+					color: function(context) { return context.dataset.data[context.dataIndex] < 0 ? '#CC0000' : '#008000'; },
+					font: { weight: 'bold', size: 11, family: 'Verdana, Arial, sans-serif' },
+					formatter: function(value) {
+					  if (value > 0) return '+' + value.toLocaleString('pt-BR');
+					  if (value < 0) return value.toLocaleString('pt-BR');
+					  return '0';
+					}
 				  },
 				  tooltip: {
 					callbacks: {
-					  label: function(context) { return ' Exp: ' + context.parsed.y.toLocaleString('pt-BR'); }
+					  label: function(context) { return ' Exp: ' + (context.parsed.y > 0 ? '+' : '') + context.parsed.y.toLocaleString('pt-BR'); }
 					}
 				  }
 				},
 				scales: {
 				  y: {
-					min: yMin,
-					suggestedMax: yMax,
-					grid: { color: 'rgba(0, 0, 0, 0.05)' },
+					grid: { color: 'rgba(0, 0, 0, 0.08)' },
 					ticks: {
-					  stepSize: step,
 					  color: '#666',
 					  callback: function(value) {
-						if (value === 0) return '0';
-						if (value % 1 === 0 && Math.abs(value) >= 1) return value.toLocaleString('pt-BR');
-						return value.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+						return value.toLocaleString('pt-BR');
 					  }
 					}
 				  },
 				  x: {
-					grid: { color: 'rgba(0, 0, 0, 0.05)' },
+					grid: { color: 'rgba(0, 0, 0, 0.08)' },
 					ticks: {
 					  color: '#666',
 					  maxRotation: 0,
 					  minRotation: 0,
 					  autoSkip: false,
-					  font: { size: 10 }
+					  font: { size: 11, family: 'Verdana, Arial, sans-serif' }
 					}
 				  }
 				}
@@ -706,7 +703,7 @@
 		  });
 		</script>
 		{% endset %}
-		{% include 'tables.headline.html.twig' with {'title': 'General Experience Records Graph', 'content': exp_graph_html, 'background': config.darkborder} %}
+		{% include 'tables.headline.html.twig' with {'title': 'General Experience Records Graph', 'content': exp_graph_html} %}
 		<!-- EXP HISTORY_END -->
 		{% endif %}
 
@@ -795,26 +792,28 @@
 			<div class="TableContentContainer">
 				<table class="TableContent" width="100%">
 				<tr bgcolor="{{ config.darkborder }}">
-					<td width="64px" align="center"><b>Outfit</b></td>
-					<td width="40%"><b>Name</b></td>
-					<td width="25%"><b>World</b></td>
-					<td width="15%"><b>Status</b></td>
-					<td align="right"><b>&#160;</b></td>
+					<td width="55px" align="center" style="border: 1px solid #FAF0D7; padding: 4px;"><b>Outfit</b></td>
+					<td width="35%" style="border: 1px solid #FAF0D7; padding: 4px 8px;"><b>Name</b></td>
+					<td width="25%" style="border: 1px solid #FAF0D7; padding: 4px 8px;"><b>World</b></td>
+					<td width="20%" style="border: 1px solid #FAF0D7; padding: 4px 8px;"><b>Status</b></td>
+					<td width="20%" align="center" style="border: 1px solid #FAF0D7; padding: 4px;"><b>&#160;</b></td>
 				</tr>
 				{% set i = 0 %}
 				{% for p in account_players %}
 					{% if not p.player.isHidden() and (config('characters')['deleted'] or not p.isDeleted) %}
 					{% set i = i + 1 %}
 				<tr bgcolor="{{ getStyle(i) }}">
-					<td align="center" style="vertical-align: middle; padding: 0;">
-						<img src="{{ p.outfit }}" alt="" />
+					<td width="55px" align="center" style="vertical-align: middle; padding: 2px 0; border: 1px solid #FAF0D7;">
+						<div style="width: 32px; height: 34px; overflow: hidden; margin: 0 auto; position: relative;">
+							<img src="{{ p.outfit }}" alt="" style="position: absolute; top: -30px; left: -32px; max-width: none;" />
+						</div>
 					</td>
-					<td style="vertical-align: middle;">
+					<td style="vertical-align: middle; border: 1px solid #FAF0D7; padding: 4px 8px; font-size: 11px;">
 						<nobr>{{ i }}.&#160;{{ p.name }}{% if p.isDeleted %}<span style="color: red"> [DELETED]</span>{% endif %}</nobr>
 					</td>
-					<td style="vertical-align: middle;">{{ config['server_name'] ?? 'NosleiraOT' }}</td>
-					<td style="vertical-align: middle;">{% if bannedUntil %}<span style="color: #E60000; font-weight: bold;">Banished</span>{% elseif p.isOnline %}<b><span style="color: green">Online</span></b>{% endif %}</td>
-					<td align="right" style="vertical-align: middle; padding-right: 8px;">
+					<td style="vertical-align: middle; border: 1px solid #FAF0D7; padding: 4px 8px; font-size: 11px;">{{ config['server_name'] ?? 'NosleiraOT' }}</td>
+					<td style="vertical-align: middle; border: 1px solid #FAF0D7; padding: 4px 8px; font-size: 11px;">{% if p.isOnline %}<b><span style="color: green">Online</span></b>{% endif %}</td>
+					<td align="center" style="vertical-align: middle; border: 1px solid #FAF0D7; padding: 4px;">
 						<form action="{{ getLink('characters') }}" method="post" style="margin: 0; padding: 0;">
 							{{ csrf() }}
 							<input type="hidden" name="name" value="{{ p.name }}"/>
