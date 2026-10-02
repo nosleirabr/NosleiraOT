@@ -658,7 +658,39 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 		}
 	}
 
+	$cModes = $db->query('SELECT `fight_mode`, `chase_mode`, `safe_mode` FROM `players` WHERE `id` = ' . (int)$player->getId())->fetch();
+	$fight_mode = isset($cModes['fight_mode']) ? (int)$cModes['fight_mode'] : 2;
+	$chase_mode = isset($cModes['chase_mode']) ? (int)$cModes['chase_mode'] : 0;
+	$safe_mode = isset($cModes['safe_mode']) ? (int)$cModes['safe_mode'] : 1;
+
+	$fight_mode_text = 'Balanced ⚔️ (Modo Equilibrado)';
+	if ($fight_mode === 1) {
+		$fight_mode_text = 'Full Attack 🗡️ (Ataque Total)';
+	} elseif ($fight_mode === 3) {
+		$fight_mode_text = 'Defensive 🛡️ (Modo Defensivo)';
+	}
+
+	$chase_mode_text = 'Stand Ground ✋ (Ficar Parado)';
+	if ($chase_mode === 1) {
+		$chase_mode_text = 'Chase Opponent 🏃 (Correr Atrás)';
+	}
+
+	$safe_mode_text = 'Safe Fight 🕊️ (Modo Seguro)';
+	if ($safe_mode === 0) {
+		$safe_mode_text = 'PvP Enabled 👊 (Mão Fechada / Combate)';
+	}
+
+	$combat_status = [
+		'fight_mode' => $fight_mode,
+		'fight_mode_text' => $fight_mode_text,
+		'chase_mode' => $chase_mode,
+		'chase_mode_text' => $chase_mode_text,
+		'safe_mode' => $safe_mode,
+		'safe_mode_text' => $safe_mode_text
+	];
+
 	$twig->display('characters.html.twig', array(
+		'combat_status' => $combat_status,
 		'player_conditions' => $player_conditions,
 		'exp_history' => $exp_history_data,
 		'player_ranks' => $player_ranks,

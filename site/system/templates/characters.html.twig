@@ -181,6 +181,22 @@
 					<td>{{ town }}</td>
 				</tr>
 
+				{% if combat_status is defined and combat_status is not null %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td style="white-space: nowrap;">Modo de Luta (In-Game):</td>
+					<td>
+						<span style="display: inline-flex; gap: 8px; align-items: center; background: #F1E0C6; border: 1px solid #D4C0A1; padding: 3px 8px; border-radius: 4px; font-size: 11px;">
+							<span title="Modo de Ataque"><b>{{ combat_status.fight_mode_text }}</b></span>
+							<span style="color: #999;">|</span>
+							<span title="Modo de Perseguição"><b>{{ combat_status.chase_mode_text }}</b></span>
+							<span style="color: #999;">|</span>
+							<span title="Modo de Segurança / PvP"><b>{{ combat_status.safe_mode_text }}</b></span>
+						</span>
+					</td>
+				</tr>
+				{% endif %}
+
 				{% if house.found %}
 				{% set rows = rows + 1 %}
 				<tr bgcolor="{{ getStyle(rows) }}">
