@@ -78,8 +78,31 @@ if($player->isLoaded() && !$player->isDeleted())
 	$account = $player->getAccount();
 	$rows = 0;
 
-	if($config['characters']['outfit'])
+	if($config['characters']['outfit']) {
 		$outfit = setting('core.outfit_images_url') . '?id=' . $player->getLookType() . ($db->hasColumn('players', 'lookaddons') ? '&addons=' . $player->getLookAddons() : '') . '&head=' . $player->getLookHead() . '&body=' . $player->getLookBody() . '&legs=' . $player->getLookLegs() . '&feet=' . $player->getLookFeet();
+		
+		$outfits_list = array();
+		$baseUrl = setting('core.outfit_images_url');
+		$lookAddons = $db->hasColumn('players', 'lookaddons') ? '&addons=' . $player->getLookAddons() : '';
+		$h = $player->getLookHead();
+		$b = $player->getLookBody();
+		$l = $player->getLookLegs();
+		$f = $player->getLookFeet();
+
+		$outfits_list[] = $baseUrl . '?id=' . $player->getLookType() . $lookAddons . '&head=' . $h . '&body=' . $b . '&legs=' . $l . '&feet=' . $f;
+		
+		$sex = $player->getSex();
+		$base_types = ($sex == 1) ? array(128, 129, 130, 131, 132, 133, 134, 143, 144, 145, 146) : array(136, 137, 138, 139, 140, 141, 142, 147, 148, 149, 150);
+		
+		if ($db->hasTable('player_storage')) {
+			$st_q = $db->query('SELECT `key`, `value` FROM `player_storage` WHERE `player_id` = ' . $player->getId() . ' AND `key` >= 10000 AND `key` <= 20000');
+			foreach($st_q as $st) {
+				if ((int)$st['value'] > 0 && in_array((int)$st['key'], $base_types) && (int)$st['key'] != $player->getLookType()) {
+					$outfits_list[] = $baseUrl . '?id=' . (int)$st['key'] . $lookAddons . '&head=' . $h . '&body=' . $b . '&legs=' . $l . '&feet=' . $f;
+				}
+			}
+		}
+	}
 
 	$flag = '';
 	if(setting('core.account_country')) {
@@ -163,7 +186,6 @@ if($player->isLoaded() && !$player->isDeleted())
 			$skills_db = $db->query('SELECT `maglevel`, `skill_fist`, `skill_club`, `skill_sword`, `skill_axe`, `skill_dist`, `skill_shielding`, `skill_fishing` FROM `players` WHERE `id` = ' . $player->getId())->fetch();
 
 			$skill_ids = array(
-				POT::SKILL_MAGIC => 'maglevel',
 				POT::SKILL_FIST => 'skill_fist',
 				POT::SKILL_CLUB => 'skill_club',
 				POT::SKILL_SWORD => 'skill_sword',
@@ -230,8 +252,44 @@ if($player->isLoaded() && !$player->isDeleted())
 				'id' => $item_id,
 				'name' => getItemNameById($item_id),
 				'desc' => $item_desc,
+				'tooltip' => getItemTooltipHtml($item_id),
 				'html' => '<img src="' . $img_src . '" alt="item"/>'
 			];
+		}
+	}
+
+	// Carregar condições do jogador em tempo real (PK, Red Skull, Battle, PZ, etc.)
+	$player_conditions = [];
+	$condRow = $db->query('SELECT `skull`, `skulltime` FROM `players` WHERE `id` = ' . (int)$player->getId())->fetch();
+	$p_skull = isset($condRow['skull']) ? (int)$condRow['skull'] : (int)$player->getSkull();
+	if ($p_skull === 3) {
+		$player_conditions[] = ['icon' => 'images/states/skull_white.png', 'title' => 'PK (White Skull)'];
+	} elseif ($p_skull === 4) {
+		$player_conditions[] = ['icon' => 'images/states/skull_red.png', 'title' => 'Red Skull'];
+	} elseif ($p_skull === 5) {
+		$player_conditions[] = ['icon' => 'images/states/skull_black.png', 'title' => 'Black Skull'];
+	} elseif ($p_skull === 1) {
+		$player_conditions[] = ['icon' => 'images/states/skull_yellow.png', 'title' => 'Yellow Skull'];
+	} elseif ($p_skull === 2) {
+		$player_conditions[] = ['icon' => 'images/states/skull_green.png', 'title' => 'Green Skull'];
+	}
+
+	// Condições temporárias (Battle, PZ, Magic Shield, Haste) somente existem se o jogador estiver ONLINE
+	if ($player->isOnline()) {
+		$stateRow = $db->query('SELECT `in_fight`, `in_pz`, `pz_locked`, `manashield`, `haste` FROM `player_online_states` WHERE `player_id` = ' . (int)$player->getId())->fetch();
+		if ($stateRow) {
+			if (!empty($stateRow['in_fight']) || !empty($stateRow['pz_locked'])) {
+				$player_conditions[] = ['icon' => 'images/states/logout_block.png', 'title' => 'In Fight / Battle'];
+			}
+			if (!empty($stateRow['in_pz'])) {
+				$player_conditions[] = ['icon' => 'images/states/protection_zone.png', 'title' => 'Protection Zone'];
+			}
+			if (!empty($stateRow['manashield'])) {
+				$player_conditions[] = ['icon' => 'images/states/magic_shield.png', 'title' => 'Magic Shield'];
+			}
+			if (!empty($stateRow['haste'])) {
+				$player_conditions[] = ['icon' => 'images/states/haste.png', 'title' => 'Haste'];
+			}
 		}
 	}
 
@@ -569,12 +627,12 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 		$history_raw = $db->query("SELECT `experience`, `date` FROM `player_experience` WHERE `player_id` = " . $player->getId() . " ORDER BY `date` DESC LIMIT 10")->fetchAll();
 		$history_by_date = array();
 		foreach($history_raw as $h) {
-			$history_by_date[date('Y-m-d', $h['date'])] = $h['experience'];
+			$history_by_date[gmdate('Y-m-d', (int)$h['date'])] = $h['experience'];
 		}
 		
-		$current_exp = $player->getExperience();
-		$today_date = date('Y-m-d');
-		$today_start_exp = isset($history_by_date[$today_date]) ? $history_by_date[$today_date] : $current_exp;
+		$current_exp = (float)$player->getExperience();
+		$today_date = gmdate('Y-m-d');
+		$today_start_exp = isset($history_by_date[$today_date]) ? (float)$history_by_date[$today_date] : $current_exp;
 		$exp_today = $current_exp - $today_start_exp;
 		
 		$exp_history_data[] = array(
@@ -583,27 +641,29 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 		);
 		
 		for($i = 1; $i <= 7; $i++) {
-			$d1 = date('Y-m-d', strtotime("-$i days"));
-			$d2 = date('Y-m-d', strtotime("-" . ($i - 1) . " days"));
+			$d1 = gmdate('Y-m-d', strtotime("-$i days"));
+			$d2 = gmdate('Y-m-d', strtotime("-" . ($i - 1) . " days"));
 			
-			$exp1 = isset($history_by_date[$d1]) ? $history_by_date[$d1] : 0;
-			$exp2 = isset($history_by_date[$d2]) ? $history_by_date[$d2] : 0;
+			$exp1 = isset($history_by_date[$d1]) ? (float)$history_by_date[$d1] : 0;
+			$exp2 = isset($history_by_date[$d2]) ? (float)$history_by_date[$d2] : 0;
 			
 			$diff = 0;
 			if($exp1 > 0 && $exp2 > 0) {
 				$diff = $exp2 - $exp1;
 			}
 			$exp_history_data[] = array(
-				'date' => date('d/m/Y', strtotime("-$i days")),
+				'date' => gmdate('d/m/Y', strtotime("-$i days")),
 				'exp_diff' => $diff
 			);
 		}
 	}
 
 	$twig->display('characters.html.twig', array(
+		'player_conditions' => $player_conditions,
 		'exp_history' => $exp_history_data,
 		'player_ranks' => $player_ranks,
 		'outfit' => isset($outfit) ? $outfit : null,
+		'outfits_list' => isset($outfits_list) ? $outfits_list : null,
 		'player' => $player,
 		'staff_banner' => $staff_banner,
 		'account' => $account,

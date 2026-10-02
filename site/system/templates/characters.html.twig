@@ -26,6 +26,41 @@
 	border: 1px solid #FAF0D7 !important;
 }
 
+/* Skills Panel */
+.SkillsBgrnd {
+	width: 184px;
+	height: 232px;
+	background: url('images/skillsbackground.png') no-repeat;
+	position: relative;
+	font-family: Tahoma, Verdana, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #DFD2B5;
+	text-shadow: 1px 1px 0px #000;
+}
+.SkillsBgrnd div {
+	position: absolute;
+	right: 18px;
+	width: 100px;
+	text-align: right;
+	line-height: 12px;
+}
+.SkillsBgrnd .exp { top: 17px; font-size: 10px; }
+.SkillsBgrnd .level { top: 31px; }
+.SkillsBgrnd .hitpoints { top: 45px; }
+.SkillsBgrnd .mana { top: 59px; }
+.SkillsBgrnd .soul { top: 73px; }
+.SkillsBgrnd .cap { top: 87px; }
+.SkillsBgrnd .stamina { top: 101px; }
+.SkillsBgrnd .magiclevel { top: 115px; }
+.SkillsBgrnd .Fist { top: 133px; }
+.SkillsBgrnd .Club { top: 147px; }
+.SkillsBgrnd .Sword { top: 161px; }
+.SkillsBgrnd .Axe { top: 175px; }
+.SkillsBgrnd .Distance { top: 189px; }
+.SkillsBgrnd .Shield { top: 203px; }
+.SkillsBgrnd .Fishing { top: 217px; }
+
 .rank-badge {
     width: 65px;
     height: 84px;
@@ -237,99 +272,109 @@
 				</tr>
 				<tr id="inventory_container_row" style="display: none; background-color: {{ getStyle(rows) }}">
 					<td colspan="2" style="padding: 10px;" align="center">
-						<div style="text-align: left; width: 550px; margin: 0 auto; position: relative;">
-							<div style="display: flex; gap: 6px; justify-content: center; align-items: flex-start;">
+						<div style="text-align: left; width: 560px; max-width: 100%; margin: 0 auto; position: relative;">
+							<div style="display: flex; flex-wrap: nowrap; gap: 6px; justify-content: center; align-items: flex-start;">
 								<!-- Panel 1: Equipment -->
 								<div style="flex: 0 0 176px; width: 176px; height: 232px; background: url('images/outfit.png') no-repeat; position: relative;">
-									{% set hp_percent = player.getHealthMax() > 0 ? (player.getHealth() / player.getHealthMax()) * 100 : 0 %}
-									{% set mana_percent = player.getManaMax() > 0 ? (player.getMana() / player.getManaMax()) * 100 : 0 %}
+									{% set max_hp = player.getHealthMax() > 0 ? player.getHealthMax() : (player.getHealth() > 0 ? player.getHealth() : 1) %}
+									{% set max_mana = player.getManaMax() > 0 ? player.getManaMax() : (player.getMana() > 0 ? player.getMana() : 1) %}
+									{% set hp_percent = (player.getHealth() / max_hp) * 100 %}
+									{% set mana_percent = (player.getMana() / max_mana) * 100 %}
 									{% if hp_percent > 100 %}{% set hp_percent = 100 %}{% endif %}
 									{% if mana_percent > 100 %}{% set mana_percent = 100 %}{% endif %}
 
-									<!-- Life Bar -->
-									<div style="position: absolute; left: 27px; top: 4px; width: 135px; height: 11px;">
-										<div style="background: url('images/lifebarra.png'); height: 100%; width: {{ hp_percent }}%;"></div>
+									<!-- Life Bar Capsule -->
+									<div style="position: absolute; left: 27px; top: 6px; width: 95px; height: 11px; overflow: hidden; border-radius: 10px;">
+										<div style="background: url('images/equipment/lifebarra.png') repeat-x; height: 100%; width: {{ hp_percent }}%; border-radius: 10px;"></div>
 									</div>
-									<div style="position: absolute; left: 27px; top: 3px; width: 132px; text-align: right; color: #ffffff; font-family: Tahoma, sans-serif; font-size: 10px; font-weight: bold; text-shadow: 1px 1px 1px #000;">
+									<div style="position: absolute; left: 124px; top: 5px; width: 44px; text-align: right; color: #DFD2B5; font-family: Tahoma, Verdana, sans-serif; font-size: 11px; font-weight: bold; text-shadow: 1px 1px 0px #000;">
 										{{ player.getHealth() }}
 									</div>
 
-									<!-- Mana Bar -->
-									<div style="position: absolute; left: 27px; top: 17px; width: 135px; height: 11px;">
-										<div style="background: url('images/manabar.png'); height: 100%; width: {{ mana_percent }}%;"></div>
+									<!-- Mana Bar Capsule -->
+									<div style="position: absolute; left: 27px; top: 19px; width: 95px; height: 11px; overflow: hidden; border-radius: 10px;">
+										<div style="background: url('images/equipment/manabar.png') repeat-x; height: 100%; width: {{ mana_percent }}%; border-radius: 10px;"></div>
 									</div>
-									<div style="position: absolute; left: 27px; top: 16px; width: 132px; text-align: right; color: #ffffff; font-family: Tahoma, sans-serif; font-size: 10px; font-weight: bold; text-shadow: 1px 1px 1px #000;">
+									<div style="position: absolute; left: 124px; top: 18px; width: 44px; text-align: right; color: #DFD2B5; font-family: Tahoma, Verdana, sans-serif; font-size: 11px; font-weight: bold; text-shadow: 1px 1px 0px #000;">
 										{{ player.getMana() }}
 									</div>
 
 									<!-- Equipment Slots -->
 									{% macro eqSlot(eq, left, top) %}
-										<div style="position: absolute; left: {{ left }}px; top: {{ top }}px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
-											{% if eq and eq.id > 0 %}
-												<img src="{{ config('item_images_url') }}{{ eq.id }}.gif" title="{{ eq.name }}" alt="{{ eq.name }}" style="max-width: 32px; max-height: 32px; display: block;" />
-											{% endif %}
-										</div>
+										{% if eq and eq.id > 0 %}
+											<div style="position: absolute; left: {{ left }}px; top: {{ top }}px; width: 32px; height: 32px; background: #262626 url('images/equipment/slot_bg.png') no-repeat; display: flex; align-items: center; justify-content: center;">
+												<img src="{{ config('item_images_url') }}{{ eq.id }}.gif" class="item_image" title="{{ (eq.tooltip|default(eq.name))|e('html_attr') }}" alt="{{ eq.name }}" style="max-width: 32px; max-height: 32px; display: block; cursor: pointer;" />
+											</div>
+										{% else %}
+											<div style="position: absolute; left: {{ left }}px; top: {{ top }}px; width: 32px; height: 32px;"></div>
+										{% endif %}
 									{% endmacro %}
 									
-									{{ _self.eqSlot(equipment_details[2], 13, 29) }}   {# Amulet: slot 2 #}
-									{{ _self.eqSlot(equipment_details[1], 50, 29) }}   {# Helmet: slot 1 #}
-									{{ _self.eqSlot(equipment_details[3], 87, 29) }}   {# Backpack: slot 3 #}
-									{{ _self.eqSlot(equipment_details[6], 13, 66) }}   {# Left / Weapon: slot 6 #}
-									{{ _self.eqSlot(equipment_details[4], 50, 66) }}   {# Armor: slot 4 #}
-									{{ _self.eqSlot(equipment_details[5], 87, 66) }}   {# Right / Shield: slot 5 #}
-									{{ _self.eqSlot(equipment_details[9], 13, 103) }}  {# Ring: slot 9 #}
-									{{ _self.eqSlot(equipment_details[7], 50, 103) }}  {# Legs: slot 7 #}
-									{{ _self.eqSlot(equipment_details[10], 87, 103) }} {# Ammo: slot 10 #}
-									{{ _self.eqSlot(equipment_details[8], 50, 140) }}  {# Boots: slot 8 #}
+									{{ _self.eqSlot(equipment_details[1], 48, 39) }}   {# Helmet: slot 1 #}
+									{{ _self.eqSlot(equipment_details[2], 11, 53) }}   {# Amulet: slot 2 #}
+									{{ _self.eqSlot(equipment_details[3], 85, 53) }}   {# Backpack: slot 3 #}
+									{{ _self.eqSlot(equipment_details[4], 48, 76) }}   {# Armor: slot 4 #}
+									{{ _self.eqSlot(equipment_details[6], 11, 90) }}   {# Left / Weapon: slot 6 #}
+									{{ _self.eqSlot(equipment_details[5], 85, 90) }}   {# Right / Shield: slot 5 #}
+									{{ _self.eqSlot(equipment_details[7], 48, 113) }}  {# Legs: slot 7 #}
+									{{ _self.eqSlot(equipment_details[9], 11, 127) }}  {# Ring: slot 9 #}
+									{{ _self.eqSlot(equipment_details[10], 85, 127) }} {# Ammo: slot 10 #}
+									{{ _self.eqSlot(equipment_details[8], 48, 150) }}  {# Boots: slot 8 #}
 									
-									<!-- Soul Points & Capacity -->
-									<div style="position: absolute; left: 13px; top: 178px; width: 32px; height: 16px; display: flex; align-items: center; justify-content: center; color: #ffffff; font-family: Tahoma, sans-serif; font-size: 10px; font-weight: bold; text-shadow: 1px 1px 1px #000;">
-										{{ player.getSoul() }}
+									<!-- Capacity Box (Matching media_1790961990455.png) -->
+									<div style="position: absolute; left: 85px; top: 162px; width: 32px; height: 21px; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none;">
+										<span style="color: #DFD2B5; font-family: Tahoma, Verdana, sans-serif; font-size: 9px; line-height: 10px; font-weight: bold; text-shadow: 1px 1px 0 #000;">Cap:</span>
+										<span style="color: #DFD2B5; font-family: Tahoma, Verdana, sans-serif; font-size: 9px; line-height: 10px; font-weight: bold; text-shadow: 1px 1px 0 #000;">{{ player.getCap() }}</span>
 									</div>
-									<div style="position: absolute; left: 87px; top: 178px; width: 32px; height: 16px; display: flex; align-items: center; justify-content: center; color: #ffffff; font-family: Tahoma, sans-serif; font-size: 10px; font-weight: bold; text-shadow: 1px 1px 1px #000;">
-										{{ player.getCapacity() }}
+
+									<!-- Condition / Status Bar (PK, Red Skull, Battle, PZ - Matching media_1790961892193.png) -->
+									<div style="position: absolute; left: 11px; top: 184px; width: 106px; height: 12px; display: flex; align-items: center; gap: 3px; padding-left: 2px; box-sizing: border-box; overflow: hidden;">
+										{% if player_conditions is defined and player_conditions|length > 0 %}
+											{% for c in player_conditions %}
+												<img src="{{ c.icon }}" title="{{ c.title }}" alt="{{ c.title }}" class="item_image" style="width: 11px; height: 11px; display: block; image-rendering: pixelated; margin: 0; padding: 0;" />
+											{% endfor %}
+										{% endif %}
 									</div>
 								</div>
 
 								<!-- Panel 2: Skills -->
-								<div style="flex: 0 0 184px; width: 184px; height: 232px; background: url('images/skillsbackground.png') no-repeat; position: relative; color: #c0c0c0; font-family: Tahoma, sans-serif; font-size: 11px;">
-									<!-- Numerical Values matching skillsbackground.png pre-rendered labels -->
-									<div style="position: absolute; right: 18px; top: 16px; width: 90px; text-align: right; font-weight: bold; font-size: 10px; color: #c0c0c0;">{{ player.getExperience()|number_format }}</div>
-									<div style="position: absolute; right: 18px; top: 29px; width: 90px; text-align: right; font-weight: bold; color: #c0c0c0;">{{ player.getLevel() }}</div>
-									<div style="position: absolute; right: 18px; top: 42px; width: 90px; text-align: right; font-weight: bold; color: #c0c0c0;">{{ player.getHealth() }}</div>
-									<div style="position: absolute; right: 18px; top: 55px; width: 90px; text-align: right; font-weight: bold; color: #c0c0c0;">{{ player.getMana() }}</div>
-									<div style="position: absolute; right: 18px; top: 68px; width: 90px; text-align: right; font-weight: bold; color: #c0c0c0;">{{ player.getSoul() }}</div>
-									<div style="position: absolute; right: 18px; top: 81px; width: 90px; text-align: right; font-weight: bold; color: #c0c0c0;">{{ player.getCapacity() }}</div>
-									
-									{% set stam = player.getStamina()|default(2520) %}
-									{% set stam_h = (stam / 60)|round(0, 'floor') %}
-									{% set stam_m = stam % 60 %}
-									<div style="position: absolute; right: 18px; top: 94px; width: 90px; text-align: right; font-weight: bold; color: orange;">{{ stam_h }}:{{ stam_m < 10 ? '0' : '' }}{{ stam_m }}</div>
-									
-									<div style="position: absolute; right: 18px; top: 107px; width: 90px; text-align: right; font-weight: bold; color: #c0c0c0;">{{ player.getMagLevel() }}</div>
+								<div id="equipment" class="SkillsBgrnd" style="flex: 0 0 184px;">
+									<div class="exp">{{ player.getExperience()|number_format }}</div>
+									<div class="level">{{ player.getLevel()|number_format }}</div>
+									<div class="hitpoints">{{ player.getHealth()|number_format }}</div>
+									<div class="mana">{{ player.getMana()|number_format }}</div>
+									<div class="soul">{{ player.getSoul()|number_format }}</div>
+									<div class="cap">{{ player.getCap()|number_format }}</div>
+									<div class="stamina">00:00</div>
+									<div class="magiclevel">{{ player.getMagLevel()|number_format }}</div>
 									
 									{% set skill_map = {} %}
 									{% for s in skills %}
 										{% set skill_map = skill_map|merge({ (s.skillid): s.value }) %}
 									{% endfor %}
 									
-									<!-- Fight Skills -->
-									<div style="position: absolute; right: 18px; top: 126px; width: 90px; text-align: right; font-weight: bold; color: #c0c0c0;">{{ skill_map[0]|default(10) }}</div>
-									<div style="position: absolute; right: 18px; top: 139px; width: 90px; text-align: right; font-weight: bold; color: #c0c0c0;">{{ skill_map[1]|default(10) }}</div>
-									<div style="position: absolute; right: 18px; top: 152px; width: 90px; text-align: right; font-weight: bold; color: #c0c0c0;">{{ skill_map[2]|default(10) }}</div>
-									<div style="position: absolute; right: 18px; top: 165px; width: 90px; text-align: right; font-weight: bold; color: #c0c0c0;">{{ skill_map[3]|default(10) }}</div>
-									<div style="position: absolute; right: 18px; top: 178px; width: 90px; text-align: right; font-weight: bold; color: #c0c0c0;">{{ skill_map[4]|default(10) }}</div>
-									<div style="position: absolute; right: 18px; top: 191px; width: 90px; text-align: right; font-weight: bold; color: #c0c0c0;">{{ skill_map[5]|default(10) }}</div>
-									<div style="position: absolute; right: 18px; top: 204px; width: 90px; text-align: right; font-weight: bold; color: #c0c0c0;">{{ skill_map[6]|default(10) }}</div>
+									<div class="Fist">{{ skill_map[0]|default(10)|number_format }}</div>
+									<div class="Club">{{ skill_map[1]|default(10)|number_format }}</div>
+									<div class="Sword">{{ skill_map[2]|default(10)|number_format }}</div>
+									<div class="Axe">{{ skill_map[3]|default(10)|number_format }}</div>
+									<div class="Distance">{{ skill_map[4]|default(10)|number_format }}</div>
+									<div class="Shield">{{ skill_map[5]|default(10)|number_format }}</div>
+									<div class="Fishing">{{ skill_map[6]|default(10)|number_format }}</div>
 								</div>
 
 								<!-- Panel 3: Outfits -->
 								<div style="flex: 0 0 178px; width: 178px; height: 232px; background: url('images/outfitbackgrounds.png') no-repeat; position: relative; color: #c0c0c0; font-family: Tahoma, sans-serif; font-size: 11px;">
-									<div style="position: absolute; top: 4px; left: 8px; font-size: 10px; color: #c0c0c0;">Total outfits: 1</div>
+									<div style="position: absolute; top: 4px; left: 8px; font-size: 10px; color: #c0c0c0;">Total outfits: {{ outfits_list|length|default(1) }}</div>
 									
-									<div style="position: absolute; top: 26px; left: 0; width: 100%; height: 194px; display: flex; align-items: center; justify-content: center;">
-										{% set url = config('outfit_images_url') ~ '?id=' ~ player.getLookType() ~ '&head=' ~ player.getLookHead() ~ '&body=' ~ player.getLookBody() ~ '&legs=' ~ player.getLookLegs() ~ '&feet=' ~ player.getLookFeet() %}
-										<img src="{{ url }}" alt="Outfit" style="display: block; max-width: 64px; max-height: 64px;" />
+									<div style="position: absolute; top: 28px; left: 8px; width: 162px; height: 194px; display: flex; flex-wrap: wrap; gap: 6px; align-content: flex-start; justify-content: center; padding-top: 8px; box-sizing: border-box; overflow-y: auto;">
+										{% if outfits_list is defined and outfits_list|length > 0 %}
+											{% for o_url in outfits_list %}
+												<img src="{{ o_url }}" alt="Outfit" style="display: block; max-width: 52px; max-height: 52px;" />
+											{% endfor %}
+										{% else %}
+											{% set main_outfit_url = config('outfit_images_url') ~ '?id=' ~ player.getLookType() ~ '&head=' ~ player.getLookHead() ~ '&body=' ~ player.getLookBody() ~ '&legs=' ~ player.getLookLegs() ~ '&feet=' ~ player.getLookFeet() ~ (player.getLookAddons() ? '&addons=' ~ player.getLookAddons() : '') %}
+											<img src="{{ main_outfit_url }}" alt="Outfit" style="display: block; max-width: 64px; max-height: 64px; margin-top: 15px;" />
+										{% endif %}
 									</div>
 								</div>
 							</div>
@@ -345,6 +390,9 @@
 						inv.style.display = 'table-row';
 						btnShow.style.display = 'none';
 						btnHide.style.display = 'inline';
+						if(typeof Tipped !== 'undefined') {
+							Tipped.create('.item_image');
+						}
 					} else {
 						inv.style.display = 'none';
 						btnShow.style.display = 'inline';
@@ -535,7 +583,7 @@
 		<!-- EXP HISTORY -->
 		<br/>
 		{% set exp_hist_html %}
-				<div class="TableShadowContainerRightTop">
+		<div class="TableShadowContainerRightTop">
 			<div class="TableShadowRightTop" style="background-image:url({{ template_path }}/images/content/table-shadow-rt.gif);"></div>
 		</div>
 		<div class="TableContentAndRightShadow" style="background-image:url({{ template_path }}/images/content/table-shadow-rm.gif);">
@@ -545,18 +593,18 @@
 				{% for exp in exp_history %}
 				{% set i = i + 1 %}
 				<tr bgcolor="{{ getStyle(i) }}">
-					<td width="22%" align="center" style="font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #5A2800;">
+					<td width="22%" align="center" style="font-family: Verdana, Arial, sans-serif; font-size: 11px; color: #5A2800;">
 						{% if exp.date == 'Today' %}
 							<b><u>EXP Today</u></b>
 						{% else %}
 							{{ exp.date }}
 						{% endif %}
 					</td>
-					<td style="font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #5A2800; padding-left: 10px;">
+					<td style="font-family: Verdana, Arial, sans-serif; font-size: 11px; color: #5A2800; padding-left: 10px;">
 						{% if exp.exp_diff > 0 %}
 							<span style="color: #008000; font-weight: bold;">+{{ exp.exp_diff|number_format(0, '.', '.') }}</span> (<b>G</b>ain <b>E</b>xperience)
 						{% elseif exp.exp_diff < 0 %}
-							<span style="color: #E60000; font-weight: bold;">{{ exp.exp_diff|number_format(0, '.', '.') }}</span> (<b>L</b>ose <b>E</b>xperience)
+							<span style="color: #FF0000; font-weight: bold;">{{ exp.exp_diff|number_format(0, '.', '.') }}</span> (<b>L</b>ose <b>E</b>xperience)
 						{% else %}
 							not gain exp (<b>N</b>o <b>E</b>xperience)
 						{% endif %}
@@ -584,11 +632,11 @@
 			<div class="TableContentContainer">
 				<table class="TableContent" width="100%" style="table-layout: fixed;">
 					<tr>
-						<td align="center" style="padding: 6px; background-color: {{ config.lightborder }};">
+						<td align="center" style="padding: 0px; background-color: {{ config.lightborder }};">
 							<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 							<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-							<div style="width: 530px; max-width: 100%; height: 260px; position: relative; overflow: hidden; margin: 0 auto;">
-								<canvas id="exp_chart_canvas" width="530" height="260" style="display: block; width: 530px !important; height: 260px !important; margin: 0 auto;"></canvas>
+							<div style="width: 100%; max-width: 100%; height: 270px; position: relative; overflow: hidden; margin: 0 auto;">
+								<canvas id="exp_chart_canvas" width="600" height="270" style="display: block; width: 100% !important; height: 270px !important; margin: 0 auto;"></canvas>
 							</div>
 						</td>
 					</tr>
@@ -631,6 +679,7 @@
 				  label: 'Player Experience Graphic History',
 				  data: dataPoints,
 				  fill: false,
+				  tension: 0,
 				  pointBackgroundColor: function(context) {
 					var value = context.dataset.data[context.dataIndex];
 					return value < 0 ? '#E60000' : '#00B000';
@@ -644,7 +693,7 @@
 					  return context.p1.parsed.y < 0 ? '#E60000' : '#32CD32';
 					}
 				  },
-				  backgroundColor: '#50C878',
+				  backgroundColor: '#32CD32',
 				  borderColor: '#32CD32',
 				  borderWidth: 1.5,
 				  pointRadius: 4,
@@ -652,23 +701,37 @@
 				}]
 			  },
 			  options: {
-				responsive: false,
+				responsive: true,
 				maintainAspectRatio: false,
 				layout: {
-				  padding: { top: 30, bottom: 5, left: 10, right: 15 }
+				  padding: { top: 10, bottom: 5, left: 10, right: 15 }
 				},
 				plugins: {
 				  legend: {
+					display: true,
 					position: 'top',
+					align: 'center',
 					labels: {
-					  color: '#555',
+					  color: '#4A3525',
 					  font: { size: 12, family: 'Verdana, Arial, sans-serif' },
-					  boxWidth: 40
+					  boxWidth: 40,
+					  boxHeight: 12
 					}
 				  },
 				  datalabels: {
-					align: 'top',
-					offset: 4,
+					align: function(context) {
+					  var index = context.dataIndex;
+					  var count = context.dataset.data.length;
+					  if (index === 0) return 'right';
+					  if (index === count - 1) return 'left';
+					  var prev = context.dataset.data[index - 1];
+					  var curr = context.dataset.data[index];
+					  var next = context.dataset.data[index + 1];
+					  if (curr > prev && curr > next) return 'top';
+					  if (curr < prev && curr < next) return 'top';
+					  return 'left';
+					},
+					offset: 6,
 					color: function(context) { return context.dataset.data[context.dataIndex] < 0 ? '#CC0000' : '#008000'; },
 					font: { weight: 'bold', size: 11, family: 'Verdana, Arial, sans-serif' },
 					formatter: function(value) {
@@ -687,7 +750,8 @@
 				  y: {
 					grid: { color: 'rgba(0, 0, 0, 0.08)' },
 					ticks: {
-					  color: '#666',
+					  color: '#777777',
+					  font: { size: 11, family: 'Verdana, Arial, sans-serif' },
 					  callback: function(value) {
 						return value.toLocaleString('pt-BR');
 					  }
@@ -696,7 +760,7 @@
 				  x: {
 					grid: { color: 'rgba(0, 0, 0, 0.08)' },
 					ticks: {
-					  color: '#666',
+					  color: '#4A3525',
 					  maxRotation: 0,
 					  minRotation: 0,
 					  autoSkip: false,
