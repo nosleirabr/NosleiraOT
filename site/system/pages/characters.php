@@ -472,7 +472,7 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 	}
 
 	// Faixa de cargo para personagens da staff (imagens em images/staff/)
-	$staff_banners = array(6 => 'admin', 5 => 'cm', 4 => 'gm', 3 => 'senior', 2 => 'tutor');
+	$staff_banners = array(6 => 'Administrador', 5 => 'Community Manager', 4 => 'Gamemaster', 3 => 'Senior Tutor', 2 => 'Tutor');
 	$staff_banner = null;
 	try {
 		$gid = $player->getGroup()->getId();
@@ -642,5 +642,6 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 
 if(!empty($search_errors))
 	$twig->display('error_box.html.twig', array('errors' => $search_errors));
+
 
 
