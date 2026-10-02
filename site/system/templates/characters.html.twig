@@ -319,7 +319,7 @@
 										{% for oid in outfit_ids %}
 											{% set url = config('outfit_images_url') ~ '?id=' ~ oid ~ '&head=' ~ player.getLookHead() ~ '&body=' ~ player.getLookBody() ~ '&legs=' ~ player.getLookLegs() ~ '&feet=' ~ player.getLookFeet() %}
 											<div style="width: 44px; height: 44px; overflow: hidden; position: relative;">
-												<img src="{{ url }}" alt="Outfit" style="position: absolute; top: -10px; left: -10px; max-width: none;" />
+												<img src="{{ url }}" alt="Outfit" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: none;" />
 											</div>
 										{% endfor %}
 									</div>
@@ -761,7 +761,7 @@
 					{% set i = i + 1 %}
 				<tr bgcolor="{{ getStyle(i) }}">
 					<td align="center" style="vertical-align: middle; padding: 0;">
-						<div style="width: 44px; height: 44px; overflow: hidden; margin: 0 auto; position: relative;"><img src="{{ p.outfit }}" alt="" style="position: absolute; top: -10px; left: -10px; max-width: none;" /></div>
+						<div style="width: 44px; height: 44px; overflow: hidden; margin: 0 auto; position: relative;"><img src="{{ p.outfit }}" alt="" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: none;" /></div>
 					</td>
 					<td style="vertical-align: middle;">
 						<nobr>{{ i }}.&#160;{{ p.name }}{% if p.isDeleted %}<span style="color: red"> [DELETED]</span>{% endif %}</nobr>
@@ -840,6 +840,8 @@ function setGodCopied(btn) {
 	}, 1500);
 }
 </script>
+
+
 
 
 
