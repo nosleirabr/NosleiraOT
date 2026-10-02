@@ -40,26 +40,26 @@
 }
 .SkillsBgrnd div {
 	position: absolute;
-	right: 18px;
-	width: 100px;
+	right: 19px;
+	width: 120px;
 	text-align: right;
 	line-height: 12px;
 }
-.SkillsBgrnd .exp { top: 17px; font-size: 10px; }
-.SkillsBgrnd .level { top: 31px; }
-.SkillsBgrnd .hitpoints { top: 45px; }
-.SkillsBgrnd .mana { top: 59px; }
-.SkillsBgrnd .soul { top: 73px; }
-.SkillsBgrnd .cap { top: 87px; }
-.SkillsBgrnd .stamina { top: 101px; }
-.SkillsBgrnd .magiclevel { top: 115px; }
-.SkillsBgrnd .Fist { top: 133px; }
-.SkillsBgrnd .Club { top: 147px; }
-.SkillsBgrnd .Sword { top: 161px; }
-.SkillsBgrnd .Axe { top: 175px; }
-.SkillsBgrnd .Distance { top: 189px; }
-.SkillsBgrnd .Shield { top: 203px; }
-.SkillsBgrnd .Fishing { top: 217px; }
+.SkillsBgrnd .exp { top: 15px; font-size: 10px; }
+.SkillsBgrnd .level { top: 29px; }
+.SkillsBgrnd .hitpoints { top: 43px; }
+.SkillsBgrnd .mana { top: 57px; }
+.SkillsBgrnd .soul { top: 71px; }
+.SkillsBgrnd .cap { top: 85px; }
+.SkillsBgrnd .stamina { top: 99px; }
+.SkillsBgrnd .magiclevel { top: 113px; }
+.SkillsBgrnd .Fist { top: 131px; }
+.SkillsBgrnd .Club { top: 145px; }
+.SkillsBgrnd .Sword { top: 159px; }
+.SkillsBgrnd .Axe { top: 173px; }
+.SkillsBgrnd .Distance { top: 187px; }
+.SkillsBgrnd .Shield { top: 201px; }
+.SkillsBgrnd .Fishing { top: 215px; }
 
 .rank-badge {
     width: 65px;
@@ -180,6 +180,47 @@
 					<td>Residence:</td>
 					<td>{{ town }}</td>
 				</tr>
+
+				{% if combat_status is defined and combat_status is not null %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td style="white-space: nowrap; vertical-align: top; padding-top: 6px;">Modo de Luta (In-Game):</td>
+					<td style="padding: 4px 0;">
+						<div style="display: inline-flex; align-items: center; gap: 12px;">
+							<div class="combat-widget-container" style="display: inline-block; background: #3C3C3C; border: 2px solid #202020; padding: 4px; border-radius: 2px; box-shadow: inset 1px 1px 0 #555, inset -1px -1px 0 #111;">
+								<div style="display: flex; flex-direction: column; gap: 2px;">
+									<div style="display: flex; gap: 2px;">
+										<!-- Full Attack (Red Swords) -->
+										<div title="Full Attack (Ataque Total)" style="width: 20px; height: 20px; background-image: url('images/combatmodes/fightoffensive.png'); background-position: 0 {% if combat_status.fight_mode == 1 %}-20px{% else %}0px{% endif %}; border: 1px solid #111;"></div>
+										<!-- Stand Ground (White Standing Man) -->
+										<div title="Stand Ground (Ficar Parado)" style="width: 20px; height: 20px; background-image: url('images/combatmodes/chasemode.png'); background-position: 0 {% if combat_status.chase_mode == 0 %}0px{% else %}-20px{% endif %}; border: 1px solid #111;"></div>
+									</div>
+									<div style="display: flex; gap: 2px;">
+										<!-- Balanced (Sword & Shield) -->
+										<div title="Balanced (Modo Equilibrado)" style="width: 20px; height: 20px; background-image: url('images/combatmodes/fightbalanced.png'); background-position: 0 {% if combat_status.fight_mode == 2 %}-20px{% else %}0px{% endif %}; border: 1px solid #111;"></div>
+										<!-- Chase Opponent (Green Running Man) -->
+										<div title="Chase Opponent (Correr Atrás)" style="width: 20px; height: 20px; background-image: url('images/combatmodes/chasemode.png'); background-position: 0 {% if combat_status.chase_mode == 1 %}-20px{% else %}0px{% endif %}; border: 1px solid #111;"></div>
+									</div>
+									<div style="display: flex; gap: 2px;">
+										<!-- Defensive (Shield) -->
+										<div title="Defensive (Modo Defensivo)" style="width: 20px; height: 20px; background-image: url('images/combatmodes/fightdefensive.png'); background-position: 0 {% if combat_status.fight_mode == 3 %}-20px{% else %}0px{% endif %}; border: 1px solid #111;"></div>
+										<!-- Safe Fight / Hand / Dove -->
+										<div title="Safe Fight / PvP Mode" style="width: 20px; height: 20px; background-image: url('images/combatmodes/safefight.png'); background-position: 0 {% if combat_status.safe_mode == 1 %}0px{% else %}-20px{% endif %}; border: 1px solid #111;"></div>
+									</div>
+									<div style="margin-top: 2px; height: 16px; background: #505050; border: 1px outset #777; color: #FFF; font-family: Verdana, sans-serif; font-size: 10px; font-weight: bold; text-align: center; line-height: 16px; text-shadow: 1px 1px 0 #000; cursor: default;">
+										Stop
+									</div>
+								</div>
+							</div>
+							<div style="display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: #5A2800;">
+								<div><b>Ataque:</b> {{ combat_status.fight_mode_text }}</div>
+								<div><b>Movimento:</b> {{ combat_status.chase_mode_text }}</div>
+								<div><b>Segurança:</b> {{ combat_status.safe_mode_text }}</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				{% endif %}
 
 				{% if house.found %}
 				{% set rows = rows + 1 %}
