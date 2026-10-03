@@ -488,7 +488,7 @@ foreach($config['menu_categories'] as $id => $cat) {
 				$m_name = $m_name . ' <span style="font-family: Arial, sans-serif;">💳</span>';
 			} elseif ($menu['link'] === 'whatsapp') {
 				$m_name = $m_name . ' <img src="https://img.icons8.com/color/16/whatsapp--v1.png" style="vertical-align:middle;margin-left:3px;" alt="" />';
-				$m_style = 'style="color: lime; background: transparent !important; animation: blinkDonate 1s linear infinite;"';
+				$m_style = 'style="color: lime; background: transparent !important;"';
 				$menu['link_full'] = 'https://chat.whatsapp.com/JfAG9EkXI5EJUofbr68UcP';
 				$menu['target_blank'] = ' target="_blank"';
 			} elseif ($menu['link'] === 'telegram') {
