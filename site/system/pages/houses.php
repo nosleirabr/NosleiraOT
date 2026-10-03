@@ -43,6 +43,48 @@ if(isset($_REQUEST['name']))
 		$house = $selectHouse->fetch();
 		$houseId = $house['id'];
 
+		$success = null;
+		if(isset($_POST['bid_amount']) && $logged) {
+			$bid_amount = (int)$_POST['bid_amount'];
+			$player_id = (int)$_POST['player_id'];
+			
+			$player = new OTS_Player();
+			$player->load($player_id);
+			if($player->isLoaded() && $player->getAccountId() == $account_logged->getId()) {
+				$min_bid = max((int)$house['rent'], 0);
+				$current_highest = max($min_bid, (int)$house['bid']);
+				
+				// Allow equal to min_bid if there are no bids yet
+				if($bid_amount > $current_highest || ($house['bid'] == 0 && $bid_amount >= $min_bid)) {
+					$balance = 0;
+					$bQuery = $db->query("SELECT `balance` FROM `players` WHERE `id` = " . $player_id);
+					if($bQuery->rowCount() > 0) {
+						$bRes = $bQuery->fetch();
+						$balance = (int)$bRes['balance'];
+					}
+					
+					if($balance >= $bid_amount) {
+						$bid_end = (int)$house['bid_end'];
+						if($bid_end == 0) {
+							$bid_end = time() + (7 * 24 * 60 * 60);
+						}
+						
+						$db->query("UPDATE `houses` SET `bid` = $bid_amount, `highest_bidder` = $player_id, `bid_end` = $bid_end WHERE `id` = " . $houseId);
+						$house['bid'] = $bid_amount;
+						$house['highest_bidder'] = $player_id;
+						$house['bid_end'] = $bid_end;
+						$success = "Bid successfully placed!";
+					} else {
+						$errors[] = "You don't have enough balance.";
+					}
+				} else {
+					$errors[] = "Bid must be higher than current highest bid.";
+				}
+			} else {
+				$errors[] = "Invalid character.";
+			}
+		}
+
 		$title = $house['name'] . ' - ' . $title;
 
 		$imgPath = 'images/houses/' . $houseId . '.gif';
@@ -56,6 +98,19 @@ if(isset($_REQUEST['name']))
 			$bedsMessage = 'House have ' . (isset($beds[$houseBeds]) ? $beds[$houseBeds] : $houseBeds) . ' bed' . ($houseBeds > 1 ? 's' : '');
 		else
 			$bedsMessage = 'This house dont have any beds';
+
+		$highest_bidder_name = null;
+		if (isset($house['highest_bidder']) && $house['highest_bidder'] > 0) {
+			$highest_bidder_name = getCreatureName($house['highest_bidder']);
+		}
+
+		$players_list = array();
+		if (isset($logged) && $logged && isset($account_logged)) {
+			$pQuery = $db->query("SELECT `id`, `name` FROM `players` WHERE `account_id` = " . $account_logged->getId() . " ORDER BY `name` ASC");
+			if ($pQuery) {
+				$players_list = $pQuery->fetchAll();
+			}
+		}
 
 		$houseOwner = $house['owner'];
 		if($houseOwner > 0)
@@ -95,13 +150,22 @@ if(isset($_REQUEST['name']))
 
 	$twig->display('houses.view.html.twig', array(
 		'errors' => $errors,
+		'success' => isset($success) ? $success : null,
 		'imgPath' => isset($imgPath) ? $imgPath : null,
 		'houseName' => isset($house['name']) ? $house['name'] : null,
 		'bedsMessage' => isset($bedsMessage) ? $bedsMessage : null,
 		'houseSize' => isset($house['size']) ? $house['size'] : null,
 		'houseRent' => isset($house['rent']) ? $house['rent'] : null,
 		'owner' => isset($owner) ? $owner : null,
-		'rentType' => $rentType
+		'rentType' => $rentType,
+		'bid' => isset($house['bid']) ? $house['bid'] : 0,
+		'bid_end' => isset($house['bid_end']) ? $house['bid_end'] : 0,
+		'highest_bidder' => isset($house['highest_bidder']) ? $house['highest_bidder'] : 0,
+		'highest_bidder_name' => isset($highest_bidder_name) ? $highest_bidder_name : null,
+		'is_free' => isset($house['owner']) && $house['owner'] == 0,
+		'logged' => isset($logged) ? $logged : false,
+		'players' => isset($players_list) ? $players_list : array(),
+		'houseId' => isset($houseId) ? $houseId : null
 	));
 
 	if (count($errors) > 0) {
@@ -184,7 +248,12 @@ if(isset($_POST['town']) && isset($_POST['state']) && isset($_POST['order']) && 
 			if(!empty($owner['name']))
 				$houseRent = 'Rented by ' . getPlayerLink($owner['name']);
 			else
-				$houseRent = 'Free';
+			{
+				if(isset($house['bid']) && $house['bid'] > 0)
+					$houseRent = 'Auctioned (' . $house['bid'] . ' gold)';
+				else
+					$houseRent = 'Free';
+			}
 		}
 
 		$houses[] = array('owner' => $owner, 'name' => $house['name'], 'size' => ($hasTilesColumn ? $house['tiles'] : $house['size']), 'rent' => $house['rent'], 'rentedBy' => $houseRent, 'link' => getHouseLink($house['name'], false));

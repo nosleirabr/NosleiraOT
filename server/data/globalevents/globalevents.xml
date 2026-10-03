@@ -14,5 +14,7 @@
 	<!-- <globalevent name="inject_quests" type="startup" script="inject_quests.lua" /> -->
 	<!-- HOTA scarab access only (no uid/chest injection). -->
 	<globalevent type="startup" name="HotaMysticFlames" script="hota_mystic_flames.lua" />
+	<!-- Decoracoes ambientais em cavernas e lairs de bosses. -->
+	<globalevent type="startup" name="CaveDecorations" script="cave_decorations.lua" />
 	<!-- MapScanner (map_scanner.lua) was a debug chest dump; removed. -->
-</globalevents>
+    <globalevent name="HouseAuctions" interval="60000" script="house_auctions.lua" />`n</globalevents>

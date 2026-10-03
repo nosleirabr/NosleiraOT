@@ -1,11 +1,15 @@
 {% set title = houseName %}
 {% set content %}
 
+{% if success is not empty %}
+	<p class="success">{{ success }}</p>
+{% endif %}
 {% if errors is not empty %}
 	{% for error in errors %}
 		<p class="error">{{ error }}</p>
 	{% endfor %}
-{% else %}
+{% endif %}
+
 <table border="0" cellpadding="4" cellspacing="1" width="100%">
 	<tr style="display: inline-flex;">
 		<td><img src="{{ imgPath }}"></td>
@@ -17,15 +21,37 @@
 			{% endif %}
 			<br>
 
-			{% if owner is not empty  %}
+			{% if owner is not empty %}
 			The house has been rented by <b>{{ owner|raw }}</b>.
 			{% else %}
-			No one has bought this house yet.
+			No one has bought this house yet.<br><br>
+			{% if bid > 0 or highest_bidder > 0 %}
+				The highest bid is <b>{{ bid }} gold</b> by <b>{{ highest_bidder_name|raw }}</b>. The auction ends at <b>{{ bid_end|date("M d Y, H:i:s") }} CEST</b>.<br><br>
+			{% endif %}
+
+			{% if is_free %}
+				{% if logged %}
+					<b>Submit a Bid:</b><br>
+					<form method="post" action="?subtopic=houses&name={{ houseId }}">
+						<label for="player_id">Character:</label>
+						<select name="player_id" id="player_id">
+							{% for player in players %}
+								<option value="{{ player.id }}">{{ player.name }}</option>
+							{% endfor %}
+						</select><br>
+						<label for="bid_amount">Bid Amount (min: {{ bid > 0 ? bid + 1 : houseRent }}):</label>
+						<input type="number" name="bid_amount" id="bid_amount" min="{{ bid > 0 ? bid + 1 : houseRent }}" value="{{ bid > 0 ? bid + 1 : houseRent }}"><br><br>
+						<input type="submit" value="Submit Bid">
+					</form>
+				{% else %}
+					<i>You must be <a href="?subtopic=accountmanagement">logged in</a> to bid on this house.</i>
+				{% endif %}
+			{% endif %}
+			
 			{% endif %}
 		</td>
 	</tr>
 </table>
-{% endif %}
 
 {% endset %}
 {% include 'tables.headline.html.twig' %}

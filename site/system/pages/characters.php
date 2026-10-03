@@ -13,6 +13,7 @@ use MyAAC\Models\PlayerDeath;
 
 defined('MYAAC') or die('Direct access not allowed!');
 $title = 'Characters';
+$delCol = $db->hasColumn('players', 'deletion') ? 'deletion' : 'deleted';
 
 $groups = new OTS_Groups_List();
 function generate_search_form($autofocus = false)
@@ -41,9 +42,34 @@ function retrieve_former_name($name)
 	return '';
 }
 
+// Obter nome do personagem via parâmetro 'name' na requisição
 $name = '';
-if(isset($_REQUEST['name']))
+if(isset($_REQUEST['name'])) {
 	$name = urldecode(stripslashes(ucwords(strtolower($_REQUEST['name']))));
+}
+
+// Fallback: tentar extrair nome de $action, subtopic ou PATH_INFO caso a URL venha no formato /characters/NomeDoPlayer
+if(empty($name)) {
+	if(isset($action) && !empty($action)) {
+		$name = urldecode(stripslashes(ucwords(strtolower($action))));
+	} else if(isset($_REQUEST['subtopic']) && str_contains($_REQUEST['subtopic'], 'characters/')) {
+		$parts = explode('characters/', $_REQUEST['subtopic'], 2);
+		if(isset($parts[1]) && !empty($parts[1])) {
+			$name = urldecode(stripslashes(ucwords(strtolower($parts[1]))));
+		}
+	} else if(isset($_SERVER['PATH_INFO']) && str_contains($_SERVER['PATH_INFO'], 'characters/')) {
+		$parts = explode('characters/', $_SERVER['PATH_INFO'], 2);
+		if(isset($parts[1]) && !empty($parts[1])) {
+			$name = urldecode(stripslashes(ucwords(strtolower($parts[1]))));
+		}
+	} else if(isset($_SERVER['REQUEST_URI']) && str_contains($_SERVER['REQUEST_URI'], 'characters/')) {
+		$rawUri = strtok($_SERVER['REQUEST_URI'], '?');
+		$parts = explode('characters/', $rawUri, 2);
+		if(isset($parts[1]) && !empty($parts[1])) {
+			$name = urldecode(stripslashes(ucwords(strtolower($parts[1]))));
+		}
+	}
+}
 
 if(empty($name))
 {
@@ -160,13 +186,22 @@ if($player->isLoaded() && !$player->isDeleted())
 	else if(!$db->hasColumn('houses', 'town'))
 		$town_field = false;
 
+	$houses_array = array();
 	if($db->hasColumn('houses', 'name')) {
-		$house = $db->query('SELECT `id`, `paid`, `name`' . ($town_field != false ? ', `' . $town_field . '` as `town`' : '') . ' FROM `houses` WHERE `owner` = '.$player->getId())->fetch();
-		if(isset($house['id']))
-		{
+		$houses_query = $db->query('SELECT `id`, `paid`, `name`' . ($town_field != false ? ', `' . $town_field . '` as `town`' : '') . ' FROM `houses` WHERE `owner` = '.$player->getId());
+		$houses_results = $houses_query->fetchAll();
+		
+		foreach($houses_results as $h) {
 			$add = '';
-			if($house['paid'] > 0)
-				$add = ' is paid until '.date("M d Y", $house['paid']);
+			if($h['paid'] > 0) {
+				$add = ' is paid until '.date("M d Y", $h['paid']);
+			}
+			$houses_array[] = array(
+				'id' => $h['id'],
+				'name' => $h['name'],
+				'town' => isset($h['town']) ? ' (' . $config['towns'][$h['town']] . ')' : '',
+				'add' => $add
+			);
 		}
 	}
 
@@ -310,7 +345,7 @@ if($player->isLoaded() && !$player->isDeleted())
 			$number_of_rows = 0;
 			foreach($player_deaths as $death)
 			{
-				$killers = $db->query("SELECT environment_killers.name AS monster_name, players.name AS player_name, players.deleted AS player_exists FROM killers LEFT JOIN environment_killers ON killers.id = environment_killers.kill_id
+				$killers = $db->query("SELECT environment_killers.name AS monster_name, players.name AS player_name, players.{$delCol} AS player_exists FROM killers LEFT JOIN environment_killers ON killers.id = environment_killers.kill_id
 LEFT JOIN player_killers ON killers.id = player_killers.kill_id LEFT JOIN players ON players.id = player_killers.player_id
 WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, killers.id ASC")->fetchAll();
 
@@ -508,14 +543,18 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 			}
 		}
 
+		// Carregar todos os personagens ativos da conta com o personagem atual SEMPRE em primeiro lugar
+		$current_player_id = (int)$player->getId();
 		$account_players = array();
-		$query = $db->query('SELECT `id` FROM `players` WHERE `account_id` = ' . $account->getId() . ' ORDER BY `name`')->fetchAll();
+		$query = $db->query('SELECT `id` FROM `players` WHERE `account_id` = ' . (int)$account->getId() . ' AND `' . $delCol . '` = 0 ORDER BY (`id` = ' . $current_player_id . ') DESC, `level` DESC, `name` ASC')->fetchAll();
 		foreach($query as $p) {
 			$_player = new OTS_Player();
-			$fields = array('id', 'name', 'vocation', 'level', 'online', 'deleted', 'hide', 'looktype', 'lookhead', 'lookbody', 'looklegs', 'lookfeet', 'lookaddons');
+			$fields = array('id', 'name', 'vocation', 'level', 'hide', 'looktype', 'lookhead', 'lookbody', 'looklegs', 'lookfeet', 'lookaddons', $delCol);
 			$_player->load($p['id'], $fields, false);
-			if($_player->isLoaded() && !$_player->isHidden()) {
-				$outfit_url = setting('core.outfit_images_url') . '?id=' . (int)$_player->getCustomField('looktype') . '&head=' . (int)$_player->getCustomField('lookhead') . '&body=' . (int)$_player->getCustomField('lookbody') . '&legs=' . (int)$_player->getCustomField('looklegs') . '&feet=' . (int)$_player->getCustomField('lookfeet');
+			if($_player->isLoaded() && !$_player->isHidden() && !$_player->isDeleted()) {
+				$addons = (int)$_player->getCustomField('lookaddons');
+				$addons_param = $addons > 0 ? '&addons=' . $addons : '';
+				$outfit_url = setting('core.outfit_images_url') . '?id=' . (int)$_player->getCustomField('looktype') . '&head=' . (int)$_player->getCustomField('lookhead') . '&body=' . (int)$_player->getCustomField('lookbody') . '&legs=' . (int)$_player->getCustomField('looklegs') . '&feet=' . (int)$_player->getCustomField('lookfeet') . $addons_param;
 				$account_players[] = array(
 					'player' => $_player,
 					'name' => $_player->getName(),
@@ -676,12 +715,7 @@ WHERE killers.death_id = '".$death['id']."' ORDER BY killers.final_hit DESC, kil
 		'frags_enabled' => $frags_enabled,
 		'frags_count' => $frags_count,
 		'town' => isset($config['towns'][$player->getTownId()]) ? $config['towns'][$player->getTownId()] : null,
-		'house' => array(
-			'found' => isset($house['id']),
-			'add' => isset($house['id']) ? $add : null,
-			'name' => isset($house['id']) ? (isset($house['name']) ? $house['name'] : $house['id']) : null,
-			'town' => isset($house['town']) ? ' (' . $config['towns'][$house['town']] . ')' : ''
-		),
+		'houses' => $houses_array,
 		'guild' => array(
 			'rank' => isset($guild_name) ? $rank_of_player->getName() : null,
 			'link' => isset($guild_name) ? getGuildLink($guild_name) : null

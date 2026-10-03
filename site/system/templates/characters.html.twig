@@ -78,6 +78,75 @@
     transform: translateY(-3px) scale(1.12);
     filter: drop-shadow(0 12px 14px rgba(0, 0, 0, 0.85)) brightness(1.08);
 }
+
+/* Tibia Dark Scrollbar matching classic client */
+.tibia-scrollbar::-webkit-scrollbar {
+	width: 12px;
+}
+.tibia-scrollbar::-webkit-scrollbar-track {
+	background: #252525;
+	border-left: 1px solid #141414;
+	border-right: 1px solid #363636;
+	box-shadow: inset 1px 0 2px rgba(0, 0, 0, 0.7);
+}
+.tibia-scrollbar::-webkit-scrollbar-thumb {
+	background: #3e3e3e;
+	border-top: 1px solid #6b6b6b;
+	border-left: 1px solid #6b6b6b;
+	border-bottom: 1px solid #1c1c1c;
+	border-right: 1px solid #1c1c1c;
+	border-radius: 0;
+	box-shadow: inset 1px 1px 0 #525252, inset -1px -1px 0 #2a2a2a;
+}
+.tibia-scrollbar::-webkit-scrollbar-thumb:hover {
+	background: #4a4a4a;
+	border-top: 1px solid #858585;
+	border-left: 1px solid #858585;
+	border-bottom: 1px solid #222222;
+	border-right: 1px solid #222222;
+}
+.tibia-scrollbar::-webkit-scrollbar-button:single-button {
+	background-color: #383838;
+	display: block;
+	border-top: 1px solid #666;
+	border-left: 1px solid #666;
+	border-bottom: 1px solid #1a1a1a;
+	border-right: 1px solid #1a1a1a;
+	height: 12px;
+	width: 12px;
+}
+.tibia-scrollbar::-webkit-scrollbar-button:single-button:vertical:decrement {
+	background: #383838 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4"><polygon points="3.5,0 7,4 0,4" fill="%23c0c0c0"/></svg>') no-repeat center center;
+}
+.tibia-scrollbar::-webkit-scrollbar-button:single-button:vertical:increment {
+	background: #383838 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4"><polygon points="3.5,4 7,0 0,0" fill="%23c0c0c0"/></svg>') no-repeat center center;
+}
+.tibia-scrollbar {
+	scrollbar-width: thin;
+	scrollbar-color: #3e3e3e #252525;
+}
+
+@keyframes blinkGreen {
+	0% { opacity: 1; box-shadow: 0 0 8px #00FF00; }
+	50% { opacity: 0.4; box-shadow: 0 0 2px #00FF00; }
+	100% { opacity: 1; box-shadow: 0 0 8px #00FF00; }
+}
+.online-dot {
+	background: #00FF00;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	display: inline-block;
+	animation: blinkGreen 1.5s infinite;
+}
+.offline-dot {
+	background: #FF0000;
+	box-shadow: 0 0 4px #FF0000;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	display: inline-block;
+}
 </style>
 
 {% set rows = 0 %}
@@ -181,6 +250,28 @@
 					<td>{{ town }}</td>
 				</tr>
 
+				{% if houses|length > 0 %}
+				{% for h in houses %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>House:</td>
+					<td>
+						{{ h.name }}{{ h.town }}{% if h.add %} {{ h.add }}{% endif %}
+						<form action="?subtopic=houses&name={{ h.id }}" method="post" style="display: inline-block; margin-left: 15px; margin-bottom: 0;">
+							{{ csrf() }}
+							<input type="image" name="View" alt="View" src="{{ template_path }}/images/global/buttons/sbutton_view.gif" border="0" width="120" style="vertical-align: middle;">
+						</form>
+					</td>
+				</tr>
+				{% endfor %}
+				{% else %}
+				{% set rows = rows + 1 %}
+				<tr bgcolor="{{ getStyle(rows) }}">
+					<td>House:</td>
+					<td>The player does not own a house.</td>
+				</tr>
+				{% endif %}
+
 				{% if combat_status is defined and combat_status is not null %}
 				{% set rows = rows + 1 %}
 				<tr bgcolor="{{ getStyle(rows) }}">
@@ -222,26 +313,7 @@
 				</tr>
 				{% endif %}
 
-				{% if house.found %}
-				{% set rows = rows + 1 %}
-				<tr bgcolor="{{ getStyle(rows) }}">
-					<td>House:</td>
-					<td>
-						<table border="0">
-							<tr>
-								<td>{{ house.name ~ house.town ~ house.add }}</td>
-								<td>
-									<form action="?subtopic=houses&page=view" method="post">
-										{{ csrf() }}
-										<input type="hidden" name="house" value="{{ house.name }}">
-										<input type="image" name="View" alt="View" src="{{ template_path }}/images/global/buttons/sbutton_view.gif" border="0" width="120">
-									</form>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				{% endif %}
+
 
 				{% if guild.rank is not null %}
 				{% set rows = rows + 1 %}
@@ -307,11 +379,11 @@
 				<tr bgcolor="{{ getStyle(rows) }}">
 					<td valign="middle">Inventory:</td>
 					<td>
-						<img src="images/show.gif" id="inventory_show_btn" style="cursor: pointer; vertical-align: middle;" onclick="toggleInventory();" />
-						<img src="images/hide.gif" id="inventory_hide_btn" style="cursor: pointer; vertical-align: middle; display: none;" onclick="toggleInventory();" />
+						<img src="images/show.gif" id="inventory_show_btn" style="cursor: pointer; vertical-align: middle; display: none;" onclick="toggleInventory();" />
+						<img src="images/hide.gif" id="inventory_hide_btn" style="cursor: pointer; vertical-align: middle;" onclick="toggleInventory();" />
 					</td>
 				</tr>
-				<tr id="inventory_container_row" style="display: none; background-color: {{ getStyle(rows) }}">
+				<tr id="inventory_container_row" style="background-color: {{ getStyle(rows) }}">
 					<td colspan="2" style="padding: 10px;" align="center">
 						<div style="text-align: left; width: 560px; max-width: 100%; margin: 0 auto; position: relative;">
 							<div style="display: flex; flex-wrap: nowrap; gap: 6px; justify-content: center; align-items: flex-start;">
@@ -403,18 +475,51 @@
 									<div class="Fishing">{{ skill_map[6]|default(10)|number_format }}</div>
 								</div>
 
-								<!-- Panel 3: Outfits -->
-								<div style="flex: 0 0 178px; width: 178px; height: 232px; background: url('images/outfitbackgrounds.png') no-repeat; position: relative; color: #c0c0c0; font-family: Tahoma, sans-serif; font-size: 11px;">
-									<div style="position: absolute; top: 4px; left: 8px; font-size: 10px; color: #c0c0c0;">Total outfits: {{ outfits_list|length|default(1) }}</div>
+								<!-- Panel 3: Account Active Characters (In Real Time) -->
+								<div style="flex: 0 0 178px; width: 178px; height: 232px; background: url('images/outfitbackgrounds.png') no-repeat; position: relative; color: #c0c0c0; font-family: Tahoma, Verdana, sans-serif; font-size: 11px;">
+									<div style="position: absolute; top: 4px; left: 8px; font-size: 10px; color: #DFD2B5; font-weight: bold; text-shadow: 1px 1px 0px #000;">
+										Personagens: {{ account_players|length|default(1) }}
+									</div>
 									
-									<div style="position: absolute; top: 28px; left: 8px; width: 162px; height: 194px; display: flex; flex-wrap: wrap; gap: 6px; align-content: flex-start; justify-content: center; padding-top: 8px; box-sizing: border-box; overflow-y: auto;">
-										{% if outfits_list is defined and outfits_list|length > 0 %}
-											{% for o_url in outfits_list %}
-												<img src="{{ o_url }}" alt="Outfit" style="display: block; max-width: 52px; max-height: 52px;" />
+									<div class="tibia-scrollbar" style="position: absolute; top: 24px; left: 6px; width: 166px; height: 202px; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 4px; padding: 2px 2px 4px 2px; box-sizing: border-box;">
+										{% if account_players is defined and account_players|length > 0 %}
+											{% for p in account_players %}
+												{% set is_current = (p.name == player.getName()) %}
+												<a href="{{ getLink('characters') }}?name={{ p.name|url_encode }}" title="{{ p.name }} (Lvl {{ p.level }} {{ p.vocation }}) - {% if p.isOnline %}ONLINE{% else %}OFFLINE{% endif %}" class="item_image" style="text-decoration: none; display: flex; align-items: center; justify-content: space-between; background: {% if is_current %}linear-gradient(90deg, rgba(255, 215, 0, 0.22) 0%, rgba(20, 20, 20, 0.8) 100%){% else %}rgba(0, 0, 0, 0.5){% endif %}; border: 1px solid {% if is_current %}#FFD700{% else %}#3a3a3a{% endif %}; {% if is_current %}box-shadow: 0 0 6px rgba(255, 215, 0, 0.45), inset 0 0 3px rgba(255, 215, 0, 0.2);{% endif %} border-radius: 3px; padding: 2px 4px; width: 154px; height: 44px; box-sizing: border-box; flex-shrink: 0; transition: border-color 0.2s, background 0.2s;">
+													<div style="width: 34px; height: 34px; overflow: hidden; position: relative; flex-shrink: 0; background: rgba(0,0,0,0.5); border: 1px solid {% if is_current %}#FFD700{% else %}#333333{% endif %}; border-radius: 3px;">
+														<img src="{{ p.outfit }}" alt="{{ p.name }}" style="position: absolute; top: -30px; left: -31px; width: 64px; height: 64px; max-width: none;" />
+													</div>
+													<div style="flex: 1; margin-left: 6px; overflow: hidden; display: flex; flex-direction: column; justify-content: center;">
+														<div style="display: flex; align-items: center; gap: 3px;">
+															<div style="color: {% if is_current %}#FFD700{% elseif p.isOnline %}#00FF00{% else %}#DFD2B5{% endif %}; font-weight: bold; font-size: 10px; line-height: 12px; text-shadow: 1px 1px 0 #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+																{{ p.name }}
+															</div>
+															{% if is_current %}
+																<span style="font-size: 7px; color: #FFE066; background: rgba(255, 215, 0, 0.25); border: 1px solid #FFD700; border-radius: 2px; padding: 0 2px; font-weight: bold; line-height: 9px; text-transform: uppercase;">Ativo</span>
+															{% endif %}
+														</div>
+														<div style="font-size: 9px; color: {% if is_current %}#DFD2B5{% else %}#A0A0A0{% endif %}; line-height: 11px; text-shadow: 1px 1px 0 #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+															Lvl {{ p.level }} • {{ p.vocation }}
+														</div>
+													</div>
+													<div style="flex-shrink: 0; margin-left: 2px;">
+														{% if p.isOnline %}
+															<span class="online-dot" title="Online"></span>
+														{% else %}
+															<span class="offline-dot" title="Offline"></span>
+														{% endif %}
+													</div>
+												</a>
 											{% endfor %}
 										{% else %}
 											{% set main_outfit_url = config('outfit_images_url') ~ '?id=' ~ player.getLookType() ~ '&head=' ~ player.getLookHead() ~ '&body=' ~ player.getLookBody() ~ '&legs=' ~ player.getLookLegs() ~ '&feet=' ~ player.getLookFeet() ~ (player.getLookAddons() ? '&addons=' ~ player.getLookAddons() : '') %}
-											<img src="{{ main_outfit_url }}" alt="Outfit" style="display: block; max-width: 64px; max-height: 64px; margin-top: 15px;" />
+											<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%;">
+												<div style="width: 34px; height: 34px; overflow: hidden; position: relative; background: rgba(0,0,0,0.5); border: 1px solid #FFD700; border-radius: 3px; box-shadow: 0 0 6px rgba(255, 215, 0, 0.45);">
+													<img src="{{ main_outfit_url }}" alt="Outfit" style="position: absolute; top: -30px; left: -31px; width: 64px; height: 64px; max-width: none;" />
+												</div>
+												<div style="font-size: 10px; color: #FFD700; font-weight: bold; margin-top: 6px; text-shadow: 1px 1px 0 #000;">{{ player.getName() }}</div>
+												<span style="font-size: 7px; color: #FFE066; background: rgba(255, 215, 0, 0.25); border: 1px solid #FFD700; border-radius: 2px; padding: 0 3px; font-weight: bold; margin-top: 2px; text-transform: uppercase;">Ativo</span>
+											</div>
 										{% endif %}
 									</div>
 								</div>
