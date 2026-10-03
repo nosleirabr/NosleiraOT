@@ -6,6 +6,7 @@ if(isset($config['boxes']))
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+	<meta charset="utf-8">
 	<?php echo template_place_holder('head_start'); ?>
 	<link rel="shortcut icon" href="<?php echo $template_path; ?>/images/favicon.ico?v=noslerat4" type="image/x-icon" />
 	<link rel="icon" type="image/png" href="<?php echo $template_path; ?>/images/favicon.png?v=noslerat4" />
@@ -402,7 +403,7 @@ if(isset($config['boxes']))
         <div id="MenuColumn">
           <div id="LeftArtwork">
             <img id="Statue_1" src="<?php echo $template_path; ?>/images/header/animated-statue.gif" alt="logoartwork" />
-            <img id="TibiaLogoArtworkTop" src="<?php echo $template_path; ?>/images/header/<?php echo $config['logo_image']; ?>" onClick="window.location = '<?php echo getLink('news')?>';" alt="logoartwork" />
+            <img id="TibiaLogoArtworkTop" src="<?php echo $template_path; ?>/images/header/tibia-logo-artwork-top.png" onClick="window.location = '<?php echo getLink('news')?>';" alt="logoartwork" />
             <img id="TibiaLogoArtworkBottom" src="<?php echo $template_path; ?>/images/header/tibia-logo-artwork-bottom.gif" alt="logoartwork" />
             <img id="Statue_2" src="<?php echo $template_path; ?>/images/header/animated-statue.gif" alt="logoartwork" />
             <img id="LogoLink" src="<?php echo $template_path; ?>/images/header/tibia-logo-artwork-string.gif" onClick="window.location = 'mailto:<?php echo setting('core.mail_address'); ?>';" alt="logoartwork" />
@@ -588,33 +589,41 @@ foreach($config['menu_categories'] as $id => $cat) {
 							<div style="padding: 5px; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; line-height: 1.4; color: #5a2800;">
 								<center>
 									<b>
-										[<a href="?subtopic=downloads">Downloads</a>] 
-										[<a href="?subtopic=highscores">Highscores</a>] 
-										[<a href="?subtopic=outfits">Outfits</a>] 
+										[<a href="<?php echo getLink('online'); ?>">Status</a>] 
+										[<a href="<?php echo getLink('serverinfo'); ?>">Rates</a>] 
+										[<a href="<?php echo getLink('serverinfo'); ?>">Info Server</a>] 
+										[<a href="<?php echo getLink('commands'); ?>">Commands</a>] 
+										[<a href="<?php echo getLink('serverinfo'); ?>#sec_formulas">F&oacute;rmula & Spells</a>]
+										[<a href="<?php echo getLink('downloads'); ?>">Downloads</a>] 
 										[<a href="<?php echo getLink('regras/security'); ?>">Security</a>]
 									</b>
 								</center>
 								<hr style="border: 0; border-bottom: 1px dashed #5a2800; margin: 10px -5px;">
 								
-								<div style="float: right; margin-left: 15px; margin-bottom: 5px;">
-									<img src="<?php echo $template_path; ?>/images/custom/featured_game.png" alt="Featured Game" style="border: 2px solid #5a4430; width: 210px; height: auto; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" onclick="document.getElementById('featuredModal').style.display='flex'" title="Clique para ampliar">
+								<?php
+								// Sistema ultra-leve para alternar as imagens sem causar nenhum lag no servidor
+								$featured_images = array('featured_game.jpg', 'featured_game.png');
+								$random_featured = $featured_images[array_rand($featured_images)];
+								?>
+								<div style="float: right; margin: 0px 0px 5px 8px;">
+									<img src="<?php echo $template_path; ?>/images/custom/<?php echo $random_featured; ?>" alt="Featured Game" style="width: 320px; height: auto; display: block; cursor: pointer; transition: transform 0.2s; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'" onclick="document.getElementById('featuredModal').style.display='flex'" title="Clique para ampliar">
 								</div>
 								
 								<!-- Modal Tela Cheia -->
 								<div id="featuredModal" style="display: none; position: fixed; top: 0; right: 0; left: auto; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 99999; justify-content: center; align-items: center; cursor: pointer;" onclick="this.style.display='none'">
-									<img src="<?php echo $template_path; ?>/images/custom/featured_game.png" style="max-width: 90%; max-height: 90%; border: 3px solid #e7d1b3; box-shadow: 0 0 30px rgba(0,0,0,1);">
+									<img src="<?php echo $template_path; ?>/images/custom/<?php echo $random_featured; ?>" style="max-width: 90%; max-height: 90%; box-shadow: 0 0 30px rgba(0,0,0,1); border-radius: 8px;">
 								</div>
 								
-								<div style="background: linear-gradient(180deg, #f8f1e5 0%, #ebdcc7 100%); border: 1px solid #c4ab84; border-left: 3px solid #7f0000; border-radius: 3px; padding: 3px 8px; margin-bottom: 4px; display: inline-block; font-size: 12px; color: #4a2505; box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.1);">
-									<b style="color: #7f0000;">IP:</b> <b>www.nosleiraot.com</b> &nbsp;&nbsp;&bull;&nbsp;&nbsp; 
-									<b style="color: #7f0000;">VERSION:</b> <b>7.4</b> &nbsp;&nbsp;&bull;&nbsp;&nbsp; 
-									<b style="color: #7f0000;">PORT:</b> <b>7171</b>
+								<div style="background: linear-gradient(180deg, #f4e8d1 0%, #e1c49a 100%); border: 1px solid #8e6d42; border-left: 4px solid #8b0000; border-radius: 4px; padding: 4px 10px; margin-bottom: 6px; display: inline-block; font-size: 12px; font-family: Tahoma, sans-serif; color: #2e1500; box-shadow: inset 0 1px 1px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); text-shadow: 1px 1px 0px rgba(255,255,255,0.7);">
+									<b style="color: #7a0000; text-transform: uppercase; letter-spacing: 0.5px;">IP:</b> <b style="letter-spacing: 0.5px;">www.nosleiraot.com</b> &nbsp;&nbsp;&bull;&nbsp;&nbsp; 
+									<b style="color: #7a0000; text-transform: uppercase; letter-spacing: 0.5px;">Version:</b> <b style="letter-spacing: 0.5px;">7.4</b> &nbsp;&nbsp;&bull;&nbsp;&nbsp; 
+									<b style="color: #7a0000; text-transform: uppercase; letter-spacing: 0.5px;">Port:</b> <b style="letter-spacing: 0.5px;">7171</b>
 								</div><br>
-								A verdadeira experi&ecirc;ncia do Tibia est&aacute; aqui! Fa&ccedil;a sua <b>[<a href="?subtopic=donate">Doa&ccedil;&atilde;o</a>]</b> <img src="<?php echo $template_path; ?>/images/custom/setas.gif" style="height: 14px; vertical-align: middle; margin-left: 5px;"><br>
 								<b>NosleiraOT</b> private OTServer, <b>[<a href="?subtopic=serverinfo">Server Info</a>]</b>.<br>
+								A verdadeira experi&ecirc;ncia do Tibia est&aacute; aqui!<br>
+								Fa&ccedil;a sua <span style="white-space: nowrap;"><b>[<a href="?subtopic=donate">Doa&ccedil;&atilde;o</a>]</b> <img src="<?php echo $template_path; ?>/images/custom/setas.gif" style="height: 14px; vertical-align: middle; margin-left: 5px;"></span><br>
 								Servidor privado <b>100% fiel ao original</b>, com mapa completo, todas as miss&otilde;es, &aacute;reas de ca&ccedil;a, respawns e NPCs configurados.<br>
-								Todas as cidades, &aacute;reas de ca&ccedil;a e sistemas cl&aacute;ssicos dispon&iacute;veis em um <b>servidor dedicado</b>, com <b>jogabilidade cl&aacute;ssica</b> e foco total na experi&ecirc;ncia que voc&ecirc; viveu<br>
-						em 2004 na vers&atilde;o <b>7.4</b>.<br>
+								Todas as cidades, &aacute;reas de ca&ccedil;a e sistemas cl&aacute;ssicos dispon&iacute;veis em um <b>servidor dedicado</b>, com <b>jogabilidade cl&aacute;ssica</b> e foco total na experi&ecirc;ncia que voc&ecirc; viveu em 2004 na vers&atilde;o <b>7.4</b>.<br>
 								Entre, crie sua conta em <b>[<a href="?subtopic=account/create">Criar Conta</a>]</b> e reviva a era de ouro do Tibia!
 								
 								<div style="clear: both;"></div>
@@ -730,8 +739,18 @@ if (count($guilds) > 0) {
 function logo_monster()
 {
 	global $config;
-	return str_replace(" ", "", trim(strtolower($config['logo_monster'])));
+	$monster_path = $config['monsters_images_url'] ?? 'images/monsters/';
+	$name_with_space = trim(strtolower($config['logo_monster']));
+	$name_no_space = str_replace(" ", "", $name_with_space);
+
+	if (file_exists($monster_path . $name_with_space . '.gif')) {
+		return $name_with_space;
+	}
+	return $name_no_space;
 }
+
+
+
 
 
 
