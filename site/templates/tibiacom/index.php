@@ -1,8 +1,10 @@
 <?php
 defined('MYAAC') or die('Direct access not allowed!');
 
-if(isset($config['boxes']))
+if(isset($config['boxes']) && is_string($config['boxes'])) {
 	$config['boxes'] = explode(",", $config['boxes']);
+}
+$config['boxes'] = array('highscores', 'newcomer', 'networks'); // Forçando a ordem
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>

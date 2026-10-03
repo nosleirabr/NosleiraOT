@@ -1,65 +1,176 @@
 <style type="text/css">
-	.top_level {
-		position: absolute;
-		top: 29px;
-		left: 6px;
-		height: 195px;
-		width: 168px;
-		z-index: 20;
-		background: url({{ template_path }}/images/content/scroll.gif);
-		border: 1px solid #111;
-		box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
-		overflow: hidden;
+	@import url('https://fonts.googleapis.com/css2?family=Fondamento&display=swap');
+	#RankingBox
+	{
+		position: relative;
+		margin-bottom: 10px;
+		top: -4px;
+		width: 180px;
+		height: auto;
+		display: block;
+		overflow: visible !important;
 	}
-
-	#Topbar a {
-		text-decoration: none;
+	.levelvoctoplevel
+	{
+		color:#5a2800;
+		font:100 7pt Verdana,Arial,Times New Roman,sans-serif;
+	}
+	.outfitImgtoplevel
+	{
+		background-position: right bottom;
+		background-repeat: no-repeat;
+		position: relative;
+		margin-left: -64px;
+		margin-top: -64px;
+		height: 64px;
+		width: 64px;
+		left: 26px;
+		top: 13px;
+		z-index: 10;
+	}
+	.top_level_link {
+		display: block;
+		padding-top: 6px;
+		font-family: Tahoma,Geneva,sans-serif;
+		font-size: 8pt;
+		color: #5f4d41 !important;
+		font-weight: 700;
+		text-align: left;
+		text-decoration: inherit;
+	}
+	.top_level_link:hover {
+		color: #4e3131 !important;
+	}
+	.Bottom2
+	{
+		bottom: 0;
+		left: 0;
+		margin-top: -22px;
+		height: 32px;
+		width: 180px;
+		z-index: 1;
+		position: relative;
+	}
+	.rank-widget-table {
+		font-family: sans-serif; 
+		font-size: 12px; 
+		padding: 0px 12px; 
+		height: auto; 
+		display: block; 
+		background-image: url('{{ template_path }}/images/Rank/box-bg.gif'); 
+		margin-bottom: 5px; 
+		margin-top: -6px;
+		position: relative;
+		z-index: 10;
+	}
+	.top-title-image {
+		width: 180px;
+		height: 82px;
+		background: url('{{ template_path }}/images/Rank/top_level_top.gif') no-repeat;
+		position: relative;
+		margin-bottom: -35px;
+		z-index: 5;
+	}
+	.top-title-shield {
+		background: url('{{ template_path }}/images/Rank/shield.gif');
+		width: 32px;
+		height: 32px;
+		position: relative;
+		margin-left: 5px;
+		margin-top: 1px;
+		z-index: 100;
+	}
+	.topleveltext {
+		z-index: 99;
+		padding: 3px;
+		position: absolute;
+		height: 24px;
+		width: 144px;
+		top: 2px;
+		left: 36px;
+		margin-left: -6px;
+		text-align: center;
+		color: #ffd698;
+		text-shadow: -1px -1px 0 #000, 1px -1px 0 #2c2c2c, -1px 1px 0 #000, 1px 1px 0 #000;
+		font-family: 'Fondamento', Arial, Times New Roman, sans-serif;
+		font-size: 14pt;
+		font-weight: 400;
+		-ms-user-select: none;
+		user-select: none;
+		cursor: default;
+	}
+	.btn-viewr, .expday {
+		position: absolute;
+		left: 173px;
+		width: 18px;
+		height: 73px;
+		background: linear-gradient(to bottom, #22201e, #47423b);
+		border-radius: 1px 12px 12px 0px;
+		border: 1px solid #ffd0795c;
+		cursor: pointer;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0px 1px 3px #000000;
+		z-index: 5;
+		line-height: 0.9;
+		font-size: 10px;
+		font-weight: bold;
+		font-family: monospace;
+	}
+	.btn-viewr:hover, .expday:hover {
+		opacity: 0.9;
+	}
+	.btn-viewr {
+		top: 40px;
+		color: #FFCC00;
+	}
+	.expday {
+		top: 115px;
+		color: #19b819;
 	}
 </style>
 
-<div id="Topbar" class="Themebox" style="background-image:url({{ template_path }}/images/themeboxes/highscores/highscores.png); height: 236px;">
-	<div class="top_level">
-    {% for player in topPlayers %}
-	    <div style="position: relative; height: 38px; border-bottom: 1px dotted #B09874; padding-left: 36px; padding-top: 4px; box-sizing: border-box;">
-			{% if setting('core.online_outfit') %}
-				<div style="position: absolute; top: -1px; left: -10px; width: 44px; height: 44px; overflow: hidden; transform: scale(0.75);">
-					<img style="position: absolute; top: -14px; left: -18px;" src="{{ player.outfit }}&anim=0" alt="player outfit"/>
-				</div>
-			{% endif %}
-			
-			<div style="position: absolute; right: 5px; top: 12px;" title="{{ player.online ? 'Online' : 'Offline' }}">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="width:11px; height:11px; fill:{{ player.online ? '#00AA00' : '#CC0000' }}; drop-shadow: 1px 1px 1px rgba(0,0,0,0.3);"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
-			</div>
+<div id="RankingBox">
+	<div class="top-title-image">
+		<div class="top-title-shield"></div>
+		<span class="topleveltext">Top Experience</span>
+	</div>
 
-			<div style="line-height: 1.2;">
-				<a href="{{ getPlayerLink(player.name, false) }}" style="color: #0044BB; font-weight: bold; font-family: Tahoma, sans-serif; font-size: 10px; text-decoration: none;">
-					{% if player.rank == 1 %}
-						<span style="font-size: 9px;">🏆</span> <span style="background: #111; color: #FFCC00; border-radius: 2px; padding: 0 2px; font-size: 8px; vertical-align: top;">1ST</span>
-					{% endif %}
-					{{ player.rank }}- {{ player.name }}
-				</a>
-				<br/>
-				<span style="color: #5a2800; font-family: Tahoma, sans-serif; font-size: 9px;">{{ player.level }}, {{ player.vocation_name }}</span>
-			</div>
-		</div>
+	<button onclick="window.location.href='{{ getLink('highscores') }}'" class="btn-viewr">
+		<span>V</span><span>I</span><span>E</span><span>W</span>
+	</button>
+	<button onclick="window.location.href='{{ getLink('powergamers') }}'" class="expday">
+		<span>E</span><span>X</span><span>P</span><span>&nbsp;</span><span>D</span><span>A</span><span>Y</span>
+	</button>
+
+	{% for player in topPlayers %}
+		<table class="rank-widget-table">	
+            <tbody>
+				<tr style="background-color:{% if loop.index % 2 == 1 %}rgba(241, 224, 198, 0.6){% else %}rgba(212, 192, 161, 0.6){% endif %}">
+					<td width="34px;" style="padding:0px; padding-left: 2px;">
+						<div class="outfitImgtoplevel" style="background-image:url('{{ player.outfit }}&anim=0');"></div>
+					</td>
+					<td width="130px;" style="padding:1px; padding-left: 3px;">
+						<strong style="float: right;font-size: 10px;color:{{ player.online ? '#00AA00' : '#CC0000' }};">
+							<svg viewBox="0 0 448 512" style="width:10px; height:10px; fill:currentColor; filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.3));"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+						</strong> 
+						<a class="top_level_link" href="{{ getPlayerLink(player.name, false) }}" title="{{ player.name }}">
+							<small style="margin-left: -2px;">{{ player.rank }}- </small>{{ player.name }}
+						</a>
+						<div class="levelvoctoplevel">
+							<small style="font-size: 10px;">
+								{% if player.rank == 1 %}
+									<img alt="1" src="{{ template_path }}/images/Rank/top1.gif" style="float: left;margin-top: -26px;margin-left: -4px;">
+								{% endif %}
+								<b>{{ player.level }}</b>, {{ player.vocation_name }}
+							</small>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	{% endfor %}
-	</div>
-	<div class="Bottom" style="background-image:url({{ template_path }}/images/general/box-bottom.gif); top: 226px; left:-5px;">
-	</div>
-	
-	<!-- Custom floating buttons -->
-	<style>
-	  .tb-btn-view { position: absolute; right: -14px; top: 38px; background-color: #2e2820; border: 1px solid #a88741; border-left: none; border-radius: 0 6px 6px 0; padding: 4px 2px; z-index: 99; text-align: center; text-decoration: none; box-shadow: 2px 2px 3px rgba(0,0,0,0.5); width: 10px; }
-	  .tb-btn-view:hover { background-color: #3b3328; }
-	  .tb-btn-view span { display: block; color: #ffcc00; font-weight: bold; font-size: 8px; font-family: Tahoma, sans-serif; text-shadow: 1px 1px 1px #000; line-height: 1.0; margin-bottom: 1px; }
-	  
-	  .tb-btn-exp { position: absolute; right: -14px; top: 100px; background-color: #2e2820; border: 1px solid #a88741; border-left: none; border-radius: 0 6px 6px 0; padding: 4px 2px; z-index: 99; text-align: center; text-decoration: none; box-shadow: 2px 2px 3px rgba(0,0,0,0.5); width: 10px; }
-	  .tb-btn-exp:hover { background-color: #3b3328; }
-	  .tb-btn-exp span { display: block; color: #00ff00; font-weight: bold; font-size: 8px; font-family: Tahoma, sans-serif; text-shadow: 1px 1px 1px #000; line-height: 1.0; margin-bottom: 1px; }
-	  
-	  .tb-spacer { display: block; height: 3px; }
-	</style>
-	<a href="{{ getLink('highscores') }}" class="tb-btn-view" title="Highscores"><span>V</span><span>I</span><span>E</span><span>W</span></a>
-	<a href="{{ getLink('exphist') }}" class="tb-btn-exp" title="Powergamers"><span>E</span><span>X</span><span>P</span><span class="tb-spacer"></span><span>D</span><span>A</span><span>Y</span></a>
+	<div class="Bottom2" style="background-image:url({{ template_path }}/images/Rank/box-bottom.gif);"></div>
 </div>
-<br/><br/><br/>
